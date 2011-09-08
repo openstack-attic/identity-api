@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE chapter [<!-- Some useful entities borrowed from HTML -->
+<!ENTITY ndash  "&#x2013;">
+<!ENTITY mdash  "&#x2014;">
+<!ENTITY hellip "&#x2026;">
+
+<!-- Useful for describing APIs -->
+<!ENTITY GET    '<command xmlns="http://docbook.org/ns/docbook">GET</command>'>
+<!ENTITY PUT    '<command xmlns="http://docbook.org/ns/docbook">PUT</command>'>
+<!ENTITY POST   '<command xmlns="http://docbook.org/ns/docbook">POST</command>'>
+<!ENTITY DELETE '<command xmlns="http://docbook.org/ns/docbook">DELETE</command>'>
+<!ENTITY HEAD    '<command xmlns="http://docbook.org/ns/docbook">HEAD</command>'>
+
+
+<!ENTITY CHECK  '<inlinemediaobject xmlns="http://docbook.org/ns/docbook">
+<imageobject>
+<imagedata fileref="img/Check_mark_23x20_02.svg"
+format="SVG" scale="60"/>
+</imageobject>
+</inlinemediaobject>'>
+<!ENTITY CODES       'Normal Response Code(s):'>
+<!ENTITY ERROR_CODES 'Error Response Code(s):'>
+<!ENTITY NO_REQUEST '<para xmlns="http://docbook.org/ns/docbook">
+This operation does not require a request body.</para>'>
+<!ENTITY LONG_URI_REFHEAD '
+<thead xmlns="http://docbook.org/ns/docbook">
+<tr>
+<td colspan="1">Verb</td>
+<td colspan="4">URI</td>
+<td colspan="3">Description</td>
+</tr>
+</thead>'>
+<!ENTITY URI_REFHEAD '
+<thead xmlns="http://docbook.org/ns/docbook">
+<tr>
+<td colspan="1">Verb</td>
+<td colspan="1">URI</td>
+<td colspan="4">Description</td>
+</tr>
+</thead>'>
+]>
+<chapter
+		xmlns="http://docbook.org/ns/docbook"
+		xmlns:xi="http://www.w3.org/2001/XInclude"
+		xmlns:xlink="http://www.w3.org/1999/xlink" 
+		xml:id="Service_API_Client_Operations-d1e1110"
+		version="5.0">
+	<title>Service API (Client Operations)</title>
+	  <para>The operations described in this chapter allow clients to authenticate and get 
+		access tokens and service endpoints. </para>
+	  <section xml:id="Core_Service_API-d1e1124">
+	  <title>Core Service API</title>
+	  <para>The following calls are core Keystone Service APIs in version 2.0</para>
+			 <informaltable rules="all">
+			 &URI_REFHEAD;
+			 <tbody>
+			   <tr>
+				 <td colspan="1"> &POST; </td>
+				 <td colspan="1">/tokens</td>
+				 <td colspan="4">Authenticate to generate a token.</td>
+			   </tr>
+			   <tr>
+				 <td colspan="1"> &GET; </td>
+				 <td colspan="1">/tenants</td>
+				 <td colspan="4">Get a list of tenants accessible with supplied token.</td>
+			   </tr>
+			 </tbody>
+			 </informaltable>
+	  </section>
+
+  	<section xml:id="Available-Operations-Service-API-d100001">
+		<title>Available Operations</title>
+	  <section xml:id="Authenticate-Service-API-d1e1166">
+		<title>Authenticate for Service API</title>
+		<informaltable rules="all">
+		  &URI_REFHEAD;
+		  <tbody>
+			<tr>
+			  <td colspan="1"> &POST; </td>
+			  <td colspan="1">/tokens</td>
+			  <td colspan="4">Authenticate to generate a token.</td>
+			</tr>
+		  </tbody>
+		</informaltable>
+		<simpara>&CODES;<returnvalue>200</returnvalue>, <returnvalue>203</returnvalue></simpara>
+		<simpara>&ERROR_CODES; unauthorized (<errorcode>401</errorcode>), userDisabled
+			(<errorcode>403</errorcode>), badRequest (<errorcode>400</errorcode>), identityFault
+			(<errorcode>500</errorcode>), serviceUnavailable(<errorcode>503</errorcode>)</simpara>
+		  	<para>
+		  		This call will return a token if successful. Each ReST request against other services (or other
+		  		calls on Keystone such as the GET /tenants call)
+		  		requires the inclusion of a specific authorization token HTTP x-header, defined as X-Auth-Token.
+		  		Clients obtain
+		  		this token, along with the URL to other service APIs, by first authenticating against the
+		  		Keystone Service and supplying valid credentials.
+		  	</para>
+		  	<para>
+			  	Client authentication is provided via a ReST interface using the POST method,
+		  		with v2.0/tokens supplied as the path. A payload of credentials must be included
+		  		in the body.
+		  	</para>
+	  		<para>
+ 				The Keystone Service is a ReSTful web service. It is the entry point to all service APIs.
+		  		To access the Keystone Service, you must know URL of the Keystone service.
+	  		</para>
+	  	<example>
+		  <title>XML Auth Request</title>
+		  <programlisting language="xml">
+ <xi:include href="samples/auth_credentials.xml" parse="text"/>
+</programlisting>
+		</example>
+		<example>
+		  <title>JSON Auth Request</title>
+		  <programlisting language="javascript">
+<xi:include href="samples/auth_credentials.json" parse="text"/>
+</programlisting>
+		</example>
+		<example>
+		  <title>XML Auth Response</title>
+		  <programlisting language="xml">
+<xi:include href="samples/auth.xml" parse="text"/>
+</programlisting>
+		</example>
+		<example>
+		  <title>JSON Auth Response</title>
+		  <programlisting language="javascript">
+<xi:include href="samples/auth.json" parse="text"/>
+</programlisting>
+		</example>
+	  </section>
+			<section xml:id="Get_Tenants-Service-d1e1264">
+		<title>Get Tenants</title>
+		<informaltable rules="all">
+		  &LONG_URI_REFHEAD;
+		  <tbody>
+			<tr>
+			  <td colspan="1"> &GET; </td>
+			  <td colspan="4">/tenants</td>
+			  <td colspan="3">Get a list of tenants.</td>
+			</tr>
+		  </tbody>
+		</informaltable>
+		<simpara>&CODES;<returnvalue>200</returnvalue>, <returnvalue>203</returnvalue></simpara>
+		<simpara>&ERROR_CODES; unauthorized (<errorcode>401</errorcode>),
+			forbidden(<errorcode>403</errorcode>), overLimit(<errorcode>413</errorcode>),
+		  badRequest (<errorcode>400</errorcode>), identityFault (<errorcode>500</errorcode>),
+			serviceUnavailable(<errorcode>503</errorcode>)</simpara>
+		<para>
+			The operation returns a list of tenants which the supplied token provides
+			access to. This call must be authenticated, so a valid token must
+            be passed in as a header.
+		</para>
+		<example>
+		  <title>Tenants Request with Auth Token</title>
+		  <programlisting language="text">
+<xi:include href="samples/tenants-request.txt" parse="text"/>
+</programlisting>
+		</example>
+		&NO_REQUEST;
+		<example>
+		  <title>JSON Tenants Response</title>
+		  <programlisting language="javascript">
+<xi:include href="samples/tenants.json" parse="text"/>
+</programlisting>
+		</example>
+		<example>
+		  <title>XML Tenants Response</title>
+		  <programlisting language="xml">
+<xi:include href="samples/tenants.xml" parse="text"/>
+</programlisting>
+		</example>
+			</section>
+  </section>
+  </chapter>
+
