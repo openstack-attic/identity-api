@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book [
+        <!-- Some useful entities borrowed from HTML -->
+        <!ENTITY ndash  "&#x2013;">
+        <!ENTITY mdash  "&#x2014;">
+        <!ENTITY hellip "&#x2026;">
+
+        <!-- Useful for describing APIs -->
+        <!ENTITY GET    '<command xmlns="http://docbook.org/ns/docbook">GET</command>'>
+        <!ENTITY PUT    '<command xmlns="http://docbook.org/ns/docbook">PUT</command>'>
+        <!ENTITY POST   '<command xmlns="http://docbook.org/ns/docbook">POST</command>'>
+        <!ENTITY DELETE '<command xmlns="http://docbook.org/ns/docbook">DELETE</command>'>
+
+        <!ENTITY ARROW  '<inlinemediaobject xmlns="http://docbook.org/ns/docbook">
+                 <imageobject>
+                  <imagedata fileref="img/Arrow_east.svg"
+                             format="SVG" scale="60"/>
+                </imageobject>
+              </inlinemediaobject>'>
+
+        <!ENTITY CODES       'Normal Response Code(s):'>
+        <!ENTITY ERROR_CODES 'Error Response Code(s):'>
+
+        <!-- Information about the extension -->
+        <!ENTITY VERSION  "v1.0">
+        <!ENTITY PUB_DATE "2011-08-26">
+        <!ENTITY ALIAS "RAX-KSGRP">
+        <!ENTITY URI_REFHEAD '
+        <thead xmlns="http://docbook.org/ns/docbook">
+        <tr>
+        <td colspan="1">Verb</td>
+        <td colspan="1">URI</td>
+        <td colspan="4">Description</td>
+        </tr>
+        </thead>'>
+        <!ENTITY NAMESPACE "http://docs.rackspace.com/identity/api/ext/RAX-KSGROUP/v1.0">
+        <!ENTITY CURRENTGUIDE "https://github.com/openstack/keystone/raw/master/keystone/content/service/RAX-KSGRP-service-devguide.pdf">
+        <!ENTITY EXTENSIONXSD "https://raw.github.com/openstack/keystone/master/keystone/content/service/xsd/RAX-KSGRP-groups.xsd">
+
+        <!ENTITY GROUPSXML "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/RAX-KSGRP-groups.xml">
+        <!ENTITY GROUPSJSON "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/RAX-KSGRP-groups.json">
+        <!ENTITY GROUPXML "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/RAX-KSGRP-group.xml">
+        <!ENTITY GROUPJSON "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/RAX-KSGRP-group.json">
+        
+        <!ENTITY GROUPREQUESTXML "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/auth_credentials.xml">
+        <!ENTITY GROUPREQUESTJSON "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/auth_credentials.json">
+        <!ENTITY GROUPRESPONSEXML "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/authwithgroups.xml">
+        <!ENTITY GROUPRESPONSEJSON "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/authwithgroups.json">
+        <!ENTITY EXTENSIONQUERYRESPONSEXML "https://raw.github.com/openstack/keystone/master/keystone/contrib/extensions/service/raxgrp/extension.xml">
+        <!ENTITY EXTENSIONQUERYRESPONSEJSON "https://raw.github.com/openstack/keystone/master/keystone/contrib/extensions/service/raxgrp/extension.json">
+        
+        
+]>
+<book xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:m="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      version="5.0"  status="draft" xml:id="book-0001">
+    <title>Rackspace Keystone Group Extension(Service Operations)</title>
+  <info>
+    <author>
+      <personname>
+        <firstname/>
+        <surname/>
+      </personname>
+      <affiliation>
+        <orgname>Rackspace Cloud</orgname>
+      </affiliation>
+    </author>
+    <copyright>
+        <year>2011</year>
+        <holder>Rackspace US, Inc.</holder>
+    </copyright>
+    <releaseinfo>EXT v1.0</releaseinfo>
+      <productname>>Keystone - OpenStack Identity</productname>
+    <pubdate>&PUB_DATE;</pubdate>
+    <legalnotice role="rs-api">
+        <annotation>
+            <remark>Copyright details are filled in by the template.</remark>
+        </annotation>
+    </legalnotice>
+    <abstract>
+      <para>
+          This document is intended for client developers interested
+          in using the Rackspace Keystone Group Extension(Service) along with the 
+          Keystone - OpenStack Identity
+          (<abbrev>API</abbrev>).
+      </para>
+    </abstract>
+  </info>
+    <chapter xml:id="chapter-0000">
+      <title>About This Extension</title>
+      <variablelist spacing="compact">
+          <varlistentry>
+              <term>Name</term>
+              <listitem>
+                  <para>Rackspace Keystone Group Extension</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Namespace</term>
+              <listitem>
+                  <para>&NAMESPACE;</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Alias</term>
+              <listitem>
+                  <para>&ALIAS;</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Dependencies</term>
+              <listitem>
+                  <para>Keystone - OpenStack Identity</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Doc Link (PDF)</term>
+              <listitem>
+                  <para>
+                        <link
+                            xlink:href="&CURRENTGUIDE;">
+                            &CURRENTGUIDE;
+                        </link>
+                    </para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Doc Link (WADL)</term>
+              <listitem>
+                  <para>
+                      None, the extension makes no modification to the API WADL.
+                  </para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Doc Link (XSD)</term>
+              <listitem>
+                  <para>
+                      <link xlink:href="&EXTENSIONXSD;">
+                          &EXTENSIONXSD;
+                      </link>
+                  </para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Short Description</term>
+              <listitem>
+                  <para>
+                      Rackspace extensions to Keystone v2.0 API enabling groups.
+                  </para>
+              </listitem>
+          </varlistentry>
+      </variablelist>
+      <?hard-pagebreak?>
+      <example>
+          <title>Extension Query Response: XML</title>
+          <programlisting language="xml"><xi:include href="&EXTENSIONQUERYRESPONSEXML;" parse="text"></xi:include></programlisting>
+      </example>
+      <example>
+          <title>Extension Query Response: JSON</title>
+          <programlisting language="javascript"><xi:include href="&EXTENSIONQUERYRESPONSEJSON;" parse="text"/></programlisting>
+      </example>
+      <section xml:id="Doc-Change-0001">
+          <title>Document Change History</title>
+          <informaltable rules='all'>
+              <thead>
+                  <tr>
+                      <td align="center" colspan="1">Revision Date</td>
+                      <td align="center" colspan="4">Summary of Changes</td>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td colspan="1" align="center">Aug. 24, 2011</td>
+                      <td colspan="4">
+                          <itemizedlist spacing="compact">
+                              <listitem>
+                                  <para>
+                                      Initial release.
+                                  </para>
+                              </listitem>
+                          </itemizedlist>
+                      </td>
+                  </tr>
+              </tbody>
+          </informaltable>
+      </section>
+  </chapter>
+  <chapter xml:id="chapter-0001">
+      <title>Summary of Changes</title>
+      <para>
+          Rackspace extensions to Keystone v2.0 API allows authenticate call to also return information about group memberships of the user.
+      </para>
+      <section xml:id="NewHeaders-0001">
+          <title>New Headers</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="NewFaults0001">
+          <title>New Faults</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="NewResources-0001">
+          <title>New Resources</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="NewActions0001">
+          <title>New Actions</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="NewElement0001">
+          <title>New Elements</title>
+          <section xml:id="RackExt-0001">
+              <title>
+                  Rackspace extensions to Keystone v2.0 API enabling groups. 
+              </title>
+              <section xml:id="New-Elements-details-0002">
+                  
+                  <title>New Elements</title>
+                  <para>
+                      This extension starts returning groups as a part of response when an authenticate call is made.
+                      The samples of new elements that are defined as a part of this extension are listed below.
+                  </para>
+                  <example>
+                      <title>Groups Sample XML</title>
+                      <programlisting language="xml"><xi:include href="&GROUPSXML;" parse="text"></xi:include></programlisting>
+                  </example>
+                  <example>
+                      <title>Groups Sample JSON</title>
+                      <programlisting language="xml"><xi:include href="&GROUPSJSON;" parse="text"></xi:include></programlisting>
+                  </example>
+              </section>
+              <section xml:id="Authenticate-d1e1166">
+                  <title>Authenticate</title>
+                  <para>This extension allows authentication calls to also return information about groups.
+                      The usage of an existing call to authenticate, where it returns groups is illustrated below 
+                  </para>
+                  <informaltable rules="all">
+                      &URI_REFHEAD;
+                      <tbody>
+                          <tr>
+                              <td colspan="1"> &POST; </td>
+                              <td colspan="1">/tokens</td>
+                              <td colspan="4">Authenticate to generate a token.</td>
+                          </tr>
+                      </tbody>
+                  </informaltable>
+                  <simpara>&CODES;<returnvalue>200</returnvalue>, <returnvalue>203</returnvalue></simpara>
+                  <simpara>&ERROR_CODES; unauthorized (<errorcode>401</errorcode>), userDisabled
+                      (<errorcode>403</errorcode>), badRequest (<errorcode>400</errorcode>), identityFault
+                      (<errorcode>500</errorcode>), serviceUnavailable(<errorcode>503</errorcode>)</simpara>
+                  <para>
+                      This call will return a token if successful. Each ReST request against other services (or other
+                      calls on Keystone such as the GET /tenants call)
+                      requires the inclusion of a specific authorization token HTTP x-header, defined as X-Auth-Token.
+                      Clients obtain
+                      this token, along with the URL to other service APIs, by first authenticating against the
+                      Keystone Service and supplying valid credentials.
+                  </para>
+                  <para>
+                      Client authentication is provided via a ReST interface using the POST method,
+                      with v2.0/tokens supplied as the path. A payload of credentials must be included
+                      in the body.
+                  </para>
+                  <para>
+                      The Keystone Service is a ReSTful web service. It is the entry point to all service APIs.
+                      To access the Keystone Service, you must know URL of the Keystone service.
+                  </para>
+                  <example>
+                      <title>XML Auth Request using passwordCredentials</title>
+                      <programlisting language="xml"><xi:include href="&GROUPREQUESTXML;" parse="text"/></programlisting>
+                  </example>
+                  <example>
+                      <title>JSON Auth Request using passwordCredentials</title>
+                      <programlisting language="javascript"><xi:include href="&GROUPREQUESTJSON;" parse="text"/></programlisting>
+                  </example>
+                  <example>
+                      <title>XML Auth Response that contains Groups</title>
+                      <programlisting language="xml"><xi:include href="&GROUPRESPONSEXML;" parse="text"><xi:fallback>Yet To Be added</xi:fallback></xi:include></programlisting>
+                  </example>
+                 <example>
+                 <title>JSON Auth Response that contains Groups</title>
+                <programlisting language="javascript"><xi:include href="&GROUPRESPONSEJSON;" parse="text"><xi:fallback>Yet To Be added</xi:fallback></xi:include></programlisting>
+                </example>
+          </section>
+          </section>
+          </section>
+  </chapter>
+</book>

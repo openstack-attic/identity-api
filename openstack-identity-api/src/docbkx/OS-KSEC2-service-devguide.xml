@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book [
+        <!-- Some useful entities borrowed from HTML -->
+        <!ENTITY ndash  "&#x2013;">
+        <!ENTITY mdash  "&#x2014;">
+        <!ENTITY hellip "&#x2026;">
+
+        <!-- Useful for describing APIs -->
+        <!ENTITY GET    '<command xmlns="http://docbook.org/ns/docbook">GET</command>'>
+        <!ENTITY PUT    '<command xmlns="http://docbook.org/ns/docbook">PUT</command>'>
+        <!ENTITY POST   '<command xmlns="http://docbook.org/ns/docbook">POST</command>'>
+        <!ENTITY DELETE '<command xmlns="http://docbook.org/ns/docbook">DELETE</command>'>
+
+        <!ENTITY ARROW  '<inlinemediaobject xmlns="http://docbook.org/ns/docbook">
+                 <imageobject>
+                  <imagedata fileref="img/Arrow_east.svg"
+                             format="SVG" scale="60"/>
+                </imageobject>
+              </inlinemediaobject>'>
+
+        <!ENTITY CODES       'Normal Response Code(s):'>
+        <!ENTITY ERROR_CODES 'Error Response Code(s):'>
+
+        <!-- Information about the extension -->
+        <!ENTITY VERSION  "v1.0">
+        <!ENTITY PUB_DATE "2011-08-26">
+        <!ENTITY ALIAS "OS-KSEC2">
+        <!ENTITY URI_REFHEAD '
+        <thead xmlns="http://docbook.org/ns/docbook">
+        <tr>
+        <td colspan="1">Verb</td>
+        <td colspan="1">URI</td>
+        <td colspan="4">Description</td>
+        </tr>
+        </thead>'>
+        <!ENTITY NAMESPACE "http://docs.openstack.org/identity/api/ext/OS-KSEC2/v1.0">
+        <!ENTITY CURRENTGUIDE "https://github.com/openstack/keystone/raw/master/keystone/content/service/OS-KSEC2-service-devguide.pdf">
+        <!ENTITY EXTENSIONXSD "https://raw.github.com/openstack/keystone/master/keystone/content/common/xsd/OS-KSEC2-credentials.xsd">
+        <!ENTITY EC2CREDENTIALSREQUESTXML "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/auth_credentials-OS-KSEC2.xml">
+        <!ENTITY EC2CREDENTIALSREQUESTJSON "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/auth_credentials-OS-KSEC2.json">
+        <!ENTITY EC2CREDENTIALSRESPONSEXML "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/auth.xml">
+        <!ENTITY EC2CREDENTIALSRESPONSEJSON "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/auth.json">
+        <!ENTITY EXTENSIONQUERYRESPONSEXML "https://raw.github.com/openstack/keystone/master/keystone/contrib/extensions/service/osec2/extension.xml">
+        <!ENTITY EXTENSIONQUERYRESPONSEJSON "https://raw.github.com/openstack/keystone/master/keystone/contrib/extensions/service/osec2/extension.json">
+        
+        
+]>
+<book xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:m="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      version="5.0" status="draft" xml:id="book-0001">
+    <title>OpenStack EC2 authentication Extension (Service Operations)</title>
+  <info>
+      <author>
+          <personname>
+              <firstname/>
+              <surname/>
+          </personname>
+          <affiliation>
+              <orgname>OpenStack</orgname>
+          </affiliation>
+      </author>
+      <copyright>
+          <year>2010</year>
+          <year>2011</year>
+          <holder>OpenStack</holder>
+      </copyright>
+      <releaseinfo>EXT v1.0</releaseinfo>
+      <productname>>Keystone - OpenStack Identity</productname>
+    <pubdate>&PUB_DATE;</pubdate>
+      <legalnotice role="apache2">
+          <annotation>
+              <remark>Copyright details are filled in by the template.</remark>
+          </annotation>
+      </legalnotice>
+      <abstract>
+      <para>
+          This document is intended for client developers interested
+          in using the OpenStack EC2 Authentication Service Extension along with the 
+          Keystone - OpenStack Identity
+          (<abbrev>API</abbrev>).
+      </para>
+    </abstract>
+  </info>
+    <chapter xml:id="chapter-0000">
+      <title>About This Extension</title>
+      <variablelist spacing="compact">
+          <varlistentry>
+              <term>Name</term>
+              <listitem>
+                  <para>OpenStack EC2 authentication Extension</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Namespace</term>
+              <listitem>
+                  <para>&NAMESPACE;</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Alias</term>
+              <listitem>
+                  <para>&ALIAS;</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Dependencies</term>
+              <listitem>
+                  <para>Keystone - OpenStack Identity</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Doc Link (PDF)</term>
+              <listitem>
+                  <para>
+                        <link
+                            xlink:href="&CURRENTGUIDE;"
+                            >
+                            &CURRENTGUIDE;
+                        </link>
+                    </para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Doc Link (WADL)</term>
+              <listitem>
+                  <para>
+                      None, the extension makes no modification to the API WADL.
+                  </para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Doc Link (XSD)</term>
+              <listitem>
+                  <para>
+                      <link xlink:href="&EXTENSIONXSD;">
+                          &EXTENSIONXSD;
+                      </link>
+                  </para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Short Description</term>
+              <listitem>
+                  <para>
+                      OpenStack EC2 authentication Service Extension to Keystone v2.0 API adds the capability to support EC2 style authentication..
+                  </para>
+              </listitem>
+          </varlistentry>
+      </variablelist>
+      <?hard-pagebreak?>
+      <example>
+          <title>Extension Query Response: XML</title>
+          <programlisting language="xml"><xi:include href="&EXTENSIONQUERYRESPONSEXML;" parse="text"/></programlisting>
+      </example>
+      <example>
+          <title>Extension Query Response: JSON</title>
+          <programlisting language="javascript"><xi:include href="&EXTENSIONQUERYRESPONSEJSON;" parse="text"/></programlisting>
+      </example>
+      <section xml:id="Doc-Change-0001">
+          <title>Document Change History</title>
+          <informaltable rules='all'>
+              <thead>
+                  <tr>
+                      <td align="center" colspan="1">Revision Date</td>
+                      <td align="center" colspan="4">Summary of Changes</td>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td colspan="1" align="center">Aug. 24, 2011</td>
+                      <td colspan="4">
+                          <itemizedlist spacing="compact">
+                              <listitem>
+                                  <para>
+                                      Initial release.
+                                  </para>
+                              </listitem>
+                          </itemizedlist>
+                      </td>
+                  </tr>
+              </tbody>
+          </informaltable>
+      </section>
+  </chapter>
+  <chapter xml:id="chapter-0001">
+      <title>Summary of Changes</title>
+      <para> The OpenStack EC2 authentication Service Extension allows
+            authenticate call using ec2Credentials. </para>
+      <section xml:id="NewHeaders-0001">
+          <title>New Headers</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="NewFaults0001">
+          <title>New Faults</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="NewResources-0001">
+          <title>New Resources</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="NewActions0001">
+          <title>New Actions</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="NewElement0001">
+          <title>New Element</title>
+          <section xml:id="RackExt-0001">
+              <title>
+                  Openstack extension to Keystone v2.0 API enabling EC2 style authentication.
+              </title>
+              <section xml:id="Authenticate-d1e1166">
+                  <title>Authenticate</title>
+                  <para>This extension allows authentication calls to accept new type of credentials <parameter>ec2Credentials</parameter>.
+                      These are additional type of credentials defined to support EC2 style authentication.
+                      The usage of <parameter>ec2Credentials</parameter> on a existing call to authenticate is illustrated below 
+                  </para>
+                  <informaltable rules="all">
+                      &URI_REFHEAD;
+                      <tbody>
+                          <tr>
+                              <td colspan="1"> &POST; </td>
+                              <td colspan="1">/tokens</td>
+                              <td colspan="4">Authenticate to generate a token.</td>
+                          </tr>
+                      </tbody>
+                  </informaltable>
+                  <simpara>&CODES;<returnvalue>200</returnvalue>, <returnvalue>203</returnvalue></simpara>
+                  <simpara>&ERROR_CODES; unauthorized (<errorcode>401</errorcode>), userDisabled
+                      (<errorcode>403</errorcode>), badRequest (<errorcode>400</errorcode>), identityFault
+                      (<errorcode>500</errorcode>), serviceUnavailable(<errorcode>503</errorcode>)</simpara>
+                  <para>
+                      This call will return a token if successful. 
+                      Clients obtain
+                      this token, along with the URL to other service APIs, by first authenticating against the
+                      Keystone Service and supplying valid credentials.
+                      This extension provides support for Rackspace Style API Key credentials. 
+                  </para>
+                  <para>
+                      Client authentication is provided via a ReST interface using the POST method,
+                      with v2.0/tokens supplied as the path. A payload of credentials must be included
+                      in the body.
+                  </para>
+                  <para>
+                      The Keystone Service is a ReSTful web service. It is the entry point to all service APIs.
+                      To access the Keystone Service, you must know URL of the Keystone service.
+                  </para>
+                  <example>
+                      <title>XML Auth Request using EC2CREDENTIALS</title>
+                      <programlisting language="xml"><xi:include href="&EC2CREDENTIALSREQUESTXML;" parse="text"/></programlisting>
+                  </example>
+                  <example>
+                      <title>JSON Auth Request using EC2CREDENTIALS</title>
+                      <programlisting language="javascript"><xi:include href="&EC2CREDENTIALSREQUESTJSON;" parse="text"/></programlisting>
+                  </example>
+                  <example>
+                      <title>XML Auth Response</title>
+                      <programlisting language="xml"><xi:include href="samples/auth.xml" parse="text"/></programlisting>
+                  </example>
+                 <example>
+                 <title>JSON Auth Response</title>
+                <programlisting language="javascript"><xi:include href="&EC2CREDENTIALSRESPONSEJSON;" parse="text"/></programlisting>
+                </example>
+          </section>
+          </section>
+          </section>
+  </chapter>
+</book>
