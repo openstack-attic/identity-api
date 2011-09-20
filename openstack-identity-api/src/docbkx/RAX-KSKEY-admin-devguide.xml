@@ -36,13 +36,13 @@
         <!ENTITY NAMESPACE "http://docs.rackspace.com/identity/api/ext/RAX-KSKEY/v1.0">
         <!ENTITY CURRENTGUIDE "/home/yogi/keystone/content/admin/RAX-KSKEY-admin-devguide.pdf">
         <!ENTITY EXTENSIONXSD "/home/yogi/keystone/content/service/xsd/RAX-KSKEY-credentials.xsd">
-        <!ENTITY CURRENTWADL "/home/yogi/keystone/keystone/content/admin/RAX-KSKEY-admin.wadl">
-        <!ENTITY APIKEYCREDENTIALSREQUESTXML "/home/yogi/keystone/keystone/content/common/samples/apikeyCredentials.xml">
-        <!ENTITY APIKEYCREDENTIALSREQUESTJSON "/home/yogi/keystone/keystone/content/common/samples/apikeyCredentials.json">
-        <!ENTITY APIKEYCREDENTIALSRESPONSEXML "/home/yogi/keystone/keystone/content/common/samples/auth.xml">
-        <!ENTITY APIKEYCREDENTIALSRESPONSEJSON "/home/yogi/keystone/keystone/content/common/samples/auth.json">
-        <!ENTITY EXTENSIONQUERYRESPONSEXML "/home/yogi/keystone/keystone/contrib/extensions/admin/raxkey/extension.xml">
-        <!ENTITY EXTENSIONQUERYRESPONSEJSON "/home/yogi/keystone/keystone/contrib/extensions/admin/raxkey/extension.json">
+        <!ENTITY CURRENTWADL "https://raw.github.com/openstack/keystone/master/keystone/content/admin/RAX-KSKEY-admin.wadl">
+        <!ENTITY APIKEYCREDENTIALSREQUESTXML "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/apikeyCredentials.xml">
+        <!ENTITY APIKEYCREDENTIALSREQUESTJSON "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/apikeyCredentials.json">
+        <!ENTITY APIKEYCREDENTIALSRESPONSEXML "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/auth.xml">
+        <!ENTITY APIKEYCREDENTIALSRESPONSEJSON "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/auth.json">
+        <!ENTITY EXTENSIONQUERYRESPONSEXML "https://raw.github.com/openstack/keystone/master/keystone/contrib/extensions/admin/raxkey/extension.xml">
+        <!ENTITY EXTENSIONQUERYRESPONSEJSON "https://raw.github.com/openstack/keystone/master/keystone/contrib/extensions/admin/raxkey/extension.json">
         
         
 ]>

@@ -34,13 +34,13 @@ format="SVG" scale="60"/>
 </tr>
 </thead>'>
 <!ENTITY NAMESPACE "http://docs.openstack.org/identity/api/ext/OS-KSEC2/v1.0">
-<!ENTITY CURRENTGUIDE "/home/yogi/keystone/keystone/content/admin/OS-KSEC2-admin-devguide.pdf">
-<!ENTITY CURRENTWADL "/home/yogi/keystone/keystone/content/admin/OS-KSEC2-admin.wadl">
-<!ENTITY EXTENSIONXSD "/home/yogi/keystone/keystone/content/common/xsd/OS-KSEC2-credentials.xsd">
-<!ENTITY EC2CREDENTIALSEXAMPLEXML "/home/yogi/keystone/keystone/content/common/samples/ec2Credentials.xml">
-<!ENTITY EC2CREDENTIALSEXAMPLEJSON "/home/yogi/keystone/keystone/content/common/samples/ec2Credentials.json">
-<!ENTITY EXTENSIONQUERYRESPONSEXML "/home/yogi/keystone/keystone/contrib/extensions/admin/osec2/extension.xml">
-<!ENTITY EXTENSIONQUERYRESPONSEJSON "/home/yogi/keystone/keystone/contrib/extensions/admin/osec2/extension.json">
+<!ENTITY CURRENTGUIDE "https://raw.github.com/openstack/keystone/master/keystone/content/admin/OS-KSEC2-admin-devguide.pdf">
+<!ENTITY CURRENTWADL "https://raw.github.com/openstack/keystone/master/keystone/content/admin/OS-KSEC2-admin.wadl">
+<!ENTITY EXTENSIONXSD "https://raw.github.com/openstack/keystone/master/keystone/content/common/xsd/OS-KSEC2-credentials.xsd">
+<!ENTITY EC2CREDENTIALSEXAMPLEXML "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/ec2Credentials.xml">
+<!ENTITY EC2CREDENTIALSEXAMPLEJSON "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/ec2Credentials.json">
+<!ENTITY EXTENSIONQUERYRESPONSEXML "https://raw.github.com/openstack/keystone/master/keystone/contrib/extensions/admin/osec2/extension.xml">
+<!ENTITY EXTENSIONQUERYRESPONSEJSON "https://raw.github.com/openstack/keystone/master/keystone/contrib/extensions/admin/osec2/extension.json">
 
 ]>
 <book xmlns="http://docbook.org/ns/docbook"

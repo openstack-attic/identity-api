@@ -33,7 +33,7 @@
          </profiles>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<doctools.version>1.0.5-SNAPSHOT</doctools.version>
+		<doctools.version>1.0.6-SNAPSHOT</doctools.version>
 	</properties>
 
 	<dependencies>
