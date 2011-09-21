@@ -1,0 +1,9 @@
+Verified+1: Jenkins
+Code-Review+1: Yogeshwar Srikrishnan <yoga80@yahoo.com>
+Code-Review+2: Anne Gentle <anne@openstack.org>
+Code-Review+1: Joe Savak <joe.savak@rackspace.com>
+Submitted-by: Jenkins
+Submitted-at: Wed, 21 Sep 2011 13:04:08 +0000
+Reviewed-on: https://review.openstack.org/496
+Project: openstack/identity-api
+Branch: refs/heads/master
