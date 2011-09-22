@@ -211,7 +211,8 @@
                                 <include name="**/*.svg" />
                             </fileset>
                         </copy>
-                    	<!-- Copies HTML to a release folder for web site-->                                                               
+                    	<!-- Copies HTML to a release folder for web site-->   
+                    	<mkdir dir="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0/"/>
                     	<copy
                     		todir="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0">
                     		<fileset
