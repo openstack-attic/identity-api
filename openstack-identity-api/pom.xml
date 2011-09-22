@@ -211,10 +211,24 @@
                                 <include name="**/*.svg" />
                             </fileset>
                         </copy>
-                        <!--Moves PDF to the needed placement -->
+                    	<!-- Copies HTML to a release folder for web site-->   
+
+                    	<copy
+                    		todir="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0">
+                    		<fileset
+                    			dir="${basedir}/target/docbkx/webhelp/identity-dev-guide">
+                    			<include name="**/*" />
+                    		</fileset>
+                    	</copy>
+                        <!--Moves PDF to the needed placement for web site and Google Analytics tracking-->
                         <move failonerror="false"
                             file="${basedir}/target/docbkx/pdf/identity-dev-guide.pdf"
-                            tofile="${basedir}/target/docbkx/webhelp/identity-dev-guide/identity-dev-guide.pdf"/>
+                            tofile="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0/identity-dev-guide-2.0.pdf"/>
+                    	
+                <!-- Moves extension PDF and keeps name of the main dev guide -->
+                <copy failonerror="false"
+                	file="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0/identity-dev-guide-2.0.pdf"
+                    		tofile="${basedir}/target/docbkx/webhelp/identity-dev-guide/identity-dev-guide.pdf"/>   	
 		        <move failonerror="false"
 		          file="${basedir}/target/docbkx/pdf/RAX-KSKEY-service-devguide.pdf"
 		          tofile="${basedir}/target/docbkx/webhelp/identitydevguide/service/RAX-KSKEY-service-devguide.pdf"/>
