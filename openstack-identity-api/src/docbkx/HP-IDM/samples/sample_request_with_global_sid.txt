@@ -1,0 +1,4 @@
+GET /v2.0/tokens/ab48a9efdfedb23ty3494?belongsTo=1&HP-IDM-serviceId=1,2,global HTTP/1.1
+X-Auth-Token: 999888777666
+Host: identity.api.openstack.org
+Accept: application/json
