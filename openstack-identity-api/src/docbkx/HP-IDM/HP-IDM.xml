@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book [
+        <!-- Some useful entities borrowed from HTML -->
+        <!ENTITY ndash  "&#x2013;">
+        <!ENTITY mdash  "&#x2014;">
+        <!ENTITY hellip "&#x2026;">
+
+        <!-- Useful for describing APIs -->
+        <!ENTITY GET    '<command xmlns="http://docbook.org/ns/docbook">GET</command>'>
+        <!ENTITY PUT    '<command xmlns="http://docbook.org/ns/docbook">PUT</command>'>
+        <!ENTITY POST   '<command xmlns="http://docbook.org/ns/docbook">POST</command>'>
+        <!ENTITY DELETE '<command xmlns="http://docbook.org/ns/docbook">DELETE</command>'>
+
+         <!-- Information about the extension -->
+         <!ENTITY PUB_DATE "2011-12-21">
+         <!ENTITY ALIAS "HP-IDM">
+         <!ENTITY NAMESPACE "http://docs.openstack.org/identity/api/ext/HP-IDM/v1.0">
+]>
+<book xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:m="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:acme="http://docs.acme.org/servers/api/ext/template/v1.0"
+      xmlns:wadl="http://wadl.dev.java.net/2009/02"
+      xmlns:osapi="http://docs.openstack.org/compute/api/v1.1"
+      version="5.0" xml:id="example" status="DRAFT">
+  <title>OpenStack Identity HP-IDM Extension</title>
+  <titleabbrev>&ALIAS;</titleabbrev>
+  <info>
+    <author>
+      <personname>
+        <firstname/>
+        <surname/>
+      </personname>
+      <affiliation>
+        <orgname>HP</orgname>
+      </affiliation>
+    </author>
+    <copyright>
+     <year>2011</year>
+      <holder>Hewlett-Packard Development Company L.P.</holder>
+    </copyright>
+    <productname>OpenStack Identity</productname>
+    <pubdate>&PUB_DATE;</pubdate>
+    <legalnotice role="apache2">
+        <annotation>
+            <remark>Copyright details are filled in by the template.</remark>
+        </annotation>
+    </legalnotice>
+    <abstract>
+        <!--
+            Insert a short description of your template.  This is used
+            in the copyright statement.
+        -->
+        <para>HP-IDM Extension For Token Validation.</para>
+    </abstract>
+    <!--
+        Revision history goes here.  The docs system can turn this
+        into an atom feed.
+    -->
+    <revhistory>
+        <revision>
+            <date>2011-12-21</date>
+            <revdescription>
+                <itemizedlist spacing="compact">
+                    <listitem>
+                        <para>
+                            Initial version.
+                        </para>
+                    </listitem>
+                </itemizedlist>
+            </revdescription>
+        </revision>
+    </revhistory>
+  </info>
+  <chapter xml:id="AboutExtension">
+      <title>About This Extension</title>
+      <variablelist spacing="compact">
+          <varlistentry>
+              <term>Name</term>
+              <listitem>
+                  <para>HP-IDM Extension</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Namespace</term>
+              <listitem>
+                  <para>&NAMESPACE;</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Alias</term>
+              <listitem>
+                  <para>&ALIAS;</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Contact</term>
+              <listitem>
+                  <para>
+                      <personname>
+                          <firstname>Guang</firstname>
+                          <surname>Yee</surname>
+                      </personname>
+                      <email>guang.yee@hp.com</email>
+                  </para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Status</term>
+              <listitem>
+                  <para>ALPHA</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Last Update</term>
+              <listitem>
+                  <para>&PUB_DATE;</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Dependencies</term>
+                <listitem>
+                    <para>Keystone API v2.0 (2011-12-21)</para>
+                </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Doc Link (PDF)</term>
+              <listitem>
+                  <para>
+                      <link xlink:href="https://github.com/openstack/keystone/raw/master/content/admin/HP-IDM-admin-devguide.pdf">
+                          https://github.com/openstack/keystone/raw/master/content/admin/HP-IDM-admin-devguide.pdf
+                      </link>
+                  </para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Doc Link (WADL)</term>
+              <listitem>
+                  <para>
+                      <link xlink:href="https://raw.github.com/openstack/keystone/master/keystone/content/admin/HP-IDM-admin.wadl">
+                          https://raw.github.com/openstack/keystone/master/keystone/content/admin/HP-IDM-admin.wadl
+                      </link>
+                  </para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>Short Description</term>
+              <listitem>
+                  <!--
+                      A short description of the extension goes here.
+                      This short descrption is aimed at devs.
+                  -->
+                  <para>
+                      HP-IDM Admin Extension to Keystone V2.0 API adds capability
+                      to filter roles with optional service IDs for token validation
+                      to mitigate security risks with role name conflicts.
+                  </para>
+              </listitem>
+          </varlistentry>
+      </variablelist>
+      <!--
+          This is how you do a page break in the PDF output.  It's
+          optional.
+      -->
+      <?hard-pagebreak?>
+      <!--
+          The following examples should illustrate the extension query
+          response.
+      -->
+      <example>
+          <title>Sample Valid Token Request</title>
+          <programlisting language="xml"><xi:include href="samples/sample_request.txt" parse="text"/></programlisting>
+      </example>
+      <example>
+           <title>Sample Valid Token Request With Global Service ID Specified</title>
+           <programlisting language="xml"><xi:include href="samples/sample_request_with_global_sid.txt" parse="text"/></programlisting>
+      </example>
+      <example>
+          <title>Extension Query Response: XML</title>
+          <programlisting language="xml"><xi:include href="samples/ext_query.xml" parse="text"/></programlisting>
+      </example>
+      <example>
+          <title>Extension Query Response: JSON</title>
+          <programlisting language="javascript"><xi:include href="samples/ext_query.json" parse="text"/></programlisting>
+      </example>
+      <section>
+          <title>Document Change History</title>
+          <para>
+              The most recent changes to this document are described
+              below.
+          </para>
+          <!--
+              The rev history, described in the info element above,
+              should be output in this part of the document.
+          -->
+          <?rax revhistory?>
+      </section>
+  </chapter>
+  <chapter>
+      <title>Summary of Changes</title>
+      <!--
+          Provide an overall summary of the extension.  Give an
+          overview of how the extensions works and what capabilities it
+          adds.
+      -->
+      <para>
+          HP-IDM Admin Extension to Keystone V2.0 API adds capability to filter roles
+          with optional service IDs for token validation to mitigate security risks
+          with role name conflicts.
+          See
+          <link xlink:href="https://bugs.launchpad.net/keystone/+bug/890411">
+              https://bugs.launchpad.net/keystone/+bug/890411
+          </link>
+          for more details.
+      </para>
+      <section>
+          <title>New Headers</title>
+          <!--
+              Describe any new headers, if any.
+          -->
+          <para>None.</para>
+      </section>
+      <section>
+          <title>New Faults</title>
+          <!--
+              Describe any new faults, if any.  Make sure you specify
+              if the fault can be expectid in all requests.
+          -->
+          <para>None.</para>
+      </section>
+      <section role="api-reference">
+          <title>New Resources</title>
+          <!--
+              List any new resources here.  The api-reference role
+              above means that a reference table of all new resources
+              will be placed here.
+          -->
+          <para>
+              No new resource. HP-IDM Extension merely introduced a new optional HP-IDM-serviceId parameter for the validate token operations. The following APIs are affected.
+          </para>
+          <section>
+              <title>Validate Tokens With The New Optional HP-IDM-serviceId Parameter</title>
+              <para>
+                  The following are a list of operations on templates.
+              </para>
+              <!--
+                  You can insert a WADL by referencing it from another
+                  file.  The WADL need not be normalized because you
+                  can insert a normalization step in the build process
+                  (see pom.xml).
+              -->
+              <wadl:resources>
+                  <wadl:resource href="HP-IDM-admin.wadl#tokenById"/>
+              </wadl:resources>
+          </section>
+      </section>
+      <section>
+          <title>New Actions</title>
+          <!--
+              Describe any new actions if any.
+          -->
+          <para>None.</para>
+      </section>
+      <section>
+          <title>New States</title>
+          <!--
+              Describe any new states.
+          -->
+          <para>None.</para>
+      </section>
+  </chapter>
+</book>
