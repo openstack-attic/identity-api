@@ -1,0 +1,10 @@
+Verified+1: Jenkins
+Approved+1: Dolph Mathews <dolph.mathews@gmail.com>
+Code-Review+2: Dolph Mathews <dolph.mathews@gmail.com>
+Code-Review+1: Julien Danjou <julien.danjou@enovance.com>
+Code-Review+1: Duncan McGreggor <duncan@dreamhost.com>
+Submitted-by: Jenkins
+Submitted-at: Mon, 09 Jan 2012 23:08:42 +0000
+Reviewed-on: https://review.openstack.org/2568
+Project: openstack/identity-api
+Branch: refs/heads/master
