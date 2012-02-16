@@ -37,14 +37,14 @@
         <!ENTITY CURRENTGUIDE "/home/yogi/keystone/content/admin/RAX-KSKEY-admin-devguide.pdf">
         <!ENTITY EXTENSIONXSD "/home/yogi/keystone/content/service/xsd/RAX-KSKEY-credentials.xsd">
         <!ENTITY CURRENTWADL "https://raw.github.com/openstack/keystone/master/keystone/content/admin/RAX-KSKEY-admin.wadl">
-        <!ENTITY APIKEYCREDENTIALSREQUESTXML "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/apiKeyCredentials.xml">
-        <!ENTITY APIKEYCREDENTIALSREQUESTJSON "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/apiKeyCredentials.json">
-        <!ENTITY APIKEYCREDENTIALSRESPONSEXML "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/auth.xml">
-        <!ENTITY APIKEYCREDENTIALSRESPONSEJSON "https://raw.github.com/openstack/keystone/master/keystone/content/common/samples/auth.json">
+        <!ENTITY APIKEYCREDENTIALSREQUESTXML "https://raw.github.com/openstack/keystone/master/keystone/contesamples/apiKeyCredentials.xml">
+        <!ENTITY APIKEYCREDENTIALSREQUESTJSON "https://raw.github.com/openstack/keystone/master/keystone/contesamples/apiKeyCredentials.json">
+        <!ENTITY APIKEYCREDENTIALSRESPONSEXML "https://raw.github.com/openstack/keystone/master/keystone/contesamples/auth.xml">
+        <!ENTITY APIKEYCREDENTIALSRESPONSEJSON "https://raw.github.com/openstack/keystone/master/keystone/contesamples/auth.json">
         <!ENTITY EXTENSIONQUERYRESPONSEXML "https://raw.github.com/openstack/keystone/master/keystone/contrib/extensions/admin/raxkey/extension.xml">
         <!ENTITY EXTENSIONQUERYRESPONSEJSON "https://raw.github.com/openstack/keystone/master/keystone/contrib/extensions/admin/raxkey/extension.json">
-        
-        
+
+
 ]>
 <book xmlns="http://docbook.org/ns/docbook"
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -79,7 +79,7 @@
     <abstract>
       <para>
           This document is intended for service developers interested
-          in using the Rackspace API Key Authentication Admin Extension along with the 
+          in using the Rackspace API Key Authentication Admin Extension along with the
           Keystone - OpenStack Identity
           (<abbrev>API</abbrev>).
       </para>
@@ -193,7 +193,7 @@
   <chapter xml:id="chapter-0001">
       <title>Summary of Changes</title>
       <para>
-          The Rackspace API Key Authentication Admin Extension allows crud/listing operations on <parameter>apikeyCredentials</parameter>. 
+          The Rackspace API Key Authentication Admin Extension allows crud/listing operations on <parameter>apikeyCredentials</parameter>.
       </para>
       <section xml:id="NewHeaders-0001">
           <title>New Headers</title>
@@ -217,7 +217,7 @@
               <title>apikeyCredentials</title>
               <para>This extension allows authentication calls to accept new type of credentials <parameter>apikeyCredentials</parameter>.
                   These are additional type of credentials defined to support rackspace style authentication.
-                  Examples of <parameter>apikeyCredentials</parameter> are illustrated below 
+                  Examples of <parameter>apikeyCredentials</parameter> are illustrated below
               </para>
               <example>
                   <title>apikeyCredentials XML</title>
@@ -228,7 +228,7 @@
                   <programlisting language="javascript"><xi:include href="&APIKEYCREDENTIALSREQUESTJSON;" parse="text"/></programlisting>
               </example>
           </section>
-      </section>    
+      </section>
       <section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           xml:id="Admin_API_Service_Developer_Operations-d1e1357" version="5.0" role="api-reference">
@@ -265,7 +265,7 @@
                       <wadl:method href="getUserCredential"/>
                   </wadl:resource>
               </wadl:resources>
-          </section>	
+          </section>
       </section>
   </chapter>
 </book>
