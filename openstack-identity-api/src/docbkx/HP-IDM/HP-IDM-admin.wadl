@@ -7,7 +7,7 @@
 <!--        xmllint -noent HP-IDM-admin.wadl             -->
 <!--*******************************************************-->
 <!DOCTYPE application [
-<!ENTITY % common  SYSTEM "../common.ent">
+<!ENTITY % common  SYSTEM "../common/common.ent">
     %common;
 ]>
 
@@ -20,8 +20,8 @@
     xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0">
 
     <grammars>
-        <include href="https://raw.github.com/openstack/keystone/master/keystone/content/common/xsd/api.xsd"/>
-        <include href="https://raw.github.com/openstack/keystone/master/keystone/content/common/xsd/api-common.xsd"/>
+        <include href="../common/xsd/api.xsd"/>
+        <include href="../common/xsd/api-common.xsd"/>
     </grammars>
 
     <!--*******************************************************-->

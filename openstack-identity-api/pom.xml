@@ -33,7 +33,7 @@
          </profiles>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<doctools.version>1.0.9-SNAPSHOT</doctools.version>
+		<doctools.version>1.0.11-SNAPSHOT</doctools.version>
 	</properties>
 
 	<dependencies>
@@ -117,7 +117,7 @@
 		    jar="${net.sourceforge.saxon:saxon:jar}"
 		    fork="true">
 		  <arg value="-u"/>
-		  <arg value="-s:https://raw.github.com/openstack/keystone/master/keystone/content/admin/identity-admin.wadl"/>
+			<arg value="-s:src/docbkx/admin/identity-admin.wadl"/>
 		  <arg value="-xsl:${project.build.directory}/generated-resources/cloud/normalizeWadl/normalizeWadl.xsl"/>
 		  <arg value="-o:${project.build.directory}/generated-resources/xml/xslt/identity-admin.wadl"/>
 		</java>
@@ -125,7 +125,7 @@
 		    jar="${net.sourceforge.saxon:saxon:jar}"
 		    fork="true">
 		  <arg value="-u"/>
-		  <arg value="-s:https://raw.github.com/openstack/keystone/master/keystone/content/admin/OS-KSADM-admin.wadl"/>
+			<arg value="-s:src/docbkx/admin/OS-KSADM-admin.wadl"/>
 		  <arg value="-xsl:${project.build.directory}/generated-resources/cloud/normalizeWadl/normalizeWadl.xsl"/>
 		  <arg value="-o:${project.build.directory}/generated-resources/xml/xslt/OS-KSADM-admin.wadl"/>
 		</java>
@@ -134,7 +134,7 @@
 		    jar="${net.sourceforge.saxon:saxon:jar}"
 		    fork="true">
 		  <arg value="-u"/>
-		  <arg value="-s:https://raw.github.com/openstack/keystone/master/keystone/content/admin/OS-KSCATALOG-admin.wadl"/>
+			<arg value="-s:src/docbkx/admin/OS-KSCATALOG-admin.wadl"/>
 		  <arg value="-xsl:${project.build.directory}/generated-resources/cloud/normalizeWadl/normalizeWadl.xsl"/>
 		  <arg value="-o:${project.build.directory}/generated-resources/xml/xslt/OS-KSCATALOG-admin.wadl"/>
 		</java>
@@ -143,7 +143,7 @@
 		    jar="${net.sourceforge.saxon:saxon:jar}"
 		    fork="true">
 		  <arg value="-u"/>
-		  <arg value="-s:https://raw.github.com/openstack/keystone/master/keystone/content/admin/RAX-KSKEY-admin.wadl"/>
+			<arg value="-s:src/docbkx/admin/RAX-KSKEY-admin.wadl"/>
 		  <arg value="-xsl:${project.build.directory}/generated-resources/cloud/normalizeWadl/normalizeWadl.xsl"/>
 		  <arg value="-o:${project.build.directory}/generated-resources/xml/xslt/RAX-KSKEY-admin.wadl"/>
 		</java>
@@ -152,7 +152,7 @@
 		    jar="${net.sourceforge.saxon:saxon:jar}"
 		    fork="true">
 		  <arg value="-u"/>
-		  <arg value="-s:https://raw.github.com/openstack/keystone/master/keystone/content/admin/OS-KSEC2-admin.wadl"/>
+			<arg value="-s:src/docbkx/admin/OS-KSEC2-admin.wadl"/>
 		  <arg value="-xsl:${project.build.directory}/generated-resources/cloud/normalizeWadl/normalizeWadl.xsl"/>
 		  <arg value="-o:${project.build.directory}/generated-resources/xml/xslt/OS-KSEC2-admin.wadl"/>
 		</java>
@@ -215,7 +215,7 @@
                     <postProcess>
                         <!-- Copies the figures to the correct location for webhelp -->
                         <copy todir="${basedir}/target/docbkx/webhelp/identity-dev-guide/figures">
-                            <fileset dir="${basedir}/src/docbkx/img">
+                            <fileset dir="${basedir}/src/docbkx/common/img">
                                 <include name="**/*.svg" />
                             </fileset>
                         </copy>
@@ -270,7 +270,7 @@
                   <goal>generate-pdf</goal>
                   <goal>generate-webhelp</goal>
               </goals>
-              <phase>generate-sources</phase>
+          <!--    <phase>generate-sources</phase>-->
               <configuration>
                   <includes>HP-IDM/HP-IDM.xml</includes>
                   <trimWadlUriCount>1</trimWadlUriCount>
@@ -295,8 +295,14 @@
                     <xincludeSupported>true</xincludeSupported>
                     <sourceDirectory>src/docbkx</sourceDirectory>
                     <includes>
-                    identity-dev-guide.xml,,OS-KSADM-admin-devguide.xml,OS-KSCATALOG-admin-devguide.xml,RAX-KSKEY-service-devguide.xml,
-	            OS-KSEC2-service-devguide.xml,RAX-KSGRP-service-devguide.xml,RAX-KSKEY-admin-devguide.xml,OS-KSEC2-admin-devguide.xml
+                    	common/identity-dev-guide.xml<!--,
+                    	OS-KS/OS-KSADM-admin-devguide.xml,
+                    	OS-KS/OS-KSCATALOG-admin-devguide.xml,
+                    	OS-KS/OS-KSEC2-admin-devguide.xml,
+                    	OS-KS/OS-KSEC2-service-devguide.xml,
+                    	RAX-KS/RAX-KSKEY-service-devguide.xml,
+                    	RAX-KS/RAX-KSGRP-service-devguide.xml,
+                    	RAX-KS/RAX-KSKEY-admin-devguide.xml-->
                     </includes>
                     <profileSecurity>reviewer</profileSecurity>
                     <branding>openstack</branding>
