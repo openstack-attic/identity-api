@@ -130,8 +130,8 @@
               <term>Doc Link (PDF)</term>
               <listitem>
                   <para>
-                      <link xlink:href="https://github.com/openstack/keystone/raw/master/content/admin/HP-IDM-admin-devguide.pdf">
-                          https://github.com/openstack/keystone/raw/master/content/admin/HP-IDM-admin-devguide.pdf
+                      <link xlink:href="http://docs.openstack.org/api/openstack-identity/content/admin/HP-IDM-admin-devguide.pdf">
+                          http://docs.openstack.org/api/openstack-identity/ext/admin/HP-IDM-admin-devguide.pdf
                       </link>
                   </para>
               </listitem>
@@ -140,8 +140,8 @@
               <term>Doc Link (WADL)</term>
               <listitem>
                   <para>
-                      <link xlink:href="https://raw.github.com/openstack/keystone/master/keystone/content/admin/HP-IDM-admin.wadl">
-                          https://raw.github.com/openstack/keystone/master/keystone/content/admin/HP-IDM-admin.wadl
+                      <link xlink:href="../admin/HP-IDM-admin.wadl">
+                          http://docs.openstack.org/api/openstack-identity/ext/admin/HP-IDM-admin.wadl
                       </link>
                   </para>
               </listitem>
@@ -186,7 +186,7 @@
           <title>Extension Query Response: JSON</title>
           <programlisting language="javascript"><xi:include href="samples/ext_query.json" parse="text"/></programlisting>
       </example>
-      <section>
+      <section xml:id="hp-idm_doc-change-history">
           <title>Document Change History</title>
           <para>
               The most recent changes to this document are described
@@ -199,7 +199,7 @@
           <?rax revhistory?>
       </section>
   </chapter>
-  <chapter>
+  <chapter xml:id="hp-idm_summary-of-changes">
       <title>Summary of Changes</title>
       <!--
           Provide an overall summary of the extension.  Give an
@@ -216,14 +216,14 @@
           </link>
           for more details.
       </para>
-      <section>
+      <section xml:id="hp-idm-new-headers">
           <title>New Headers</title>
           <!--
               Describe any new headers, if any.
           -->
           <para>None.</para>
       </section>
-      <section>
+      <section xml:id="hp-idm-new-faults">
           <title>New Faults</title>
           <!--
               Describe any new faults, if any.  Make sure you specify
@@ -231,7 +231,7 @@
           -->
           <para>None.</para>
       </section>
-      <section role="api-reference">
+      <section xml:id="hp-idm-new-resources" role="api-reference">
           <title>New Resources</title>
           <!--
               List any new resources here.  The api-reference role
@@ -241,7 +241,7 @@
           <para>
               No new resource. HP-IDM Extension merely introduced a new optional HP-IDM-serviceId parameter for the validate token operations. The following APIs are affected.
           </para>
-          <section>
+          <section xml:id="hp-idm-validate-tokens">
               <title>Validate Tokens With The New Optional HP-IDM-serviceId Parameter</title>
               <para>
                   The following are a list of operations on templates.
@@ -257,14 +257,14 @@
               </wadl:resources>
           </section>
       </section>
-      <section>
+      <section xml:id="hp-idm-new-actions">
           <title>New Actions</title>
           <!--
               Describe any new actions if any.
           -->
           <para>None.</para>
       </section>
-      <section>
+      <section xml:id="hp-idm-new-states">
           <title>New States</title>
           <!--
               Describe any new states.

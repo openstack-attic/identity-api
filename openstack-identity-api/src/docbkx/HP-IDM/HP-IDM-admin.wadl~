@@ -7,7 +7,7 @@
 <!--        xmllint -noent HP-IDM-admin.wadl             -->
 <!--*******************************************************-->
 <!DOCTYPE application [
-<!ENTITY % common  SYSTEM "../common/common.ent">
+<!ENTITY % common  SYSTEM "../common.ent">
     %common;
 ]>
 
