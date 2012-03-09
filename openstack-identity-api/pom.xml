@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <!-- POM Build file for the Keystone Developer Guide -->
@@ -9,27 +9,27 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
     <name>Keystone Dev Guide</name>
-     <profiles>                                                                                              
-        <profile>                                                                                           
-            <id>Rackspace Research Repositories</id>                                                        
-            <activation>                                                                                    
-                <activeByDefault>true</activeByDefault>                                                     
-            </activation>                                                                                   
-            <repositories>                                                                                  
-                <repository>                                                                                
-                    <id>rackspace-research</id>                                                             
-                    <name>Rackspace Research Repository</name>                                              
-                    <url>http://maven.research.rackspacecloud.com/content/groups/public/</url>              
-                </repository>                                                                               
-            </repositories>                                                                                 
-            <pluginRepositories>                                                                            
-                <pluginRepository>                                                                          
-                    <id>rackspace-research</id>                                                             
-                    <name>Rackspace Research Repository</name>                                              
-                    <url>http://maven.research.rackspacecloud.com/content/groups/public/</url>              
-                </pluginRepository>                                                                         
-            </pluginRepositories>                                                                           
-        </profile> 
+     <profiles>
+        <profile>
+            <id>Rackspace Research Repositories</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>rackspace-research</id>
+                    <name>Rackspace Research Repository</name>
+                    <url>http://maven.research.rackspacecloud.com/content/groups/public/</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>rackspace-research</id>
+                    <name>Rackspace Research Repository</name>
+                    <url>http://maven.research.rackspacecloud.com/content/groups/public/</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
          </profiles>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -219,7 +219,7 @@
                                 <include name="**/*.svg" />
                             </fileset>
                         </copy>
-                    	<!-- Copies HTML to a release folder for web site-->   
+                    	<!-- Copies HTML to a release folder for web site-->
 
                     	<copy
                     		todir="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0">
@@ -232,11 +232,11 @@
                         <move failonerror="false"
                             file="${basedir}/target/docbkx/pdf/identity-dev-guide.pdf"
                             tofile="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0/identity-dev-guide-2.0.pdf"/>
-                    	
+
                 <!-- Moves extension PDF and keeps name of the main dev guide -->
                 <!--<copy failonerror="false"
                 	file="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0/identity-dev-guide-2.0.pdf"
-                    		tofile="${basedir}/target/docbkx/webhelp/identity-dev-guide/identity-dev-guide.pdf"/>   	
+                    		tofile="${basedir}/target/docbkx/webhelp/identity-dev-guide/identity-dev-guide.pdf"/>
 		        <move failonerror="false"
 		          file="${basedir}/target/docbkx/pdf/RAX-KSKEY-service-devguide.pdf"
 		          tofile="${basedir}/target/docbkx/webhelp/identitydevguide/service/RAX-KSKEY-service-devguide.pdf"/>
@@ -248,7 +248,7 @@
 		          tofile="${basedir}/target/docbkx/webhelp/identitydevguide/admin/OS-KSCATALOG-admin-devguide.pdf"/>
 		        <move failonerror="false"
 		          file="${basedir}/target/docbkx/pdf/OS-KSEC2-service-devguide.pdf"
-		          tofile="${basedir}/target/docbkx/webhelp/identitydevguide/service/OS-KSEC2-service-devguide.pdf"/>  
+		          tofile="${basedir}/target/docbkx/webhelp/identitydevguide/service/OS-KSEC2-service-devguide.pdf"/>
 		        <move failonerror="false"
 		          file="${basedir}/target/docbkx/pdf/OS-KSEC2-service-devguide.pdf"
 		          tofile="${basedir}/target/docbkx/webhelp/identitydevguide/service/OS-KSEC2-service-devguide.pdf"/>

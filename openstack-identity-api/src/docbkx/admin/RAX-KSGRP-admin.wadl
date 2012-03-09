@@ -13,17 +13,17 @@
 ]>
 <application xmlns="http://wadl.dev.java.net/2009/02"
     xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
-    xmlns:RAX-KSGRP="http://docs.openstack.org/identity/api/ext/RAX-KSGRP/v1.0"	
+    xmlns:RAX-KSGRP="http://docs.openstack.org/identity/api/ext/RAX-KSGRP/v1.0"
     xmlns:capi="http://docs.openstack.org/common/api/v1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0" 
+    xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
     xsi:schemaLocation="http://docs.openstack.org/identity/api/v2.0 ../common/xsd/api.xsd
     http://docs.openstack.org/common/api/v1.0 ../common/xsd/api-common.xsd
     http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd
     http://docs.openstack.org/identity/api/ext/RAX-KSGRP/v1.0 ../common/xsd/RAX-KSGRP-groups.xsd
     ">
-    
+
     <grammars>
         <include href="../common/xsd/api.xsd"/>
         <include href="../common/xsd/api-common.xsd"/>
@@ -32,13 +32,13 @@
     <!--*******************************************************-->
     <!--             All Resources                             -->
     <!--*******************************************************-->
-    
+
     <!-- We should use SSL in production -->
     <resources base="http://localhost:35357">
         <resource id="version" path="v2.0">
             <param name="X-Auth-Token" style="header" type="xsd:string" required="true">
                 <doc>You need a valid admin token for access.</doc>
-            </param>            
+            </param>
             <resource id="users" path="users">
                 <resource id="userById" path="{userId}">
                     <param name="userId" style="template" type="xsd:string"/>
@@ -49,11 +49,11 @@
             </resource>
         </resource>
     </resources>
-    
+
     <method name="GET" id="listUserGroups">
         <doc xml:lang="EN" title="List Groups for a User">
             <p xmlns="http://www.w3.org/1999/xhtml">List all the groups for a user.</p>
-            
+
         </doc>
         <response status="200 203">
             <representation mediaType="application/xml" element="RAX-KSGRP:groups">
@@ -70,5 +70,5 @@
         &commonFaults;
         &getFaults;
     </method>
-   </application> 
-   
+   </application>
+

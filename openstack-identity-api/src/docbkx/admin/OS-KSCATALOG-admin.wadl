@@ -42,7 +42,7 @@
                 <param name="X-Auth-Token" style="header" type="xsd:string" required="true"/>
                 <resource id="tenantId" path="{tenantId}">
                     <param name="tenantId" style="template" type="xsd:string"/>
-                    <resource id="endpoints-OS-KSCATALOG" path="OS-KSCATALOG">                    
+                    <resource id="endpoints-OS-KSCATALOG" path="OS-KSCATALOG">
                         <resource id="endpoints" path="endpoints">
                             <method href="#listEndpoints"/>
                             <method href="#addEndpoint"/>
@@ -53,9 +53,9 @@
                             </resource>
                         </resource>
                      </resource>
-                </resource>    
+                </resource>
             </resource>
-            
+
             <resource id="role-service-OS-KSCATALOG" path="OS-KSCATALOG">
                 <resource id="endpointTemplates" path="endpointTemplates">
                     <param name="X-Auth-Token" style="header" type="xsd:string" required="true"/>
@@ -77,12 +77,12 @@
     <!--*******************************************************-->
 
     <!-- EndPoint Templates -->
-    
+
     <method name="GET" id="listEndpointTemplates">
         <doc xml:lang="EN" title="List Endpoint Templates">
             <p xmlns="http://www.w3.org/1999/xhtml">List Endpoint Templates.</p>
-            
-        </doc>        
+
+        </doc>
         <request>
             <param name="serviceId" style="query" required="false" type="xsd:string"/>
         </request>
@@ -101,11 +101,11 @@
         &commonFaults;
         &getFaults;
     </method>
-    
+
     <method name="GET" id="getEndpointTemplate">
         <doc xml:lang="EN" title="Get Endpoint Template">
             <p xmlns="http://www.w3.org/1999/xhtml">Get Endpoint Template.</p>
-            
+
         </doc>
         <response status="200 203">
             <representation mediaType="application/xml" element="OS-KSCATALOG:endpointTemplate">
@@ -122,12 +122,12 @@
         &commonFaults;
         &getFaults;
     </method>
-    
+
     <method name="POST" id="addEndpointTemplate">
         <doc xml:lang="EN" title="Add Endpoint Template">
             <p xmlns="http://www.w3.org/1999/xhtml">Add Endpoint Template.</p>
-            
-            
+
+
         </doc>
         <request>
             <representation mediaType="application/xml" element="OS-KSCATALOG:endpointTemplate">
@@ -159,21 +159,21 @@
         &getFaults;
         &postPutFaults;
     </method>
-    
+
     <method name="DELETE" id="deleteEndpointTemplate">
         <doc xml:lang="EN" title="Delete Endpoint Template.">
             <p xmlns="http://www.w3.org/1999/xhtml">Delete a Endpoint Template.</p>
-        </doc>    
+        </doc>
         <response status="204"/>
         &commonFaults;
         &getFaults;
     </method>
-    
+
     <method name="POST" id="addEndpoint">
         <doc xml:lang="EN" title="Add Endpoint">
             <p xmlns="http://www.w3.org/1999/xhtml">Add Endpoint to a tenant.</p>
-            
-            
+
+
         </doc>
         <request>
             <representation mediaType="application/xml" element="OS-KSCATALOG:endpointTemplate">
@@ -207,12 +207,12 @@
         &getFaults;
         &postPutFaults;
     </method>
-    
+
     <method name="GET" id="listEndpoints">
         <doc xml:lang="EN" title="List Endpoints">
             <p xmlns="http://www.w3.org/1999/xhtml">List Endpoints of a Tenant.</p>
-            
-        </doc>        
+
+        </doc>
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:endpoints">
             <doc xml:lang="EN">
@@ -228,11 +228,11 @@
         &commonFaults;
         &getFaults;
     </method>
-    
+
     <method name="GET" id="getEndpoint">
         <doc xml:lang="EN" title="Get Endpoint">
             <p xmlns="http://www.w3.org/1999/xhtml">Get Endpoint of a Tenant.</p>
-            
+
         </doc>
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:endpoint">
@@ -249,11 +249,11 @@
         &commonFaults;
         &getFaults;
     </method>
-    
+
     <method name="DELETE" id="deleteEndpoint">
         <doc xml:lang="EN" title="Delete Endpoint.">
             <p xmlns="http://www.w3.org/1999/xhtml">Delete a Endpoint from a Tenant.</p>
-        </doc>    
+        </doc>
         <response status="204"/>
         &commonFaults;
         &getFaults;

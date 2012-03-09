@@ -23,7 +23,7 @@
     http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd
     http://docs.openstack.org/identity/api/ext/RAX-KSQA/v1.0 ../common/xsd/RAX-KSQA-secretQA.xsd
     ">
-    
+
     <grammars>
         <include href="../common/xsd/api.xsd"/>
         <include href="../common/xsd/api-common.xsd"/>
@@ -32,7 +32,7 @@
     <!--*******************************************************-->
     <!-- All Resources -->
     <!--*******************************************************-->
-    
+
     <!-- We should use SSL in production -->
     <resources base="http://localhost:35357">
         <resource id="version" path="v2.0">
@@ -52,7 +52,7 @@
             </resource>
         </resource>
     </resources>
-    
+
     <method name="GET" id="getUserSecretQA">
         <doc xml:lang="EN" title="Get User SecretQA">
             <p xmlns="http://www.w3.org/1999/xhtml">Gets a User secret Question and Answer.</p>
@@ -103,4 +103,4 @@
         &commonFaults;
         &postPutFaults;
     </method>
-   </application> 
+   </application>

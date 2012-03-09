@@ -14,7 +14,7 @@
 
 <application xmlns="http://wadl.dev.java.net/2009/02"
 	xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
-	xmlns:RAX-KSKEY="http://docs.openstack.org/identity/api/ext/RAX-KSKEY/v1.0"	
+	xmlns:RAX-KSKEY="http://docs.openstack.org/identity/api/ext/RAX-KSKEY/v1.0"
 	xmlns:capi="http://docs.openstack.org/common/api/v1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -39,7 +39,7 @@
         <resource id="version" path="v2.0">
             <param name="X-Auth-Token" style="header" type="xsd:string" required="true">
                 <doc>You need a valid admin token for access.</doc>
-            </param>            
+            </param>
             <resource id="users" path="users">
                 <resource id="userById" path="{userId}">
                     <param name="userId" style="template" required="true" type="xsd:string"/>
@@ -62,7 +62,7 @@
     <!--*******************************************************-->
     <!--               All Methods                             -->
     <!--*******************************************************-->
-    
+
     <!-- User Credentials-->
     <method name="POST" id="addUserCredential">
         <doc xml:lang="EN" title="Add user Credential.">
@@ -120,11 +120,11 @@
         &commonFaults;
         &getFaults;
     </method>
-    
+
     <method name="GET" id="listCredentialsByType">
         <doc xml:lang="EN" title="List Credentials by type">
             <p xmlns="http://www.w3.org/1999/xhtml">List credentials by type.</p>
-                        
+
         </doc>
         <request>
             <param name="marker" style="query" required="false" type="xsd:string"/>
@@ -144,7 +144,7 @@
         </response>
         &commonFaults;
         &getFaults;
-    </method>    
+    </method>
 
     <method name="POST" id="updateUserCredential">
         <doc xml:lang="EN" title="Update user credential">
@@ -178,7 +178,7 @@
         &postPutFaults;
         &getFaults;
     </method>
-    
+
     <method name="DELETE" id="deleteUserCredential">
         <doc xml:lang="EN" title="Delete user credential">
             <p xmlns="http://www.w3.org/1999/xhtml">Delete User credentials.</p>
@@ -188,7 +188,7 @@
         &postPutFaults;
         &getFaults;
     </method>
-    
+
     <method name="GET" id="getUserCredential">
         <doc xml:lang="EN" title="Get user Credentials">
             <p xmlns="http://www.w3.org/1999/xhtml">Get user credentials.</p>

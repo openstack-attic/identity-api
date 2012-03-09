@@ -14,11 +14,11 @@
 
 <application xmlns="http://wadl.dev.java.net/2009/02"
 	xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
-	xmlns:OS-KSADM="http://docs.openstack.org/identity/api/ext/OS-KSADM/v1.0"	
+	xmlns:OS-KSADM="http://docs.openstack.org/identity/api/ext/OS-KSADM/v1.0"
 	xmlns:capi="http://docs.openstack.org/common/api/v1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0" 
+	xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
 	xsi:schemaLocation="http://docs.openstack.org/identity/api/v2.0 ../common/xsd/api.xsd
 		http://docs.openstack.org/common/api/v1.0 ../common/xsd/api-common.xsd
 		http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd
@@ -39,7 +39,7 @@
         <resource id="version" path="v2.0">
             <param name="X-Auth-Token" style="header" type="xsd:string" required="true">
                 <doc>You need a valid admin token for access.</doc>
-            </param>            
+            </param>
             <resource id="users" path="users">
                 <method href="#listUsers"/>
                 <method href="#addUser"/>
@@ -57,12 +57,12 @@
                             </resource>
                         </resource>
                     </resource>
-                    
+
                     <resource id="user-OS-KSADM" path="OS-KSADM">
                         <resource id="enabled" path="enabled">
                             <method href="#setUserEnabled"/>
                         </resource>
-                        
+
                         <resource id="userCredentials" path="credentials">
                             <method href="#addUserCredential"/>
                             <method href="#listCredentials"/>
@@ -213,12 +213,12 @@
         &commonFaults;
         &getFaults;
     </method>
-    
+
     <method name="GET" id="listUsersForTenant">
         <doc xml:lang="EN" title="List users for a Tenant.">
             <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc">Lists all the users for a tenant.</p>
             <p xmlns="http://www.w3.org/1999/xhtml">Lists all the users for a tenant.</p>
-                        
+
         </doc>
         <request>
             <param name="marker" style="query" required="false" type="xsd:string"/>
@@ -239,7 +239,7 @@
         &commonFaults;
         &getFaults;
     </method>
-    
+
     <method name="PUT" id="addRolesToUserOnTenant">
         <doc xml:lang="EN" title="Add roles to a user on a tenant.">
             <p xmlns="http://www.w3.org/1999/xhtml">Adds a specific role to a user for a tenant.</p>
@@ -248,7 +248,7 @@
         &commonFaults;
         &postPutFaults;
         &getFaults;
-    </method>    
+    </method>
 
     <method name="DELETE" id="deleteRoleFromUserOnTenant">
         <doc xml:lang="EN" title="Delete roles from a user on tenant.">
@@ -257,13 +257,13 @@
         <response status="204"/>
         &commonFaults;
         &getFaults;
-    </method>    
-    
+    </method>
+
     <!--User Operations-->
     <method name="GET" id="listUsers">
         <doc xml:lang="EN" title="List users">
             <p xmlns="http://www.w3.org/1999/xhtml">List users.</p>
-                        
+
         </doc>
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:userss">
@@ -280,8 +280,8 @@
         &commonFaults;
         &getFaults;
     </method>
-    
-    
+
+
     <method name="POST" id="addUser">
         <doc xml:lang="EN" title="Add user">
             <p xmlns="http://www.w3.org/1999/xhtml">Adds a user.</p>
@@ -314,7 +314,7 @@
         &getFaults;
         &postPutFaults;
     </method>
-   
+
     <method name="POST" id="updateUser">
         <doc xml:lang="EN" title="Update user">
             <p xmlns="http://www.w3.org/1999/xhtml">Update a user.</p>
@@ -347,7 +347,7 @@
         &postPutFaults;
         &getFaults;
     </method>
-   
+
     <method name="DELETE" id="deleteUser">
         <doc xml:lang="EN" title="Delete user">
             <p xmlns="http://www.w3.org/1999/xhtml">Delete a user.</p>
@@ -356,12 +356,12 @@
         &commonFaults;
         &getFaults;
     </method>
-    
+
     <method name="PUT" id="setUserEnabled">
         <doc xml:lang="EN" title="Set user enabled.">
             <p xmlns="http://www.w3.org/1999/xhtml">Enable user.</p>
-            
-                         
+
+
         </doc>
         <request>
             <representation mediaType="application/xml" element="identity:user">
@@ -401,8 +401,8 @@
         &commonFaults;
         &postPutFaults;
         &getFaults;
-    </method>    
-    
+    </method>
+
     <method name="DELETE" id="deleteUserRole">
         <doc xml:lang="EN" title="Delete Global Roles on User.">
             <p xmlns="http://www.w3.org/1999/xhtml">Deletes a specific global role from a user.</p>
@@ -410,9 +410,9 @@
         <response status="204"/>
         &commonFaults;
         &getFaults;
-    </method>    
-    
-    
+    </method>
+
+
     <!-- User Credentials-->
     <method name="POST" id="addUserCredential">
         <doc xml:lang="EN" title="Add user Credential.">
@@ -450,7 +450,7 @@
     <method name="GET" id="listCredentials">
         <doc xml:lang="EN" title="List Credentials">
             <p xmlns="http://www.w3.org/1999/xhtml">List credentials.</p>
-                        
+
         </doc>
         <request>
             <param name="marker" style="query" required="false" type="xsd:string"/>
@@ -471,11 +471,11 @@
         &commonFaults;
         &getFaults;
     </method>
-    
+
     <method name="GET" id="listCredentialsByType">
         <doc xml:lang="EN" title="List Credentials by type">
             <p xmlns="http://www.w3.org/1999/xhtml">List credentials by type.</p>
-                        
+
         </doc>
         <request>
             <param name="marker" style="query" required="false" type="xsd:string"/>
@@ -495,12 +495,12 @@
         </response>
         &commonFaults;
         &getFaults;
-    </method>    
+    </method>
 
     <method name="POST" id="updateUserCredential">
         <doc xml:lang="EN" title="Update user credential">
             <p xmlns="http://www.w3.org/1999/xhtml">Update credentials.</p>
-                        
+
         </doc>
         <request>
             <representation mediaType="application/xml" element="identity:credential">
@@ -530,7 +530,7 @@
         &postPutFaults;
         &getFaults;
     </method>
-    
+
     <method name="DELETE" id="deleteUserCredential">
         <doc xml:lang="EN" title="Delete user credential">
             <p xmlns="http://www.w3.org/1999/xhtml">Delete User credentials.</p>
@@ -540,11 +540,11 @@
         &postPutFaults;
         &getFaults;
     </method>
-    
+
     <method name="GET" id="getUserCredential">
         <doc xml:lang="EN" title="Get user Credentials">
             <p xmlns="http://www.w3.org/1999/xhtml">Get user credentials.</p>
-                        
+
         </doc>
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:credential">
@@ -561,12 +561,12 @@
         &commonFaults;
         &getFaults;
     </method>
-    
+
     <!--Roles-->
     <method name="GET" id="listRoles">
         <doc xml:lang="EN" title="List Roles">
             <p xmlns="http://www.w3.org/1999/xhtml">List roles.</p>
-                        
+
         </doc>
         <request>
             <param name="serviceId" style="query" required="false" type="xsd:string"/>
@@ -592,7 +592,7 @@
     <method name="POST" id="addRole">
         <doc xml:lang="EN" title="Add Role">
             <p xmlns="http://www.w3.org/1999/xhtml">Add a Role.</p>
-        </doc>        
+        </doc>
         <request>
             <representation mediaType="application/xml" element="identity:role">
                 <doc xml:lang="EN">
@@ -673,7 +673,7 @@
         &postPutFaults;
         &getFaults;
     </method>
-    
+
     <method name="DELETE" id="deleteRole">
         <doc xml:lang="EN" title="Delete Role">
             <p xmlns="http://www.w3.org/1999/xhtml">Delete a role.</p>
@@ -751,7 +751,7 @@
     <method name="POST" id="addService">
         <doc xml:lang="EN" title="Add Service">
             <p xmlns="http://www.w3.org/1999/xhtml">Add a service.</p>
-        </doc>        
+        </doc>
         <request>
             <representation mediaType="application/xml" element="OS-KSADM:service">
                 <doc xml:lang="EN">
@@ -785,7 +785,7 @@
     <method name="DELETE" id="deleteService">
         <doc xml:lang="EN" title="Delete Service">
             <p xmlns="http://www.w3.org/1999/xhtml">Delete a service.</p>
-        </doc>    
+        </doc>
         <response status="204"/>
         &commonFaults;
         &getFaults;
