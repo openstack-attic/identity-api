@@ -2,6 +2,7 @@
   "user": {
     "username": "jqsmith",
     "email": "john.smith@example.org",
-    "enabled": true
-	}
+    "enabled": true,
+    "OS-KSADM:password": "secrete"
+  }
 }
