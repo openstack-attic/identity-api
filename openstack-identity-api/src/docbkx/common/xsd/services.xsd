@@ -61,7 +61,7 @@
                     </xsd:documentation>
                 </annotation>
             </enumeration>
-            <enumeration value="image-service">
+            <enumeration value="image">
                 <annotation>
                     <xsd:documentation
                         xml:lang="EN"
@@ -85,7 +85,7 @@
             </enumeration>
         </restriction>
     </simpleType>
-    
+
     <simpleType name="ExtendedService">
         <annotation>
             <xsd:documentation
