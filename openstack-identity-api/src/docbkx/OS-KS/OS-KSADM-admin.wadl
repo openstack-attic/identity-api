@@ -8,7 +8,7 @@
 <!--        xmllint -noent OS-KSADM-admin.wadl             -->
 <!--*******************************************************-->
 <!DOCTYPE application [
-<!ENTITY % common  SYSTEM "common.ent">
+<!ENTITY % common  SYSTEM "../common/common.ent">
 %common;
 ]>
 
@@ -141,24 +141,24 @@
         <request>
             <representation mediaType="application/xml" element="identity:tenant">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/tenantwithoutid.xml"/>
+                    <xsdxt:code href="../common/samples/tenantwithoutid.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/tenantwithoutid.json"/>
+                    <xsdxt:code href="../common/samples/tenantwithoutid.json"/>
                 </doc>
             </representation>
         </request>
         <response status="201">
             <representation mediaType="application/xml" element="identity:tenant">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/tenant.xml"/>
+                    <xsdxt:code href="../common/samples/tenant.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/tenant.json"/>
+                    <xsdxt:code href="../common/samples/tenant.json"/>
                 </doc>
             </representation>
         </response>
@@ -176,24 +176,24 @@
         <request>
             <representation mediaType="application/xml" element="identity:tenant">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/tenant.xml"/>
+                    <xsdxt:code href="../common/samples/tenant.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/tenant.json"/>
+                    <xsdxt:code href="../common/samples/tenant.json"/>
                 </doc>
             </representation>
         </request>
         <response status="200">
             <representation mediaType="application/xml" element="identity:tenant">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/tenant.xml"/>
+                    <xsdxt:code href="../common/samples/tenant.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/tenant.json"/>
+                    <xsdxt:code href="../common/samples/tenant.json"/>
                 </doc>
             </representation>
         </response>
@@ -227,12 +227,12 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:users">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/users.xml"/>
+                    <xsdxt:code href="../common/samples/users.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/users.json"/>
+                    <xsdxt:code href="../common/samples/users.json"/>
                 </doc>
             </representation>
         </response>
@@ -268,12 +268,12 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:userss">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/users.xml"/>
+                    <xsdxt:code href="../common/samples/users.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/users.json"/>
+                    <xsdxt:code href="../common/samples/users.json"/>
                 </doc>
             </representation>
         </response>
@@ -289,24 +289,24 @@
         <request>
             <representation mediaType="application/xml" element="identity:user">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/userwithoutid.xml"/>
+                    <xsdxt:code href="../common/samples/userwithoutid.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/userwithoutid.json"/>
+                    <xsdxt:code href="../common/samples/userwithoutid.json"/>
                 </doc>
             </representation>
         </request>
         <response status="201">
             <representation mediaType="application/xml" element="identity:user">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/user.xml"/>
+                    <xsdxt:code href="../common/samples/user.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/user.json"/>
+                    <xsdxt:code href="../common/samples/user.json"/>
                 </doc>
             </representation>
         </response>
@@ -322,24 +322,24 @@
         <request>
             <representation mediaType="application/xml" element="identity:user">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/user.xml"/>
+                    <xsdxt:code href="../common/samples/user.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/user.json"/>
+                    <xsdxt:code href="../common/samples/user.json"/>
                 </doc>
             </representation>
         </request>
         <response status="200">
             <representation mediaType="application/xml" element="identity:user">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/user.xml"/>
+                    <xsdxt:code href="../common/samples/user.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/user.json"/>
+                    <xsdxt:code href="../common/samples/user.json"/>
                 </doc>
             </representation>
         </response>
@@ -366,24 +366,24 @@
         <request>
             <representation mediaType="application/xml" element="identity:user">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/userwithenabledonly.xml"/>
+                    <xsdxt:code href="../common/samples/userwithenabledonly.xml"/>
                 </doc>
                 <param name="user" style="plain" path="/" type="OS-KSADM:UserWithOnlyEnabled"/></representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/userwithenabledonly.json"/>
+                    <xsdxt:code href="../common/samples/userwithenabledonly.json"/>
                 </doc>
             </representation>
         </request>
         <response status="200">
             <representation mediaType="application/xml" element="identity:user">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/user.xml"/>
+                    <xsdxt:code href="../common/samples/user.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/user.json"/>
+                    <xsdxt:code href="../common/samples/user.json"/>
                 </doc>
             </representation>
         </response>
@@ -421,24 +421,24 @@
         <request>
             <representation mediaType="application/xml" element="identity:credential">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/passwordcredentials.xml"/>
+                    <xsdxt:code href="../common/samples/passwordcredentials.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/passwordcredentials.json"/>
+                    <xsdxt:code href="../common/samples/passwordcredentials.json"/>
                 </doc>
             </representation>
         </request>
         <response status="201">
             <representation mediaType="application/xml" element="identity:credential">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/passwordcredentials.xml"/>
+                    <xsdxt:code href="../common/samples/passwordcredentials.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/passwordcredentials.json"/>
+                    <xsdxt:code href="../common/samples/passwordcredentials.json"/>
                 </doc>
             </representation>
         </response>
@@ -459,12 +459,12 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:credentials">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/credentials.xml"/>
+                    <xsdxt:code href="../common/samples/credentials.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/credentials.json"/>
+                    <xsdxt:code href="../common/samples/credentials.json"/>
                 </doc>
             </representation>
         </response>
@@ -484,12 +484,12 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:credentials">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/credentials.xml"/>
+                    <xsdxt:code href="../common/samples/credentials.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/credentials.json"/>
+                    <xsdxt:code href="../common/samples/credentials.json"/>
                 </doc>
             </representation>
         </response>
@@ -505,24 +505,24 @@
         <request>
             <representation mediaType="application/xml" element="identity:credential">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/passwordcredentials.xml"/>
+                    <xsdxt:code href="../common/samples/passwordcredentials.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/passwordcredentials.json"/>
+                    <xsdxt:code href="../common/samples/passwordcredentials.json"/>
                 </doc>
             </representation>
         </request>
         <response status="200">
             <representation mediaType="application/xml" element="identity:credential">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/passwordcredentials.xml"/>
+                    <xsdxt:code href="../common/samples/passwordcredentials.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/passwordcredentials.json"/>
+                    <xsdxt:code href="../common/samples/passwordcredentials.json"/>
                 </doc>
             </representation>
         </response>
@@ -549,12 +549,12 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:credential">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/passwordcredentials.xml"/>
+                    <xsdxt:code href="../common/samples/passwordcredentials.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/passwordcredentials.json"/>
+                    <xsdxt:code href="../common/samples/passwordcredentials.json"/>
                 </doc>
             </representation>
         </response>
@@ -576,12 +576,12 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:roles">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/roles.xml"/>
+                    <xsdxt:code href="../common/samples/roles.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/roles.json"/>
+                    <xsdxt:code href="../common/samples/roles.json"/>
                 </doc>
             </representation>
         </response>
@@ -596,25 +596,25 @@
         <request>
             <representation mediaType="application/xml" element="identity:role">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/role.xml"/>
+                    <xsdxt:code href="../common/samples/role.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/role.json"/>
+                    <xsdxt:code href="../common/samples/role.json"/>
                 </doc>
             </representation>
         </request>
         <response status="201">
             <representation mediaType="application/xml" element="identity:role">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/role.xml"/>
+                    <xsdxt:code href="../common/samples/role.xml"/>
                 </doc>
                 <param name="Location" type="xsd:anyURI" style="header"/>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/role.json"/>
+                    <xsdxt:code href="../common/samples/role.json"/>
                 </doc>
                 <param name="Location" type="xsd:anyURI" style="header"/>
             </representation>
@@ -634,13 +634,13 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:role">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/role.xml"/>
+                    <xsdxt:code href="../common/samples/role.xml"/>
                 </doc>
                 <param name="Location" type="xsd:anyURI" style="header"/>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/role.json"/>
+                    <xsdxt:code href="../common/samples/role.json"/>
                 </doc>
                 <param name="Location" type="xsd:anyURI" style="header"/>
             </representation>
@@ -658,13 +658,13 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:role">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/role.xml"/>
+                    <xsdxt:code href="../common/samples/role.xml"/>
                 </doc>
                 <param name="Location" type="xsd:anyURI" style="header"/>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/role.json"/>
+                    <xsdxt:code href="../common/samples/role.json"/>
                 </doc>
                 <param name="Location" type="xsd:anyURI" style="header"/>
             </representation>
@@ -695,12 +695,12 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="OS-KSADM:services">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/services.xml"/>
+                    <xsdxt:code href="../common/samples/services.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/services.json"/>
+                    <xsdxt:code href="../common/samples/services.json"/>
                 </doc>
             </representation>
         </response>
@@ -717,12 +717,12 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="OS-KSADM:service">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/service.xml"/>
+                    <xsdxt:code href="../common/samples/service.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/service.json"/>
+                    <xsdxt:code href="../common/samples/service.json"/>
                 </doc>
             </representation>
         </response>
@@ -736,12 +736,12 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="OS-KSADM:service">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/service.xml"/>
+                    <xsdxt:code href="../common/samples/service.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/service.json"/>
+                    <xsdxt:code href="../common/samples/service.json"/>
                 </doc>
             </representation>
         </response>
@@ -755,25 +755,25 @@
         <request>
             <representation mediaType="application/xml" element="OS-KSADM:service">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/service.xml"/>
+                    <xsdxt:code href="../common/samples/service.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/service.json"/>
+                    <xsdxt:code href="../common/samples/service.json"/>
                 </doc>
             </representation>
         </request>
         <response status="201">
             <representation mediaType="application/xml" element="OS-KSADM:service">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/service.xml"/>
+                    <xsdxt:code href="../common/samples/service.xml"/>
                 </doc>
                 <param name="Location" type="xsd:anyURI" style="header"/>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/service.json"/>
+                    <xsdxt:code href="../common/samples/service.json"/>
                 </doc>
                 <param name="Location" type="xsd:anyURI" style="header"/>
             </representation>

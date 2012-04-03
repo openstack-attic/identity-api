@@ -8,7 +8,7 @@
 <!-- xmllint -noent RAX-KSQA-admin.wadl -->
 <!--*******************************************************-->
 <!DOCTYPE application [
-<!ENTITY % common SYSTEM "common.ent">
+<!ENTITY % common SYSTEM "../common/common.ent">
 %common;
 ]>
 <application xmlns="http://wadl.dev.java.net/2009/02"
@@ -60,12 +60,12 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="RAX-KSQA:secretQA">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/RAX-KSQA-secretQA.xml"/>
+                    <xsdxt:code href="../common/samples/RAX-KSQA-secretQA.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/RAX-KSQA-secretQA.json"/>
+                    <xsdxt:code href="../common/samples/RAX-KSQA-secretQA.json"/>
                 </doc>
             </representation>
         </response>
@@ -79,24 +79,24 @@
         <request>
             <representation mediaType="application/xml" element="RAX-KSQA:secretQA">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/RAX-KSQA-secretQA.xml"/>
+                    <xsdxt:code href="../common/samples/RAX-KSQA-secretQA.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/RAX-KSQA-secretQA.json"/>
+                    <xsdxt:code href="../common/samples/RAX-KSQA-secretQA.json"/>
                 </doc>
             </representation>
         </request>
         <response status="200">
             <representation mediaType="application/xml" element="RAX-KSQA:secretQA">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/RAX-KSQA-secretQA.xml"/>
+                    <xsdxt:code href="../common/samples/RAX-KSQA-secretQA.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="samples/RAX-KSQA-secretQA.json"/>
+                    <xsdxt:code href="../common/samples/RAX-KSQA-secretQA.json"/>
                 </doc>
             </representation>
         </response>

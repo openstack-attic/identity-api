@@ -8,7 +8,7 @@
 <!--        xmllint -noent RAX-KSKEY-admin.wadl             -->
 <!--*******************************************************-->
 <!DOCTYPE application [
-<!ENTITY % common  SYSTEM "common.ent">
+<!ENTITY % common  SYSTEM "../common/common.ent">
 %common;
 ]>
 
@@ -71,24 +71,24 @@
         <request>
             <representation mediaType="application/xml" element="RAX-KSKEY:apiKeyCredentials">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/apiKeyCredentials.xml"/>
+               <xsdxt:code href="../common/samples/apiKeyCredentials.xml"/>
             </doc>
          </representation>
             <representation mediaType="application/json">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/apiKeyCredentials.json"/>
+               <xsdxt:code href="../common/samples/apiKeyCredentials.json"/>
             </doc>
          </representation>
         </request>
         <response status="201">
             <representation mediaType="application/xml" element="RAX-KSKEY:apiKeyCredentials">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/apiKeyCredentials.xml"/>
+               <xsdxt:code href="../common/samples/apiKeyCredentials.xml"/>
             </doc>
          </representation>
             <representation mediaType="application/json">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/apiKeyCredentials.json"/>
+               <xsdxt:code href="../common/samples/apiKeyCredentials.json"/>
             </doc>
          </representation>
         </response>
@@ -108,12 +108,12 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:credentials">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/credentialswithapikey.xml"/>
+               <xsdxt:code href="../common/samples/credentialswithapikey.xml"/>
             </doc>
          </representation>
             <representation mediaType="application/json">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/credentialswithapikey.json"/>
+               <xsdxt:code href="../common/samples/credentialswithapikey.json"/>
             </doc>
          </representation>
         </response>
@@ -133,12 +133,12 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="identity:credentials">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/credentials.xml"/>
+               <xsdxt:code href="../common/samples/credentials.xml"/>
             </doc>
          </representation>
             <representation mediaType="application/json">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/credentials.json"/>
+               <xsdxt:code href="../common/samples/credentials.json"/>
             </doc>
          </representation>
         </response>
@@ -153,24 +153,24 @@
         <request>
             <representation mediaType="application/xml" element="RAX-KSKEY:apiKeyCredentials">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/apiKeyCredentials.xml"/>
+               <xsdxt:code href="../common/samples/apiKeyCredentials.xml"/>
             </doc>
          </representation>
             <representation mediaType="application/json">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/apiKeyCredentials.json"/>
+               <xsdxt:code href="../common/samples/apiKeyCredentials.json"/>
             </doc>
          </representation>
         </request>
         <response status="200">
             <representation mediaType="application/xml" element="RAX-KSKEY:apiKeyCredentials">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/apiKeyCredentials.xml"/>
+               <xsdxt:code href="../common/samples/apiKeyCredentials.xml"/>
             </doc>
          </representation>
             <representation mediaType="application/json">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/apiKeyCredentials.json"/>
+               <xsdxt:code href="../common/samples/apiKeyCredentials.json"/>
             </doc>
          </representation>
         </response>
@@ -196,12 +196,12 @@
         <response status="200 203">
             <representation mediaType="application/xml" element="RAX-KSKEY:apiKeyCredentials">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/apiKeyCredentials.xml"/>
+               <xsdxt:code href="../common/samples/apiKeyCredentials.xml"/>
             </doc>
          </representation>
             <representation mediaType="application/json">
             <doc xml:lang="EN">
-               <xsdxt:code href="samples/apiKeyCredentials.json"/>
+               <xsdxt:code href="../common/samples/apiKeyCredentials.json"/>
             </doc>
          </representation>
         </response>
