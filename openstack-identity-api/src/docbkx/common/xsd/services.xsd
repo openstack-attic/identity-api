@@ -97,7 +97,7 @@
             </xsd:documentation>
         </annotation>
         <restriction base="xsd:string">
-            <pattern value="(\w|-)+:\w+"/>
+            <pattern value="(\w|-)+:(\w|-)+"/>
         </restriction>
     </simpleType>
 </schema>
