@@ -1,0 +1,9 @@
+Verified+1: Jenkins
+Code-Review+2: Dolph Mathews <dolph.mathews@gmail.com>
+Approved+1: Joe Savak <joe.savak@rackspace.com>
+Code-Review+2: Joe Savak <joe.savak@rackspace.com>
+Submitted-by: Jenkins
+Submitted-at: Wed, 04 Apr 2012 15:25:29 +0000
+Reviewed-on: https://review.openstack.org/6117
+Project: openstack/identity-api
+Branch: refs/heads/master
