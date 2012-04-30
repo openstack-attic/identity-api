@@ -54,7 +54,7 @@
             </xsd:appinfo>
         </annotation>
         <sequence>
-            <element name="tenant" type="identity:TenantForAuthenticateResponse" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="tenant" type="identity:TenantForAuthenticateResponse"/>
             <any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
         </sequence>
         <attribute name="id" type="xsd:string" use="required"/>
