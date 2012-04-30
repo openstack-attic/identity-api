@@ -1,0 +1,10 @@
+Change-Id: Ie2b4ad9f5c7b0c937bfe068fb854516364dfe1a7
+Verified+1: Jenkins
+Approved+1: Joe Savak <joe.savak@rackspace.com>
+Code-Review+2: Joe Savak <joe.savak@rackspace.com>
+Code-Review+1: Carlos Marin <carlos.marin@rackspace.com>
+Submitted-by: Jenkins
+Submitted-at: Mon, 30 Apr 2012 20:19:15 +0000
+Reviewed-on: https://review.openstack.org/6940
+Project: openstack/identity-api
+Branch: refs/heads/master
