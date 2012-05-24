@@ -1,6 +1,6 @@
 {
     "user":{
-        "roles":[{
+        "OS-ROLE:roles":[{
                 "tenantId":"1234",
                 "id":"Admin"
             },
@@ -9,7 +9,7 @@
                 "id":"DBUser"
             }
         ],
-        "roles_links":[{
+        "OS-ROLE:roles_links":[{
                 "rel":"next",
                 "href":"http://identity.api.openstack.org/v2.0/tenants/1234/users/u1000/roles?marker=Super"
             }

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--*******************************************************-->
+<!--         Import Common XML Entities                    -->
+<!--                                                       -->
+<!--     You can resolve the entites with xmllint          -->
+<!--                                                       -->
+<!--        xmllint -noent RAX-GRPADM.wadl           -->
+<!--*******************************************************-->
+<!DOCTYPE application [
+<!ENTITY % common  SYSTEM "../../common/common.ent">
+    %common;
+]>
+
+<application xmlns="http://wadl.dev.java.net/2009/02"
+   xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+   xmlns:grp="http://docs.rackspace.com/identity/api/ext/RAX-KSGRP/v1.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:db="http://docbook.org/ns/docbook"
+   xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0">
+
+    <grammars>
+        <include href="../../common/xsd/api.xsd"/>
+    </grammars>
+
+    <resources base="http://localhost:35357">
+        <resource id="version" path="v2.0">
+            <resource id="RAX-GRPADM" path="RAX-GRPADM">
+                <resource id="groups" path="groups" type="#GroupList">
+                    <param name="X-Auth-Token" style="header" type="xsd:string" required="true">
+                        <doc xml:lang="EN" title="Auth Token">
+                            <db:para>
+                                A valid authentication token.
+                            </db:para>
+                        </doc>
+                    </param>
+                    <method href="#addGroup"/>
+                    <resource id="group" path="{groupId}">
+                        <param name="groupId" style="template" type="xsd:string">
+                            <doc xml:lang="EN" title="GroupId">
+                                <db:para>
+                                    A unique identifier for the group.
+                                </db:para>
+                            </doc>
+                        </param>
+                        <method href="#getGroup"/>
+                        <method href="#updateGroup"/>
+                        <method href="#deleteGroup"/>
+                        <resource id="users" path="users" type="#UserList">
+                            <resource id="user" path="{userId}">
+                                <param name="userId" style="template" type="xsd:string">
+                                    <doc xml:lang="EN" title="GroupId">
+                                        <db:para>
+                                            A unique identifier for the user.
+                                        </db:para>
+                                    </doc>
+                                </param>
+                                <method href="#addUserToGroup"/>
+                                <method href="#removeUserFromGroup"/>
+                            </resource>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resource>
+    </resources>
+
+    <resource_type id="UserList">
+        <doc xml:lang="EN" title="Volume List">
+            <db:para>
+                A list of users.
+            </db:para>
+        </doc>
+        <method href="#getUsersForGroup"/>
+    </resource_type>
+
+    <resource_type id="GroupList">
+        <doc xml:lang="EN" title="Volume List">
+            <db:para>
+                A list of groups.
+            </db:para>
+        </doc>
+        <method href="#listGroups"/>
+    </resource_type>
+
+    <!-- Methods -->
+    <method id="listGroups"  name="GET">
+        <doc xml:lang="EN" title="Get Groups">
+            <db:para role="shortdesc">
+                List of groups.
+            </db:para>
+            <db:para>
+                Displays a list of available groups.  You can use the
+                <db:parameter>name</db:parameter> to display only
+                those groups matching a particular name.
+            </db:para>
+        </doc>
+        <request>
+            <param name="marker" style="query" required="false" type="xsd:string"/>
+            <param name="limit"  style="query" required="false" type="xsd:int"/>
+            <param name="name"  style="query" required="false" type="xsd:string"/>
+        </request>
+        <response status="200 203">
+            <representation mediaType="application/xml" element="grp:groups">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/groups.xml"/>
+                </doc>
+                <param name="next" style="plain" type="xsd:anyURI"
+                       path="/grp:groups/atom:link[@rel='next']/@href">
+                    <link resource_type="#GroupList" rel="next"/>
+                </param>
+                <param name="previous" style="plain" type="xsd:anyURI"
+                       path="/grp:groups/atom:link[@rel='previous']/@href">
+                    <link resource_type="#GroupList" rel="previous"/>
+                </param>
+            </representation>
+            <representation mediaType="application/json">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/groups.json"/>
+                </doc>
+            </representation>
+        </response>
+        <!-- commonFaults -->
+        &commonFaults;
+    </method>
+    <method id="addGroup"    name="POST">
+        <doc xml:lang="EN" title="Add a New Group">
+            <db:para role="shortdesc">
+                Add a new group.
+            </db:para>
+        </doc>
+        <request>
+            <representation mediaType="application/xml" element="grp:group">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/group-for-create.xml" />
+                </doc>
+                <param name="group" style="plain" required="true"
+                    type="grp:GroupForCreate"
+                    path="/grp:group"/>
+            </representation>
+            <representation mediaType="application/json">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/group-for-create.json" />
+                </doc>
+            </representation>
+        </request>
+        <response status="201">
+            <param name="Location" style="header"
+                required="true" type="xsd:anyURI">
+                <doc xml:lang="EN" title="Location Header">
+                    <db:para>
+                        The full URL to the newly created group is
+                        returned via the <db:code>Loctaton</db:code>
+                        header.
+                    </db:para>
+                </doc>
+            </param>
+            <representation mediaType="application/xml" element="grp:group">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/group.xml" />
+                </doc>
+            </representation>
+            <representation mediaType="application/json">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/group.json" />
+                </doc>
+            </representation>
+        </response>
+        &commonFaults;
+        &getFaults;
+        &postPutFaults;
+    </method>
+    <method id="getGroup"    name="GET">
+        <doc xml:lang="EN" title="Get Group">
+            <db:para role="shortdesc">
+                Get group by id.
+            </db:para>
+        </doc>
+        <response status="200 203">
+            <representation mediaType="application/xml" element="grp:group">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/group.xml"/>
+                </doc>
+            </representation>
+            <representation mediaType="application/json">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/group.json"/>
+                </doc>
+            </representation>
+        </response>
+        <!-- Common, GET -->
+        &commonFaults;
+        &getFaults;
+    </method>
+    <method id="updateGroup"    name="PUT">
+        <doc xml:lang="EN" title="Update a Group">
+            <db:para role="shortdesc">
+                Update a group.
+            </db:para>
+        </doc>
+        <request>
+            <representation mediaType="application/xml" element="grp:group">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/group-for-update.xml" />
+                </doc>
+                <param name="group" style="plain" required="true"
+                    type="grp:GroupForUpdate"
+                    path="/grp:group"/>
+            </representation>
+            <representation mediaType="application/json">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/group-for-update.json" />
+                </doc>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml" element="grp:group">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/group-updated.xml" />
+                </doc>
+            </representation>
+            <representation mediaType="application/json">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/group-updated.json" />
+                </doc>
+            </representation>
+        </response>
+        &commonFaults;
+        &getFaults;
+        &postPutFaults;
+    </method>
+    <method id="deleteGroup" name="DELETE">
+        <doc xml:lang="EN" title="Delete Group">
+            <db:para role="shortdesc">
+                Delete a group.
+            </db:para>
+        </doc>
+        <response status="204"/>
+        <!-- Common, GET -->
+        &commonFaults;
+        &getFaults;
+    </method>
+    <method id="getUsersForGroup" name="GET">
+        <doc xml:lang="EN" title="Get Users For Group">
+            <db:para role="shortdesc">
+                List users for group.
+            </db:para>
+            <db:para>
+                A list of users belonging to a particular group.
+            </db:para>
+        </doc>
+        <request>
+            <param name="marker" style="query" required="false" type="xsd:string"/>
+            <param name="limit"  style="query" required="false" type="xsd:int"/>
+        </request>
+        <response status="200 203">
+            <representation mediaType="application/xml" element="identity:users">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/users.xml"/>
+                </doc>
+                <param name="next" style="plain" type="xsd:anyURI"
+                       path="/identity:users/atom:link[@rel='next']/@href">
+                    <link resource_type="#UserList" rel="next"/>
+                </param>
+                <param name="previous" style="plain" type="xsd:anyURI"
+                       path="/identity:users/atom:link[@rel='previous']/@href">
+                    <link resource_type="#UserList" rel="previous"/>
+                </param>
+            </representation>
+            <representation mediaType="application/json">
+                <doc xml:lang="EN">
+                    <xsdxt:code href="samples/users.json"/>
+                </doc>
+            </representation>
+        </response>
+        <!-- commonFaults -->
+        &commonFaults;
+    </method>
+    <method id="addUserToGroup" name="PUT">
+        <doc xml:lang="EN" title="Add User to Group">
+            <db:para role="shortdesc">
+                Add a user to the group.
+            </db:para>
+        </doc>
+        <response status="204"/>
+        <!-- Common, GET -->
+        &commonFaults;
+        &getFaults;
+    </method>
+    <method id="removeUserFromGroup" name="DELETE">
+        <doc xml:lang="EN" title="Remove User From Group">
+            <db:para role="shortdesc">
+                Remove a user to the group.
+            </db:para>
+        </doc>
+        <response status="204"/>
+        <!-- Common, GET -->
+        &commonFaults;
+        &getFaults;
+    </method>
+</application>
