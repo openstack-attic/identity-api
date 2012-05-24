@@ -84,7 +84,7 @@
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        
+
         <xs:attribute name="href" use="required" type="xs:anyURI">
             <xs:annotation>
                 <xs:documentation>

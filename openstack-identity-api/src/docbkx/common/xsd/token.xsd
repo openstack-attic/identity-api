@@ -14,17 +14,17 @@
     xmlns:atom="http://www.w3.org/2005/Atom"
     targetNamespace="http://docs.openstack.org/identity/api/v2.0"
 >
- 
+
     <include schemaLocation="roles.xsd"/>
     <include schemaLocation="services.xsd"/>
-       
+
     <!-- Import ATOM specific schema definitions -->
     <import vc:minVersion="1.1" namespace="http://www.w3.org/2005/Atom"
         schemaLocation="atom/atom.xsd" />
-    
+
     <!-- Elements -->
     <element name="access" type="identity:AuthenticateResponse"/>
-    
+
     <!-- Complex Types -->
     <complexType name="Token">
         <annotation>
@@ -81,13 +81,13 @@
         <attribute name="name" type="xsd:string"/>
         <anyAttribute namespace="##other" processContents="lax"/>
     </complexType>
-    
+
     <complexType name="TenantForAuthenticateResponse">
         <attribute name="id" type="xsd:string"/>
         <attribute name="name" type="xsd:string"/>
         <anyAttribute namespace="##other" processContents="lax"/>
     </complexType>
-    
+
     <complexType name="ServiceCatalog">
         <annotation>
             <xsd:documentation xml:lang="EN" xmlns="http://www.w3.org/1999/xhtml">
@@ -133,7 +133,7 @@
         </sequence>
         <anyAttribute namespace="##other" processContents="lax"/>
     </complexType>
-    
+
     <complexType name="ServiceForCatalog">
         <sequence>
             <element name="endpoint" type="identity:EndpointForService" minOccurs="1" maxOccurs="unbounded">
@@ -174,7 +174,7 @@
         </attribute>
         <anyAttribute namespace="##other" processContents="lax"/>
     </complexType>
-    
+
     <!--EndpointForService-->
     <complexType name="EndpointForService">
         <sequence>
@@ -187,7 +187,7 @@
                             Version details.
                         </p>
                     </xsd:documentation>
-                </annotation>               
+                </annotation>
             </element>
             <element vc:minVersion="1.1" ref="atom:link" minOccurs="0" maxOccurs="unbounded" />
             <any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
@@ -256,7 +256,7 @@
         </attribute>
         <anyAttribute namespace="##other" processContents="lax"/>
     </complexType>
-    
+
     <!-- VersionForService -->
     <complexType name="VersionForService">
         <attribute name="id" type="xsd:string" use="required">
@@ -295,4 +295,3 @@
         <anyAttribute namespace="##other" processContents="lax"/>
     </complexType>
 </schema>
-

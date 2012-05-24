@@ -2,7 +2,6 @@
 
 <!-- (C) 2009 Rackspace Hosting, All Rights Reserved -->
 
-
 <xslt:stylesheet version="1.0"
             xmlns:xslt="http://www.w3.org/1999/XSL/Transform"
             xmlns:html="http://www.w3.org/1999/xhtml"
@@ -282,7 +281,6 @@
                   </xslt:choose>
                 </xslt:for-each>
               </div>
-
 
               <!--
                   Namespace info, not all borowsers have namespace node

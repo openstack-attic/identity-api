@@ -54,11 +54,11 @@
                             Version details.
                         </p>
                     </xsd:documentation>
-                </annotation>               
+                </annotation>
             </element>
             <element vc:minVersion="1.1" ref="atom:link" minOccurs="0" maxOccurs="unbounded" />
             <any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
-        </sequence>        
+        </sequence>
         <attribute name="id" type="xsd:int" use="required">
             <annotation>
                 <xsd:documentation
@@ -146,7 +146,7 @@
                     </p>
                 </xsd:documentation>
             </annotation>
-        </attribute>        
+        </attribute>
         <anyAttribute namespace="##other" processContents="lax"/>
     </complexType>
     <complexType name="EndpointList">
