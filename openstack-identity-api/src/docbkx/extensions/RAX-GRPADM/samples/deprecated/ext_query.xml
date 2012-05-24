@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<extensions xmlns="http://docs.openstack.org/common/api/v1.0"
+            xmlns:atom="http://www.w3.org/2005/Atom">
+    <extension name="Group Admin Extension"
+               namespace="http://docs.rackspace.com/identity/api/ext/RAX-KSGRP/v1.0"
+               alias="RAX-GRPADM" updated="2011-01-23T10:40:00-04:00">
+        <description>
+            Allows the management of groups in the identity server.
+        </description>
+        <atom:link rel="describedby" type="application/pdf"
+                   href="http://docs.rackspacecloud.com/identity/api/ext/rax-grpadm/RAX-GRPADM.pdf"/>
+        <atom:link rel="describedby" type="application/xml"
+                   href="http://docs.rackspacecloud.com/identity/api/ext/rax-grpadm/RAX-GRPADM.wadl"/>
+    </extension>
+</extensions>

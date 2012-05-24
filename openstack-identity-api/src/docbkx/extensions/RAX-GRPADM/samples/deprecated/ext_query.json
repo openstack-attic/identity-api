@@ -1,0 +1,23 @@
+{
+    "extensions": [
+        {
+            "name": "Group Admin Extension",
+            "namespace": "http://docs.rackspace.com/identity/api/ext/RAX-KSGRP/v1.0",
+            "alias": "RAX-GRPADM",
+            "updated": "2011-01-23T10:40:00-04:00",
+            "description": "Allows the management of groups in the identity server.",
+            "links": [
+                {
+                    "rel": "describedby",
+                    "type": "application/pdf",
+                    "href": "http://docs.rackspacecloud.com/identity/api/ext/rax-grpadm/RAX-GRPADM.pdf"
+                },
+                {
+                    "rel": "describedby",
+                    "type": "application/xml",
+                    "href": "http://docs.rackspacecloud.com/identity/api/ext/rax-grpadm/RAX-GRPADM.wadl"
+                }
+            ]
+        }
+    ]
+}

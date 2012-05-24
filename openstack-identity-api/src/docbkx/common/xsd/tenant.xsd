@@ -39,7 +39,7 @@
               </xsdxt:samples>
             </xsd:appinfo>
         </annotation>
-    </element>  
+    </element>
     <element name="tenants" type="identity:Tenants">
        <annotation>
             <xsd:documentation
@@ -50,7 +50,7 @@
                 </p>
             </xsd:documentation>
         </annotation>
-    </element>  
+    </element>
 
     <!-- Complex Types -->
     <complexType name="Tenants">
@@ -77,7 +77,7 @@
             </element>
             <any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
         </sequence>
-        <attribute name="id" type="xsd:ID" use="optional">
+        <attribute name="id" type="xsd:string" use="optional">
             <annotation>
                 <xsd:documentation
                     xml:lang="EN"

@@ -95,7 +95,7 @@
         </xs:annotation>
     </xs:element>
 
-    <xs:element name="version2" type="vers:VersionChoiceRoot" vc:minVersion="1.1">
+    <xs:element name="version" type="vers:VersionChoiceRoot" vc:minVersion="1.1">
         <xs:annotation>
             <xs:documentation
                 xml:lang="EN"
@@ -209,8 +209,7 @@
             <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
         <xs:anyAttribute namespace="##other" processContents="lax"/>
-        <!--TODO(Ziad)resolve assert issue
-            <xs:assert vc:minVersion="1.1" test="every $v in vers:version satisfies $v/atom:link[@rel='self']">
+        <xs:assert vc:minVersion="1.1" test="every $v in vers:version satisfies $v/atom:link[@rel='self']">
             <xs:annotation>
                 <xs:documentation>
                     <html:p>
@@ -219,14 +218,13 @@
                     </html:p>
                 </xs:documentation>
             </xs:annotation>
-        </xs:assert>-->
+        </xs:assert>
     </xs:complexType>
 
     <xs:complexType name="VersionChoiceRoot" vc:minVersion="1.1">
         <xs:complexContent>
             <xs:extension base="vers:VersionChoice">
-                <!--TODO(Ziad)resolve asser issue
-                    <xs:assert test="atom:link[@rel='describedby']">
+                <xs:assert test="atom:link[@rel='describedby']">
                     <xs:annotation>
                         <xs:documentation>
                             <html:p>
@@ -235,7 +233,7 @@
                             </html:p>
                         </xs:documentation>
                     </xs:annotation>
-                </xs:assert>-->
+                </xs:assert>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
@@ -253,7 +251,7 @@
 
         <xs:sequence>
             <xs:element name="media-types" type="vers:MediaTypeList" minOccurs="0" maxOccurs="1" />
-            <!--<xs:element vc:minVersion="1.1" ref="atom:link" minOccurs="0" maxOccurs="unbounded" />-->
+            <xs:element vc:minVersion="1.1" ref="atom:link" minOccurs="0" maxOccurs="unbounded" />
             <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
 

@@ -83,6 +83,28 @@
                     </xsd:documentation>
                 </annotation>
             </enumeration>
+            <enumeration value="volume">
+                <annotation>
+                    <xsd:documentation
+                        xml:lang="EN"
+                        xmlns="http://www.w3.org/1999/xhtml">
+                        <p>
+                            The type for a Block-Storage-compatible service.
+                        </p>
+                    </xsd:documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="ec2">
+                <annotation>
+                    <xsd:documentation
+                        xml:lang="EN"
+                        xmlns="http://www.w3.org/1999/xhtml">
+                        <p>
+                            The type for Amazon's EC2-compatible service.
+                        </p>
+                    </xsd:documentation>
+                </annotation>
+            </enumeration>
         </restriction>
     </simpleType>
 

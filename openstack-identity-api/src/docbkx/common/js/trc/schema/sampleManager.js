@@ -265,7 +265,6 @@ trc.schema.sampleManager = {
         return pre.firstChild.nodeValue;
     },
 
-
     //
     // Normalizes text by ensuring that top, bottom, right indent
     // levels are equal for all samples.
