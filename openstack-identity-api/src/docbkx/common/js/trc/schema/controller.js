@@ -12,7 +12,6 @@
    in the schema.
  **/
 
-
 //
 // Initialization code...
 //
@@ -40,7 +39,6 @@
 
      trc.util.yui.loadYUIDeps (["menu"], InitController);
  })();
-
 
 if (!trc.schema)
 {

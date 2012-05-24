@@ -35,7 +35,7 @@
             <term>Authentication</term>
             <listitem><para>
                 In the context of Keystone, authentication is the act of confirming the identity of a
-                user or the truth of a claim. 
+                user or the truth of a claim.
                 Keystone will confirm that incoming request are being made by the user
                 who claims to be making the call by validating a set of claims that the user is making.
                 These claims are initially in the form of a set of credentials (username &amp; password,
@@ -78,7 +78,7 @@
         <varlistentry>
             <term>Endpoint</term>
             <listitem> <para>
-                An network-accessible address, usually described by URL, where a service may be accessed. If using an extension for templates, you can create an endpoint template, which represents the templates of all the consumable services that are available across the regions. 
+                An network-accessible address, usually described by URL, where a service may be accessed. If using an extension for templates, you can create an endpoint template, which represents the templates of all the consumable services that are available across the regions.
             </para></listitem>
         </varlistentry>
         <varlistentry>
@@ -87,13 +87,12 @@
                 A role includes a set of right and privileges. A user assuming that role inherits
                 those rights and privileges.
             </para><para>
-                In Keystone, a token that is issued to a user includes the list of roles that user 
+                In Keystone, a token that is issued to a user includes the list of roles that user
                 can assume. Services that are being called by that user determine how they interpret the set
                 of roles a user has and which operations or resources each roles grants access to.
             </para></listitem>
         </varlistentry>
-        
+
     </variablelist>
-    
-    
+
 </chapter>

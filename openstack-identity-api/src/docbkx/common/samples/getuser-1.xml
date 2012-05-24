@@ -3,7 +3,7 @@
       xmlns:atom="http://www.w3.org/2005/Atom"
       enabled="true" email="john.smith@example.org"
       username="jqsmith" id="u1000">
-    <roles>
+    <roles xmlns="http://docs.openstack.org/identity/api/ext/role">
         <role tenantId="1234" id="Admin"/>
         <role tenantId="1234" id="DBUser"/>
         <atom:link
