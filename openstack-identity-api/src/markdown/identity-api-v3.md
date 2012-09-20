@@ -87,20 +87,46 @@ Resource attributes:
 - project_id (optional)
 - domain_id (optional)
 
-### Credentials
+### Credentials: `/v3/credentials`
 
-- arbitrary credentials associated with a user
-- a user may have 0 or more credentials associated
-- The type is a string, with the idea that an initially supported type will be
-  "ec2", but that more credentials could be supported in the future.
+Credentials represent arbitrary authentication credentials associated with a
+user. A user may have zero or more credentials, each optionally scoped to a
+specific project.
 
-Resource attributes:
+Required attributes:
 
-- id (globally unique - PRIMARY KEY/resource ID)
-- type (string) [ec2|access_key]
-- url (fully qualified resource URL)
-- project_id (optional)
-- data (blob of data)
+- `id` (string)
+  - Globally unique resource identifier. This attribute is provided by the
+    identity service implementation.
+- `url` (string)
+  - Fully qualified resource URL. This attribute is provided by the identity
+    service implementation.
+- `user_id` (string)
+  - References the user which owns the credential.
+- `type` (string)
+  - Representing the credential type, such as `ec2` or `cert`. A specific
+    implementation may determine the list of supported types.
+- `data` (blob)
+  - Arbitrary blob of the credential data, to be parsed according to the `type`.
+
+Optional attributes:
+
+- `project_id`
+  - References a project which limits the scope the credential applies to.
+
+Example entity:
+
+    {
+        "credential": {
+            "enabled": true,
+            "id": "80239a94c03146579a95bc0a11ca875c",
+            "project_id": "263fd959b3a842ff8a7fe3ee75ce16a3",
+            "type": "ec2",
+            "url": "http://identity:35357/v3/credentials/80239a94c03146579a95bc0a11ca875c",
+            "user_id": "0ca8f63cb66a4182b8a859893889e65c",
+            "data": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+        }
+    }
 
 ### Projects
 
