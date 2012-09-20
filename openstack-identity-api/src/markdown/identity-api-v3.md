@@ -1253,6 +1253,26 @@ Response:
         "type": "ec2"
     }
 
+#### Update credential: `PATCH /credentials/{credential_id}`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "data": {
+            "access": "...",
+            "secret": "..."
+        },
+        "id": "--credential-id--",
+        "link": {
+            "href": "http://identity:35357/v3/users/--user-id--/credentials/--credential-id--",
+            "rel": "self"
+        },
+        "project_id": "--project-id--",
+        "type": "ec2"
+    }
+
 #### Delete credential: `DELETE /users/{user_id}/credentials/{credential_id}`
 
 Response:
