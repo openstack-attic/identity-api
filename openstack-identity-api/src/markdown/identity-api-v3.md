@@ -282,33 +282,66 @@ to communicate with the Identity service itself.
 API Resources
 -------------
 
-### Users
+### Users: `/v3/users`
 
-- represent individual users
-- are associated with 0 or more projects (users are not exclusive to a project)
-- A user associated with no projects is useless from the perspective of
-  OpenStack and should not ever be authenticated to any resources. It is
-  allowed, however, to create a workflow means of acquiring or loading users
-  from other resources and mapping them to projects.
-- can be associated with one or more projects, and therefore can also be in one
-  or more domains, the association of the domain being strictly though the
-  projects that user is associated with.
-- project_id on a user resource represents a ‘default’ project, to be used with
-  authorization and validation calls later described in this API. If no
-  project_id is provided to these calls, the user’s "project_id" is used as a
-  default.
+User entities represent individual API consumers and are owned by a specific
+domain.
 
-Resource attributes:
+Role grants explicitly associate users with projects. Each user-project pair
+can have a unique set of roles granted on them. Granting a user a role on a
+domain effectively grants that role across all projects owned by that domain.
 
-- id (globally unique - PRIMARY KEY/resource ID)
-- name (globally unique)
-- url (fully qualified resource URL)
-- enabled (optional)
-- password (optional)
-- description (optional)
-- email (optional)
-- project_id (optional)
-- domain_id (optional)
+A user without any role grants (and therefore no project associations) is
+effectively useless from the perspective of an OpenStack service and should
+never have access to any resources. It is allowed, however, as a means of
+acquiring or loading users from external sources prior to mapping them to
+projects.
+
+Required attributes:
+
+- `id` (string)
+  - Globally unique resource identifier. This attribute is provided by the
+    identity service implementation.
+- `name` (string)
+  - Unique username (within the owning domain).
+- `url` (string)
+  - Fully qualified resource URL. This attribute is provided by the identity
+    service implementation.
+
+Optional attributes:
+
+- `domain_id` (string)
+  - References the domain which owns the user; if a domain is not specified by
+    the client, the Identity service implementation **must** automatically
+    assign one.
+- `project_id` (string)
+  - References the user's default project against which to authorize, if the
+    API user does not explicitly specify one. Setting this attribute does not
+    grant any actual authorization on the project, and is merely provided for
+    the user's convenience. Therefore, the referenced project does not need to
+    exist within the user's domain.
+- `description` (string)
+- `enabled` (boolean)
+  - Setting this value to `false` prevents the user from authenticating or
+    receiving authorization. Additionally, all pre-existing tokens held by the
+    user are immediately invalidated. Re-enabling a user does not re-enable
+    pre-existing tokens.
+- `password` (string)
+  - The default form of credential used during authentication.
+
+Example entity:
+
+    {
+        "user": {
+            "domain_id": "1789d19316a147bebf262b02637a9907",
+            "email": "joe@example.com",
+            "enabled": true,
+            "id": "0ca8f63cb66a4182b8a859893889e65c",
+            "name": "Joe",
+            "project_id": "263fd959b3a842ff8a7fe3ee75ce16a3",
+            "url": "http://identity:35357/v3/users/0ca8f63cb66a4182b8a859893889e65c"
+        }
+    }
 
 ### Credentials: `/v3/credentials`
 
