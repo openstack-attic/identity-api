@@ -66,6 +66,13 @@ where there is a clear hierarchy to be represented.
 This API uses the PATCH verb extensively, intended for that to be able to make
 "partial updates" to resource attributes.
 
+### Deployment
+
+TCP port 35357 is designated by the Internet Assigned Numbers Authority
+("IANA") for use by OpenStack Identity services. Example API requests &
+responses in this document therefore assume that the Identity service
+implementation is deployed at the root of `http://identity:35357/`.
+
 API Resources
 -------------
 
@@ -278,7 +285,7 @@ Request:
 Response:
 
     Status: 200
-    Location: https://identity:5000/v3/tokens/--token-id--
+    Location: https://identity:35357/v3/tokens/--token-id--
 
     {
         "project": {
@@ -519,7 +526,7 @@ Response:
         {
             "id": "--service-id--",
             "link": {
-                "href": "http://identity:5000/v3/services/--service-id--",
+                "href": "http://identity:35357/v3/services/--service-id--",
                 "rel": "self"
             },
             "type": "volume"
@@ -527,7 +534,7 @@ Response:
         {
             "id": "--service-id--",
             "link": {
-                "href": "http://identity:5000/v3/services/--service-id--",
+                "href": "http://identity:35357/v3/services/--service-id--",
                 "rel": "self"
             },
             "type": "identity"
@@ -544,7 +551,7 @@ Response:
     {
         "id": "--service-id--",
         "link": {
-            "href": "http://identity:5000/v3/services/--service-id--",
+            "href": "http://identity:35357/v3/services/--service-id--",
             "rel": "self"
         },
         "type": "volume"
@@ -561,7 +568,7 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: https://identity:5000/v3/services/--service-id--
+    Location: https://identity:35357/v3/services/--service-id--
 
     {
         "service": {
@@ -606,7 +613,7 @@ Response:
             "facing": "public",
             "id": "--endpoint-id--",
             "link": {
-                "href": "http://identity:5000/v3/services/--service-id--/endpoints/--endpoint-id--",
+                "href": "http://identity:35357/v3/services/--service-id--/endpoints/--endpoint-id--",
                 "rel": "self"
             },
             "name": "the public volume endpoint",
@@ -617,7 +624,7 @@ Response:
             "facing": "internal",
             "id": "--endpoint-id--",
             "link": {
-                "href": "http://identity:5000/v3/services/--service-id--/endpoints/--endpoint-id--",
+                "href": "http://identity:35357/v3/services/--service-id--/endpoints/--endpoint-id--",
                 "rel": "self"
             },
             "name": "the internal volume endpoint",
@@ -639,14 +646,14 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: https://identity:5000/v3/services/--service-id--/endpoints/--endpoint-id--
+    Location: https://identity:35357/v3/services/--service-id--/endpoints/--endpoint-id--
 
     {
         "extra": {},
         "facing": "internal",
         "id": "--endpoint-id--",
         "link": {
-            "href": "http://identity:5000/v3/services/--service-id--/endpoints/--endpoint-id--",
+            "href": "http://identity:35357/v3/services/--service-id--/endpoints/--endpoint-id--",
             "rel": "self"
         },
         "name": "the internal volume endpoint",
@@ -665,7 +672,7 @@ Response:
         "facing": "internal",
         "id": "--endpoint-id--",
         "link": {
-            "href": "http://identity:5000/v3/services/--service-id--/endpoints/--endpoint-id--",
+            "href": "http://identity:35357/v3/services/--service-id--/endpoints/--endpoint-id--",
             "rel": "self"
         },
         "name": "the internal volume endpoint",
@@ -702,14 +709,14 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: https://identity:5000/v3/domains/--domain-id--
+    Location: https://identity:35357/v3/domains/--domain-id--
 
     {
         "description": "desc of domain",
         "enabled": true,
         "id": "--domain-id--",
         "link": {
-            "href": "http://identity:5000/v3/domains/--domain-id--",
+            "href": "http://identity:35357/v3/domains/--domain-id--",
             "rel": "self"
         },
         "name": "my domain"
@@ -731,7 +738,7 @@ Response:
             "enabled": true,
             "id": "--domain-id--",
             "link": {
-                "href": "http://identity:5000/v3/domains/--domain-id--",
+                "href": "http://identity:35357/v3/domains/--domain-id--",
                 "rel": "self"
             },
             "name": "my domain"
@@ -741,7 +748,7 @@ Response:
             "enabled": true,
             "id": "--domain-id--",
             "link": {
-                "href": "http://identity:5000/v3/domains/--domain-id--",
+                "href": "http://identity:35357/v3/domains/--domain-id--",
                 "rel": "self"
             },
             "name": "another domain"
@@ -759,7 +766,7 @@ Response:
         "enabled": true,
         "id": "--domain-id--",
         "link": {
-            "href": "http://identity:5000/v3/domains/--domain-id--",
+            "href": "http://identity:35357/v3/domains/--domain-id--",
             "rel": "self"
         },
         "name": "my domain"
@@ -776,7 +783,7 @@ Response:
         "enabled": true,
         "id": "--domain-id--",
         "link": {
-            "href": "http://identity:5000/v3/domains/--domain-id--",
+            "href": "http://identity:35357/v3/domains/--domain-id--",
             "rel": "self"
         },
         "name": "my domain"
@@ -804,7 +811,7 @@ Response:
             "enabled": true,
             "id": "--project-id--",
             "link": {
-                "href": "http://identity:5000/v3/projects/--project-id--",
+                "href": "http://identity:35357/v3/projects/--project-id--",
                 "rel": "self"
             },
             "name": "a project name"
@@ -814,7 +821,7 @@ Response:
             "enabled": true,
             "id": "--domain-id--",
             "link": {
-                "href": "http://identity:5000/v3/projects/--project-id--",
+                "href": "http://identity:35357/v3/projects/--project-id--",
                 "rel": "self"
             },
             "name": "another domain"
@@ -838,7 +845,7 @@ Response:
             "enabled": true,
             "id": "--user-id--",
             "link": {
-                "href": "http://identity:5000/v3/users/--user-id--",
+                "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
             "name": "admin",
@@ -850,7 +857,7 @@ Response:
             "enabled": true,
             "id": "--user-id--",
             "link": {
-                "href": "http://identity:5000/v3/users/--user-id--",
+                "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
             "name": "someone",
@@ -874,14 +881,14 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: http://identity:5000/v3/projects/--project-id--
+    Location: http://identity:35357/v3/projects/--project-id--
 
     {
         "domain_id": "--domain-id--",
         "enabled": true,
         "id": "--project-id--",
         "link": {
-            "href": "http://identity:5000/v3/projects/--project-id--",
+            "href": "http://identity:35357/v3/projects/--project-id--",
             "rel": "self"
         },
         "name": "a project name"
@@ -903,7 +910,7 @@ Response:
             "enabled": true,
             "id": "--project-id--",
             "link": {
-                "href": "http://identity:5000/v3/projects/--project-id--",
+                "href": "http://identity:35357/v3/projects/--project-id--",
                 "rel": "self"
             },
             "name": "a project name"
@@ -913,7 +920,7 @@ Response:
             "enabled": true,
             "id": "--project-id--",
             "link": {
-                "href": "http://identity:5000/v3/projects/--project-id--",
+                "href": "http://identity:35357/v3/projects/--project-id--",
                 "rel": "self"
             },
             "name": "another domain"
@@ -931,7 +938,7 @@ Response:
         "enabled": true,
         "id": "--project-id--",
         "link": {
-            "href": "http://identity:5000/v3/projects/--project-id--",
+            "href": "http://identity:35357/v3/projects/--project-id--",
             "rel": "self"
         },
         "name": "a project name"
@@ -948,7 +955,7 @@ Response:
         "enabled": true,
         "id": "--project-id--",
         "link": {
-            "href": "http://identity:5000/v3/projects/--project-id--",
+            "href": "http://identity:35357/v3/projects/--project-id--",
             "rel": "self"
         },
         "name": "a project name"
@@ -975,7 +982,7 @@ Response:
             "enabled": true,
             "id": "--user-id--",
             "link": {
-                "href": "http://identity:5000/v3/users/--user-id--",
+                "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
             "name": "admin",
@@ -987,7 +994,7 @@ Response:
             "enabled": true,
             "id": "--user-id--",
             "link": {
-                "href": "http://identity:5000/v3/users/--user-id--",
+                "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
             "name": "someone",
@@ -1013,7 +1020,7 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: http://identity:5000/v3/users/--user-id--
+    Location: http://identity:35357/v3/users/--user-id--
 
     {
         "description": "a user",
@@ -1021,7 +1028,7 @@ Response:
         "enabled": true,
         "id": "--user-id--",
         "link": {
-            "href": "http://identity:5000/v3/users/--user-id--",
+            "href": "http://identity:35357/v3/users/--user-id--",
             "rel": "self"
         },
         "name": "admin",
@@ -1045,7 +1052,7 @@ Response:
             "enabled": true,
             "id": "--user-id--",
             "link": {
-                "href": "http://identity:5000/v3/users/--user-id--",
+                "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
             "name": "admin",
@@ -1057,7 +1064,7 @@ Response:
             "enabled": true,
             "id": "--user-id--",
             "link": {
-                "href": "http://identity:5000/v3/users/--user-id--",
+                "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
             "name": "someone",
@@ -1077,7 +1084,7 @@ Response:
         "enabled": true,
         "id": "--user-id--",
         "link": {
-            "href": "http://identity:5000/v3/users/--user-id--",
+            "href": "http://identity:35357/v3/users/--user-id--",
             "rel": "self"
         },
         "name": "admin",
@@ -1100,7 +1107,7 @@ Response:
             "enabled": true,
             "id": "--project-id--",
             "link": {
-                "href": "http://identity:5000/v3/projects/--project-id--",
+                "href": "http://identity:35357/v3/projects/--project-id--",
                 "rel": "self"
             },
             "name": "a project name"
@@ -1110,7 +1117,7 @@ Response:
             "enabled": true,
             "id": "--project-id--",
             "link": {
-                "href": "http://identity:5000/v3/projects/--project-id--",
+                "href": "http://identity:35357/v3/projects/--project-id--",
                 "rel": "self"
             },
             "name": "another domain"
@@ -1133,7 +1140,7 @@ Response:
         "enabled": true,
         "id": "--user-id--",
         "link": {
-            "href": "http://identity:5000/v3/users/--user-id--",
+            "href": "http://identity:35357/v3/users/--user-id--",
             "rel": "self"
         },
         "name": "admin",
@@ -1172,7 +1179,7 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: http://identity:5000/v3/users/--user-id--/credentials/--credential-id--
+    Location: http://identity:35357/v3/users/--user-id--/credentials/--credential-id--
 
     {
         "data": {
@@ -1181,7 +1188,7 @@ Response:
         },
         "id": "--credential-id--",
         "link": {
-            "href": "http://identity:5000/v3/users/--user-id--/credentials/--credential-id--",
+            "href": "http://identity:35357/v3/users/--user-id--/credentials/--credential-id--",
             "rel": "self"
         },
         "project_id": "--project-id--",
@@ -1205,7 +1212,7 @@ Response:
             },
             "id": "--credential-id--",
             "link": {
-                "href": "http://identity:5000/v3/users/--user-id--/credentials/--credential-id--",
+                "href": "http://identity:35357/v3/users/--user-id--/credentials/--credential-id--",
                 "rel": "self"
             },
             "project_id": "--project-id--",
@@ -1218,7 +1225,7 @@ Response:
             },
             "id": "--credential-id--",
             "link": {
-                "href": "http://identity:5000/v3/users/--user-id--/credentials/--credential-id--",
+                "href": "http://identity:35357/v3/users/--user-id--/credentials/--credential-id--",
                 "rel": "self"
             },
             "project_id": "--project-id--",
@@ -1239,7 +1246,7 @@ Response:
         },
         "id": "--credential-id--",
         "link": {
-            "href": "http://identity:5000/v3/users/--user-id--/credentials/--credential-id--",
+            "href": "http://identity:35357/v3/users/--user-id--/credentials/--credential-id--",
             "rel": "self"
         },
         "project_id": "--project-id--",
@@ -1270,12 +1277,12 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: http://identity:5000/v3/roles/--role-id--
+    Location: http://identity:35357/v3/roles/--role-id--
 
     {
         "id": "--role-id--",
         "link": {
-            "href": "http://identity:5000/v3/roles/--role-id--",
+            "href": "http://identity:35357/v3/roles/--role-id--",
             "rel": "self"
         },
         "name": "a role name"
@@ -1295,7 +1302,7 @@ Response:
         {
             "id": "--role-id--",
             "link": {
-                "href": "http://identity:5000/v3/roles/--role-id--",
+                "href": "http://identity:35357/v3/roles/--role-id--",
                 "rel": "self"
             },
             "name": "a role name"
@@ -1303,7 +1310,7 @@ Response:
         {
             "id": "--role-id--",
             "link": {
-                "href": "http://identity:5000/v3/roles/--role-id--",
+                "href": "http://identity:35357/v3/roles/--role-id--",
                 "rel": "self"
             },
             "name": "a role name"
@@ -1319,7 +1326,7 @@ Response:
     {
         "id": "--role-id--",
         "link": {
-            "href": "http://identity:5000/v3/roles/--roles-id--",
+            "href": "http://identity:35357/v3/roles/--roles-id--",
             "rel": "self"
         },
         "name": "a role name"
@@ -1334,7 +1341,7 @@ Response:
     {
         "id": "--role-id--",
         "link": {
-            "href": "http://identity:5000/v3/roles/--roles-id--",
+            "href": "http://identity:35357/v3/roles/--roles-id--",
             "rel": "self"
         },
         "name": "a role name"
@@ -1357,7 +1364,7 @@ Response:
             "enabled": true,
             "id": "--user-id--",
             "link": {
-                "href": "http://identity:5000/v3/users/--user-id--",
+                "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
             "name": "admin",
@@ -1369,7 +1376,7 @@ Response:
             "enabled": true,
             "id": "--user-id--",
             "link": {
-                "href": "http://identity:5000/v3/users/--user-id--",
+                "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
             "name": "someone",
@@ -1452,14 +1459,14 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: http://identity:5000/v3/policies/--policy-id--
+    Location: http://identity:35357/v3/policies/--policy-id--
 
     {
         "blob": "--serialized-blob--",
         "endpoint_id": "--endpoint-id--",
         "id": "--policy-id--",
         "link": {
-            "href": "http://identity:5000/v3/policies/--policy-id--",
+            "href": "http://identity:35357/v3/policies/--policy-id--",
             "rel": "self"
         },
         "type": "--serialization-mime-type--"
@@ -1481,7 +1488,7 @@ Response:
             "endpoint_id": "--endpoint-id--",
             "id": "--policy-id--",
             "link": {
-                "href": "http://identity:5000/v3/policies/--policy-id--",
+                "href": "http://identity:35357/v3/policies/--policy-id--",
                 "rel": "self"
             },
             "type": "--serialization-mime-type--"
@@ -1491,7 +1498,7 @@ Response:
             "endpoint_id": "--endpoint-id--",
             "id": "--policy-id--",
             "link": {
-                "href": "http://identity:5000/v3/policies/--policy-id--",
+                "href": "http://identity:35357/v3/policies/--policy-id--",
                 "rel": "self"
             },
             "type": "--serialization-mime-type--"
@@ -1509,7 +1516,7 @@ Response:
         "endpoint_id": "--endpoint-id--",
         "id": "--policy-id--",
         "link": {
-            "href": "http://identity:5000/v3/policies/--policy-id--",
+            "href": "http://identity:35357/v3/policies/--policy-id--",
             "rel": "self"
         },
         "type": "--serialization-mime-type--"
@@ -1526,7 +1533,7 @@ Response:
         "endpoint_id": "--endpoint-id--",
         "id": "--policy-id--",
         "link": {
-            "href": "http://identity:5000/v3/policies/--policy-id--",
+            "href": "http://identity:35357/v3/policies/--policy-id--",
             "rel": "self"
         },
         "type": "--serialization-mime-type--"
