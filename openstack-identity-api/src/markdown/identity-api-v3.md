@@ -118,18 +118,39 @@ Resource attributes:
 - url (fully qualified resource URL)
 - enabled (boolean: True or False)
 
-### Domains
+### Domains: `/v3/domains`
 
-- a collection of projects (no project may be in two domains at once)
-- roles may be granted to a user within a domain
+Domains represent collections of both projects and users.
 
-Resource attributes:
+Required attributes:
 
-- name (globally unique - PRIMARY KEY/resource ID)
-- description (user facing description)
-- id (globally unique)
-- url (fully qualified resource URL)
-- enabled (boolean: True or False)
+- `id` (string)
+  - Globally unique resource identifier. This attribute is provided by the
+    identity service implementation.
+- `name` (string)
+  - Globally unique name.
+- `url` (string)
+  - Fully qualified resource URL. This attribute is provided by the identity
+    service implementation.
+
+Optional attributes:
+
+- `description` (string)
+- `enabled` (boolean)
+  - Setting this value to `false` also disables all projects and users owned by
+    the domain, and therefore implies the same effects of disabling all of
+    those entities individually.
+
+Example entity:
+
+    {
+        "domain": {
+            "id": "1789d19316a147bebf262b02637a9907",
+            "name": "example.com",
+            "url": "http://identity:35357/v3/domains/1789d19316a147bebf262b02637a9907",
+            "enabled": true
+        }
+    }
 
 ### Roles
 
