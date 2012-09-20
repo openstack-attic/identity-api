@@ -163,7 +163,7 @@ Resource attributes:
 
 - an API endpoint for an OpenStack service
 - may have 0 or more policies associated with it
-- may have 0 or more endpoints associated with it (although a resource with 0
+- may have 0 or more endpoints associated with it (although a service with 0
   endpoints associated with it is useless in an OpenStack configuration)
 
 Resource attributes:
@@ -592,7 +592,7 @@ Response:
 
 #### Delete service: `DELETE /services/{service_id}`
 
-* Note: deleting an service when endpoints exist should either 1) delete all
+* Note: deleting a service when endpoints exist should either 1) delete all
   associated endpoints or 2) fail until endpoints are deleted
 
 Response:
@@ -601,7 +601,7 @@ Response:
 
 ### Endpoints
 
-#### List endpoints: `GET /services/{service_id}/endpoints`
+#### List endpoints: `GET /endpoints`
 
 Response:
 
@@ -613,7 +613,7 @@ Response:
             "facing": "public",
             "id": "--endpoint-id--",
             "link": {
-                "href": "http://identity:35357/v3/services/--service-id--/endpoints/--endpoint-id--",
+                "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
                 "rel": "self"
             },
             "name": "the public volume endpoint",
@@ -624,7 +624,7 @@ Response:
             "facing": "internal",
             "id": "--endpoint-id--",
             "link": {
-                "href": "http://identity:35357/v3/services/--service-id--/endpoints/--endpoint-id--",
+                "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
                 "rel": "self"
             },
             "name": "the internal volume endpoint",
@@ -632,7 +632,7 @@ Response:
         }
     ]
 
-#### Create endpoint: `POST /services/{service_id}/endpoints`
+#### Create endpoint: `POST /endpoints`
 
 Request:
 
@@ -646,14 +646,14 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: https://identity:35357/v3/services/--service-id--/endpoints/--endpoint-id--
+    Location: https://identity:35357/v3/endpoints/--endpoint-id--
 
     {
         "extra": {},
         "facing": "internal",
         "id": "--endpoint-id--",
         "link": {
-            "href": "http://identity:35357/v3/services/--service-id--/endpoints/--endpoint-id--",
+            "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
             "rel": "self"
         },
         "name": "the internal volume endpoint",
@@ -661,7 +661,7 @@ Response:
     }
 
 
-#### Update endpoint: `PATCH /services/{service_id}/endpoints/{endpoint_id}`
+#### Update endpoint: `PATCH /endpoints/{endpoint_id}`
 
 Response:
 
@@ -672,14 +672,14 @@ Response:
         "facing": "internal",
         "id": "--endpoint-id--",
         "link": {
-            "href": "http://identity:35357/v3/services/--service-id--/endpoints/--endpoint-id--",
+            "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
             "rel": "self"
         },
         "name": "the internal volume endpoint",
         "service_id": "--service-id--"
     }
 
-#### Delete endpoint: `DELETE /services/{service_id}/endpoints/{endpoint_id}`
+#### Delete endpoint: `DELETE /endpoints/{endpoint_id}`
 
 Response:
 
@@ -1159,7 +1159,7 @@ The key use cases we need to cover:
 
 - CRUD on a credential
 
-#### Create credential: `POST /users/{user_id}/credentials`
+#### Create credential: `POST /credentials`
 
 This example shows creating an EC2 style credential where the credentials are a
 combination of access_key and secret. Other credentials (such as access_key)
@@ -1179,7 +1179,7 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: http://identity:35357/v3/users/--user-id--/credentials/--credential-id--
+    Location: http://identity:35357/v3/credentials/--credential-id--
 
     {
         "data": {
@@ -1188,14 +1188,14 @@ Response:
         },
         "id": "--credential-id--",
         "link": {
-            "href": "http://identity:35357/v3/users/--user-id--/credentials/--credential-id--",
+            "href": "http://identity:35357/v3/credentials/--credential-id--",
             "rel": "self"
         },
         "project_id": "--project-id--",
         "type": "ec2"
     }
 
-#### Get credentials: `GET /users/{user_id}/credentials`
+#### Get credentials: `GET /credentials`
 
 query_string: page (optional)
 query_string: per_page (optional, default 30)
@@ -1212,7 +1212,7 @@ Response:
             },
             "id": "--credential-id--",
             "link": {
-                "href": "http://identity:35357/v3/users/--user-id--/credentials/--credential-id--",
+                "href": "http://identity:35357/v3/credentials/--credential-id--",
                 "rel": "self"
             },
             "project_id": "--project-id--",
@@ -1225,7 +1225,7 @@ Response:
             },
             "id": "--credential-id--",
             "link": {
-                "href": "http://identity:35357/v3/users/--user-id--/credentials/--credential-id--",
+                "href": "http://identity:35357/v3/credentials/--credential-id--",
                 "rel": "self"
             },
             "project_id": "--project-id--",
@@ -1233,7 +1233,7 @@ Response:
         }
     ]
 
-#### Get credential: `GET /users/{user_id}/credentials/{credential_id}`
+#### Get credential: `GET /credentials/{credential_id}`
 
 Response:
 
@@ -1246,14 +1246,14 @@ Response:
         },
         "id": "--credential-id--",
         "link": {
-            "href": "http://identity:35357/v3/users/--user-id--/credentials/--credential-id--",
+            "href": "http://identity:35357/v3/credentials/--credential-id--",
             "rel": "self"
         },
         "project_id": "--project-id--",
         "type": "ec2"
     }
 
-#### Delete credential: `DELETE /users/{user_id}/credentials/{credential_id}`
+#### Delete credential: `DELETE /credentials/{credential_id}`
 
 Response:
 
