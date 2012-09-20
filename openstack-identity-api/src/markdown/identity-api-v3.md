@@ -78,31 +78,49 @@ API Resources
 
 ### Users
 
-- represent individual users
-- are associated with 0 or more projects (users are not exclusive to a project)
-- A user associated with no projects is useless from the perspective of
-  OpenStack and should not ever be authenticated to any resources. It is
-  allowed, however, to create a workflow means of acquiring or loading users
-  from other resources and mapping them to projects.
-- can be associated with one or more projects, and therefore can also be in one
-  or more domains, the association of the domain being strictly though the
-  projects that user is associated with.
-- project_id on a user resource represents a ‘default’ project, to be used with
-  authorization and validation calls later described in this API. If no
-  project_id is provided to these calls, the user’s "project_id" is used as a
-  default.
+User entities represent individual API consumers and are owned by a specific
+domain.
 
-Resource attributes:
+Users can be associated with zero or more projects via explicit role grants.
+Granting a user a role on a domain effectively grants that role across all
+projects owned by that domain.
 
-- id (globally unique - PRIMARY KEY/resource ID)
-- name (globally unique)
-- url (fully qualified resource URL)
-- enabled (optional)
-- password (optional)
-- description (optional)
-- email (optional)
-- project_id (optional)
-- domain_id (optional)
+A user without any role grants (and therefore no project associations) is
+effectively useless from the perspective of an OpenStack service and should
+never be authorized to access any resources. It is allowed, however, as a means
+of acquiring or loading users from external sources prior to mapping them to
+projects.
+
+Required attributes:
+
+- `id`
+  - Globally unique resource identifier. This attribute is provided by the
+    identity service implementation.
+- `name`
+  - Globally unique username.
+- `url`
+  - Fully qualified resource URL. This attribute is provided by the identity
+    service implementation.
+
+Optional attributes:
+
+- `domain_id`
+  - References the domain which owns the user. If a domain is not specified,
+    the identity service implementation **must** automatically assign one.
+- `project_id`
+  - References the user's default project to authorize against, if the API user
+    does not explicitly specify one. Setting this attribute does not grant any
+    actual authorization on the project, and is merely provided for
+    convenience.
+- `description`
+- `email`
+- `enabled` (boolean)
+  - Setting this value to `false` prevents the user from authenticating or
+    receiving authorization. Additionally, all pre-existing tokens held by the
+    user are immediately invalidated. Re-enabling a user does not re-enable
+    pre-existing tokens.
+- `password`
+  - The default form of credential used during authentication.
 
 ### Credentials
 
