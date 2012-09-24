@@ -31,48 +31,28 @@
         </tbody>
     </table>
     <para>The following calls are core for the Keystone Admin 2.0 APIs:</para>
-<!--    <section xml:id="Token_Operations">
+    <section xml:id="Token_Operations">
         <title>Token Operations</title>
         <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#tokens">
-            <!-\-    <wadl:method href="authenticate"/>-\->
-            </wadl:resource>
-            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#tokenById">
-        <!-\-        <wadl:method href="validateToken"/>
-                <wadl:method href="checkToken"/>-\->
-            </wadl:resource>
-    <!-\-        <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#endpointsForToken">-\->
-        <!-\-        <wadl:method href="listEndpointsForToken"/>-\->
-    <!-\-        </wadl:resource>-\->
+            <wadl:resource href="identity-admin.wadl#tokens" />
+            <wadl:resource href="identity-admin.wadl#tokenById" />
+            <wadl:resource href="identity-admin.wadl#endpointsForToken" />
         </wadl:resources>
-    </section>-->
+    </section>
     <section xml:id="User_Operations">
         <title>User Operations</title>
         <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#users">
-            <!--    <wadl:method href="getUserByName"/>-->
-            </wadl:resource>
-            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#userById">
-            <!--    <wadl:method href="getUserById"/>-->
-            </wadl:resource>
-            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#userRoles">
-        <!--        <wadl:method href="listUserGlobalRoles"/>-->
-            </wadl:resource>
+            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#users" />
+            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#userById" />
+            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#userRoles" />
         </wadl:resources>
     </section>
     <section xml:id="Tenant_Operations">
         <title>Tenant Operations</title>
         <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#tenants">
-<!--                <wadl:method href="listTenants"/>
-                <wadl:method href="getTenantByName"/>-->
-            </wadl:resource>
-            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#tenantById">
-            <!--    <wadl:method href="getTenantById"/>-->
-            </wadl:resource>
-            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#userRolesForTenant">
-    <!--            <wadl:method href="listRolesForUserOnTenant"/>-->
-            </wadl:resource>
+            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#tenants" />
+            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#tenantById" />
+            <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#userRolesForTenant" />
         </wadl:resources>
     </section>
 </section>
