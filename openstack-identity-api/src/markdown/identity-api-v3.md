@@ -142,17 +142,37 @@ Resource attributes:
 - name (globally unique)
 - url (fully qualified resource URL)
 
-### Service
+### Services: `/v3/services`
 
-- an API endpoint for an OpenStack service
-- may have 0 or more policies associated with it
-- may have 0 or more endpoints associated with it (although a service with 0
-  endpoints associated with it is useless in an OpenStack configuration)
+Service entities represent web services in the OpenStack deployment. A service
+may have zero or more endpoints associated with it, although a service with zero
+endpoints is essentially useless in an OpenStack configuration.
 
-Resource attributes:
+Required attributes:
 
-- id (globally unique - PRIMARY KEY/resource ID)
-- type [compute|image|ec2|identity|volume|network]
+- `id` (string)
+  - Globally unique resource identifier. This attribute is provided by the
+    identity service implementation.
+- `type` (string)
+  - Describes the API implemetned by the service. The following values are
+    recognized within the OpenStack ecosystem: `compute`, `image`, `ec2`,
+    `identity`, `volume`, `network`. To support non-core and future projects,
+    the value should not be validated against this list.
+
+Optional attributes:
+
+- `name` (string)
+  - User-facing name of the service.
+
+Example entity:
+
+    {
+        "service": {
+            "id": "ee057c48aa7d4989b2616a92af0c1f9f",
+            "name": "Keystone",
+            "type": "identity"
+        }
+    }
 
 ### Endpoint
 
