@@ -131,16 +131,31 @@ Resource attributes:
 - url (fully qualified resource URL)
 - enabled (boolean: True or False)
 
-### Roles
+### Roles: `/v3/roles/`
 
-- a user-facing named identifier that is used to map a collection of actions
-  from a user to either a specific project or an entire domain.
+Roles entities are named identifiers used to map a collection of actions from a
+user to either a specific project or across an entire domain.
 
-Resource attributes:
+Required attributes:
 
-- id (globally unique - PRIMARY KEY/resource ID)
-- name (globally unique)
-- url (fully qualified resource URL)
+- `id` (string)
+  - Globally unique resource identifier. This attribute is provided by the
+    identity service implementation.
+- `name` (string)
+  - Globally unique name of the role.
+- `url` (string)
+  - Fully qualified resource URL. This attribute is provided by the identity
+    service implementation.
+
+Example entity:
+
+    {
+        "role": {
+            "id": "76e72ac02d3f44aeba5394073fc3a9d5",
+            "name": "admin",
+            "url": "http://identity:35357/v3/roles/76e72ac02d3f44aeba5394073fc3a9d5"
+        }
+    }
 
 ### Service
 
