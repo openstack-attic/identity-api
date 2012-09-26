@@ -154,24 +154,47 @@ Resource attributes:
 - id (globally unique - PRIMARY KEY/resource ID)
 - type [compute|image|ec2|identity|volume|network]
 
-### Endpoint
+### Endpoints: `/v3/endpoints`
 
-- the "extra" resource attribute is intended to allow for additional tags or
-  attributes associated with the endpoint to allow implementations to map
-  regionality or location if it’s appropriate for their environment.
-- "region" is intended to be implementation specific in meaning, but in general
-  represents a geographical location to the service endpoint if such is
-  relevant to the deployment.
+Endpoint entities represent URL endpoints for OpenStack web services.
 
-Resource attributes:
+Required attributes:
 
-- id (globally unique - PRIMARY KEY/resource ID)
-- service_id (globally unique)
-- name (optional, user facing description)
-- interface [public|admin|internal]
-- region (optional)
-- extra (optional) - json blob
-- url (fully qualified resource URL)
+- `id` (string)
+  - Globally unique resource identifier. This attribute is provided by the
+    identity service implementation.
+- `service_id` (string)
+  - References the service which the endpoint belongs to.
+- `interface` (string)
+  - Describes the visibility of the endpoint according to one of the following
+    values:
+    - `public`: intended for consumption by end users, generally on a publicly
+      available network interface
+    - `internal`: intended for consumption by end users, generally on an
+      unmetered internal network interface
+    - `admin`: intended only for consumption by those needing administrative
+      access to the service, generally on a secure network interface
+- `url` (string)
+  - Fully qualified URL of the service.
+
+Optional attributes:
+
+- `region` (string)
+  - Represents the geographic location of the service endpoint, if relevant to
+    the deployment. The value of this attribute is intended to be
+    implementation specific in meaning.
+
+Example entity:
+
+    {
+        "endpoint": {
+            "id": "6fedc06be76a4145957290910aec811b",
+            "interface": "internal",
+            "region": "north",
+            "service_id": "ee057c48aa7d4989b2616a92af0c1f9f",
+            "url": "http://identity:35357/"
+        }
+    }
 
 ### Tokens
 
