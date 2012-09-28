@@ -26,35 +26,170 @@ What's New in Version 3
 - Partial updates are performed using the HTTP `PATCH` method
 - Token ID values no longer appear in URLs
 
-General Themes
---------------
+API Conventions
+---------------
 
-### Querying by Attribute
+The Identity API provides a RESTful JSON interface.
 
-From an interaction perspective, the REST resource should contain a canonically
-unique identifier; that means the id in this case. Since not all resource
-attributes are guaranteed unique on their own this is actually a filter query,
-and needs to be addressed as such. Filter params definitely belong in GET
-request params. So something like GET /users?name=foo is the most valid. This
-should is also extensible to multiple params `GET /users?name=foo&enabled=1`.
+Each REST resource contains a cononically unique identifier (ID) defined by the
+Identity service implementation and is provided as the `id` attribute; Resource
+ID's are strings of non-zero length.
 
-There were several requests for querying to related objects through this
-mechanism, and I'd like to suss out how to properly arrange this with this
-draft, potentially including them as we get into the meat of development.
-
-### Resources and Resource Structure
-
-Resource names are kept plural in this edition of the API, with identity or
-listing with a filter being provided by querying by attributes or an additional
-identifier in the URI. Resources are kept separate in the URI structure except
-where there is a clear hierarchy to be represented.
-
-### Deployment
+The resource paths of all collections are plural and are represented at the
+root of the API (e.g. `/v3/policies`).
 
 TCP port 35357 is designated by the Internet Assigned Numbers Authority
 ("IANA") for use by OpenStack Identity services. Example API requests &
 responses in this document therefore assume that the Identity service
 implementation is deployed at the root of `http://identity:35357/`.
+
+### CRUD Operations
+
+Unless otherwised documented (tokens being the notable exception), all
+resources provided by the Identity API support basic CRUD operations (create,
+read, update, delete).
+
+The examples in this section utilize a resource collection of Entities on
+`/v3/entities` which is not actually a part of the Identity API, and is used
+for illustrative purposes only.
+
+#### Create an Entity
+
+When creating an entity, you must provide all required attributes (except those
+provided by the Identity service implementation, such as the resource ID):
+
+Request:
+
+    POST /entities
+
+    {
+        "entity": {
+            "name": string,
+            "description": string,
+            "enabled": boolean
+        }
+    }
+
+The full entity is returned in a succesful response (including the new
+resource's ID), keyed by the singular form of the resource name:
+
+    201 Created
+
+    {
+        "entity": {
+            "id": string,
+            "name": string,
+            "description": string,
+            "enabled": boolean
+        }
+    }
+
+#### List Entities
+
+Request the entire collection of entities:
+
+    GET /entities
+
+A succesful response includes a list of anonymous dictionaries, keyed by the
+plural form of the resource name (identical to that found in the resource URL):
+
+    200 OK
+
+    {
+        "entities": [
+            {
+                "id": string,
+                "name": string,
+                "description": string,
+                "enabled": boolean
+            },
+            {
+                "id": string,
+                "name": string,
+                "description": string,
+                "enabled": boolean
+            }
+        ]
+    }
+
+##### List Entities filtered by attribute
+
+Beyond each resource's canonically unique identifier (the `id` attribute), not
+all attributes are guaranteed unique on their own. To list resources which match
+a specified attribute value, we can perform a filter query using a query string
+with one or more attribute/value pairs:
+
+    GET /entities?name={entity_name}&enabled={entity_enabled}
+
+The response is a subset of the full collection:
+
+    200 OK
+
+    {
+        "entities": [
+            {
+                "id": string,
+                "name": string,
+                "description": string,
+                "enabled": boolean
+            }
+        ]
+    }
+
+#### Get an Entity
+
+Request a specific entity by ID:
+
+    GET /entities/{entity_id}
+
+The full resource is returned in response:
+
+    200 OK
+
+    {
+        "entity": {
+            "id": string,
+            "name": string,
+            "description": string,
+            "enabled": boolean
+        }
+    }
+
+#### Update an Entity
+
+Partially update an entity (unlike a standard `PUT` operation, only the
+specified attributes are replaced):
+
+    PATCH /entities/{entity_id}
+
+    {
+        "entity": {
+            "description": string,
+        }
+    }
+
+The full entity is returned in response:
+
+    200 OK
+
+    {
+        "entity": {
+            "id": string,
+            "name": string,
+            "description": string,
+            "enabled": boolean
+        }
+    }
+
+#### Delete an Entity
+
+Delete a specific entity by ID:
+
+    DELETE /entities/{entity_id}
+
+A successful response does not include a body:
+
+    204 No Content
 
 API Resources
 -------------
