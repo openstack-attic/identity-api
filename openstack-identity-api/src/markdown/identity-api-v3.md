@@ -1,29 +1,33 @@
 OpenStack Identity API v3
 =========================
 
+The Identity API primarily fulfills authentication and authorization needs
+within OpenStack, and is intended to provide a programmatic facade in front of
+existing authentication and authorization system(s).
+
+The Identity API also provides endpoint discovery through a service catalog,
+identity management, project management, and a centralized repository for
+policy engine rule sets.
+
+What's New in Version 3
+-----------------------
+
+- Former "Service" and "Admin" APIs (including CRUD operations previously defined
+  in the OS-KSADM extension) are consolidated into a single core API (isolating
+  them is the responsibility of deployment and appropriate access controls)
+- "Tenants" are now known as "projects"
+- "Domains": a high-level container for projects and users
+- "Policies": a centralized repository for policy engine rule sets
+- "Credentials": generic credential storage per user (e.g. EC2, PKI, SSH, etc)
+- Roles can be granted at either the domain or project level
+- Retrieving your list of projects (previously `GET /tenants`) is now
+  explicitly based on your user ID: `GET /users/{user_id}/projects`
+- Tokens explicitly represent user+project pairs
+- Partial updates are performed using the HTTP `PATCH` method
+- Token ID values no longer appear in URLs
+
 General Themes
 --------------
-
-The general theme of this proposal is a broad CRUD based API supporting
-authentication and authorization needs in OpenStack. Back-end implementations
-of the Identity API may not support all components of the API, hence an API may
-return HTTP 501 Not Implemented. This is to support the Identity API as a
-programmatic facade to a deployment’s existing authentication and authorization
-system(s).
-
-Themes for changes:
-
-- different style of pagination that I hope will be more effective for UI work
-- consolidate CRUD operations currently in contrib into CORE
-- adding a "url" resource attribute that's the fully qualified resource
-  location for the identity service
-- added domains (collections of projects)
-- restructure role API calls to be specific to user->project or user->domain
-- tokens are now very explicit to user+project combinations
-- new API mechanisms to get projects associated with a user
-- generalized credentials associated with a user/project combo (ec2, pki, ssh
-  keys, etc)
-- renamed "tenant" to "project"
 
 ### Querying by Attribute
 
@@ -38,33 +42,12 @@ There were several requests for querying to related objects through this
 mechanism, and I'd like to suss out how to properly arrange this with this
 draft, potentially including them as we get into the meat of development.
 
-### PKI Support
-
-After reviewing our current PKI approach, I'm pretty sure everything is
-backwards compatible with our existing token API, with the *potential*
-exception of the length of his "tokens" being too long for some tools to handle
-as valid URL's or header values.
-
-A base64 encoded PKI token lands in the 1-2KB range, in his examples. This
-encrypted token can be handled as *unencrypted* by both clients and services
-that do not understand/support PKI (you can still GET /tokens/{token_id} the
-entire thing as an opaque string, and still pass it in an X-Auth-Token, etc).
-
-Signed tokens can still have an ID,  so the concept of ID:value for tokens will
-work well. The only thing that won't work is putting the signed tokens into the
-URL, and the avoiding-token-in-urls scheme obviates that.
-
 ### Resources and Resource Structure
 
 Resource names are kept plural in this edition of the API, with identity or
 listing with a filter being provided by querying by attributes or an additional
 identifier in the URI. Resources are kept separate in the URI structure except
 where there is a clear hierarchy to be represented.
-
-### REST Verbs
-
-This API uses the PATCH verb extensively, intended for that to be able to make
-"partial updates" to resource attributes.
 
 ### Deployment
 
