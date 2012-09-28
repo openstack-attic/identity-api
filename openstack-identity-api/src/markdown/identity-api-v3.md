@@ -191,6 +191,92 @@ A successful response does not include a body:
 
     204 No Content
 
+### HTTP Status Codes
+
+The Identity API uses a subset of the available HTTP status codes to
+communicate specific success and failure conditions to the client.
+
+#### 200 OK
+
+This status code is returned in response to successful `GET` and `PATCH
+operations.
+
+#### 201 Created
+
+This status code is returned in response to successful `POST` operations.
+
+#### 204 No Content
+
+This status code is returned in response to successful `HEAD`, `PUT` and
+`DELETE` operations.
+
+#### 300 Multiple Choices
+
+This status code is returned by the root identity endpoint, with references to
+one or more Identity API versions (such as ``/v3/``).
+
+#### 400 Bad Request
+
+This status code is returned when the Identity service fails to parse the
+request as expected. This is most frequently returned when a required attribute
+is missing, a disallowed attribute is specified (such as an `id` on `POST` in a
+basic CRUD operation), or an attribute is provided of an unnexpected data type.
+
+The client is assumed to be in error.
+
+#### 401 Unauthorized
+
+This status code is returned when the provided X-Auth-Token is invalid or when
+authentication fails for any other reason.
+
+#### 403 Forbidden
+
+This status code is returned when authorization fails for any reason.
+
+#### 404 Not Found
+
+This status code is returned in response to failed `GET`, `HEAD`, `POST`,
+`PUT`, `PATCH` and `DELETE` operations when a referenced entity cannot be found
+by ID. In the case of a `POST` request, the referenced entity may be in the
+request body as opposed to the resource path.
+
+#### 409 Conflict
+
+This status code is returned in response to failed `POST` and `PATCH`
+operations. For example, when a client attempts to update an entity's unique
+attribute which conflicts with that of another entity in the same collection.
+
+Alternatively, a client should expect this status code when attempting to
+perform the same create operation twice in a row on a collection with a
+user-defined and unique attribute. For example, a User's `name` attribute is
+defined to be unique and user-defined, so making the same ``POST /users``
+request twice in a row will result in this status code.
+
+The client is assumed to be in error.
+
+#### 500 Internal Server Error
+
+This status code is returned when an unnexpected error has occurred in the
+Identity service implementation.
+
+#### 501 Not Implemented
+
+This status code is returned when the Identity service implementation is unable
+to fulfill the request because it is incapable of implementing the entire API
+as specified.
+
+For example, an Identity service may be incapable of returning an exhaustive
+collection of Projects with any reasonable expectation of performance, or lack
+the necessary permission to create or modify the collection of users (which may
+be managed by a remote system); the implementation may therefore choose to
+return this status code to communicate this condition to the client.
+
+#### 503 Service Unavailable
+
+This status code is returned when the Identity service is unable to communicate
+with a backend service, or by a proxy in front of the Identity service unable
+to communicate with the Identity service itself.
+
 API Resources
 -------------
 
