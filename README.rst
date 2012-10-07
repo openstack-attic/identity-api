@@ -4,7 +4,7 @@ Building
 ========
 Build these docs using the same procedure as documented for the `openstack-manuals` project: https://github.com/openstack/openstack-manuals
 
-In short, with Maven 3:
+In short, with Maven 3::
 
     cd openstack-identity-api
     mvn clean generate-sources
