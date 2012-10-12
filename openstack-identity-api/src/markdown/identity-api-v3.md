@@ -1679,31 +1679,73 @@ Response:
         }
     ]
 
-#### Add project role to user: `PUT /projects/{project_id}/users/{user_id}/roles/{role_id}`
+#### Grant role to user on domain: `PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
 Response:
 
-    Status: 201 Created
+    Status: 204 No Content
 
-    {
-        "id": "--role-id--",
-        "name": "--role-name--",
-        "project_id": "--project-id--"
-    }
-
-#### Add domain role to user: `PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}`
+#### List user's roles on domain: `GET /domains/{domain_id}/users/{user_id}/roles`
 
 Response:
 
-    Status: 201 Created
+    Status: 200 OK
 
-    {
-        "domain_id": "--domain-id--",
-        "id": "--role-id--",
-        "name": "--role-name--"
-    }
+    [
+        {
+            "id": "--role-id--",
+            "name": "--role-name--",
+        },
+        {
+            "id": "--role-id--",
+            "name": "--role-name--"
+        }
+    ]
 
-#### Delete role from user: `DELETE /users/{user_id}/roles/{role_id}`
+#### Check if user has role on domain: `HEAD /domains/{domain_id}/users/{user_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke role from user on domain: `DELETE /domains/{domain_id}/users/{user_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Grant role to user on project: `PUT /projects/{project_id}/users/{user_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### List user's roles on project: `GET /projects/{project_id}/users/{user_id}/roles`
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "id": "--role-id--",
+            "name": "--role-name--",
+        },
+        {
+            "id": "--role-id--",
+            "name": "--role-name--"
+        }
+    ]
+
+#### Check if user has role on project: `HEAD /projects/{project_id}/users/{user_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke role from user on project: `DELETE /projects/{project_id}/users/{user_id}/roles/{role_id}`
+
+Response:
 
     Status: 204 No Content
 
