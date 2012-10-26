@@ -351,21 +351,46 @@ Example entity:
         }
     }
 
-### Projects
+### Projects: `/v3/projects`
 
-base unit of "ownership" in OpenStack
-may have 0 or more users
-always associated with a single domain
-A project can not be in two domains at once
-roles may be granted to a user on a specific project
+Projects represent the base unit of "ownership" in OpenStack, in that all
+resources in OpenStack should be owned by a specific project ("projects" were
+also formerly known as "tenants"). A project itself must be owned by a specific
+domain.
 
-Resource attributes:
+Required attributes:
 
-- id (globally unique - PRIMARY KEY/resource ID)
-- name (globally unique)
-- domain_id (globally unique)
-- url (fully qualified resource URL)
-- enabled (boolean: True or False)
+- `id` (string)
+  - Globally unique resource identifier. This attribute is provided by the
+    identity service implementation.
+- `name` (string)
+  - Unique name (within the owning domain).
+- `url` (string)
+  - Fully qualified resource URL. This attribute is provided by the identity
+    service implementation.
+- `domain_id` (string)
+  - References the domain which owns the project.
+
+Optional attributes:
+
+- `description` (string)
+- `enabled` (boolean)
+  - Setting this attribute to 'false' prevents users from authorizing against
+    this project. Additionally, all pre-existing tokens authorized for the
+    tenant are immediately invalidated. Re-enabling a project does not
+    re-enable pre-existing tokens.
+
+Example entity:
+
+    {
+        "project": {
+            "domain_id": "1789d19316a147bebf262b02637a9907",
+            "enabled": true,
+            "id": "263fd959b3a842ff8a7fe3ee75ce16a3",
+            "name": "project-x",
+            "url": "http://identity:35357/v3/projects/263fd959b3a842ff8a7fe3ee75ce16a3"
+        }
+    }
 
 ### Domains: `/v3/domains`
 
