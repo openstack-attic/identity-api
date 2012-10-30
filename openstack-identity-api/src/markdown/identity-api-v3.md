@@ -591,10 +591,16 @@ Optional attributes:
 
   User-facing name of the service.
 
+- `enabled` (boolean)
+
+  Setting this value to `false` prevents the service and it's endpoints from
+  appearing in the service catalog.
+
 Example entity:
 
     {
         "service": {
+            "enabled": true,
             "id": "ee057c",
             "links": {
                 "self": "http://identity:35357/v3/services/ee057c"
@@ -640,10 +646,16 @@ Optional attributes:
   the deployment. The value of this attribute is intended to be implementation
   specific in meaning.
 
+- `enabled` (boolean)
+
+  Setting this value to `false` prevents the endpoint from appearing in the
+  service catalog.
+
 Example entity:
 
     {
         "endpoint": {
+            "enabled": true,
             "id": "6fedc0",
             "interface": "internal",
             "links": {
