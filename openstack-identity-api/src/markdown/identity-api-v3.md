@@ -364,7 +364,7 @@ Required attributes:
   - Globally unique resource identifier. This attribute is provided by the
     identity service implementation.
 - `name` (string)
-  - Unique name (within the owning domain).
+  - Globally unique name.
 - `url` (string)
   - Fully qualified resource URL. This attribute is provided by the identity
     service implementation.
