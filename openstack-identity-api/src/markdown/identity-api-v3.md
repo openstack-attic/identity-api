@@ -12,9 +12,8 @@ policy engine rule sets.
 What's New in Version 3
 -----------------------
 
-- Former "Service" and "Admin" APIs (including CRUD operations previously defined
-  in the OS-KSADM extension) are consolidated into a single core API (isolating
-  them is the responsibility of deployment and appropriate access controls)
+- Former "Service" and "Admin" APIs (including CRUD operations previously
+  defined in the v2 OS-KSADM extension) are consolidated into a single core API
 - "Tenants" are now known as "projects"
 - "Domains": a high-level container for projects and users
 - "Policies": a centralized repository for policy engine rule sets
@@ -42,6 +41,47 @@ TCP port 35357 is designated by the Internet Assigned Numbers Authority
 ("IANA") for use by OpenStack Identity services. Example API requests &
 responses in this document therefore assume that the Identity service
 implementation is deployed at the root of `http://identity:35357/`.
+
+### Required Attributes
+
+For collections:
+
+- `links` (object)
+
+  Specifies a list of relational links to the collection.
+
+  - `self` (url)
+
+    A self-relational link provided as an absolute URL. This attribute is
+    provided by the identity service implementation.
+
+  - `previous` (url)
+
+    A relational link to the previous page of the list, provided as an absolute
+    URL. This attribute is provided by the identity service implementation. May
+    be null.
+
+  - `next` (url)
+
+    A relational to the next page of the list, provided as an absolute URL.
+    This attribute is provided by the identity service implementation. May be
+    null.
+
+For members:
+
+- `id` (string)
+
+  Globally unique resource identifier. This attribute is provided by the
+  identity service implementation.
+
+- `links` (object)
+
+  Specifies a set of relational links relative to the collection member.
+
+  - `self` (url)
+
+    A self-relational link provided as an absolute URL. This attribute is
+    provided by the identity service implementation.
 
 ### CRUD Operations
 
@@ -71,7 +111,8 @@ Request:
     }
 
 The full entity is returned in a succesful response (including the new
-resource's ID), keyed by the singular form of the resource name:
+resource's ID and a self-relational link), keyed by the singular form of the
+resource name:
 
     201 Created
 
@@ -80,7 +121,10 @@ resource's ID), keyed by the singular form of the resource name:
             "id": string,
             "name": string,
             "description": string,
-            "enabled": boolean
+            "enabled": boolean,
+            "links": {
+                "self": url
+            }
         }
     }
 
@@ -101,15 +145,26 @@ plural form of the resource name (identical to that found in the resource URL):
                 "id": string,
                 "name": string,
                 "description": string,
-                "enabled": boolean
+                "enabled": boolean,
+                "links": {
+                    "self": url
+                }
             },
             {
                 "id": string,
                 "name": string,
                 "description": string,
-                "enabled": boolean
+                "enabled": boolean,
+                "links": {
+                    "self": url
+                }
             }
-        ]
+        ],
+        "links": {
+            "self": url,
+            "next": url,
+            "previous": url
+        }
     }
 
 ##### List Entities filtered by attribute
@@ -131,9 +186,17 @@ The response is a subset of the full collection:
                 "id": string,
                 "name": string,
                 "description": string,
-                "enabled": boolean
+                "enabled": boolean,
+                "links": {
+                    "self": url
+                }
             }
-        ]
+        ],
+        "links": {
+            "self": url,
+            "next": url,
+            "previous": url
+        }
     }
 
 #### Get an Entity
@@ -151,7 +214,10 @@ The full resource is returned in response:
             "id": string,
             "name": string,
             "description": string,
-            "enabled": boolean
+            "enabled": boolean,
+            "links": {
+                "self": url
+            }
         }
     }
 
@@ -177,7 +243,10 @@ The full entity is returned in response:
             "id": string,
             "name": string,
             "description": string,
-            "enabled": boolean
+            "enabled": boolean,
+            "links": {
+                "self": url
+            }
         }
     }
 
@@ -296,49 +365,65 @@ an OpenStack service and should never have access to any resources. It is
 allowed, however, as a means of acquiring or loading users from external
 sources prior to mapping them to projects.
 
-Required attributes:
+Additional required attributes:
 
-- `id` (string)
-  - Globally unique resource identifier. This attribute is provided by the
-    identity service implementation.
 - `name` (string)
-  - Globally unique username.
-- `url` (string)
-  - Fully qualified resource URL. This attribute is provided by the identity
-    service implementation.
+
+  Unique username (within the owning domain).
 
 Optional attributes:
 
 - `domain_id` (string)
-  - References the domain which owns the user; if a domain is not specified by
-    the client, the Identity service implementation **must** automatically
-    assign one.
+
+  References the domain which owns the user; if a domain is not specified by
+  the client, the Identity service implementation **must** automatically assign
+  one.
+
 - `project_id` (string)
-  - References the user's default project against which to authorize, if the
-    API user does not explicitly specify one. Setting this attribute does not
-    grant any actual authorization on the project, and is merely provided for
-    the user's convenience. Therefore, the referenced project does not need to
-    exist within the user's domain.
+
+  References the user's default project against which to authorize, if the API
+  user does not explicitly specify one. Setting this attribute does not grant
+  any actual authorization on the project, and is merely provided for the
+  user's convenience. Therefore, the referenced project does not need to exist
+  within the user's domain.
+
 - `description` (string)
+
+  References the domain which owns the user. If a domain is not specified, the
+  identity service implementation **must** automatically assign one.
+
+- `project_id` (string)
+
+  References the user's default project to authorize against, if the API user
+  does not explicitly specify one. Setting this attribute does not grant any
+  actual authorization on the project, and is merely provided for convenience.
+
+- `description` (string)
+
 - `enabled` (boolean)
-  - Setting this value to `false` prevents the user from authenticating or
-    receiving authorization. Additionally, all pre-existing tokens held by the
-    user are immediately invalidated. Re-enabling a user does not re-enable
-    pre-existing tokens.
+
+  Setting this value to `false` prevents the user from authenticating or
+  receiving authorization. Additionally, all pre-existing tokens held by the
+  user are immediately invalidated. Re-enabling a user does not re-enable
+  pre-existing tokens.
+
 - `password` (string)
-  - The default form of credential used during authentication.
+
+  The default form of credential used during authentication.
 
 Example entity:
 
     {
         "user": {
-            "domain_id": "1789d19316a147bebf262b02637a9907",
+            "domain_id": "1789d1",
             "email": "joe@example.com",
             "enabled": true,
-            "id": "0ca8f63cb66a4182b8a859893889e65c",
+            "id": "0ca8f6",
+            "links": {
+                "self": "http://identity:35357/v3/users/0ca8f6"
+            },
             "name": "Joe",
-            "project_id": "263fd959b3a842ff8a7fe3ee75ce16a3",
-            "url": "http://identity:35357/v3/users/0ca8f63cb66a4182b8a859893889e65c"
+            "project_id": "263fd9"
         }
     }
 
@@ -348,38 +433,39 @@ Credentials represent arbitrary authentication credentials associated with a
 user. A user may have zero or more credentials, each optionally scoped to a
 specific project.
 
-Required attributes:
+Additional required attributes:
 
-- `id` (string)
-  - Globally unique resource identifier. This attribute is provided by the
-    identity service implementation.
-- `url` (string)
-  - Fully qualified resource URL. This attribute is provided by the identity
-    service implementation.
 - `user_id` (string)
-  - References the user which owns the credential.
+
+  References the user which owns the credential.
+
 - `type` (string)
-  - Representing the credential type, such as `ec2` or `cert`. A specific
-    implementation may determine the list of supported types.
+
+  Representing the credential type, such as `ec2` or `cert`. A specific
+  implementation may determine the list of supported types.
+
 - `data` (blob)
-  - Arbitrary blob of the credential data, to be parsed according to the `type`.
+
+  Arbitrary blob of the credential data, to be parsed according to the `type`.
 
 Optional attributes:
 
-- `project_id`
-  - References a project which limits the scope the credential applies to.
+- `project_id` (string)
+
+  References a project which limits the scope the credential applies to.
 
 Example entity:
 
     {
         "credential": {
-            "enabled": true,
-            "id": "80239a94c03146579a95bc0a11ca875c",
-            "project_id": "263fd959b3a842ff8a7fe3ee75ce16a3",
+            "data": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+            "id": "80239a",
+            "links": {
+                "self": "http://identity:35357/v3/credentials/80239a"
+            },
+            "project_id": "263fd9",
             "type": "ec2",
-            "url": "http://identity:35357/v3/credentials/80239a94c03146579a95bc0a11ca875c",
-            "user_id": "0ca8f63cb66a4182b8a859893889e65c",
-            "data": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+            "user_id": "0ca8f6"
         }
     }
 
@@ -392,35 +478,36 @@ domain.
 
 Required attributes:
 
-- `id` (string)
-  - Globally unique resource identifier. This attribute is provided by the
-    identity service implementation.
 - `name` (string)
-  - Globally unique name.
-- `url` (string)
-  - Fully qualified resource URL. This attribute is provided by the identity
-    service implementation.
+
+  Unique name (within the owning domain).
+
 - `domain_id` (string)
-  - References the domain which owns the project.
+
+  References the domain which owns the project.
 
 Optional attributes:
 
 - `description` (string)
+
 - `enabled` (boolean)
-  - Setting this attribute to 'false' prevents users from authorizing against
-    this project. Additionally, all pre-existing tokens authorized for the
-    tenant are immediately invalidated. Re-enabling a project does not
-    re-enable pre-existing tokens.
+
+  Setting this attribute to 'false' prevents users from authorizing against
+  this project. Additionally, all pre-existing tokens authorized for the tenant
+  are immediately invalidated. Re-enabling a project does not re-enable
+  pre-existing tokens.
 
 Example entity:
 
     {
         "project": {
-            "domain_id": "1789d19316a147bebf262b02637a9907",
+            "domain_id": "1789d1",
             "enabled": true,
-            "id": "263fd959b3a842ff8a7fe3ee75ce16a3",
+            "id": "263fd9",
             "name": "project-x",
-            "url": "http://identity:35357/v3/projects/263fd959b3a842ff8a7fe3ee75ce16a3"
+            "links": {
+                "self": "http://identity:35357/v3/projects/263fd9"
+            }
         }
     }
 
@@ -431,33 +518,32 @@ is owned by exactly one domain. Users, however, can be associated with multiple
 projects by granting roles to the user on a project (including projects owned
 by other domains).
 
-Required attributes:
+Additional required attributes:
 
-- `id` (string)
-  - Globally unique resource identifier. This attribute is provided by the
-    identity service implementation.
 - `name` (string)
-  - Globally unique name.
-- `url` (string)
-  - Fully qualified resource URL. This attribute is provided by the identity
-    service implementation.
+
+  Globally unique name.
 
 Optional attributes:
 
 - `description` (string)
+
 - `enabled` (boolean)
-  - Setting this value to `false` also disables all projects and users owned by
-    the domain, and therefore implies the same effects of disabling all of
-    those entities individually.
+
+  Setting this value to `false` also disables all projects and users owned by
+  the domain, and therefore implies the same effects of disabling all of those
+  entities individually.
 
 Example entity:
 
     {
         "domain": {
-            "id": "1789d19316a147bebf262b02637a9907",
-            "name": "example.com",
-            "url": "http://identity:35357/v3/domains/1789d19316a147bebf262b02637a9907",
-            "enabled": true
+            "enabled": true,
+            "id": "1789d1",
+            "links": {
+                "self": "http://identity:35357/v3/domains/1789d1"
+            },
+            "name": "example.com"
         }
     }
 
@@ -466,24 +552,21 @@ Example entity:
 Roles entities are named identifiers used to map a collection of actions from a
 user to either a specific project or across an entire domain.
 
-Required attributes:
+Additional required attributes:
 
-- `id` (string)
-  - Globally unique resource identifier. This attribute is provided by the
-    identity service implementation.
 - `name` (string)
-  - Globally unique name of the role.
-- `url` (string)
-  - Fully qualified resource URL. This attribute is provided by the identity
-    service implementation.
+
+  Globally unique name of the role.
 
 Example entity:
 
     {
         "role": {
-            "id": "76e72ac02d3f44aeba5394073fc3a9d5",
-            "name": "admin",
-            "url": "http://identity:35357/v3/roles/76e72ac02d3f44aeba5394073fc3a9d5"
+            "id": "76e72a",
+            "links": {
+                "self": "http://identity:35357/v3/roles/76e72a"
+            },
+            "name": "admin"
         }
     }
 
@@ -493,27 +576,29 @@ Service entities represent web services in the OpenStack deployment. A service
 may have zero or more endpoints associated with it, although a service with zero
 endpoints is essentially useless in an OpenStack configuration.
 
-Required attributes:
+Additional required attributes:
 
-- `id` (string)
-  - Globally unique resource identifier. This attribute is provided by the
-    identity service implementation.
 - `type` (string)
-  - Describes the API implemetned by the service. The following values are
-    recognized within the OpenStack ecosystem: `compute`, `image`, `ec2`,
-    `identity`, `volume`, `network`. To support non-core and future projects,
-    the value should not be validated against this list.
+
+  Describes the API implemetned by the service. The following values are
+  recognized within the OpenStack ecosystem: `compute`, `image`, `ec2`,
+  `identity`, `volume`, `network`. To support non-core and future projects, the
+  value should not be validated against this list.
 
 Optional attributes:
 
 - `name` (string)
-  - User-facing name of the service.
+
+  User-facing name of the service.
 
 Example entity:
 
     {
         "service": {
-            "id": "ee057c48aa7d4989b2616a92af0c1f9f",
+            "id": "ee057c",
+            "links": {
+                "self": "http://identity:35357/v3/services/ee057c"
+            },
             "name": "Keystone",
             "type": "identity"
         }
@@ -523,40 +608,49 @@ Example entity:
 
 Endpoint entities represent URL endpoints for OpenStack web services.
 
-Required attributes:
+Additional required attributes:
 
-- `id` (string)
-  - Globally unique resource identifier. This attribute is provided by the
-    identity service implementation.
 - `service_id` (string)
-  - References the service which the endpoint belongs to.
+
+  References the service to which the endpoint belongs.
+
 - `interface` (string)
-  - Describes the visibility of the endpoint according to one of the following
-    values:
+
+  Describes the visibility of the endpoint according to one of the following
+  values:
+
     - `public`: intended for consumption by end users, generally on a publicly
       available network interface
+
     - `internal`: intended for consumption by end users, generally on an
       unmetered internal network interface
+
     - `admin`: intended only for consumption by those needing administrative
       access to the service, generally on a secure network interface
+
 - `url` (string)
-  - Fully qualified URL of the service.
+
+  Fully qualified URL of the service endpoint.
 
 Optional attributes:
 
 - `region` (string)
-  - Represents the geographic location of the service endpoint, if relevant to
-    the deployment. The value of this attribute is intended to be
-    implementation specific in meaning.
+
+  Represents the geographic location of the service endpoint, if relevant to
+  the deployment. The value of this attribute is intended to be implementation
+  specific in meaning.
 
 Example entity:
 
     {
         "endpoint": {
-            "id": "6fedc06be76a4145957290910aec811b",
+            "id": "6fedc0",
             "interface": "internal",
+            "links": {
+                "self": "http://identity:35357/v3/endpoints/6fedc0"
+            },
             "region": "north",
-            "service_id": "ee057c48aa7d4989b2616a92af0c1f9f",
+            "service_id": "ee057c",
             "url": "http://identity:35357/"
         }
     }
