@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book [
+        <!-- Some useful entities borrowed from HTML -->
+        <!ENTITY ndash  "&#x2013;">
+        <!ENTITY mdash  "&#x2014;">
+        <!ENTITY hellip "&#x2026;">
+
+        <!-- Useful for describing APIs -->
+        <!ENTITY GET    '<command xmlns="http://docbook.org/ns/docbook">GET</command>'>
+        <!ENTITY PUT    '<command xmlns="http://docbook.org/ns/docbook">PUT</command>'>
+        <!ENTITY POST   '<command xmlns="http://docbook.org/ns/docbook">POST</command>'>
+        <!ENTITY DELETE '<command xmlns="http://docbook.org/ns/docbook">DELETE</command>'>
+
+        <!ENTITY ARROW  '<inlinemediaobject xmlns="http://docbook.org/ns/docbook">
+                 <imageobject>
+                  <imagedata fileref="img/Arrow_east.svg"
+                             format="SVG" scale="60"/>
+                </imageobject>
+              </inlinemediaobject>'>
+
+        <!ENTITY CODES       'Normal Response Code(s):'>
+        <!ENTITY ERROR_CODES 'Error Response Code(s):'>
+
+        <!-- Information about the extension -->
+        <!ENTITY VERSION  "v1.0">
+        <!ENTITY PUB_DATE "2011-08-26">
+        <!ENTITY ALIAS "RAX-KSGRP">
+        <!ENTITY URI_REFHEAD '
+        <thead xmlns="http://docbook.org/ns/docbook">
+        <tr>
+        <td colspan="1">Verb</td>
+        <td colspan="1">URI</td>
+        <td colspan="4">Description</td>
+        </tr>
+        </thead>'>
+        <!ENTITY NAMESPACE "http://docs.rackspace.com/identity/api/ext/RAX-KSGRP/v1.0">
+        <!ENTITY CURRENTGUIDE "http://docs.rackspace.com/api">
+        <!ENTITY EXTENSIONXSD "xsd/RAX-KSGRP-groups.xsd">
+        <!ENTITY GROUPSXML "samples/RAX-KSGRP-groups.xml">
+        <!ENTITY GROUPSJSON "samples/RAX-KSGRP-groups.json">
+        <!ENTITY GROUPXML "samples/RAX-KSGRP-group.xml">
+        <!ENTITY GROUPJSON "samples/RAX-KSGRP-group.json">
+
+        <!ENTITY GROUPREQUESTXML "../../common/samples/auth_credentials.xml">
+        <!ENTITY GROUPREQUESTJSON "../../common/samples/auth_credentials.json">
+        <!ENTITY GROUPRESPONSEXML "../../common/samples/authwithgroups.xml">
+        <!ENTITY GROUPRESPONSEJSON "../../common/samples/authwithgroups.json">
+
+]>
+
+  <chapter 
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
+      xml:id="RAX-KSGRP-chapter-0001">
+      <title>OpenStack Identity Rackspace Group Extension (Service Operations)</title>
+      <para>
+          Rackspace extensions to Keystone v2.0 API allows authenticate call to also return information about group memberships of the user.
+      </para>
+      <section xml:id="RAX-KSGRP-NewHeaders-0001">
+          <title>New Headers</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="RAX-KSGRP-NewFaults0001">
+          <title>New Faults</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="RAX-KSGRP-NewResources-0001">
+          <title>New Resources</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="RAX-KSGRP-NewActions0001">
+          <title>New Actions</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="RAX-KSGRP-NewElement0001">
+          <title>New Elements</title>
+          <section xml:id="RAX-KSGRP-0001">
+              <title>Rackspace extensions to Keystone v2.0 API enabling groups.</title>
+              <section xml:id="RAX-KSGRP-New-Elements-details-0002">
+                  <title>New Elements</title>
+                  <para>
+                      This extension starts returning groups as a part of response when an authenticate call is made.
+                      The samples of new elements that are defined as a part of this extension are listed below.
+                  </para>
+                  <example>
+                      <title>Groups Sample XML</title>
+                      <programlisting language="xml"><xi:include href="&GROUPSXML;" parse="text"></xi:include></programlisting>
+                  </example>
+                  <example>
+                      <title>Groups Sample JSON</title>
+                      <programlisting language="javascript"><xi:include href="&GROUPSJSON;" parse="text"></xi:include></programlisting>
+                  </example>
+              </section>
+              <section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xml:id="RAX-KSGRP-Admin_API_Service_Developer_Operations-d1e1357" version="5.0" role="api-reference">
+                  <title>RAX-KSGRP Extension API Operations</title>
+
+                  <table rules="all">
+                      <caption>Authentication Header</caption>
+                      <thead>
+                          <tr>
+                              <td>Header Type</td>
+                              <td>Name</td>
+                              <td>Value</td>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>HTTP/1.1 Request</td>
+                              <td>X-Auth-Token</td>
+                              <td>txfa8426a08eaf</td>
+                          </tr>
+                      </tbody>
+                  </table>
+
+                  <para>Following operations are the list of operations whose behavior is altered by Rackspace API Groups Service Extension:</para>
+                  <section xml:id="User_Operations_RAX_KSGRP">
+                      <title>User Operations</title>
+                      <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                          <wadl:resource href="RAX-KSGRP.wadl#user-groups-RAX-KSGRP">
+                              <wadl:method href="listUserGroups"/>
+                          </wadl:resource>
+                      </wadl:resources>
+                  </section>
+              </section>
+          </section>
+      </section>
+  </chapter>
+
