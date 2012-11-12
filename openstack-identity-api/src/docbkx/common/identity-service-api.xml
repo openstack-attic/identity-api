@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+<chapter 
+    xmlns="http://docbook.org/ns/docbook" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xml:id="Admin_API_Service_Developer_Operations-d1e1356" version="5.0" role="api-reference">
     <title>Admin API (Service Developer Operations)</title>
@@ -55,4 +57,4 @@
             <wadl:resource href="../extensions/OS-KSADM/OS-KSADM-admin.wadl#userRolesForTenant" />
         </wadl:resources>
     </section>
-</section>
+</chapter>

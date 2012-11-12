@@ -46,8 +46,8 @@
                     <param name="userId" style="template" required="true" type="xsd:string"/>
                     <resource id="user-OS-KSADM" path="OS-KSADM">
                         <resource id="userCredentials" path="credentials">
-                            <method href="#addUserCredential"/>
-                            <method href="#listCredentials"/>
+                            <method href="#addUserCredential-KSEC2"/>
+                            <method href="#listCredentials-KSEC2"/>
                             <resource id="userCredentialsByType" path="OS-KSEC2:ec2Credentials">
                                 <method href="#updateUserCredential"/>
                                 <method href="#deleteUserCredential"/>
@@ -65,7 +65,7 @@
     <!--*******************************************************-->
 
     <!-- User Credentials-->
-    <method name="POST" id="addUserCredential">
+    <method name="POST" id="addUserCredential-KSEC2">
         <doc xml:lang="EN" title="Add user Credential.">
             <p xmlns="http://www.w3.org/1999/xhtml">Adds a credential to a user.</p>
         </doc>
@@ -98,7 +98,7 @@
         &getFaults;
     </method>
 
-    <method name="GET" id="listCredentials">
+    <method name="GET" id="listCredentials-KSEC2">
         <doc xml:lang="EN" title="List Credentials">
             <p xmlns="http://www.w3.org/1999/xhtml">List credentials.</p>
         </doc>

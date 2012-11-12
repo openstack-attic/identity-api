@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter 
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
+      xml:id="hp-idm_summary-of-changes">
+      <title>OpenStack Identity HP-IDM Extension</title>
+      <!--
+          Provide an overall summary of the extension.  Give an
+          overview of how the extensions works and what capabilities it
+          adds.
+      -->
+      <para>
+          HP-IDM Admin Extension to Keystone V2.0 API adds capability to filter roles
+          with optional service IDs for token validation to mitigate security risks
+          with role name conflicts.
+          See
+          <link xlink:href="https://bugs.launchpad.net/keystone/+bug/890411">
+              https://bugs.launchpad.net/keystone/+bug/890411
+          </link>
+          for more details.
+      </para>
+      <!--
+          The following examples should illustrate the extension query
+          response.
+      -->
+      <example>
+          <title>Sample Valid Token Request</title>
+          <programlisting language="xml"><xi:include href="samples/sample_request.txt" parse="text"/></programlisting>
+      </example>
+      <example>
+           <title>Sample Valid Token Request With Global Service ID Specified</title>
+           <programlisting language="xml"><xi:include href="samples/sample_request_with_global_sid.txt" parse="text"/></programlisting>
+      </example>
+      <section xml:id="hp-idm-new-headers">
+          <title>New Headers</title>
+          <!--
+              Describe any new headers, if any.
+          -->
+          <para>None.</para>
+      </section>
+      <section xml:id="hp-idm-new-faults">
+          <title>New Faults</title>
+          <!--
+              Describe any new faults, if any.  Make sure you specify
+              if the fault can be expectid in all requests.
+          -->
+          <para>None.</para>
+      </section>
+      <section xml:id="hp-idm-new-resources" role="api-reference">
+          <title>New Resources</title>
+          <!--
+              List any new resources here.  The api-reference role
+              above means that a reference table of all new resources
+              will be placed here.
+          -->
+          <para>
+              No new resource. HP-IDM Extension merely introduced a new optional HP-IDM-serviceId parameter for the validate token operations. The following APIs are affected.
+          </para>
+          <section xml:id="hp-idm-validate-tokens">
+              <title>Validate Tokens With The New Optional HP-IDM-serviceId Parameter</title>
+              <para>
+                  The following are a list of operations on templates.
+              </para>
+              <!--
+                  You can insert a WADL by referencing it from another
+                  file.  The WADL need not be normalized because you
+                  can insert a normalization step in the build process
+                  (see pom.xml).
+              -->
+              <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                  <wadl:resource href="HP-IDM-admin.wadl#tokenById"/>
+              </wadl:resources>
+          </section>
+      </section>
+      <section xml:id="hp-idm-new-actions">
+          <title>New Actions</title>
+          <!--
+              Describe any new actions if any.
+          -->
+          <para>None.</para>
+      </section>
+      <section xml:id="hp-idm-new-states">
+          <title>New States</title>
+          <!--
+              Describe any new states.
+          -->
+          <para>None.</para>
+      </section>
+  </chapter>
+

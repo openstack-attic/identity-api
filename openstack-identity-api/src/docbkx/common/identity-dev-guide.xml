@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
     xmlns:html="http://www.w3.org/1999/xhtml" version="5.0" status="draft"
@@ -18,11 +17,12 @@
         <copyright>
             <year>2010</year>
             <year>2011</year>
+            <year>2012</year>
             <holder>OpenStack</holder>
         </copyright>
         <releaseinfo>API v2.0</releaseinfo>
         <productname>OpenStack Identity</productname>
-        <pubdate>2011-08-29</pubdate>
+        <pubdate>2012-11-12</pubdate>
         <legalnotice role="apache2">
             <annotation>
                 <remark>Copyright details are filled in by the template.</remark>
@@ -31,15 +31,39 @@
         <abstract>
             <para>This document is intended for software developers interested in developing
                 applications that utilize the Keystone Identity Service for authentication. This
-                document also includes details on how to integrate services with the Keystone
-                Identity Service. </para>
+                document also includes details on how to administer services with the Keystone
+                Identity Service and its extensions to the REST API. </para>
         </abstract>
+        <othercredit>
+            <personname>
+                <firstname>Joe</firstname>
+                <surname>Savak</surname>
+            </personname>
+            <email>joe.savak@RACKSPACE.COM</email>
+        </othercredit>
+        <othercredit>
+            <personname>
+                <firstname>Guang</firstname>
+                <surname>Yee</surname>
+            </personname>
+            <email>guang.yee@hp.com</email>
+        </othercredit>
     </info>
     <!-- Chapters are referred from the book file through these include statements. You can add additional chapters using these types of statements. -->
     <xi:include href="identity-concepts.xml"/>
     <xi:include href="identity-general-api-info.xml"/>
-    <chapter xml:id="api_operations" role="api-reference">
-        <title>API Operations</title>
-        <xi:include href="identity-service-api.xml"/>
-    </chapter>
+    <xi:include href="../client/identity-client-api.xml"/>
+    <xi:include href="identity-service-api.xml"/>
+    <xi:include href="../extensions/HP-IDM/ch-HP-IDM.xml"/>
+    <xi:include href="../extensions/OS-KSADM/ch-OS-KSADM-admin.xml"/>
+    <xi:include href="../extensions/OS-KSCATALOG/ch-OS-KSCATALOG-admin.xml"/>
+    <xi:include href="../extensions/OS-KSEC2/ch-OS-KSEC2-service.xml"/>
+    <xi:include href="../extensions/OS-KSEC2/ch-OS-KSEC2-admin.xml"/>
+    <!--<xi:include href="../extensions/OS-KSS3/ch-OS-KSS3-admin.xml"/>
+    <xi:include href="../extensions/OS-KSVALIDATE/ch-OS-KSVALIDATE-admin.xml"/>
+    <xi:include href="../extensions/RAX-GRPADM/ch-RAX-GRPADM.xml"/>
+    <xi:include href="../extensions/RAX-KSGRP/ch-RAX-KSGRP-service.xml"/>
+    <xi:include href="../extensions/RAX-KSKEY/ch-RAX-KSKEY-admin.xml"/>
+    <xi:include href="../extensions/RAX-KSKEY/ch-RAX-KSKEY-service.xml"/>
+    <xi:include href="../extensions/RAX-KSQA/ch-RAX-KSQA-admin.xml"/>-->
 </book>
