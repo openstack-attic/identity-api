@@ -389,17 +389,6 @@ Optional attributes:
 
 - `description` (string)
 
-  References the domain which owns the user. If a domain is not specified, the
-  identity service implementation **must** automatically assign one.
-
-- `project_id` (string)
-
-  References the user's default project to authorize against, if the API user
-  does not explicitly specify one. Setting this attribute does not grant any
-  actual authorization on the project, and is merely provided for convenience.
-
-- `description` (string)
-
 - `enabled` (boolean)
 
   Setting this value to `false` prevents the user from authenticating or
