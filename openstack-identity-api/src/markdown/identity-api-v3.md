@@ -742,14 +742,6 @@ consumed by remote services.
 
 Additional required attributes:
 
-- `endpoint_id` (string)
-
-  Specifies the endpoint which should consume the policy.
-
-  FIXME(dolph): current server-side implementation excludes this attribute;
-                this doc should be updated in a discrete change with an
-                alternative solution
-
 - `blob` (string)
 
   The policy rule set itself, as a serialized blob.
@@ -763,7 +755,6 @@ Example entity:
     {
         "policy": {
             "blob": "{\"default\": false}",
-            "endpoint_id": "6fedc0",
             "id": "c41a4c",
             "links": {
                 "self": "http://identity:35357/v3/policies/c41a4c"
