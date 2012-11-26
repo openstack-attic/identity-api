@@ -369,7 +369,7 @@ Additional required attributes:
 
 - `name` (string)
 
-  Unique username (within the owning domain).
+  Globally unique username.
 
 Optional attributes:
 
