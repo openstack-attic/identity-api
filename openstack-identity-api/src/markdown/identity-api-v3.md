@@ -369,7 +369,7 @@ Additional required attributes:
 
 - `name` (string)
 
-  Unique username (within the owning domain).
+  Globally unique username.
 
 Optional attributes:
 
@@ -469,7 +469,7 @@ Required attributes:
 
 - `name` (string)
 
-  Unique name (within the owning domain).
+  Globally unique project name.
 
 - `domain_id` (string)
 
@@ -569,7 +569,7 @@ Additional required attributes:
 
 - `type` (string)
 
-  Describes the API implemetned by the service. The following values are
+  Describes the API implemented by the service. The following values are
   recognized within the OpenStack ecosystem: `compute`, `image`, `ec2`,
   `identity`, `volume`, `network`. To support non-core and future projects, the
   value should not be validated against this list.
