@@ -369,7 +369,7 @@ Additional required attributes:
 
 - `name` (string)
 
-  Unique username (within the owning domain).
+  Globally unique username.
 
 Optional attributes:
 
@@ -469,7 +469,7 @@ Required attributes:
 
 - `name` (string)
 
-  Unique name (within the owning domain).
+  Globally unique project name.
 
 - `domain_id` (string)
 
