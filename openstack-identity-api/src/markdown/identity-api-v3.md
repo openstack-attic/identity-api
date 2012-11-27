@@ -30,7 +30,7 @@ API Conventions
 
 The Identity API provides a RESTful JSON interface.
 
-Each REST resource contains a cononically unique identifier (ID) defined by the
+Each REST resource contains a canonically unique identifier (ID) defined by the
 Identity service implementation and is provided as the `id` attribute; Resource
 ID's are strings of non-zero length.
 
@@ -85,9 +85,9 @@ For members:
 
 ### CRUD Operations
 
-Unless otherwised documented (tokens being the notable exception), all
-resources provided by the Identity API support basic CRUD operations (create,
-read, update, delete).
+Unless otherwise documented (tokens being the notable exception), all resources
+provided by the Identity API support basic CRUD operations (create, read,
+update, delete).
 
 The examples in this section utilize a resource collection of Entities on
 `/v3/entities` which is not actually a part of the Identity API, and is used
@@ -110,7 +110,7 @@ Request:
         }
     }
 
-The full entity is returned in a succesful response (including the new
+The full entity is returned in a successful response (including the new
 resource's ID and a self-relational link), keyed by the singular form of the
 resource name:
 
@@ -134,7 +134,7 @@ Request the entire collection of entities:
 
     GET /entities
 
-A succesful response includes a list of anonymous dictionaries, keyed by the
+A successful response includes a list of anonymous dictionaries, keyed by the
 plural form of the resource name (identical to that found in the resource URL):
 
     200 OK
@@ -289,7 +289,7 @@ one or more Identity API versions (such as ``/v3/``).
 This status code is returned when the Identity service fails to parse the
 request as expected. This is most frequently returned when a required attribute
 is missing, a disallowed attribute is specified (such as an `id` on `POST` in a
-basic CRUD operation), or an attribute is provided of an unnexpected data type.
+basic CRUD operation), or an attribute is provided of an unexpected data type.
 
 The client is assumed to be in error.
 
@@ -327,7 +327,7 @@ The client is assumed to be in error.
 
 #### 500 Internal Server Error
 
-This status code is returned when an unnexpected error has occurred in the
+This status code is returned when an unexpected error has occurred in the
 Identity service implementation.
 
 #### 501 Not Implemented
