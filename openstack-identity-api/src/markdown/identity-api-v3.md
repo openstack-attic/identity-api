@@ -825,8 +825,8 @@ The key use cases we need to cover:
 
 - given a user name & password, get a token to represent the user
 - given a token, get a list of other projects the user can access
-- given a token ID, validate the token and return user, project, roles, and
-  potential endpoints.
+- given a token ID, validate the token and return user, projects, roles, and
+  potential endpoints that token provides access to
 - given a valid token, request another token with a different project (change
   project being represented with the user)
 - forced expiration of a token
@@ -841,10 +841,12 @@ resource.
 #### Authenticate: `POST /tokens`
 
 For the use case where we are providing a username and password, optionally
-with a project_name or project_id. If a project_name or project_id is NOT
-provided, the system will use the default project associated with the user, or
+with one or more  project_names or project_ids. If a project_name or project_id is NOT
+provided, the system will use the default projects associated with the user, or
 return a 401 Not Authorized if a default project is not found or unable to be
-used.
+used. If multiple project_names or project_ids are provided a token will be returned
+that allows access to those projects simultaneously. The list of services and endpoints
+that this token has access to is reflected in the service catalog.
 
 Request:
 
@@ -855,8 +857,9 @@ Request:
                 "password": "--password--",
                 "user_id": "--optional-user-id--"
             },
-        "project_name": "--optional-project-name--",
-        "project_id": "--optional-project-id--"
+        "projects" : [{
+             "name": "--optional-project-name--",
+             "id": "--optional-project-id--"}]
         }
     }
 
@@ -868,8 +871,9 @@ Request:
 
     {
         "auth": {
-            "project_id": "--optional-project-id--",
-            "project_name": "--optional-project-name--",
+            "projects" : [{
+              "id": "--optional-project-id--",
+              "name": "--optional-project-name--"}],
             "token": {
                 "id": "--token-id--"
             }
@@ -882,16 +886,28 @@ Response:
     Location: https://identity:35357/v3/tokens/--token-id--
 
     {
-        "project": {
-            "domain": {
-                "enabled": true,
-                "id": "...",
-                "name": "..."
-            },
-            "enabled": true,
-            "id": "...",
-            "name": "..."
-        },
+        "projects": [
+          {
+              "domain": {
+                  "enabled": true,
+                  "id": "--domain-id--",
+                  "name": "--domain-name--"
+              },
+              "enabled": true,
+              "id": "--project-id--",
+              "name": "--project-name--"
+          },
+          {
+              "domain": {
+                  "enabled": true,
+                  "id": "--domain-id--",
+                  "name": "--domain-name--"
+              },
+              "enabled": true,
+              "id": "--project-id--",
+              "name": "--project-name--"
+          }
+        ],
         "services": [
             {
                 "endpoints": [
@@ -901,6 +917,7 @@ Response:
                         "id": "--endpoint-id--",
                         "name": null,
                         "region": "RegionOne",
+                        "project-id": "--project-id--",
                         "url": "http://external:8776/v1/--project-id--"
                     },
                     {
@@ -909,6 +926,7 @@ Response:
                         "id": "--endpoint-id--",
                         "name": null,
                         "region": "RegionOne",
+                        "project-id": "--project-id--",
                         "url": "http://internal:8776/v1/--project-id--"
                     }
                 ],
@@ -994,6 +1012,7 @@ Response:
                             "id": "--endpoint-id--",
                             "name": null,
                             "region": "RegionOne",
+                            "project-id": "--project-id--",
                             "url": "http://external:8776/v1/--project-id--"
                         },
                         {
@@ -1002,6 +1021,7 @@ Response:
                             "id": "--endpoint-id--",
                             "name": null,
                             "region": "RegionOne",
+                            "project-id": "--project-id--",
                             "url": "http://internal:8776/v1/--project-id--"
                         }
                     ],
@@ -1032,16 +1052,28 @@ Response:
                 }
             }
         ],
-        "project": {
-            "domain": {
-                "enabled": true,
-                "id": "--domain-id--",
-                "name": "--domain-name--"
-            },
-            "enabled": true,
-            "id": "--project-id--",
-            "name": "--project-name--"
-        },
+        "projects": [
+          {
+              "domain": {
+                  "enabled": true,
+                  "id": "--domain-id--",
+                  "name": "--domain-name--"
+              },
+              "enabled": true,
+              "id": "--project-id--",
+              "name": "--project-name--"
+          },
+          {
+              "domain": {
+                  "enabled": true,
+                  "id": "--domain-id--",
+                  "name": "--domain-name--"
+              },
+              "enabled": true,
+              "id": "--project-id--",
+              "name": "--project-name--"
+          }
+        ],
         "token": {
             "expires": "2012-06-18T20:08:53Z",
             "id": "--token-id--",
@@ -1093,6 +1125,16 @@ Failure response:
             "title": "Not Authorized"
         }
     }
+
+A project id may be specified as a query parameter to check whether a
+token is valid for a particular project:
+
+    HEAD /tokens?project_id=1232
+
+Multiple projects may be specified simultaneously:
+
+    HEAD /tokens?project_id=1232&project_id=1234&project_id=9923
+
 
 #### Remove token: `DELETE /tokens`
 
