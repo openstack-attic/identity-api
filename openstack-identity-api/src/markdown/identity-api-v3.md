@@ -370,7 +370,7 @@ Additional required attributes:
 
 - `name` (string)
 
-  Globally unique username.
+  Either globally or domain unique username, depending on owning domain.
 
 Optional attributes:
 
@@ -516,7 +516,7 @@ Required attributes:
 
 - `name` (string)
 
-  Globally unique project name.
+  Either globally or domain unique project name, depending on owning domain.
 
 - `domain_id` (string)
 
@@ -554,6 +554,31 @@ is owned by exactly one domain. Users, however, can be associated with multiple
 projects by granting roles to the user on a project (including projects owned
 by other domains).
 
+The name space of a domain refers to the space in which api-visible user/adminstrator
+created textual names exist and whether this is private to this domain or shared with
+other domains. The consequence of being shared is that if uniquness is required, then
+such a name must be unigue across all domains - while if the name space is private,
+then uniqueness is only required within that domain.  Within keystone, there are
+five such textual names, and when a creating a domain the name space for some of
+these names can be specified:
+
+Domain Name 	- This always exists in a shared name space across all domains and
+		  hence is always globally unique
+Role Name 	- This always exists in a shared name space across all domains and
+		  hence is always globally unique
+User Name 	- This can be specified to exist in either a shared or private name
+		  space, hence allowing either global uniquness or just uniqueness to
+		  a domain
+Project Name 	- This can be specified to exist in either a shared or private name
+		  space, hence allowing either global uniquness or just uniqueness to
+		  a domain
+Group Name 	- This always exists in a private name space and hence is always
+		  unique to a domain
+
+Specifying a name space is optional, and the default settings ensure that all except
+group name are created in a shared global name space, hence maintaining the backward
+compatibility requirements of global uniquness of earlier keystone apis.
+
 Additional required attributes:
 
 - `name` (string)
@@ -570,6 +595,18 @@ Optional attributes:
   the domain, and therefore implies the same effects of disabling all of those
   entities individually.
 
+- `name_space` (string)
+
+  This specifies the name space settings for this domain and can be set to:
+
+  "shared" 		- User and project names will be created in a shared name space
+			  and hence are both globally unique.  This is the default.
+  "project-private" 	- User names will be created in a shared name space and hence
+			  are globally unique, while project names will be created in
+			  a private name space, hence only unique to this domain.
+  "private"		- User and project names will be created in a private name space
+			  and hence are only unique to this domain.
+
 Example entity:
 
     {
@@ -579,7 +616,8 @@ Example entity:
             "links": {
                 "self": "http://identity:35357/v3/domains/1789d1"
             },
-            "name": "example.com"
+            "name": "example.com",
+            "name_space": "project-private",
         }
     }
 
@@ -844,7 +882,9 @@ For the use case where we are providing a username and password, optionally
 with a project_name or project_id. If a project_name or project_id is NOT
 provided, the system will use the default project associated with the user, or
 return a 401 Not Authorized if a default project is not found or unable to be
-used.
+used.  If this user was created in a domain that was specified as having a
+private name space, then either a domain_id or domain_name must also be
+specified.
 
 Request:
 
@@ -853,7 +893,9 @@ Request:
             "password_credentials": {
                 "username": "--user-name--",
                 "password": "--password--",
-                "user_id": "--optional-user-id--"
+                "user_id": "--optional-user-id--",
+                "domain_id": "--optional-domain-id--",
+                "domain_name": "--optional-domain-name--"
             },
         "project_name": "--optional-project-name--",
         "project_id": "--optional-project-id--"
@@ -1295,9 +1337,10 @@ The key use cases we need to cover:
 Request:
 
     {
-        "description": "",
-        "enabled": "",
-        "name": ""
+        "description": "...",
+        "enabled": "...",
+        "name": "...",
+        "name_space": "..."
     }
 
 Response:
@@ -1313,7 +1356,8 @@ Response:
             "href": "http://identity:35357/v3/domains/--domain-id--",
             "rel": "self"
         },
-        "name": "my domain"
+        "name": "my domain",
+        "name_space": "project-private",
     }
 
 #### List domains: `GET /domains`
@@ -1335,7 +1379,8 @@ Response:
                 "href": "http://identity:35357/v3/domains/--domain-id--",
                 "rel": "self"
             },
-            "name": "my domain"
+            "name": "my domain",
+            "name_space": "project-private"
         },
         {
             "description": "desc of another domain",
@@ -1345,7 +1390,8 @@ Response:
                 "href": "http://identity:35357/v3/domains/--domain-id--",
                 "rel": "self"
             },
-            "name": "another domain"
+            "name": "another domain",
+            "name_space": "shared"
         }
     ]
 
@@ -1363,10 +1409,13 @@ Response:
             "href": "http://identity:35357/v3/domains/--domain-id--",
             "rel": "self"
         },
-        "name": "my domain"
+        "name": "my domain",
+        "name_space": "project-private"
     }
 
 #### Update domain: `PATCH /domains/{domain_id}`
+
+Updating the domain_id and name_space is not supported.
 
 Response:
 
@@ -1380,7 +1429,8 @@ Response:
             "href": "http://identity:35357/v3/domains/--domain-id--",
             "rel": "self"
         },
-        "name": "my domain"
+        "name": "my domain",
+        "name_space": "project-private"
     }
 
 #### Delete domain: `DELETE /domains/{domain_id}`
