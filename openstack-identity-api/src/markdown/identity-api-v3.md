@@ -379,13 +379,13 @@ Optional attributes:
   the client, the Identity service implementation **must** automatically assign
   one.
 
-- `project_id` (string)
+- `default_project_id` (string)
 
   References the user's default project against which to authorize, if the API
-  user does not explicitly specify one. Setting this attribute does not grant
-  any actual authorization on the project, and is merely provided for the
-  user's convenience. Therefore, the referenced project does not need to exist
-  within the user's domain.
+  user does not explicitly specify one when creating or validating a token.
+  Setting this attribute does not grant any actual authorization on the project,
+  and is merely provided for the user's convenience. Therefore, the referenced 
+  project does not need to exist within the user's domain.
 
 - `description` (string)
 
@@ -404,6 +404,7 @@ Example entity:
 
     {
         "user": {
+            "default_project_id": "263fd9",
             "domain_id": "1789d1",
             "email": "joe@example.com",
             "enabled": true,
@@ -411,8 +412,7 @@ Example entity:
             "links": {
                 "self": "http://identity:35357/v3/users/0ca8f6"
             },
-            "name": "Joe",
-            "project_id": "263fd9"
+            "name": "Joe"
         }
     }
 
@@ -780,10 +780,23 @@ Additional required attributes:
 
 - `project` (object)
 
-  Specifies the authorization scope of the token. If this attribute is not
-  provided, then the token is not authorized to access any projects.
+  Specifies a project authorization scope of the token. If this attribute is
+  not provided, then the token is not authorized to access any projects. This
+  attribute must not be included if a `domain` attribute is included.
 
   Includes the full resource description of a project.
+
+- `domain` (object)
+
+  Specifies a domain authorization scope of the token. This is to provide
+  authorization appropriate to domain-wide APIs, for example user and
+  group management within a domain.  Domain authorization does not
+  grant authorization to projects within the domain.  If this attribute
+  is not provided, then the token is not authorized to access any domain
+  level resources. This attribute must not be included if a `project`
+  attribute is included.
+
+  Includes the full resource description of a domain.
 
 - `catalog` (object)
 
@@ -812,6 +825,7 @@ Example entity:
                 "name": "project-x"
             },
             "user": {
+                "default_project_id": "263fd9",
                 "domain_id": "1789d1",
                 "email": "joe@example.com",
                 "enabled": true,
@@ -819,11 +833,23 @@ Example entity:
                 "links": {
                     "self": "http://identity:35357/v3/users/0ca8f6"
                 },
-                "name": "Joe",
-                "project_id": "263fd9"
+                "name": "Joe"
             }
         }
     }
+
+The above example represents a project-scoped token. If this was a
+domain-scoped token then the following would replace the "project"
+component:
+
+            "domain": {
+                "enabled": true,
+                "id": "1789d1",
+                "links": {
+                    "self": "http://identity:35357/v3/domains/1789d1"
+                },
+                "name": "example.com"
+            },
 
 ### Policy
 
@@ -867,11 +893,11 @@ Core API
 The key use cases we need to cover:
 
 - given a user name & password, get a token to represent the user
-- given a token, get a list of other projects the user can access
-- given a token ID, validate the token and return user, project, roles, and
-  potential endpoints.
-- given a valid token, request another token with a different project (change
-  project being represented with the user)
+- given a token, get a list of other domain/projects the user can access
+- given a token ID, validate the token and return user, domain, project,
+  roles and potential endpoints.
+- given a valid token, request another token with a different domain/project
+  (change domain/project being represented with the user)
 - forced expiration of a token
 
 The "just a token" has been the starting requirement, and with PKI coming
@@ -884,18 +910,20 @@ resource.
 #### Authenticate: `POST /tokens`
 
 For the use case where we are providing a `username` and `password`, optionally
-with a `project_name` or `project_id`. If a project is specified by `project_name`
-and the owning domain of the project was specified having private projects,
-then a `domain_id` or `domain_name` must also be specified to uniquely identify
-the project. If a `project_name` or `project_id`is NOT provided, the system will
-use the default project associated with the user, or return a 401 Not Authorized
-if a default project is not found or unable to be used.
+with either a project (by specifying a `project_name` or `project_id`) or a
+domain (by specifiying a `domain_name` or `domain_id`). If a project is
+specified by `project_name` and the owning domain of the project was specified
+as having private projects, then a `domain_id` or `domain_name` must also be
+specified to uniquely identify the project. If both a domain and a project
+is specified, then the most granular scope is set (i.e. the token is scoped to
+the project). If neither a project or domain is provided, the system will
+use the default project associated with the user, and a 401 Not Authorized
+will be returned if the default project is not found or able to be used.
 
 If this user was created in a domain that was specified as having a private
 namespace for users and the password credentials contain `username`, rather than
 `user_id`, then either a `domain_id` or `domain_name` must also be specified as
-part of the credentials. In this case, if a default project is also specified by
-`project_name`, then a default `domain_name` or `domain_id` must also be specified.
+part of the credentials.
 
 Request:
 
@@ -942,6 +970,11 @@ Response:
     Location: https://identity:35357/v3/tokens/--token-id--
 
     {
+        "domain": {
+            "enabled": true,
+            "id": "...",
+            "name": "..."
+        },
         "project": {
             "domain": {
                 "enabled": true,
@@ -1001,10 +1034,11 @@ Response:
             "id": "--token-id--"
         },
         "user": {
+            "default_project_id": "--default-project-id--",
             "description": "a domain administrator",
+            "domain_id": "--domain-id--",
             "id": "766f3f4235fa468588e30f31157eb9ac",
             "name": "admin",
-            "project_id": "--default-project-id--",
             "roles": [
                 {
                     "id": "...",
@@ -1022,7 +1056,12 @@ Response:
         }
     }
 
-Failure response (example - additional failure cases are quite possible, including 403 Forbidden and 409 Conflict):
+In the above example, either the "project" or "domain" object will be
+present at the top level (depending on whether this is a token for a
+project or a domain), but not both.
+
+Failure response (example - additional failure cases are quite possible,
+including 403 Forbidden and 409 Conflict):
 
     Status: 401 Not Authorized
 
@@ -1090,6 +1129,11 @@ Response:
                 }
             }
         ],
+        "domain": {
+            "enabled": true,
+            "id": "--domain-id--",
+            "name": "--domain-name--"
+        },
         "project": {
             "domain": {
                 "enabled": true,
@@ -1113,10 +1157,11 @@ Response:
             }
         },
         "user": {
+            "default_project_id": "--default-project-id--",
             "description": "a domain administrator",
+            "domain_id": "--domain-id--",
             "id": "--user-id--",
             "name": "admin",
-            "project_id": "--default-project-id--",
             "roles": [
                 {
                     "id": "--role-id--",
@@ -1132,6 +1177,10 @@ Response:
             "roles_links": []
         }
     }
+
+In the above example, either the "project" or "domain" object will be present
+at the top level (depending on whether this is a token for a project or a
+domain), but not both.
 
 #### Check token: `HEAD /tokens`
 
@@ -1504,7 +1553,9 @@ Response:
 
     [
         {
+            "default_project_id": "--default-project-id--",
             "description": "a user",
+            "domain_id": "--domain-id--",
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
@@ -1512,11 +1563,12 @@ Response:
                 "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
-            "name": "admin",
-            "project_id": "--default-project-id--"
+            "name": "admin"
         },
         {
+            "default_project_id": "--default-project-id--",
             "description": "another user",
+            "domain_id": "--domain-id--",
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
@@ -1524,8 +1576,7 @@ Response:
                 "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
-            "name": "someone",
-            "project_id": "--default-project-id--"
+            "name": "someone"
         }
     ]
 
@@ -1641,7 +1692,9 @@ Response:
 
     [
         {
+            "default_project_id": "--default-project-id--",
             "description": "a user",
+            "domain_id": "--domain-id--",
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
@@ -1649,11 +1702,12 @@ Response:
                 "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
-            "name": "admin",
-            "project_id": "--default-project-id--"
+            "name": "admin"
         },
         {
+            "default_project_id": "--default-project-id--",
             "description": "another user",
+            "domain_id": "--domain-id--",
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
@@ -1661,8 +1715,7 @@ Response:
                 "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
-            "name": "someone",
-            "project_id": "--default-project-id--"
+            "name": "someone"
         }
     ]
 
@@ -1673,12 +1726,13 @@ Response:
 Request:
 
     {
+        "default_project_id": "...",
         "description": "...",
+        "domain_id": "--optional--",
         "email": "...",
         "enabled": "...",
         "name": "...",
-        "password": "--optional--",
-        "project_id": "..."
+        "password": "--optional--"
     }
 
 Response:
@@ -1687,7 +1741,9 @@ Response:
     Location: http://identity:35357/v3/users/--user-id--
 
     {
+        "default_project_id": "--default-project-id--",
         "description": "a user",
+        "domain_id": "1789d1",
         "email": "...",
         "enabled": true,
         "id": "--user-id--",
@@ -1695,8 +1751,7 @@ Response:
             "href": "http://identity:35357/v3/users/--user-id--",
             "rel": "self"
         },
-        "name": "admin",
-        "project_id": "--default-project-id--"
+        "name": "admin"
     }
 
 #### List users: `GET /users`
@@ -1711,7 +1766,9 @@ Response:
 
     [
         {
+            "default_project_id": "--default-project-id--",
             "description": "a user",
+            "domain_id": "1789d1",
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
@@ -1719,11 +1776,12 @@ Response:
                 "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
-            "name": "admin",
-            "project_id": "--default-project-id--"
+            "name": "admin"
         },
         {
+            "default_project_id": "--default-project-id--",
             "description": "another user",
+            "domain_id": "1789d1",
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
@@ -1731,8 +1789,7 @@ Response:
                 "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
-            "name": "someone",
-            "project_id": "--default-project-id--"
+            "name": "someone"
         }
     ]
 
@@ -1743,7 +1800,9 @@ Response:
     Status: 200 OK
 
     {
+        "default_project_id": "--default-project-id--",
         "description": "a user",
+        "domain_id": "1789d1",
         "email": "...",
         "enabled": true,
         "id": "--user-id--",
@@ -1751,8 +1810,7 @@ Response:
             "href": "http://identity:35357/v3/users/--user-id--",
             "rel": "self"
         },
-        "name": "admin",
-        "project_id": "--default-project-id--"
+        "name": "admin"
     }
 
 #### List user projects: `GET /users/{user_id}/projects`
@@ -1832,7 +1890,9 @@ Response:
     Status: 200 OK
 
     {
+        "default_project_id": "--default-project-id--",
         "description": "a user",
+        "domain_id": "1789d1",
         "email": "...",
         "enabled": true,
         "id": "--user-id--",
@@ -1840,8 +1900,7 @@ Response:
             "href": "http://identity:35357/v3/users/--user-id--",
             "rel": "self"
         },
-        "name": "admin",
-        "project_id": "--default-project-id--"
+        "name": "admin"
     }
 
 #### Delete user: `DELETE /users/{user_id}`
@@ -1874,8 +1933,7 @@ Response:
             "href": "http://identity:35357/v3/groups/--group-id--",
             "rel": "self"
         },
-        "name": "admin",
-        "project_id": "--default-project-id--"
+        "name": "Secure Developers"
     }
 
 #### List groups: `GET /groups`
@@ -1934,8 +1992,7 @@ Response:
             "href": "http://identity:35357/v3/groups/--group-id--",
             "rel": "self"
         },
-        "name": "admin",
-        "project_id": "--default-project-id--"
+        "name": "Secure Developers"
 
 #### List users who are members of a group: `GET /groups/{group_id}/users`
 
@@ -1949,7 +2006,9 @@ Response:
 
     [
         {
+            "default_project_id": "--default-project-id--",
             "description": "a user",
+            "domain_id": "--domain-id--",
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
@@ -1957,11 +2016,12 @@ Response:
                 "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
-            "name": "admin",
-            "project_id": "--default-project-id--"
+            "name": "admin"
         },
         {
+            "default_project_id": "--default-project-id--",
             "description": "another user",
+            "domain_id": "--domain-id--",
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
@@ -1969,8 +2029,7 @@ Response:
                 "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
-            "name": "someone",
-            "project_id": "--default-project-id--"
+            "name": "someone"
         }
     ]
 
@@ -1991,8 +2050,7 @@ Response:
             "href": "http://identity:35357/v3/groups/--group-id--",
             "rel": "self"
         },
-        "name": "admin",
-        "project_id": "--default-project-id--"
+        "name": "Secure Developers"
     }
 
 #### Delete group: `DELETE /groups/{group_id}`
@@ -2246,7 +2304,9 @@ Response:
 
     [
         {
+            "default_project_id": "--default-project-id--",
             "description": "a user",
+            "domain_id": "--domain-id--",
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
@@ -2254,11 +2314,12 @@ Response:
                 "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
-            "name": "admin",
-            "project_id": "--default-project-id--"
+            "name": "admin"
         },
         {
+            "default_project_id": "--default-project-id--",
             "description": "another user",
+            "domain_id": "--domain-id--",
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
@@ -2266,8 +2327,7 @@ Response:
                 "href": "http://identity:35357/v3/users/--user-id--",
                 "rel": "self"
             },
-            "name": "someone",
-            "project_id": "--default-project-id--"
+            "name": "someone"
         }
     ]
 
