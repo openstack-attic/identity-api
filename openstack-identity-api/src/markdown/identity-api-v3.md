@@ -369,7 +369,7 @@ Additional required attributes:
 
 - `name` (string)
 
-  Globally unique username.
+  Either globally or domain unique username, depending on owning domain.
 
 Optional attributes:
 
@@ -515,7 +515,7 @@ Required attributes:
 
 - `name` (string)
 
-  Globally unique project name.
+  Either globally or domain unique project name, depending on owning domain.
 
 - `domain_id` (string)
 
@@ -553,6 +553,35 @@ is owned by exactly one domain. Users, however, can be associated with multiple
 projects by granting roles to the user on a project (including projects owned
 by other domains).
 
+The namespace of a domain refers to the space in which API-visible name attributes
+exist and whether they are private to this domain or shared with other domains.
+The consequence of being shared is that if uniqueness is required, then such a
+name must be unique across all domains - while if the namespace is private,
+then uniqueness is only required within that domain.  Within the Identity API,
+there are five such name attributes, and when a creating a domain the namespace
+for some of these names can be specified:
+
+  - *Domain Name*: This always exists in a shared namespace across all domains
+    and hence is always globally unique.
+
+  - *Role Name*: This always exists in a shared namespace across all domains
+    and hence is always globally unique.
+
+  - *User Name*: This can be specified to exist in either a shared or private
+    namespace, therefore allowing either global uniqueness or just uniqueness to
+    a domain.
+
+  - *Project Name*: This can be specified to exist in either a shared or private
+    namespace, therefore allowing either global uniqueness or just uniqueness to
+    a domain.
+
+  - *Group Name*: This always exists in a private namespace and hence is always
+    unique to a domain.
+
+Specifying a namespace is optional, and the default values ensure that all except
+group name are created in a shared global namespace, therefore maintaining the
+backward compatibility requirements of global uniqueness in prior Identity APIs.
+
 Additional required attributes:
 
 - `name` (string)
@@ -569,6 +598,19 @@ Optional attributes:
   the domain, and therefore implies the same effects of disabling all of those
   entities individually.
 
+- `private_project_names` (boolean)
+
+  Setting this value to `true` will cause project names to be created in a private
+  namespace for this domain, and hence be unique only within this domain.  The default
+  is `false`.
+
+- `private_user_names` (boolean)
+
+  Setting this value to `true` will cause user names to be created in a private
+  namespace for this domain, and hence be unique only within this domain.  The default
+  is `false`.
+
+
 Example entity:
 
     {
@@ -578,7 +620,9 @@ Example entity:
             "links": {
                 "self": "http://identity:35357/v3/domains/1789d1"
             },
-            "name": "example.com"
+            "name": "example.com",
+            "private_project_names": true,
+            "private_user_names": false
         }
     }
 
@@ -839,11 +883,19 @@ resource.
 
 #### Authenticate: `POST /tokens`
 
-For the use case where we are providing a username and password, optionally
-with a project_name or project_id. If a project_name or project_id is NOT
-provided, the system will use the default project associated with the user, or
-return a 401 Not Authorized if a default project is not found or unable to be
-used.
+For the use case where we are providing a `username` and `password`, optionally
+with a `project_name` or `project_id`. If a project is specified by `project_name`
+and the owning domain of the project was specified having private projects,
+then a `domain_id` or `domain_name` must also be specified to uniquely identify
+the project. If a `project_name` or `project_id`is NOT provided, the system will
+use the default project associated with the user, or return a 401 Not Authorized
+if a default project is not found or unable to be used.
+
+If this user was created in a domain that was specified as having a private
+namespace for users and the password credentials contain `username`, rather than
+`user_id`, then either a `domain_id` or `domain_name` must also be specified as
+part of the credentials. In this case, if a default project is also specified by
+`project_name`, then a default `domain_name` or `domain_id` must also be specified.
 
 Request:
 
@@ -852,21 +904,30 @@ Request:
             "password_credentials": {
                 "username": "--user-name--",
                 "password": "--password--",
-                "user_id": "--optional-user-id--"
+                "user_id": "--optional-user-id--",
+                "domain_id": "--optional-domain-id--",
+                "domain_name": "--optional-domain-name--"
             },
-        "project_name": "--optional-project-name--",
-        "project_id": "--optional-project-id--"
+        "domain_id": "--optional-domain-id--",
+        "domain_name": "--optional-domain-name--",
+        "project_id": "--optional-project-id--",
+        "project_name": "--optional-project-name--"
         }
     }
 
 For the use case where we already have a token, but are requesting
-authorization to a different project_id. If project_id or project_name is not
-specified, default_project will be used.
+authorization to a different project. If `project_id` or `project_name` is not
+specified, the default_project will be used. If the owning domain of
+the project was specified as having a private namespace for projects and is
+identified here by `project_name` rather than `project_id`, then a `domain_id` or
+`domain_name` must also be specified to uniquely identify the project.
 
 Request:
 
     {
         "auth": {
+            "domain_id": "--optional-domain-id--",
+            "domain_name": "--optional-domain-name--",
             "project_id": "--optional-project-id--",
             "project_name": "--optional-project-name--",
             "token": {
@@ -885,7 +946,9 @@ Response:
             "domain": {
                 "enabled": true,
                 "id": "...",
-                "name": "..."
+                "name": "...",
+                "private_project_names": "...",
+                "private_user_names": "..."
             },
             "enabled": true,
             "id": "...",
@@ -1031,7 +1094,9 @@ Response:
             "domain": {
                 "enabled": true,
                 "id": "--domain-id--",
-                "name": "--domain-name--"
+                "name": "--domain-name--",
+                "private_project_names": "...",
+                "private_user_names": "..."
             },
             "enabled": true,
             "id": "--project-id--",
@@ -1285,9 +1350,11 @@ The key use cases we need to cover:
 Request:
 
     {
-        "description": "",
-        "enabled": "",
-        "name": ""
+        "description": "--optional--",
+        "enabled": --optional--,
+        "name": "...",
+        "private_project_names": --optional--,
+        "private_user_names": --optional--
     }
 
 Response:
@@ -1303,7 +1370,9 @@ Response:
             "href": "http://identity:35357/v3/domains/--domain-id--",
             "rel": "self"
         },
-        "name": "my domain"
+        "name": "my domain",
+        "private_project_names": true,
+        "private_user_names": false
     }
 
 #### List domains: `GET /domains`
@@ -1325,7 +1394,9 @@ Response:
                 "href": "http://identity:35357/v3/domains/--domain-id--",
                 "rel": "self"
             },
-            "name": "my domain"
+            "name": "my domain",
+            "private_project_names": true,
+            "private_user_names": false
         },
         {
             "description": "desc of another domain",
@@ -1335,7 +1406,9 @@ Response:
                 "href": "http://identity:35357/v3/domains/--domain-id--",
                 "rel": "self"
             },
-            "name": "another domain"
+            "name": "another domain",
+            "private_project_names": true,
+            "private_user_names": true
         }
     ]
 
@@ -1353,10 +1426,15 @@ Response:
             "href": "http://identity:35357/v3/domains/--domain-id--",
             "rel": "self"
         },
-        "name": "my domain"
+        "name": "my domain",
+        "private_project_names": true,
+        "private_user_names": false
     }
 
 #### Update domain: `PATCH /domains/{domain_id}`
+
+Attempting to update either `private_project_names` or `private_user_names`
+will result in a status code of 400 (Bad Request) being returned.
 
 Response:
 
@@ -1370,7 +1448,9 @@ Response:
             "href": "http://identity:35357/v3/domains/--domain-id--",
             "rel": "self"
         },
-        "name": "my domain"
+        "name": "my domain",
+        "private_project_names": true,
+        "private_user_names": false
     }
 
 #### Delete domain: `DELETE /domains/{domain_id}`
