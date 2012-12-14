@@ -378,15 +378,17 @@ Optional attributes:
 
   References the domain which owns the user; if a domain is not specified by
   the client, the Identity service implementation **must** automatically assign
-  one.
+  one. If specified, the `domain_id` also represents a user's default domain
+  against which to authorize, if the API user does not explicitly specify a
+  domain or project when creating or validating a token.
 
-- `project_id` (string)
+- `default_project_id` (string)
 
   References the user's default project against which to authorize, if the API
-  user does not explicitly specify one. Setting this attribute does not grant
-  any actual authorization on the project, and is merely provided for the
-  user's convenience. Therefore, the referenced project does not need to exist
-  within the user's domain.
+  user does not explicitly specify one when creating or validating a token.
+  Setting this attribute does not grant any actual authorization on the project,
+  and is merely provided for the user's convenience. Therefore, the referenced 
+  project does not need to exist within the user's domain.
 
 - `description` (string)
 
@@ -737,10 +739,21 @@ Additional required attributes:
 
 - `project` (object)
 
-  Specifies the authorization scope of the token. If this attribute is not
-  provided, then the token is not authorized to access any projects.
+  Specifies a project authorization scope of the token. If this attribute is
+  not provided, then the token is not authorized to access any projects.
 
   Includes the full resource description of a project.
+
+- `domain` (object)
+
+  Specifies a domain authorization scope of the token. This is to provide
+  authorization appropriate to domain-wide apis, for example user and
+  group management within a domain.  Domain authorization does not
+  grant authorization to projects within the domain.  If this attribute
+  is not provided, then the token is not authorized to access any domain
+  level resources.
+
+  Includes the full resource description of a domain.
 
 - `catalog` (object)
 
@@ -781,6 +794,19 @@ Example entity:
             }
         }
     }
+
+The above example represents a project-scoped token. If this was a
+domain-scoped token then the following would replace the "project"
+component:
+
+            "domain": {
+                "enabled": true,
+                "id": "1789d1",
+                "links": {
+                    "self": "http://identity:35357/v3/domains/1789d1"
+                },
+                "name": "example.com"
+            },
 
 ### Policy
 
@@ -824,11 +850,11 @@ Core API
 The key use cases we need to cover:
 
 - given a user name & password, get a token to represent the user
-- given a token, get a list of other projects the user can access
-- given a token ID, validate the token and return user, project, roles, and
-  potential endpoints.
-- given a valid token, request another token with a different project (change
-  project being represented with the user)
+- given a token, get a list of other domain/projects the user can access
+- given a token ID, validate the token and return user, domain, project,
+  roles and potential endpoints.
+- given a valid token, request another token with a different domain/project
+  (change domain/project being represented with the user)
 - forced expiration of a token
 
 The "just a token" has been the starting requirement, and with PKI coming
@@ -841,10 +867,12 @@ resource.
 #### Authenticate: `POST /tokens`
 
 For the use case where we are providing a username and password, optionally
-with a project_name or project_id. If a project_name or project_id is NOT
-provided, the system will use the default project associated with the user, or
-return a 401 Not Authorized if a default project is not found or unable to be
-used.
+with either a project (by specifying a `project_name` or `project_id`) or a
+domain (by specifiying a `domain_name` or `domain_id`). If neither a project or
+domain is provided, the system will use the default domain/project associated
+with the user, or return a 401 Not Authorized if a default domain/project is
+not found or unable to be used.  If both a domain and a project is specified,
+then the most granular scope is used (i.e. the project).
 
 Request:
 
@@ -855,19 +883,23 @@ Request:
                 "password": "--password--",
                 "user_id": "--optional-user-id--"
             },
-        "project_name": "--optional-project-name--",
-        "project_id": "--optional-project-id--"
+        "domain_id": "--optional-domain-id--",
+        "domain_name": "--optional-domain-name--",
+        "project_id": "--optional-project-id--",
+        "project_name": "--optional-project-name--"
         }
     }
 
 For the use case where we already have a token, but are requesting
-authorization to a different project_id. If project_id or project_name is not
-specified, default_project will be used.
+authorization to a different domain/project, if neither domain or project is
+specified then the default domain/project will be used.
 
 Request:
 
     {
         "auth": {
+            "domain_id": "--optional-domain-id--",
+            "domain_name": "--optional-domain-name--",
             "project_id": "--optional-project-id--",
             "project_name": "--optional-project-name--",
             "token": {
@@ -882,6 +914,11 @@ Response:
     Location: https://identity:35357/v3/tokens/--token-id--
 
     {
+        "domain": {
+            "enabled": true,
+            "id": "...",
+            "name": "..."
+        },
         "project": {
             "domain": {
                 "enabled": true,
@@ -940,6 +977,7 @@ Response:
         },
         "user": {
             "description": "a domain administrator",
+            "domain_id": "--optional-domain-id--",
             "id": "766f3f4235fa468588e30f31157eb9ac",
             "name": "admin",
             "project_id": "--default-project-id--",
@@ -960,7 +998,12 @@ Response:
         }
     }
 
-Failure response (example - additional failure cases are quite possible, including 403 Forbidden and 409 Conflict):
+In the above example, either the "project" or "domain" object will be present
+at the top level (depending on whether this is a token for a project or a
+domain), but not both.
+
+Failure response (example - additional failure cases are quite possible,
+including 403 Forbidden and 409 Conflict):
 
     Status: 401 Not Authorized
 
@@ -1028,6 +1071,11 @@ Response:
                 }
             }
         ],
+        "domain": {
+            "enabled": true,
+            "id": "--domain-id--",
+            "name": "--domain-name--"
+        },
         "project": {
             "domain": {
                 "enabled": true,
@@ -1050,6 +1098,7 @@ Response:
         },
         "user": {
             "description": "a domain administrator",
+            "domain_id": "--default-domain-id--",
             "id": "--user-id--",
             "name": "admin",
             "project_id": "--default-project-id--",
@@ -1068,6 +1117,10 @@ Response:
             "roles_links": []
         }
     }
+
+In the above example, either the "project" or "domain" object will be present
+at the top level (depending on whether this is a token for a project or a
+domain), but not both.
 
 #### Check token: `HEAD /tokens`
 
@@ -1595,6 +1648,7 @@ Request:
 
     {
         "description": "...",
+        "domain_id": "--optional--",
         "email": "...",
         "enabled": "...",
         "name": "...",
@@ -1609,6 +1663,7 @@ Response:
 
     {
         "description": "a user",
+        "domain_id": "1789d1",
         "email": "...",
         "enabled": true,
         "id": "--user-id--",
@@ -1633,6 +1688,7 @@ Response:
     [
         {
             "description": "a user",
+            "domain_id": "1789d1",
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
@@ -1645,6 +1701,7 @@ Response:
         },
         {
             "description": "another user",
+            "domain_id": "1789d1",
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
@@ -1665,6 +1722,7 @@ Response:
 
     {
         "description": "a user",
+        "domain_id": "1789d1",
         "email": "...",
         "enabled": true,
         "id": "--user-id--",
@@ -1754,6 +1812,7 @@ Response:
 
     {
         "description": "a user",
+        "domain_id": "1789d1",
         "email": "...",
         "enabled": true,
         "id": "--user-id--",
