@@ -16,6 +16,7 @@ What's New in Version 3
   defined in the v2 OS-KSADM extension) are consolidated into a single core API
 - "Tenants" are now known as "projects"
 - "Domains": a high-level container for projects and users
+- "Groups": a container representing a collection of users
 - "Policies": a centralized repository for policy engine rule sets
 - "Credentials": generic credential storage per user (e.g. EC2, PKI, SSH, etc)
 - Roles can be granted at either the domain or project level
@@ -415,6 +416,52 @@ Example entity:
             "project_id": "263fd9"
         }
     }
+
+### Groups: `/v3/groups`
+
+Group entities represent a collection of Users and are owned by a specific domain.
+As with individual users, role grants explicitly associate groups with projects
+or domains. A group role grant onto a project/domain is the equivilent of granting
+each individual member of the group the role on that project/domain. Once a group
+role grant has been made, the addition or removal of a user to such a group will
+result in the automatic granting/revoking of that role to the user, with appropriate
+invalidation of any tokens.
+
+As with users, a group entity without any role grants is effectively useless from the 
+perspective an OpenStack service and should never have access to any resources. It is
+allowed, however, as a means of acquiring or loading users/groups from external
+sources prior to mapping them to projects/domains.
+
+Additional required attributes:
+
+- `name` (string)
+
+  Unique groupname, within the owning domain.
+
+Optional attributes:
+
+- `domain_id` (string)
+
+  References the domain which owns the group; if a domain is not specified by
+  the client, the Identity service implementation **must** automatically assign
+  one.
+
+- `description` (string)
+
+Example entity:
+
+    {
+        "group": {
+            "description": "Developers cleared for work on all general projects"
+            "domain_id": "1789d1",
+            "id": "70febc",
+            "links": {
+                "self": "http://identity:35357/v3/group/70febc"
+            },
+            "name": "Developers"
+        }
+    }
+
 
 ### Credentials: `/v3/credentials`
 
@@ -1412,6 +1459,39 @@ Response:
         }
     ]
 
+#### Get domain groups: `GET /domains/{domain_id}/groups`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+query filter for "name" (optional)
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "description": "Developers cleared for work on all general projects"
+            "domain_id": "--domain-id--",
+            "id": "--group-id--",
+            "links": {
+                "href": "http://identity:35357/v3/groups/--group-id--",
+                "rel": "self"
+            },
+            "name": "Developers"
+        },
+        {
+            "description": "Testers cleared for work on all general projects"
+            "domain_id": "--domain-id--",
+            "id": "--group-id--",
+            "links": {
+                "href": "http://identity:35357/v3/groups/--group-id--",
+                "rel": "self"
+            },
+            "name": "Testers"
+        }
+   ]
+
 ### Projects
 
 #### Create project: `POST /projects`
@@ -1671,6 +1751,39 @@ Response:
         }
     ]
 
+#### List groups of which a user is a member: `GET /users/{user_id}/groups`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+query filter for "name" (optional)
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "description": "Developers cleared for work on all general projects"
+            "domain_id": "--domain-id--",
+            "id": "--group-id--",
+            "links": {
+                "href": "http://identity:35357/v3/groups/--group-id--",
+                "rel": "self"
+            },
+            "name": "Developers"
+        },
+        {
+            "description": "Developers cleared for work on secret projects"
+            "domain_id": "--domain-id--",
+            "id": "--group-id--",
+            "links": {
+                "href": "http://identity:35357/v3/groups/--group-id--",
+                "rel": "self"
+            },
+            "name": "Secure Developers"
+        }
+   ]
+
 #### Update user: `PATCH /users/{user_id}`
 
 Use this method attempt to update user password or enable/disable the user.
@@ -1699,6 +1812,176 @@ Response:
 Response:
 
     Status: 204 No Content
+
+### Groups
+
+#### Create group: `POST /groups`
+
+Request:
+
+    {
+        "description": "--optional--",
+        "domain_id": "--optional--",
+        "name": "..."
+    }
+
+Response:
+
+    Status: 201 Created
+    Location: http://identity:35357/v3/groups/--group-id--
+
+    {
+        "description": "Developers cleared for work on secret projects",
+        "id": "--group-id--",
+        "link": {
+            "href": "http://identity:35357/v3/groups/--group-id--",
+            "rel": "self"
+        },
+        "name": "admin",
+        "project_id": "--default-project-id--"
+    }
+
+#### Get groups: `GET /groups`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+query filter for "name" (optional)
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "description": "Developers cleared for work on all general projects"
+            "domain_id": "--domain-id--",
+            "id": "--group-id--",
+            "links": {
+                "href": "http://identity:35357/v3/groups/--group-id--",
+                "rel": "self"
+            },
+            "name": "Developers"
+        },
+        {
+            "description": "Developers cleared for work on secret projects"
+            "domain_id": "--domain-id--",
+            "id": "--group-id--",
+            "links": {
+                "href": "http://identity:35357/v3/groups/--group-id--",
+                "rel": "self"
+            },
+            "name": "Secure Developers"
+        },
+        {
+            "description": "Testers cleared for work on all general projects"
+            "domain_id": "--domain-id--",
+            "id": "--group-id--",
+            "links": {
+                "href": "http://identity:35357/v3/groups/--group-id--",
+                "rel": "self"
+            },
+            "name": "Testers"
+        }
+   ]
+
+#### Get group: `GET /groups/{group_id}`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "description": "Developers cleared for work on secret projects",
+        "id": "--group-id--",
+        "link": {
+            "href": "http://identity:35357/v3/groups/--group-id--",
+            "rel": "self"
+        },
+        "name": "admin",
+        "project_id": "--default-project-id--"
+
+#### List users who are members of a group: `GET /groups/{group_id}/users`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+query filter for "name", "enabled", "email" (optional)
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "description": "a user",
+            "email": "...",
+            "enabled": true,
+            "id": "--user-id--",
+            "link": {
+                "href": "http://identity:35357/v3/users/--user-id--",
+                "rel": "self"
+            },
+            "name": "admin",
+            "project_id": "--default-project-id--"
+        },
+        {
+            "description": "another user",
+            "email": "...",
+            "enabled": true,
+            "id": "--user-id--",
+            "link": {
+                "href": "http://identity:35357/v3/users/--user-id--",
+                "rel": "self"
+            },
+            "name": "someone",
+            "project_id": "--default-project-id--"
+        }
+    ]
+
+#### Update group: `PATCH /groups/{group_id}`
+
+Use this method attempt to update name and/or description of group.
+This may return a HTTP 501 Not Implemented if the back-end driver doesn’t allow
+for the functionality.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "description": "Developers cleared for work on secret projects",
+        "id": "--group-id--",
+        "link": {
+            "href": "http://identity:35357/v3/groups/--group-id--",
+            "rel": "self"
+        },
+        "name": "admin",
+        "project_id": "--default-project-id--"
+    }
+
+#### Delete group: `DELETE /groups/{group_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Add user to group: `PUT /groups/{group_id}/users/{user_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Remove user from group: `DELETE /groups/{group_id}/users/{user_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Check if user is member of group: `HEAD /groups/{group_id}/users/{user_id}`
+
+Response:
+
+    Status: 204 No Content
+
 
 ### Credentials
 
@@ -1985,7 +2268,30 @@ Response:
 
     Status: 204 No Content
 
+#### Grant role to group on domain: `PUT /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
 #### List user's roles on domain: `GET /domains/{domain_id}/users/{user_id}/roles`
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "id": "--role-id--",
+            "name": "--role-name--",
+        },
+        {
+            "id": "--role-id--",
+            "name": "--role-name--"
+        }
+    ]
+
+#### List group's roles on domain: `GET /domains/{domain_id}/groups/{group_id}/roles`
 
 Response:
 
@@ -2008,13 +2314,31 @@ Response:
 
     Status: 204 No Content
 
+#### Check if group has role on domain: `HEAD /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
 #### Revoke role from user on domain: `DELETE /domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
+#### Revoke role from group on domain: `DELETE /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
 #### Grant role to user on project: `PUT /projects/{project_id}/users/{user_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Grant role to group on project: `PUT /projects/{project_id}/groups/{group_id}/roles/{role_id}`
 
 Response:
 
@@ -2037,13 +2361,43 @@ Response:
         }
     ]
 
+#### List group's roles on project: `GET /projects/{project_id}/groups/{group_id}/roles`
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "id": "--role-id--",
+            "name": "--role-name--",
+        },
+        {
+            "id": "--role-id--",
+            "name": "--role-name--"
+        }
+    ]
+
 #### Check if user has role on project: `HEAD /projects/{project_id}/users/{user_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
+#### Check if group has role on project: `HEAD /projects/{project_id}/groups/{group_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+
 #### Revoke role from user on project: `DELETE /projects/{project_id}/users/{user_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke role from group on project: `DELETE /projects/{project_id}/groups/{group_id}/roles/{role_id}`
 
 Response:
 
