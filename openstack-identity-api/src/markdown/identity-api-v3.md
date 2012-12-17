@@ -896,16 +896,14 @@ Response:
             {
                 "endpoints": [
                     {
-                        "extra": {},
-                        "facing": "public",
+                        "interface": "public",
                         "id": "--endpoint-id--",
                         "name": null,
                         "region": "RegionOne",
                         "url": "http://external:8776/v1/--project-id--"
                     },
                     {
-                        "extra": {},
-                        "facing": "internal",
+                        "interface": "internal",
                         "id": "--endpoint-id--",
                         "name": null,
                         "region": "RegionOne",
@@ -918,14 +916,14 @@ Response:
             {
                 "endpoints": [
                     {
-                        "facing": "public",
+                        "interface": "public",
                         "id": "--endpoint-id--",
                         "name": null,
                         "region": "RegionOne",
                         "url": "http://external:9292/v1"
                     },
                     {
-                        "facing": "internal",
+                        "interface": "internal",
                         "id": "--endpoint-id--",
                         "name": null,
                         "region": "RegionOne",
@@ -989,16 +987,14 @@ Response:
                 "service": {
                     "endpoints": [
                         {
-                            "extra": {},
-                            "facing": "public",
+                            "interface": "public",
                             "id": "--endpoint-id--",
                             "name": null,
                             "region": "RegionOne",
                             "url": "http://external:8776/v1/--project-id--"
                         },
                         {
-                            "extra": {},
-                            "facing": "internal",
+                            "interface": "internal",
                             "id": "--endpoint-id--",
                             "name": null,
                             "region": "RegionOne",
@@ -1013,14 +1009,14 @@ Response:
                 "service": {
                     "endpoints": [
                         {
-                            "facing": "public",
+                            "interface": "public",
                             "id": "--endpoint-id--",
                             "name": null,
                             "region": "RegionOne",
                             "url": "http://external:9292/v1"
                         },
                         {
-                            "facing": "internal",
+                            "interface": "internal",
                             "id": "--endpoint-id--",
                             "name": null,
                             "region": "RegionOne",
@@ -1108,7 +1104,7 @@ Response:
 The key use cases we need to cover:
 
 - CRUD for services and endpoints
-- retrieving the endpoints of a given service, and/or with a given facing service
+- Retrieving an endpoint URL by service, region, and interface
 
 #### List services: `GET /services`
 
@@ -1203,9 +1199,8 @@ Response:
 
     [
         {
-            "extra": {},
-            "facing": "public",
             "id": "--endpoint-id--",
+            "interface": "public",
             "link": {
                 "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
                 "rel": "self"
@@ -1214,9 +1209,8 @@ Response:
             "service_id": "--service-id--"
         },
         {
-            "extra": {},
-            "facing": "internal",
             "id": "--endpoint-id--",
+            "interface": "internal",
             "link": {
                 "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
                 "rel": "self"
@@ -1231,8 +1225,7 @@ Response:
 Request:
 
     {
-        "extra": "--json-blob--",
-        "facing": "[admin|public|internal]",
+        "interface": "[admin|public|internal]",
         "name": "name",
         "url": "..."
     }
@@ -1243,9 +1236,8 @@ Response:
     Location: https://identity:35357/v3/endpoints/--endpoint-id--
 
     {
-        "extra": {},
-        "facing": "internal",
         "id": "--endpoint-id--",
+        "interface": "internal",
         "link": {
             "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
             "rel": "self"
@@ -1262,9 +1254,8 @@ Response:
     Status: 200 OK
 
     {
-        "extra": {},
-        "facing": "internal",
         "id": "--endpoint-id--",
+        "interface": "internal",
         "link": {
             "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
             "rel": "self"
