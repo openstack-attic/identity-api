@@ -2231,11 +2231,21 @@ Response:
 
 #### Grant role to user on domain: `PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
+parameter_string: recursive (default false)
+
+Setting recursive to true will cause the role grant to be applied to all projects contained
+in the specified domain.
+
 Response:
 
     Status: 204 No Content
 
 #### Grant role to group on domain: `PUT /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
+
+parameter_string: recursive (default false)
+
+Setting recursive to true will cause the role grant to be applied to all projects contained
+in the specified domain.
 
 Response:
 
@@ -2251,10 +2261,12 @@ Response:
         {
             "id": "--role-id--",
             "name": "--role-name--",
+            "recursive": true,		
         },
         {
             "id": "--role-id--",
-            "name": "--role-name--"
+            "name": "--role-name--",
+            "recursive": false	
         }
     ]
 
@@ -2268,10 +2280,12 @@ Response:
         {
             "id": "--role-id--",
             "name": "--role-name--",
+            "recursive": true,		
         },
         {
             "id": "--role-id--",
-            "name": "--role-name--"
+            "name": "--role-name--",
+            "recursive": false	
         }
     ]
 
