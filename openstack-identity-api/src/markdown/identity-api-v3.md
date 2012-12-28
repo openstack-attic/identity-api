@@ -357,9 +357,8 @@ API Resources
 User entities represent individual API consumers and are owned by a specific
 domain.
 
-Role grants explicitly associate users with projects. Each user-project pair
-can have a unique set of roles granted on them. Granting a user a role on a
-domain effectively grants that role across all projects owned by that domain.
+Role grants explicitly associate users with projects or domains. Each
+user-project or user-domain pair can have a unique set of roles granted on them.
 
 A user without any role grants is effectively useless from the perspective of
 an OpenStack service and should never have access to any resources. It is
@@ -2365,6 +2364,46 @@ Response:
     Status: 204 No Content
 
 #### Revoke role from group on project: `DELETE /projects/{project_id}/groups/{group_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Grant role to user on a collection of projects: `PUT /users/{user_id}/roles/{role_id}/projects`
+
+filter domain_id
+
+If no filter is specified the role grant is applied to all projects that were created without explictely specifing a domain.
+
+Response:
+
+    Status: 204 No Content
+
+#### Grant role to group on a collection of projects: `PUT /groups/{group_id}/roles/{role_id}/projects`
+
+filter domain_id
+
+If no filter is specified the role grant is applied to all projects that were created without explictely specifing a domain.
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke role from user on a collection of projects: `DELETE /users/{user_id}/roles/{role_id}/projects}`
+
+filter domain_id
+
+If no filter is specified the role grant is revoked to all projects that were created without explictely specifing a domain.
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke role from group on a collection of projects: `DELETE /groups/{group_id}/roles/{role_id}/projects`
+
+filter domain_id
+
+If no filter is specified the role grant is revoked to all projects that were created without explictely specifing a domain.
 
 Response:
 
