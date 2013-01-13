@@ -357,9 +357,8 @@ API Resources
 User entities represent individual API consumers and are owned by a specific
 domain.
 
-Role grants explicitly associate users with projects. Each user-project pair
-can have a unique set of roles granted on them. Granting a user a role on a
-domain effectively grants that role across all projects owned by that domain.
+Role grants explicitly associate users with projects or domains. Each
+user-project or user-domain pair can have a unique set of roles granted on them.
 
 A user without any role grants is effectively useless from the perspective of
 an OpenStack service and should never have access to any resources. It is
