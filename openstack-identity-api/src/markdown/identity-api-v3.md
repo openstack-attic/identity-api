@@ -481,9 +481,9 @@ Optional attributes:
 
 - `enabled` (boolean)
 
-  Setting this attribute to 'false' prevents users from authorizing against
-  this project. Additionally, all pre-existing tokens authorized for the tenant
-  are immediately invalidated. Re-enabling a project does not re-enable
+  Setting this attribute to `false` prevents users from authorizing against
+  this project. Additionally, all pre-existing tokens authorized for the
+  project are immediately invalidated. Re-enabling a project does not re-enable
   pre-existing tokens.
 
 Example entity:
@@ -519,9 +519,12 @@ Optional attributes:
 
 - `enabled` (boolean)
 
-  Setting this value to `false` also disables all projects and users owned by
-  the domain, and therefore implies the same effects of disabling all of those
-  entities individually.
+  Setting this attribute to `false` prevents users from authorizing against
+  this domain or any projects owned by this domain, and prevents users owned by
+  this domain from authenticating or receiving any other authorization.
+  Additionally, all pre-existing tokens applicable to the above entities are
+  immediately invalidated. Re-enabling a domain does not re-enable
+  pre-existing tokens.
 
 Example entity:
 
