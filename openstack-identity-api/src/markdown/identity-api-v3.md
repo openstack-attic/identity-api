@@ -18,6 +18,11 @@ What's New in Version 3
 - "Domains": a high-level container for projects and users
 - "Groups": a container representing a collection of users
 - "Policies": a centralized repository for policy engine rule sets
+- "Attribute Set Mappings": A container representing a mapping between internal
+  (OpenStack) assigned user attributes and external (organization) assigned user
+  attributes. Internal attributes are used by OpenStack services to assign
+  privileges/permissions to users. (Note that Groups are external attributes
+  from the attribute mapping perspective.)
 - "Credentials": generic credential storage per user (e.g. EC2, PKI, SSH, etc)
 - Roles can be granted at either the domain or project level
 - Retrieving your list of projects (previously `GET /tenants`) is now
@@ -876,6 +881,127 @@ Example entity:
                 "self": "http://identity:35357/v3/policies/c41a4c"
             },
             "type": "application/json"
+        }
+    }
+
+### Organizational Attribute: `/v3/org_attributes`
+
+Organizational Attributes represent external attributes which are assigned to
+users but which are not visible to OpenStack services, and consequently will not
+have permissions directly assigned to them. (Groups may be regarded as a type of
+organizational attribute.)
+
+Additional required attributes:
+
+- `type` (string)
+
+  The type of the attribute such as age, affiliation or group. May instead be a
+  unique object identifier (OID) or URN for this attribute. The possible values
+  are unbounded and as such cannot be validated.
+
+Optional attributes:
+
+- `name` (string)
+
+  User-facing name of the organizational attribute.
+
+-  `value` (string)
+
+  Required value of the attribute, may be omitted to signify any value.
+
+Example entity:
+
+    {
+        "org_attribute": {
+            "id": "b0e8f4",
+            "links": {
+                "self": "http://identity:35357/v3/org_attributes/b0e8f4"
+            },
+            "name": "EDU Person Affiliation",
+            "type": "1.3.6.1.4.1.5923.1.1.1.1",
+            "value": "kent.ac.uk"
+        }
+    }
+
+### Organizational Attribute Set: `/v3/org-attribute-sets`
+
+Organizational Attribute Sets represent collections of organizational attributes.
+A set is defined to allow many to many attribute mappings between external and
+internal sets of attributes.
+
+Optional attributes:
+
+- `name` (string)
+
+  User-facing name of the organizational attribute set.
+
+Example entity:
+
+    {
+        "org-attribute-set": {
+            "id": "1ce8a4",
+            "links": {
+                "self": "http://identity:35357/v3/org-attribute-sets/1ce8a4"
+            },
+            "name": "Staff attributes"
+        }
+    }
+
+### OpenStack Attribute Set: `/v3/os-attribute-sets`
+
+An Openstack Attribute Set represents a collection of IDs of internal
+(OpenStack) attributes such as Roles, Domains, and Projects to which OpenStack
+services will assign permissions (privileges). A set is defined to allow
+many to many attribute mappings between organizational and internal sets of
+attributes.
+
+Optional attributes:
+
+- `name` (string)
+
+  User-facing name of the OpenStack attribute set.
+
+Example entity:
+
+    {
+        "os-attribute-set": {
+            "id": "638E9A",
+            "links": {
+                "self": "http://identity:35357/v3/os-attribute-sets/638E9A"
+            },
+            "name": "Admin resources"
+        }
+    }
+
+### Attribute Set Mapping: `/v3/attribute-set-mappings`
+
+Attribute Set Mappings represent a mapping between an internal
+(OpenStack) attribute set and an external (Organizational) attribute set. Each
+mapping signifies that users who have been issued the full set of organizational
+attributes should be assigned the full set of roles in the OpenStack set for
+each project and domain contained in the same set.
+
+Additional required attributes:
+
+- `org-attribute-set_id` (string)
+
+  ID of the mapped Organizational Attribute Set
+
+- `os-attribute-set_id` (string)
+
+  ID of the mapped OpenStack Attribute Set
+
+
+Example entity:
+
+    {
+        "attribute-set-mapping": {
+            "id": "34CE2E",
+            "links": {
+                "self": "http://identity:35357/v3/attribute-set-mappings/34CE2E"
+            },
+            "org-attribute-set_id": "1ce8a4",
+            "os-attribute-set_id": "638E9A"
         }
     }
 
@@ -2600,6 +2726,546 @@ Response:
     }
 
 #### Delete policy: `DELETE /policies/{policy_id}`
+
+Response:
+
+    Status: 204 No Content
+
+### Organizational Attributes
+
+The key use cases we need to cover:
+
+- CRUD on an organizational attribute
+/*
+#### Create organizational attribute: `POST /org_attributes`
+
+Request:
+
+    {
+        "type": "--attribute-type--",
+        "value": "--attribute-value--",
+        "name": "--attribute-name--"
+    }
+
+Response:
+
+    Status: 201 Created
+    Location: http://identity:35357/v3/org_attributes/--org_attribute-id--
+
+    {
+        "type": "--attribute-type--",
+        "value": "--attribute-value--",
+        "id": "--org_attribute-id--",
+        "link": {
+            "href": "http://identity:35357/v3/org_attributes/--org_attribute-id--",
+            "rel": "self"
+        },
+        "name": "--attribute-name--"
+    }
+
+#### List organizational attributes: `GET /org_attributes`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "type": "--attribute-type--",
+            "value": "--attribute-value--",
+            "id": "--org_attribute-id--",
+            "link": {
+                "href": "http://identity:35357/v3/org_attributes/--org_attribute-id--",
+                "rel": "self"
+            },
+            "name": "--attribute-name--"
+        },
+        {
+            "type": "--attribute-type--",
+            "value": "--attribute-value--",
+            "id": "--org_attribute-id--",
+            "link": {
+                "href": "http://identity:35357/v3/org_attributes/--org_attribute-id--",
+                "rel": "self"
+            },
+            "name": "--attribute-name--"
+        }
+    ]
+
+#### Get organizational attribute: `GET /org_attributes/{org_attribute_id}`
+
+Response:
+
+    Status: 200 OK
+
+    {
+            "type": "--attribute-type--",
+            "value": "--attribute-value--",
+            "id": "--org_attribute-id--",
+            "link": {
+                "href": "http://identity:35357/v3/org_attributes/--org_attribute-id--",
+                "rel": "self"
+            },
+            "name": "--attribute-name--"
+    }
+
+#### Update organizational attribute: `PATCH /org_attributes/{org_attribute_id}`
+
+Request:
+
+    {
+        "name": "new name"
+    }
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "type": "--attribute-type--",
+        "value": "--attribute-value--",
+        "id": "--org_attribute-id--",
+        "link": {
+            "href": "http://identity:35357/v3/org_attributes/--org_attribute-id--",
+            "rel": "self"
+        },
+        "name": "new name"
+    }
+
+#### Delete organizational attribute: `DELETE /org_attributes/{org_attribute_id}`
+
+Response:
+
+    Status: 204 No Content
+
+### Organizational Attribute Sets
+
+The key use cases we need to cover:
+
+- CRUD on an organizational attribute set
+- Associating an organizational attribute with an organizational attribute set
+
+#### Create organizational attribute set: `POST /org-attribute-sets`
+
+Request:
+
+    {
+        "name": "an organizational attribute set name"
+    }
+
+Response:
+
+    Status: 201 Created
+    Location: http://identity:35357/v3/org-attribute-sets/--org-attribute-set-id--
+
+    {
+        "id": "--org-attribute-set-id--",
+        "link": {
+            "href": "http://identity:35357/v3/org-attribute-sets/--org-attribute-set-id--",
+            "rel": "self"
+        },
+        "name": "an organizational attribute set name"
+    }
+
+#### List organizational attribute sets: `GET /org-attribute-sets`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "id": "--org-attribute-set-id--",
+            "link": {
+                "href": "http://identity:35357/v3/org-attribute-sets/--org-attribute-set-id--",
+                "rel": "self"
+            },
+            "name": "an organizational attribute set name"
+        },
+        {
+            "id": "--org-attribute-set-id--",
+            "link": {
+                "href": "http://identity:35357/v3/org-attribute-sets/--org-attribute-set-id--",
+                "rel": "self"
+            },
+            "name": "another organizational attribute set name"
+        }
+    ]
+
+#### Get organizational attribute set: `GET /org-attribute-sets/{org-attribute-set_id}`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "id": "--org-attribute-set-id--",
+        "link": {
+            "href": "http://identity:35357/v3/org-attribute-sets/--org-attribute-sets-id--",
+            "rel": "self"
+        },
+        "name": "an organizational attribute set name"
+    }
+
+#### Update organizational attribute set: `PATCH /org-attribute-sets/{org-attribute-set_id}`
+
+Request:
+
+    {
+        "name": "a different organizational attribute set name"
+    }
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "id": "--org-attribute-set-id--",
+        "link": {
+            "href": "http://identity:35357/v3/org-attribute-sets/--org-attribute-sets-id--",
+            "rel": "self"
+        },
+        "name": "a different organizational attribute set name"
+    }
+
+#### Get organizational attributes in organizational attribute set: `GET /org-attribute-sets/{org-attribute-set_id}/attributes`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "type": "--attribute-type--",
+            "value": "--attribute-value--",
+            "id": "--org_attribute-id--",
+            "link": {
+                "href": "http://identity:35357/v3/org_attributes/--org_attribute-id--",
+                "rel": "self"
+            },
+            "name": "--attribute-name--"
+        },
+        {
+            "type": "--attribute-type--",
+            "value": "--attribute-value--",
+            "id": "--org_attribute-id--",
+            "link": {
+                "href": "http://identity:35357/v3/org_attributes/--org_attribute-id--",
+                "rel": "self"
+            },
+            "name": "--attribute-name--"
+        }
+    ]
+
+#### Delete organizational attribute set: `DELETE /org-attribute-sets/{org-attribute-set_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Check if attribute is in organizational attribute set: `HEAD /org-attribute-sets/{org-attribute-set_id}/attributes/{org_attribute_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Remove organizational attribute from organizational attribute set: `DELETE /org-attribute-sets/{org-attribute-set_id}/attributes/{org_attribute_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Add organizational attribute to organizational attribute set: `PUT /org-attribute-sets/{org-attribute-set_id}/attributes/{org_attribute_id}`
+
+Response:
+
+    Status: 204 No Content
+
+### OpenStack Attribute Sets
+
+The key use cases we need to cover:
+
+- CRUD on an OpenStack attribute set
+- Associating an OpenStack attribute with an OpenStack attribute set
+
+#### Create OpenStack attribute set: `POST /org-attribute-sets`
+
+Request:
+
+    {
+        "name": "an OpenStack attribute set name"
+    }
+
+Response:
+
+    Status: 201 Created
+    Location: http://identity:35357/v3/os-attribute-sets/--os-attribute-set-id--
+
+    {
+        "id": "--os-attribute-set-id--",
+        "link": {
+            "href": "http://identity:35357/v3/os-attribute-sets/--os-attribute-set-id--",
+            "rel": "self"
+        },
+        "name": "an OpenStack attribute set name"
+    }
+
+#### List OpenStack attribute sets: `GET /os-attribute-sets`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "id": "--os-attribute-set-id--",
+            "link": {
+                "href": "http://identity:35357/v3/os-attribute-sets/--os-attribute-set-id--",
+                "rel": "self"
+            },
+            "name": "an OpenStack attribute set name"
+        },
+        {
+            "id": "--os-attribute-set-id--",
+            "link": {
+                "href": "http://identity:35357/v3/os-attribute-sets/--os-attribute-set-id--",
+                "rel": "self"
+            },
+            "name": "another OpenStack attribute set name"
+        }
+    ]
+
+#### Get OpenStack attribute set: `GET /os-attribute-sets/{os-attribute-set_id}`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "id": "--os-attribute-set-id--",
+        "link": {
+            "href": "http://identity:35357/v3/os-attribute-sets/--os-attribute-sets-id--",
+            "rel": "self"
+        },
+        "name": "an OpenStack attribute set name"
+    }
+
+#### Update OpenStack attribute set: `PATCH /os-attribute-sets/{os-attribute-set_id}`
+
+Request:
+
+    {
+        "name": "a different OpenStack attribute set name"
+    }
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "id": "--os-attribute-set-id--",
+        "link": {
+            "href": "http://identity:35357/v3/os-attribute-sets/--os-attribute-sets-id--",
+            "rel": "self"
+        },
+        "name": "a different OpenStack attribute set name"
+    }
+
+#### Get OpenStack attributes in OpenStack attribute set: `GET /os-attribute-sets/{os-attribute-set_id}/attributes`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "type": "--attribute-type--",
+            "id": "--attribute-id--",
+        },
+        {
+            "type": "--attribute-type--",
+            "id": "--attribute-id--",
+        }
+    ]
+
+#### Delete OpenStack attribute set: `DELETE /os-attribute-sets/{os-attribute-set_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Check if role is in OpenStack attribute set: `HEAD /os-attribute-sets/{os-attribute-set_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Remove role from OpenStack attribute set: `DELETE /os-attribute-sets/{os-attribute-set_id}/roles/{role_id}`
+
+
+Response:
+
+    Status: 204 No Content
+
+#### Add OpenStack attribute to OpenStack attribute set: `PUT /os-attribute-sets/{os-attribute-set_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Check if project is in OpenStack attribute set: `HEAD /os-attribute-sets/{os-attribute-set_id}/projects/{project_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Remove project from OpenStack attribute set: `DELETE /os-attribute-sets/{os-attribute-set_id}/projects/{project_id}`
+
+
+Response:
+
+    Status: 204 No Content
+
+#### Add project to OpenStack attribute set: `PUT /os-attribute-sets/{os-attribute-set_id}/projects/{project_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Check if domain is in OpenStack attribute set: `HEAD /os-attribute-sets/{os-attribute-set_id}/domains/{domain_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Remove domain from OpenStack attribute set: `DELETE /os-attribute-sets/{os-attribute-set_id}/domains/{domain_id}`
+
+
+Response:
+
+    Status: 204 No Content
+
+#### Add domain to OpenStack attribute set: `PUT /os-attribute-sets/{os-attribute-set_id}/domains/{domain_id}`
+
+Response:
+
+    Status: 204 No Content
+
+
+### Attribute Set Mapping
+
+The key use cases we need to cover:
+
+- CRUD on an attribute set mapping
+/*
+#### Create attribute set mapping: `POST /attribute-set-mappings`
+
+Request:
+
+    {
+        "org-attribute-set_id": "--org-attribute-set_id--",
+        "os-attribute-set_id": "--os-attribute-set_id--"
+    }
+
+Response:
+
+    Status: 201 Created
+    Location: http://identity:35357/v3/attribute-set-mappings/--attribute-set-mapping-id--
+
+    {
+        "org-attribute-set_id": "--org-attribute-set_id--",
+        "os-attribute-set_id": "--os-attribute-set_id--",
+        "id": "--attribute-set-mapping-id--",
+        "link": {
+            "href": "http://identity:35357/v3/attribute-set-mappings/--attribute-set-mapping-id--",
+            "rel": "self"
+        }
+    }
+
+#### List attribute set mappings: `GET /attribute-set-mappings`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+        "org-attribute-set_id": "--org-attribute-set_id--",
+        "os-attribute-set_id": "--os-attribute-set_id--",
+        "id": "--attribute-set-mapping-id--",
+        "link": {
+            "href": "http://identity:35357/v3/attribute-set-mappings/--attribute-set-mapping-id--",
+            "rel": "self"
+            }
+        },
+        {
+        "org-attribute-set_id": "--org-attribute-set_id--",
+        "os-attribute-set_id": "--os-attribute-set_id--",
+        "id": "--attribute-set-mapping-id--",
+        "link": {
+            "href": "http://identity:35357/v3/attribute-set-mappings/--attribute-set-mapping-id--",
+            "rel": "self"
+            }
+        }
+    ]
+
+#### Get attribute set mapping: `GET /attribute-set-mappings/{attribute-set-mapping_id}`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "org-attribute-set_id": "--org-attribute-set_id--",
+        "os-attribute-set_id": "--os-attribute-set_id--",
+        "id": "--attribute-set-mapping-id--",
+        "link": {
+            "href": "http://identity:35357/v3/attribute-set-mappings/--attribute-set-mapping-id--",
+            "rel": "self"
+        }
+    }
+
+#### Update attribute set mapping: `PATCH /attribute-set-mappings/{attribute-set-mapping_id}`
+
+Request:
+
+    {
+        "org-attribute-set_id": "--org-attribute-set_id--",
+    }
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "org-attribute-set_id": "--org-attribute-set_id--",
+        "os-attribute-set_id": "--os-attribute-set_id--",
+        "id": "--attribute-set-mapping-id--",
+        "link": {
+            "href": "http://identity:35357/v3/attribute-set-mappings/--attribute-set-mapping-id--",
+            "rel": "self"
+        }
+    }
+
+#### Delete attribute set mapping: `DELETE /attribute-set-mappings/{attribute-set-mapping_id}`
 
 Response:
 
