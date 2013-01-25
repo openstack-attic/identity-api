@@ -45,6 +45,18 @@ implementation is deployed at the root of `http://identity:35357/`.
 
 ### Required Attributes
 
+Headers:
+
+ - `X-Auth-Token`
+
+   This header is used to convey the authentication token when accessing
+   Identity APIs.
+
+ - `X-Subject-Token`
+
+   This header is used to convey the subject of the request for token-related
+   operations.
+
 For collections:
 
 - `links` (object)
@@ -912,69 +924,181 @@ anything else.
 Multiple POST variations are available to authenticate and request and Token
 resource.
 
-#### Authenticate: `POST /tokens`
+#### Authenticate: `POST /auth/tokens`
 
 For the use case where we are providing a `username` and `password`, optionally
-with either a project (by specifying a `project_name` or `project_id`) or a
-domain (by specifiying a `domain_name` or `domain_id`). If a project is
-specified by `project_name` and the owning domain of the project was specified
-as having private projects, then a `domain_id` or `domain_name` must also be
-specified to uniquely identify the project. If both a domain and a project
-is specified, then the most granular scope is set (i.e. the token is scoped to
-the project). If neither a project or domain is provided, the system will
-use the default project associated with the user, and a 401 Not Authorized
-will be returned if the default project is not found or able to be used.
+scope to either a project (by specifying a `name`
+or `id` in `project` scope) or a different domain (by specifiying a `name`
+or `id` in `domain` scope). If a project scope is specified by `name`
+and the owning domain of the project was specified
+as having privately namespaced projects, then an `id` or `name` in `domain`
+must also be specified to uniquely identify the project. If both a domain and
+a project are specified, an HTTP 400 Bad Request will be returned. If neither
+a project or domain is provided for scope, the system will use the default
+project (`default_project_id`) attribute of the authenticating user. Otherwise,
+the system will issue an unscoped token. Notice that an unscoped token is
+essentiall implicitly scoped to the Identity service.
 
 If this user was created in a domain that was specified as having a private
-namespace for users and the password credentials contain `username`, rather than
-`user_id`, then either a `domain_id` or `domain_name` must also be specified as
-part of the credentials.
+namespace for users and the password method contains `name`, rather than
+`id` for the user, then either an `id` or `name` of the owning domain must
+also be specified as part of the password method.
 
-Request:
+Request (Project Scoping):
 
     {
         "auth": {
-            "password_credentials": {
-                "username": "--user-name--",
-                "password": "--password--",
-                "user_id": "--optional-user-id--",
-                "domain_id": "--optional-domain-id--",
-                "domain_name": "--optional-domain-name--"
+            "authentication": {
+                "methods": ["password"],
+                "password": {
+                    "user": {
+                        "id": "--optional-user-id--",
+                        "name": "--optional-user-name--",
+                        "password": "--password--",
+                        "domain": {
+                            "id": "--optional-domain-id--",
+                            "name": "--optional-domain-name--"
+                        }
+                    }
+                }
             },
-        "domain_id": "--optional-domain-id--",
-        "domain_name": "--optional-domain-name--",
-        "project_id": "--optional-project-id--",
-        "project_name": "--optional-project-name--"
+            "scope": {
+                "project": {
+                    "id": "--optional-project-id--",
+                    "name": "--optional-project-name--",
+                    "domain": {
+                        "id": "--optional-domain-id--",
+                        "name": "--optional-domain-name--"
+                    }
+                }
+            }
         }
     }
 
-For the use case where we already have a token, but are requesting
-authorization to a different project. If `project_id` or `project_name` is not
-specified, the default_project will be used. If the owning domain of
-the project was specified as having a private namespace for projects and is
-identified here by `project_name` rather than `project_id`, then a `domain_id` or
-`domain_name` must also be specified to uniquely identify the project.
-
-Request:
+Request (Domain Scoping):
 
     {
         "auth": {
-            "domain_id": "--optional-domain-id--",
-            "domain_name": "--optional-domain-name--",
-            "project_id": "--optional-project-id--",
-            "project_name": "--optional-project-name--",
-            "token": {
-                "id": "--token-id--"
+            "authentication": {
+                "methods": ["password"],
+                "password": {
+                    "user": {
+                        "id": "--optional-user-id--",
+                        "name": "--optional-user-name--",
+                        "password": "--password--",
+                        "domain": {
+                            "id": "--optional-domain-id--",
+                            "name": "--optional-domain-name--"
+                        }
+                    }
+                }
+            },
+            "scope": {
+                "domain": {
+                    "id": "--optional-domain-id--",
+                    "name": "--optional-domain-name--"
+                }
+            }
+        }
+    }
+
+Request (Implicitly Scope to Identity Service):
+
+    {
+        "auth": {
+            "authentication": {
+                "methods": ["password"],
+                "password": {
+                    "user": {
+                        "id": "--optional-user-id--",
+                        "name": "--optional-user-name--",
+                        "password": "--password--",
+                        "domain": {
+                            "id": "--optional-domain-id--",
+                            "name": "--optional-domain-name--"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+For the use case where we already have a token, but are requesting
+authorization to a different project (by specifying a `name`
+or `id` in `project` scope) or a different domain (by specifiying a `name`
+or `id` in `domain` scope). If a project scope is specified by `name`
+and the owning domain of the project was specified
+as having privately namespaced projects, then an `id` or `name` in `domain`
+must also be specified to uniquely identify the project. If both a domain and
+a project are specified, an HTTP 400 Bad Request will be returned. If neither
+a project or domain is provided for scope, the system will use the default
+project (`default_project_id`) attribute of the authenticating user. Otherwise,
+the system will issue an unscoped token. Notice that an unscoped token is
+essentiall implicitly scoped to the Identity service.
+
+If this user was created in a domain that was specified as having a private
+namespace for users and the password method contains `name`, rather than
+`id` for the user, then either a `id` or `name` of the owning domain must
+also be specified as part of the password method.
+
+
+Request (Domain Scoping):
+
+    {
+        "auth": {
+            "authentication": {
+                "methods": ["token"],
+                "token": {
+                    "id": "--token-id--"
+                }
+            },
+            "scope": {
+                "domain": {
+                    "id": "--optional-domain-id--",
+                    "name": "--optional-domain-name--"
+                }
+            }
+        }
+    }
+
+Request (Project Scoping):
+
+    {
+        "auth": {
+            "authentication": {
+                "methods": ["token"],
+                "token": {
+                    "id": "--token-id--"
+                }
+            },
+            "scope": {
+                "project": {
+                    "id": "--optional-project-id--",
+                    "name": "--optional-project-name--",
+                    "domain": {
+                        "id": "--optional-domain-id--",
+                        "name": "--optional-domain-name--"
+                    }
+                }
             }
         }
     }
 
 Response:
 
+    Headers: X-Subject-Token
+
+    X-Subject-Token: --token-id--
+
     Status: 200
-    Location: https://identity:35357/v3/tokens/--token-id--
 
     {
+        "methods": ["password"],
+        "extras": {
+            "deployment-specific": "deployment-specific",
+            "arbitrary-key"; "arbitrary-value"
+        },
         "domain": {
             "enabled": true,
             "id": "...",
@@ -985,8 +1109,6 @@ Response:
                 "enabled": true,
                 "id": "...",
                 "name": "...",
-                "private_project_names": "...",
-                "private_user_names": "..."
             },
             "enabled": true,
             "id": "...",
@@ -1036,7 +1158,6 @@ Response:
         ],
         "token": {
             "expires": "2012-06-18T20:08:53Z",
-            "id": "--token-id--"
         },
         "user": {
             "default_project_id": "--default-project-id--",
@@ -1061,9 +1182,23 @@ Response:
         }
     }
 
-In the above example, either the "project" or "domain" object will be
+In the above example, either the `project` or `domain` object will be
 present at the top level (depending on whether this is a token for a
 project or a domain), but not both.
+
+Notice that token ID is not part of the token data. Rather, it is conveyed
+in `X-Subject-Token` header.
+
+The `methods` attribute indicates the authentication methods used to obtain
+the token. It is accumulative. For example, if the token was obtained by
+password authentication, it will contain `password`. Later, the token
+is rescoped one or more times, the new tokens will have both `password`
+and `token` in `methods`.
+
+Notice the difference between methods and multifactor authentication.
+The `methods` attribute merely indicates the methods used to authenticate
+the user for the given token. It is up to the client to look for specific
+methods to determine the factors.
 
 Failure response (example - additional failure cases are quite possible,
 including 403 Forbidden and 409 Conflict):
@@ -1078,6 +1213,46 @@ including 403 Forbidden and 409 Conflict):
         }
     }
 
+Optionally, the Identity service implementation may return an `authentication`
+attribute to indicate the supported authentication methods.
+
+    Status: 401 Not Authorized
+
+    {
+        "error": {
+            "code": 401,
+            "message": "Need to authenticate with one or more supported methods",
+            "title": "Not Authorized"
+        },
+        "authentication": {
+            "methods": ["password", "token", "challenge-response"]
+        }
+    }
+
+For authentication processes which require multiple roundtrips, the Identity
+service implementation may return an HTTP 401 Not Authorized with additional
+information for the next authentication step.
+
+For example:
+
+    Status: 401 Not Authorized
+
+    {
+        "error": {
+            "code": 401,
+            "message": "Additional authentications steps required.",
+            "title": "Not Authorized"
+        },
+        "authentication": {
+            "methods": ["challenge-response"],
+            "challenge-response": {
+                "session_id": "123456",
+                "challenge": "What was the zip code of your birth place?"
+            }
+        }
+    }
+
+
 #### Validate token: `GET /tokens`
 
 - token to be used to validate the call in X-Auth-Token HTTP header
@@ -1088,6 +1263,7 @@ Response:
     Status: 200 OK
 
     {
+        "methods": ["password"],
         "catalog": [
             {
                 "service": {
@@ -1108,7 +1284,7 @@ Response:
                         }
                     ],
                     "id": "--service-id--",
-                    "name": "volume"
+                    "type": "volume"
                 }
             },
             {
@@ -1130,7 +1306,7 @@ Response:
                         }
                     ],
                     "id": "--service-id--",
-                    "name": "identity"
+                    "type": "identity"
                 }
             }
         ],
@@ -1144,8 +1320,6 @@ Response:
                 "enabled": true,
                 "id": "--domain-id--",
                 "name": "--domain-name--",
-                "private_project_names": "...",
-                "private_user_names": "..."
             },
             "enabled": true,
             "id": "--project-id--",
@@ -1153,13 +1327,6 @@ Response:
         },
         "token": {
             "expires": "2012-06-18T20:08:53Z",
-            "id": "--token-id--",
-            "project": {
-                "description": null,
-                "enabled": true,
-                "id": "--project-id--",
-                "name": "admin"
-            }
         },
         "user": {
             "default_project_id": "--default-project-id--",
