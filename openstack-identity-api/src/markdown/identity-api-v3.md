@@ -910,69 +910,102 @@ anything else.
 Multiple POST variations are available to authenticate and request and Token
 resource.
 
-#### Authenticate: `POST /tokens`
+#### Authenticate: `POST /authn/tokens`
 
 For the use case where we are providing a `username` and `password`, optionally
-with either a project (by specifying a `project_name` or `project_id`) or a
-domain (by specifiying a `domain_name` or `domain_id`). If a project is
+scope to either a project (by specifying a `project_name` or `project_id`) or a
+domain (by specifiying a `domain_name` or `domain_id`). If a project scope is
 specified by `project_name` and the owning domain of the project was specified
 as having private projects, then a `domain_id` or `domain_name` must also be
 specified to uniquely identify the project. If both a domain and a project
-is specified, then the most granular scope is set (i.e. the token is scoped to
-the project). If neither a project or domain is provided, the system will
-use the default project associated with the user, and a 401 Not Authorized
-will be returned if the default project is not found or able to be used.
+is specified, 400 Bad Request will be returned. If neither a project or domain
+is provided for scope, the system will use the default project associated
+with the user. Otherwise, the system will issue an unscoped token.
 
 If this user was created in a domain that was specified as having a private
-namespace for users and the password credentials contain `username`, rather than
+namespace for users and the password method contain `username`, rather than
 `user_id`, then either a `domain_id` or `domain_name` must also be specified as
-part of the credentials.
+part of the password method.
 
 Request:
 
     {
         "auth": {
-            "password_credentials": {
-                "username": "--user-name--",
-                "password": "--password--",
-                "user_id": "--optional-user-id--",
-                "domain_id": "--optional-domain-id--",
-                "domain_name": "--optional-domain-name--"
+            "authentication": {
+                "methods": ["password"],
+                "password": {
+                    "user": {
+                        "id": "--optional-user-id--",
+                        "name": "--optional-user-name--",
+                        "password": "--password--",
+                        "domain": {
+                            "id": "--optional-domain-id--",
+                            "name": "--optional-domain-name--"
+                        }
+                    }
+                }
             },
-        "domain_id": "--optional-domain-id--",
-        "domain_name": "--optional-domain-name--",
-        "project_id": "--optional-project-id--",
-        "project_name": "--optional-project-name--"
+            "scope": {
+                "domain": {
+                    "id": "--optional-domain-id--",
+                    "name": "--optional-domain-name--"
+                },
+                "project": {
+                    "id": "--optional-project-id--",
+                    "name": "--optional-project-name--",
+                    "domain_id": "--optional-domain-id--",
+                    "domain_name": "--optional-domain-name--"
+                }
+            }
         }
     }
 
 For the use case where we already have a token, but are requesting
-authorization to a different project. If `project_id` or `project_name` is not
-specified, the default_project will be used. If the owning domain of
-the project was specified as having a private namespace for projects and is
-identified here by `project_name` rather than `project_id`, then a `domain_id` or
-`domain_name` must also be specified to uniquely identify the project.
+authorization to a different project (by specifying a `project_name`
+or `project_id`) or a different domain (by specifiying a `domain_name`
+or `domain_id`). If a project scope is specified by `project_name`
+and the owning domain of the project was specified
+as having private projects, then a `domain_id` or `domain_name` must also be
+specified to uniquely identify the project. If both a domain and a project
+is specified, 400 Bad Request will be returned. If neither a project or domain 
+is provided for scope, the system will use the default project associated 
+with the user. Otherwise, the system will issue an unscoped token.
 
 Request:
 
     {
         "auth": {
-            "domain_id": "--optional-domain-id--",
-            "domain_name": "--optional-domain-name--",
-            "project_id": "--optional-project-id--",
-            "project_name": "--optional-project-name--",
-            "token": {
-                "id": "--token-id--"
+            "authentication": {
+                "methods": ["token"],
+                "token": {
+                    "id": "--token-id--"
+                }
+            },
+            "scope": {
+                "domain": {
+                    "id": "--optional-domain-id--",
+                    "name": "--optional-domain-name--"
+                },
+                "project": {
+                    "id": "--optional-project-id--",
+                    "name": "--optional-project-name--",
+                    "domain_id": "--optional-domain-id--",
+                    "domain_name": "--optional-domain-name--"
+                }
             }
         }
     }
 
 Response:
 
+    Headers: X-Subject-Token
+
+    X-Subject-Token: --token-id--
+
     Status: 200
-    Location: https://identity:35357/v3/tokens/--token-id--
 
     {
+        "methods": ["password"],
         "domain": {
             "enabled": true,
             "id": "...",
@@ -983,8 +1016,6 @@ Response:
                 "enabled": true,
                 "id": "...",
                 "name": "...",
-                "private_project_names": "...",
-                "private_user_names": "..."
             },
             "enabled": true,
             "id": "...",
@@ -1034,7 +1065,6 @@ Response:
         ],
         "token": {
             "expires": "2012-06-18T20:08:53Z",
-            "id": "--token-id--"
         },
         "user": {
             "default_project_id": "--default-project-id--",
@@ -1059,9 +1089,23 @@ Response:
         }
     }
 
-In the above example, either the "project" or "domain" object will be
+In the above example, either the `project` or `domain` object will be
 present at the top level (depending on whether this is a token for a
 project or a domain), but not both.
+
+Notice that token ID is not part of the token data. Rather, it is conveyed
+in `X-Subject-Token` header.
+
+The `methods` attribute indicates the authentication methods used to obtain
+the token. It is accumulative. For example, if token was obtained by password
+authentication, it will contain `password`. Later, the token
+is rescoped one or more times, the new tokens will have both `password`
+and `token` in `methods`.
+
+Notice the difference between methods and multifactor authentication.
+The `methods` attribute merely indicates the methods used to authenticate
+the user for the given token. It is up to the client to look for specific
+methods to determine the factors.
 
 Failure response (example - additional failure cases are quite possible,
 including 403 Forbidden and 409 Conflict):
@@ -1076,6 +1120,47 @@ including 403 Forbidden and 409 Conflict):
         }
     }
 
+Optionally, Keystone may return an `authentication` attribute to
+indicate the supported authentication methods. Notice the difference between
+supported methods versus required methods. It is up to the deployment to
+choose to return supported methods or required methods. Keystone does not
+mandate one way or another.
+
+    Status: 401 Not Authorized
+
+    {
+        "error": {
+            "code": 401,
+            "message": "Need to authenticate with one or more supported methods",
+            "title": "Not Authorized"
+        },
+        "authentication": {
+            "methods": ["password", "token", "challenge-response"],
+        }
+    }
+
+For authentications which require multiple roundtrips, Keystone may return
+a 401 Not Authorized with additional information for the next authentication
+sequence.
+
+    Status: 401 Not Authorized
+
+    {
+        "error": {
+            "code": 401,
+            "message": "Additional authentications required.",
+            "title": "Not Authorized"
+        },
+        "authentication": {
+            "methods": ["challenge-response"],
+            "challenge-response": {
+                "session_id": "123456",
+                "challenge": "What's the middle name of your grandmother's 1st grade math teacher's dog's second cousin?"
+            }
+        }
+    }
+
+
 #### Validate token: `GET /tokens`
 
 - token to be used to validate the call in X-Auth-Token HTTP header
@@ -1086,6 +1171,7 @@ Response:
     Status: 200 OK
 
     {
+        "methods": ["password"],
         "catalog": [
             {
                 "service": {
@@ -1106,7 +1192,7 @@ Response:
                         }
                     ],
                     "id": "--service-id--",
-                    "name": "volume"
+                    "type": "volume"
                 }
             },
             {
@@ -1128,7 +1214,7 @@ Response:
                         }
                     ],
                     "id": "--service-id--",
-                    "name": "identity"
+                    "type": "identity"
                 }
             }
         ],
@@ -1142,8 +1228,6 @@ Response:
                 "enabled": true,
                 "id": "--domain-id--",
                 "name": "--domain-name--",
-                "private_project_names": "...",
-                "private_user_names": "..."
             },
             "enabled": true,
             "id": "--project-id--",
@@ -1151,13 +1235,6 @@ Response:
         },
         "token": {
             "expires": "2012-06-18T20:08:53Z",
-            "id": "--token-id--",
-            "project": {
-                "description": null,
-                "enabled": true,
-                "id": "--project-id--",
-                "name": "admin"
-            }
         },
         "user": {
             "default_project_id": "--default-project-id--",
