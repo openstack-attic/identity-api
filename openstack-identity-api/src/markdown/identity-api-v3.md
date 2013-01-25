@@ -910,7 +910,7 @@ anything else.
 Multiple POST variations are available to authenticate and request and Token
 resource.
 
-#### Authenticate: `POST /tokens`
+#### Authenticate: `POST /authn/tokens`
 
 For the use case where we are providing a `username` and `password`, optionally
 with either a project (by specifying a `project_name` or `project_id`) or a
@@ -932,17 +932,24 @@ Request:
 
     {
         "auth": {
-            "password_credentials": {
-                "username": "--user-name--",
-                "password": "--password--",
-                "user_id": "--optional-user-id--",
-                "domain_id": "--optional-domain-id--",
-                "domain_name": "--optional-domain-name--"
+            "authentication": {
+                "mechanisms": ["password_credentials"],
+                "password_credentials": {
+                    "username": "--user-name--",
+                    "password": "--password--",
+                    "user_id": "--optional-user-id--",
+                    "domain_id": "--optional-domain-id--",
+                    "domain_name": "--optional-domain-name--"
+                },
             },
-        "domain_id": "--optional-domain-id--",
-        "domain_name": "--optional-domain-name--",
-        "project_id": "--optional-project-id--",
-        "project_name": "--optional-project-name--"
+            "domains": [{
+                "domain_id": "--optional-domain-id--",
+                "domain_name": "--optional-domain-name--",
+            }],
+            "projects": [{
+                "project_id": "--optional-project-id--",
+                "project_name": "--optional-project-name--"
+            }],
         }
     }
 
@@ -957,28 +964,40 @@ Request:
 
     {
         "auth": {
-            "domain_id": "--optional-domain-id--",
-            "domain_name": "--optional-domain-name--",
-            "project_id": "--optional-project-id--",
-            "project_name": "--optional-project-name--",
-            "token": {
-                "id": "--token-id--"
-            }
+            "authentication": {
+                "mechanisms": ["token"],
+                "token": {
+                    "id": "--token-id--"
+                }
+            },
+            "domains": [{
+                "domain_id": "--optional-domain-id--",
+                "domain_name": "--optional-domain-name--",
+            }]
+            "projects": [{
+                "project_id": "--optional-project-id--",
+                "project_name": "--optional-project-name--"
+            }]
         }
     }
 
 Response:
 
+    Headers: X-Subject-Token
+
+    X-Subject-Token: "--token-id--"
+
     Status: 200
     Location: https://identity:35357/v3/tokens/--token-id--
 
     {
-        "domain": {
+        "auth_mechanisms": ["password_credentials"],
+        "domains": [{
             "enabled": true,
             "id": "...",
             "name": "..."
-        },
-        "project": {
+        }],
+        "projects": [{
             "domain": {
                 "enabled": true,
                 "id": "...",
@@ -989,7 +1008,7 @@ Response:
             "enabled": true,
             "id": "...",
             "name": "..."
-        },
+        }],
         "services": [
             {
                 "endpoints": [
@@ -1034,7 +1053,6 @@ Response:
         ],
         "token": {
             "expires": "2012-06-18T20:08:53Z",
-            "id": "--token-id--"
         },
         "user": {
             "default_project_id": "--default-project-id--",
@@ -1059,9 +1077,18 @@ Response:
         }
     }
 
-In the above example, either the "project" or "domain" object will be
+In the above example, either the "projects" or "domains" object will be
 present at the top level (depending on whether this is a token for a
 project or a domain), but not both.
+
+Notice that token ID is not part of the token data. Rather, it is conveyed
+in "X-Subject-Token" header.
+
+"auth_mechanisms" indicating the authentication mechanisms used to obtain
+the token. It is accumulative. If example, if token was obtained by password
+authentication, it will contain "password_credentials". Later, the token
+is rescoped, the new token will have both "password_credentials" and "token"
+in "auth_mechanisms".
 
 Failure response (example - additional failure cases are quite possible,
 including 403 Forbidden and 409 Conflict):
@@ -1086,6 +1113,7 @@ Response:
     Status: 200 OK
 
     {
+        "auth_mechanisms": ["password_credentials"],
         "catalog": [
             {
                 "service": {
@@ -1106,7 +1134,7 @@ Response:
                         }
                     ],
                     "id": "--service-id--",
-                    "name": "volume"
+                    "type": "volume"
                 }
             },
             {
@@ -1128,16 +1156,16 @@ Response:
                         }
                     ],
                     "id": "--service-id--",
-                    "name": "identity"
+                    "type": "identity"
                 }
             }
         ],
-        "domain": {
+        "domains": [{
             "enabled": true,
             "id": "--domain-id--",
             "name": "--domain-name--"
-        },
-        "project": {
+        }],
+        "projects": [{
             "domain": {
                 "enabled": true,
                 "id": "--domain-id--",
@@ -1148,16 +1176,9 @@ Response:
             "enabled": true,
             "id": "--project-id--",
             "name": "--project-name--"
-        },
+        }],
         "token": {
             "expires": "2012-06-18T20:08:53Z",
-            "id": "--token-id--",
-            "project": {
-                "description": null,
-                "enabled": true,
-                "id": "--project-id--",
-                "name": "admin"
-            }
         },
         "user": {
             "default_project_id": "--default-project-id--",
@@ -1181,7 +1202,7 @@ Response:
         }
     }
 
-In the above example, either the "project" or "domain" object will be present
+In the above example, either the "projects" or "domains" object will be present
 at the top level (depending on whether this is a token for a project or a
 domain), but not both.
 
