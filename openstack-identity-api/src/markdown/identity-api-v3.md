@@ -1511,7 +1511,7 @@ Response:
 
     Status: 204 No Content
 
-#### Get domain projects: `GET /domains/{domain_id}/projects`
+#### List projects owned by a domain: `GET /domains/{domain_id}/projects`
 
 query_string: page (optional)
 query_string: per_page (optional, default 30)
@@ -1544,7 +1544,7 @@ Response:
         }
     ]
 
-#### Get domain users: `GET /domains/{domain_id}/users`
+#### List users owned by a domain: `GET /domains/{domain_id}/users`
 
 query_string: page (optional)
 query_string: per_page (optional, default 30)
@@ -2123,7 +2123,7 @@ Response:
         "type": "ec2"
     }
 
-#### Get credentials: `GET /credentials`
+#### List credentials: `GET /credentials`
 
 query_string: page (optional)
 query_string: per_page (optional, default 30)
@@ -2295,7 +2295,7 @@ Response:
         "name": "a role name"
     }
 
-#### Get users with role: `GET /roles/{role_id}/users`
+#### List users with a role: `GET /roles/{role_id}/users`
 
 query_string: page (optional)
 query_string: per_page (optional, default 30)
@@ -2340,7 +2340,7 @@ Response:
 
     Status: 204 No Content
 
-#### Get user roles: `GET /users/{user_id}/roles`
+#### List a user's roles: `GET /users/{user_id}/roles`
 
 query_string: page (optional)
 query_string: per_page (optional, default 30)
