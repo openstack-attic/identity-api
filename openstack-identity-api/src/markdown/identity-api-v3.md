@@ -517,11 +517,13 @@ Required attributes:
 
   Either globally or domain unique project name, depending on owning domain.
 
+Optional attributes:
+
 - `domain_id` (string)
 
-  References the domain which owns the project.
-
-Optional attributes:
+  References the domain which owns the project; if a domain is not specified by
+  the client, the Identity service implementation **must** automatically assign
+  one.
 
 - `description` (string)
 
