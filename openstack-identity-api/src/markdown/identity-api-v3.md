@@ -2515,7 +2515,6 @@ Request:
 
     {
         "blob": "--serialized-blob--",
-        "endpoint_id": "--endpoint-id--",
         "type": "--serialization-mime-type--"
     }
 
@@ -2526,7 +2525,6 @@ Response:
 
     {
         "blob": "--serialized-blob--",
-        "endpoint_id": "--endpoint-id--",
         "id": "--policy-id--",
         "link": {
             "href": "http://identity:35357/v3/policies/--policy-id--",
@@ -2539,7 +2537,7 @@ Response:
 
 query_string: page (optional)
 query_string: per_page (optional, default 30)
-query filter for "service_name", "service_id", "endpoint_id" (optional)
+query filter for "service_name", "service_id" (optional)
 
 Response:
 
@@ -2548,7 +2546,6 @@ Response:
     [
         {
             "blob": "--serialized-blob--",
-            "endpoint_id": "--endpoint-id--",
             "id": "--policy-id--",
             "link": {
                 "href": "http://identity:35357/v3/policies/--policy-id--",
@@ -2558,7 +2555,6 @@ Response:
         },
         {
             "blob": "--serialized-blob--",
-            "endpoint_id": "--endpoint-id--",
             "id": "--policy-id--",
             "link": {
                 "href": "http://identity:35357/v3/policies/--policy-id--",
@@ -2576,7 +2572,6 @@ Response:
 
     {
         "blob": "--serialized-blob--",
-        "endpoint_id": "--endpoint-id--",
         "id": "--policy-id--",
         "link": {
             "href": "http://identity:35357/v3/policies/--policy-id--",
@@ -2593,7 +2588,6 @@ Response:
 
     {
         "blob": "--serialized-blob--",
-        "endpoint_id": "--endpoint-id--",
         "id": "--policy-id--",
         "link": {
             "href": "http://identity:35357/v3/policies/--policy-id--",
