@@ -376,8 +376,8 @@ Optional attributes:
 - `domain_id` (string)
 
   References the domain which owns the user; if a domain is not specified by
-  the client, the Identity service implementation **must** automatically assign
-  one.
+  the client, the Identity service implementation will default it to the domain
+  to which the client's token is scoped.
 
 - `default_project_id` (string)
 
@@ -442,8 +442,8 @@ Optional attributes:
 - `domain_id` (string)
 
   References the domain which owns the group; if a domain is not specified by
-  the client, the Identity service implementation **must** automatically assign
-  one.
+  the client, the Identity service implementation will default it to the domain
+  to which the client's token is scoped.
 
 - `description` (string)
 
@@ -517,11 +517,13 @@ Required attributes:
 
   Either globally or domain unique project name, depending on owning domain.
 
+Optional attributes:
+
 - `domain_id` (string)
 
-  References the domain which owns the project.
-
-Optional attributes:
+  References the domain which owns the project; if a domain is not specified by
+  the client, the Identity service implementation will default it to the domain
+  to which the client's token is scoped.
 
 - `description` (string)
 
