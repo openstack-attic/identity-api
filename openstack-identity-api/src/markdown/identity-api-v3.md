@@ -2100,8 +2100,9 @@ Request:
             "access": "...",
             "secret": "..."
         },
-        "project_id": "",
-        "type": "ec2"
+        "project_id": "--project-id--",
+        "type": "ec2",
+        "user_id": "--user--id--"
     }
 
 Response:
@@ -2120,7 +2121,8 @@ Response:
             "rel": "self"
         },
         "project_id": "--project-id--",
-        "type": "ec2"
+        "type": "ec2",
+        "user_id": "--user--id--"
     }
 
 #### Get credentials: `GET /credentials`
@@ -2144,7 +2146,8 @@ Response:
                 "rel": "self"
             },
             "project_id": "--project-id--",
-            "type": "ec2"
+            "type": "ec2",
+            "user_id": "--user--id--"
         },
         {
             "data": {
@@ -2157,7 +2160,8 @@ Response:
                 "rel": "self"
             },
             "project_id": "--project-id--",
-            "type": "ec2"
+            "type": "ec2",
+            "user_id": "--user--id--"
         }
     ]
 
@@ -2178,7 +2182,8 @@ Response:
             "rel": "self"
         },
         "project_id": "--project-id--",
-        "type": "ec2"
+        "type": "ec2",
+        "user_id": "--user--id--"
     }
 
 #### Update credential: `PATCH /credentials/{credential_id}`
@@ -2198,7 +2203,8 @@ Response:
             "rel": "self"
         },
         "project_id": "--project-id--",
-        "type": "ec2"
+        "type": "ec2",
+        "user_id": "--user--id--"
     }
 
 #### Delete credential: `DELETE /credentials/{credential_id}`
