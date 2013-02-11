@@ -574,21 +574,15 @@ exist, which affects whether those names need to be globally unique or simply
 unique within that domain. Within the Identity API, there are five such name
 attributes, whose uniquness are affected by the domain:
 
-  - *Domain Name*: This is always globally unique across all domains.
+- *Domain Name*: This is always globally unique across all domains.
 
-  - *Role Name*: This is always globally unique across all domains.
+- *Role Name*: This is always globally unique across all domains.
 
-  - *User Name*: This is only unique within the owning domain.
+- *User Name*: This is only unique within the owning domain.
 
-  - *Project Name*: This is only unique within the owning domain.
+- *Project Name*: This is only unique within the owning domain.
 
-  - *Group Name*: This is only unique within the owning domain.
-
-The use of domains is optional and it is a supported operating configuration to
-create all user, group and project entities without creating and specifying any
-domains.  In such a configuration, all user, group and project entities will exist
-in a default domain, as will initially any user and project entities that are
-migrated from earlier versions of an Identity Service implementation.
+- *Group Name*: This is only unique within the owning domain.
 
 Additional required attributes:
 
@@ -902,28 +896,29 @@ anything else.
 
 #### Authenticate: `POST /auth/tokens`
 
-Each request to create a token contains an attribute with authentication information
-and, optionally, an attribute section describing the authozation scope being requested.
+Each request to create a token contains an attribute with authentication
+information and, optionally, an attribute section describing the authozation
+scope being requested.
 
-The first use case is where we want to authenticate a user from their credentials,
-optionally specifying a scope of either a project or domain for which to
-authorize the resulting token.  Using the `password` authentication method the
-user is specified by `name` or `id`, plus `password`.  If the user is specified
-by `name` and the user is owned by a domain other than the `default` domain
-then the domain of the user must also be specified (by either domain `name` or `id`).
+Authentication is performed by specifying a list of authentication `methods`,
+each with a corresponding object, containing any corresponding attributes
+required by the authentication method.  For example, to authenticate by
+`password`, the user is identified by `name` or `id`, in addition to including
+a `password`. If the user is specified by `name`, then the domain of the user
+must also be specified (by either domain `name` or `id`) in order to uniquely
+identify the user.
 
-The optional authorization scope is defined by specifying either a project (by
-specifying a `name` or `id` in `project` scope) or a domain (by specifiying a `name`
-or `id` in `domain` scope). If a project scope is specified by `name`
-and the project is owned by a domain other than the `default` domain, then
-an `id` or `name` in the `domain` attribute of the project scope must also be
-specified to uniquely identify the project. If both a domain and a project are
-specified, an HTTP 400 Bad Request will be returned. If neither a project or domain
-is provided for scope, the system will use the authenticating user to determine scope.
-If the user has a defined default project (`default_project_id`) attribute then this
-will be treated as the prefered authorization scope. If there is no default project
-defined, then the domain that owns the authenticating user will be treated as the
-prefered authorization scope.
+An authorization scope is optionally specified by either a project (by
+specifying a `name` or `id` in `project` scope) or a domain (by specifiying a
+`name` or `id` in `domain` scope). If a project scope is specified by `name`,
+then an `id` or `name` in the `domain` attribute of the project scope must also
+be specified to uniquely identify the project. If both a domain and a project
+are specified, an HTTP 400 Bad Request will be returned, as a token cannot be
+simultaneously scoped to both a project and domain. If neither a project or
+domain is provided for scope, and the authenticating user has a defined default
+project (`default_project_id`) attribute, then this will be treated as the
+prefered authorization scope. If there is no default project defined, then a
+token without a scope of authorization.
 
 Request (Project Scoping):
 
