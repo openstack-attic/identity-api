@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Code-Review+2: guang-yee
+Approved+1: henry-nash <henryn@linux.vnet.ibm.com>
+Code-Review+2: henry-nash <henryn@linux.vnet.ibm.com>
+Submitted-by: Jenkins
+Submitted-at: Mon, 11 Feb 2013 21:36:55 +0000
+Reviewed-on: https://review.openstack.org/21651
+Project: openstack/identity-api
+Branch: refs/heads/master
