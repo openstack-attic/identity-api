@@ -1747,7 +1747,7 @@ Response:
 
 query_string: page (optional)
 query_string: per_page (optional, default 30)
-query filter for "name", "enabled", or "domain_id" (optional)
+query filter for "domain_id", "enabled", "name" (optional)
 
 Response:
 
@@ -1892,7 +1892,7 @@ Response:
 
 query_string: page (optional)
 query_string: per_page (optional, default 30)
-query filter for "name", "enabled", "email" (optional)
+query filter for "domain_id", "email", "enabled", "name" (optional)
 
 Response:
 
@@ -2074,7 +2074,7 @@ Response:
 
 query_string: page (optional)
 query_string: per_page (optional, default 30)
-query filter for "name", domain_id (optional)
+query filter for "domain_id", "name" (optional)
 
 Response:
 
