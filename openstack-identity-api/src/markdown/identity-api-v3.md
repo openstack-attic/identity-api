@@ -18,7 +18,7 @@ What's New in Version 3
 - "Groups": a container representing a collection of users
 - "Domains": a high-level container for projects, users and groups
 - "Policies": a centralized repository for policy engine rule sets
-- "Credentials": generic credential storage per user (e.g. EC2, PKI, SSH, etc)
+- "Credentials": generic credential storage per user (e.g. EC2, PKI, SSH, etc.)
 - Roles can be granted at either the domain or project level
 - User, group and project names only have to be unique within their owning
   domain
@@ -572,7 +572,7 @@ by other domains).
 Each domain defines a namespace in which certain API-visible name attributes
 exist, which affects whether those names need to be globally unique or simply
 unique within that domain. Within the Identity API, there are five such name
-attributes, whose uniquness are affected by the domain:
+attributes, whose uniqueness are affected by the domain:
 
 - *Domain Name*: This is always globally unique across all domains.
 
@@ -897,7 +897,7 @@ anything else.
 #### Authenticate: `POST /auth/tokens`
 
 Each request to create a token contains an attribute with authentication
-information and, optionally, an attribute section describing the authozation
+information and, optionally, an attribute section describing the authorization
 scope being requested.
 
 Authentication is performed by specifying a list of authentication `methods`,
@@ -909,7 +909,7 @@ must also be specified (by either domain `name` or `id`) in order to uniquely
 identify the user.
 
 An authorization scope is optionally specified by either a project (by
-specifying a `name` or `id` in `project` scope) or a domain (by specifiying a
+specifying a `name` or `id` in `project` scope) or a domain (by specifying a
 `name` or `id` in `domain` scope). If a project scope is specified by `name`,
 then an `id` or `name` in the `domain` attribute of the project scope must also
 be specified to uniquely identify the project. If both a domain and a project
@@ -917,7 +917,7 @@ are specified, an HTTP 400 Bad Request will be returned, as a token cannot be
 simultaneously scoped to both a project and domain. If neither a project or
 domain is provided for scope, and the authenticating user has a defined default
 project (`default_project_id`) attribute, then this will be treated as the
-prefered authorization scope. If there is no default project defined, then a
+preferred authorization scope. If there is no default project defined, then a
 token will be issued without an explicit scope of authorization.
 
 Request (Project Scoping):
@@ -1206,7 +1206,7 @@ attribute to indicate the supported authentication methods.
         }
     }
 
-For authentication processes which require multiple roundtrips, the Identity
+For authentication processes which require multiple round trips, the Identity
 service implementation may return an HTTP 401 Not Authorized with additional
 information for the next authentication step.
 
@@ -2016,7 +2016,7 @@ Response:
 #### Update user: `PATCH /users/{user_id}`
 
 Use this method attempt to update user password or enable/disable the user.
-This may return a HTTP 501 Not Implemented if the back-end driver doesn’t allow
+This may return a HTTP 501 Not Implemented if the back-end driver doesn't allow
 for the functionality.
 
 Response:
@@ -2170,7 +2170,7 @@ Response:
 #### Update group: `PATCH /groups/{group_id}`
 
 Use this method attempt to update name and/or description of group.
-This may return a HTTP 501 Not Implemented if the back-end driver doesn’t allow
+This may return a HTTP 501 Not Implemented if the back-end driver doesn't allow
 for the functionality.
 
 Response:
