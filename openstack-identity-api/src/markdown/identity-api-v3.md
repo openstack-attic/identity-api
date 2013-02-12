@@ -923,53 +923,24 @@ token will be issued without an explicit scope of authorization.
 Request (Project Scoping):
 
     {
-        "auth": {
-            "authentication": {
-                "methods": ["password"],
-                "password": {
-                    "user": {
-                        "id": "--optional-user-id--",
-                        "name": "--optional-user-name--",
-                        "password": "--password--",
-                        "domain": {
-                            "id": "--optional-domain-id--",
-                            "name": "--optional-domain-name--"
-                        }
-                    }
-                }
-            },
-            "scope": {
-                "project": {
-                    "id": "--optional-project-id--",
-                    "name": "--optional-project-name--",
+        "authentication": {
+            "methods": ["password"],
+            "password": {
+                "user": {
+                    "id": "--optional-user-id--",
+                    "name": "--optional-user-name--",
+                    "password": "--password--",
                     "domain": {
                         "id": "--optional-domain-id--",
                         "name": "--optional-domain-name--"
                     }
                 }
             }
-        }
-    }
-
-Request (Domain Scoping):
-
-    {
-        "auth": {
-            "authentication": {
-                "methods": ["password"],
-                "password": {
-                    "user": {
-                        "id": "--optional-user-id--",
-                        "name": "--optional-user-name--",
-                        "password": "--password--",
-                        "domain": {
-                            "id": "--optional-domain-id--",
-                            "name": "--optional-domain-name--"
-                        }
-                    }
-                }
-            },
-            "scope": {
+        },
+        "scope": {
+            "project": {
+                "id": "--optional-project-id--",
+                "name": "--optional-project-name--",
                 "domain": {
                     "id": "--optional-domain-id--",
                     "name": "--optional-domain-name--"
@@ -978,21 +949,44 @@ Request (Domain Scoping):
         }
     }
 
+Request (Domain Scoping):
+
+    {
+        "authentication": {
+            "methods": ["password"],
+            "password": {
+                "user": {
+                    "id": "--optional-user-id--",
+                    "name": "--optional-user-name--",
+                    "password": "--password--",
+                    "domain": {
+                        "id": "--optional-domain-id--",
+                        "name": "--optional-domain-name--"
+                    }
+                }
+            }
+        },
+        "scope": {
+            "domain": {
+                "id": "--optional-domain-id--",
+                "name": "--optional-domain-name--"
+            }
+        }
+    }
+
 Request (Scope determined by authenticating user):
 
     {
-        "auth": {
-            "authentication": {
-                "methods": ["password"],
-                "password": {
-                    "user": {
-                        "id": "--optional-user-id--",
-                        "name": "--optional-user-name--",
-                        "password": "--password--",
-                        "domain": {
-                            "id": "--optional-domain-id--",
-                            "name": "--optional-domain-name--"
-                        }
+        "authentication": {
+            "methods": ["password"],
+            "password": {
+                "user": {
+                    "id": "--optional-user-id--",
+                    "name": "--optional-user-name--",
+                    "password": "--password--",
+                    "domain": {
+                        "id": "--optional-domain-id--",
+                        "name": "--optional-domain-name--"
                     }
                 }
             }
@@ -1010,14 +1004,33 @@ first use case above.
 Request (Domain Scoping):
 
     {
-        "auth": {
-            "authentication": {
-                "methods": ["token"],
-                "token": {
-                    "id": "--token-id--"
-                }
-            },
-            "scope": {
+        "authentication": {
+            "methods": ["token"],
+            "token": {
+                "id": "--token-id--"
+            }
+        },
+        "scope": {
+            "domain": {
+                "id": "--optional-domain-id--",
+                "name": "--optional-domain-name--"
+            }
+        }
+    }
+
+Request (Project Scoping):
+
+    {
+        "authentication": {
+            "methods": ["token"],
+            "token": {
+                "id": "--token-id--"
+            }
+        },
+        "scope": {
+            "project": {
+                "id": "--optional-project-id--",
+                "name": "--optional-project-name--",
                 "domain": {
                     "id": "--optional-domain-id--",
                     "name": "--optional-domain-name--"
@@ -1026,38 +1039,13 @@ Request (Domain Scoping):
         }
     }
 
-Request (Project Scoping):
-
-    {
-        "auth": {
-            "authentication": {
-                "methods": ["token"],
-                "token": {
-                    "id": "--token-id--"
-                }
-            },
-            "scope": {
-                "project": {
-                    "id": "--optional-project-id--",
-                    "name": "--optional-project-name--",
-                    "domain": {
-                        "id": "--optional-domain-id--",
-                        "name": "--optional-domain-name--"
-                    }
-                }
-            }
-        }
-    }
-
 Request (Scope determined by authenticating user):
 
     {
-        "auth": {
-            "authentication": {
-                "methods": ["token"],
-                "token": {
-                    "id": "--token-id--"
-                }
+        "authentication": {
+            "methods": ["token"],
+            "token": {
+                "id": "--token-id--"
             }
         }
     }
