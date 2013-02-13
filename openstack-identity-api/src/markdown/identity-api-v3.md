@@ -894,7 +894,7 @@ The "just a token" has been the starting requirement, and with PKI coming
 online, it provides a resource path for the tokens independent of linkages to
 anything else.
 
-#### Authenticate: `POST /auth/tokens`
+#### Authenticate: `POST /auth`
 
 Each request to create a token contains an attribute with authentication
 information and, optionally, an attribute section describing the authozation
@@ -1218,7 +1218,7 @@ For example:
     }
 
 
-#### Validate token: `GET /tokens`
+#### Validate token: `GET /auth`
 
 - token to be used to validate the call in X-Auth-Token HTTP header
 - token to be validated is set in X-Subject-Token HTTP header
@@ -1319,7 +1319,7 @@ In the above example, either the "project" or "domain" object will be present
 at the top level (depending on whether this is a token for a project or a
 domain), but not both.
 
-#### Check token: `HEAD /tokens`
+#### Check token: `HEAD /auth`
 
 - token to be used to validate the call in X-Auth-Token HTTP header
 - token to be validated is set in X-Subject-Token HTTP header
@@ -1340,7 +1340,7 @@ Failure response:
         }
     }
 
-#### Remove token: `DELETE /tokens`
+#### Remove token: `DELETE /auth`
 
 - token to be used to validate the call in X-Auth-Token
 - token to be deleted is set in X-Subject-Token HTTP header
