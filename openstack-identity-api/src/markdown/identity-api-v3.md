@@ -27,6 +27,7 @@ What's New in Version 3
 - Tokens explicitly represent user+project or user+domain pairs
 - Partial updates are performed using the HTTP `PATCH` method
 - Token ID values no longer appear in URLs
+- Trusts can be used for user to user delegation of attributes
 
 API Conventions
 ---------------
@@ -118,11 +119,11 @@ Request:
     POST /entities
 
     {
-        "entity": {
-            "name": string,
-            "description": string,
-            "enabled": boolean
-        }
+	"entity": {
+	    "name": string,
+	    "description": string,
+	    "enabled": boolean
+	}
     }
 
 The full entity is returned in a successful response (including the new
@@ -132,15 +133,15 @@ resource name:
     201 Created
 
     {
-        "entity": {
-            "id": string,
-            "name": string,
-            "description": string,
-            "enabled": boolean,
-            "links": {
-                "self": url
-            }
-        }
+	"entity": {
+	    "id": string,
+	    "name": string,
+	    "description": string,
+	    "enabled": boolean,
+	    "links": {
+		"self": url
+	    }
+	}
     }
 
 #### List Entities
@@ -155,31 +156,31 @@ plural form of the resource name (identical to that found in the resource URL):
     200 OK
 
     {
-        "entities": [
-            {
-                "id": string,
-                "name": string,
-                "description": string,
-                "enabled": boolean,
-                "links": {
-                    "self": url
-                }
-            },
-            {
-                "id": string,
-                "name": string,
-                "description": string,
-                "enabled": boolean,
-                "links": {
-                    "self": url
-                }
-            }
-        ],
-        "links": {
-            "self": url,
-            "next": url,
-            "previous": url
-        }
+	"entities": [
+	    {
+		"id": string,
+		"name": string,
+		"description": string,
+		"enabled": boolean,
+		"links": {
+		    "self": url
+		}
+	    },
+	    {
+		"id": string,
+		"name": string,
+		"description": string,
+		"enabled": boolean,
+		"links": {
+		    "self": url
+		}
+	    }
+	],
+	"links": {
+	    "self": url,
+	    "next": url,
+	    "previous": url
+	}
     }
 
 ##### List Entities filtered by attribute
@@ -196,22 +197,22 @@ The response is a subset of the full collection:
     200 OK
 
     {
-        "entities": [
-            {
-                "id": string,
-                "name": string,
-                "description": string,
-                "enabled": boolean,
-                "links": {
-                    "self": url
-                }
-            }
-        ],
-        "links": {
-            "self": url,
-            "next": url,
-            "previous": url
-        }
+	"entities": [
+	    {
+		"id": string,
+		"name": string,
+		"description": string,
+		"enabled": boolean,
+		"links": {
+		    "self": url
+		}
+	    }
+	],
+	"links": {
+	    "self": url,
+	    "next": url,
+	    "previous": url
+	}
     }
 
 #### Get an Entity
@@ -225,15 +226,15 @@ The full resource is returned in response:
     200 OK
 
     {
-        "entity": {
-            "id": string,
-            "name": string,
-            "description": string,
-            "enabled": boolean,
-            "links": {
-                "self": url
-            }
-        }
+	"entity": {
+	    "id": string,
+	    "name": string,
+	    "description": string,
+	    "enabled": boolean,
+	    "links": {
+		"self": url
+	    }
+	}
     }
 
 #### Update an Entity
@@ -244,9 +245,9 @@ specified attributes are replaced):
     PATCH /entities/{entity_id}
 
     {
-        "entity": {
-            "description": string,
-        }
+	"entity": {
+	    "description": string,
+	}
     }
 
 The full entity is returned in response:
@@ -254,15 +255,15 @@ The full entity is returned in response:
     200 OK
 
     {
-        "entity": {
-            "id": string,
-            "name": string,
-            "description": string,
-            "enabled": boolean,
-            "links": {
-                "self": url
-            }
-        }
+	"entity": {
+	    "id": string,
+	    "name": string,
+	    "description": string,
+	    "enabled": boolean,
+	    "links": {
+		"self": url
+	    }
+	}
     }
 
 #### Delete an Entity
@@ -417,17 +418,17 @@ Optional attributes:
 Example entity:
 
     {
-        "user": {
-            "default_project_id": "263fd9",
-            "domain_id": "1789d1",
-            "email": "joe@example.com",
-            "enabled": true,
-            "id": "0ca8f6",
-            "links": {
-                "self": "http://identity:35357/v3/users/0ca8f6"
-            },
-            "name": "Joe"
-        }
+	"user": {
+	    "default_project_id": "263fd9",
+	    "domain_id": "1789d1",
+	    "email": "joe@example.com",
+	    "enabled": true,
+	    "id": "0ca8f6",
+	    "links": {
+		"self": "http://identity:35357/v3/users/0ca8f6"
+	    },
+	    "name": "Joe"
+	}
     }
 
 ### Groups: `/v3/groups`
@@ -464,15 +465,15 @@ Optional attributes:
 Example entity:
 
     {
-        "group": {
-            "description": "Developers cleared for work on all general projects"
-            "domain_id": "1789d1",
-            "id": "70febc",
-            "links": {
-                "self": "http://identity:35357/v3/groups/70febc"
-            },
-            "name": "Developers"
-        }
+	"group": {
+	    "description": "Developers cleared for work on all general projects"
+	    "domain_id": "1789d1",
+	    "id": "70febc",
+	    "links": {
+		"self": "http://identity:35357/v3/groups/70febc"
+	    },
+	    "name": "Developers"
+	}
     }
 
 
@@ -506,16 +507,16 @@ Optional attributes:
 Example entity:
 
     {
-        "credential": {
-            "data": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-            "id": "80239a",
-            "links": {
-                "self": "http://identity:35357/v3/credentials/80239a"
-            },
-            "project_id": "263fd9",
-            "type": "ec2",
-            "user_id": "0ca8f6"
-        }
+	"credential": {
+	    "data": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+	    "id": "80239a",
+	    "links": {
+		"self": "http://identity:35357/v3/credentials/80239a"
+	    },
+	    "project_id": "263fd9",
+	    "type": "ec2",
+	    "user_id": "0ca8f6"
+	}
     }
 
 ### Projects: `/v3/projects`
@@ -551,15 +552,15 @@ Optional attributes:
 Example entity:
 
     {
-        "project": {
-            "domain_id": "1789d1",
-            "enabled": true,
-            "id": "263fd9",
-            "name": "project-x",
-            "links": {
-                "self": "http://identity:35357/v3/projects/263fd9"
-            }
-        }
+	"project": {
+	    "domain_id": "1789d1",
+	    "enabled": true,
+	    "id": "263fd9",
+	    "name": "project-x",
+	    "links": {
+		"self": "http://identity:35357/v3/projects/263fd9"
+	    }
+	}
     }
 
 ### Domains: `/v3/domains`
@@ -606,14 +607,14 @@ Optional attributes:
 Example entity:
 
     {
-        "domain": {
-            "enabled": true,
-            "id": "1789d1",
-            "links": {
-                "self": "http://identity:35357/v3/domains/1789d1"
-            },
-            "name": "example.com"
-        }
+	"domain": {
+	    "enabled": true,
+	    "id": "1789d1",
+	    "links": {
+		"self": "http://identity:35357/v3/domains/1789d1"
+	    },
+	    "name": "example.com"
+	}
     }
 
 ### Roles: `/v3/roles/`
@@ -630,13 +631,13 @@ Additional required attributes:
 Example entity:
 
     {
-        "role": {
-            "id": "76e72a",
-            "links": {
-                "self": "http://identity:35357/v3/roles/76e72a"
-            },
-            "name": "admin"
-        }
+	"role": {
+	    "id": "76e72a",
+	    "links": {
+		"self": "http://identity:35357/v3/roles/76e72a"
+	    },
+	    "name": "admin"
+	}
     }
 
 ### Services: `/v3/services`
@@ -668,15 +669,15 @@ Optional attributes:
 Example entity:
 
     {
-        "service": {
-            "enabled": true,
-            "id": "ee057c",
-            "links": {
-                "self": "http://identity:35357/v3/services/ee057c"
-            },
-            "name": "Keystone",
-            "type": "identity"
-        }
+	"service": {
+	    "enabled": true,
+	    "id": "ee057c",
+	    "links": {
+		"self": "http://identity:35357/v3/services/ee057c"
+	    },
+	    "name": "Keystone",
+	    "type": "identity"
+	}
     }
 
 ### Endpoints: `/v3/endpoints`
@@ -723,17 +724,17 @@ Optional attributes:
 Example entity:
 
     {
-        "endpoint": {
-            "enabled": true,
-            "id": "6fedc0",
-            "interface": "internal",
-            "links": {
-                "self": "http://identity:35357/v3/endpoints/6fedc0"
-            },
-            "region": "north",
-            "service_id": "ee057c",
-            "url": "http://identity:35357/"
-        }
+	"endpoint": {
+	    "enabled": true,
+	    "id": "6fedc0",
+	    "interface": "internal",
+	    "links": {
+		"self": "http://identity:35357/v3/endpoints/6fedc0"
+	    },
+	    "region": "north",
+	    "service_id": "ee057c",
+	    "url": "http://identity:35357/"
+	}
     }
 
 ### Tokens
@@ -756,7 +757,7 @@ Additional required attributes:
 - `expires` (string, ISO 8601 timestamp)
 
   FIXME(dolph): ISO 8601 defines a few levels of precision... which one are we
-                referring to? May need to update the example below.
+		referring to? May need to update the example below.
 
   Specifies the expiration time of the token. Once established, a token's
   expiration may not be changed. A token may be revoked ahead of expiration. If
@@ -795,51 +796,51 @@ Additional required attributes:
 Example entity:
 
     {
-        "token": {
-            "catalog": {
-                "FIXME(dolph)": "need an example here"
-            },
-            "expires": "1999-12-31T24:59:59.999999",
-            "id": "28ad60",
-            "links": {
-                "self": "http://identity:35357/v3/tokens",
-                "x-subject-token": "28ad60"
-            },
-            "project": {
-                "domain_id": "1789d1",
-                "enabled": true,
-                "id": "263fd9",
-                "links": {
-                    "self": "http://identity:35357/v3/projects/263fd9"
-                },
-                "name": "project-x"
-            },
-            "user": {
-                "default_project_id": "263fd9",
-                "domain_id": "1789d1",
-                "email": "joe@example.com",
-                "enabled": true,
-                "id": "0ca8f6",
-                "links": {
-                    "self": "http://identity:35357/v3/users/0ca8f6"
-                },
-                "name": "Joe"
-            }
-        }
+	"token": {
+	    "catalog": {
+		"FIXME(dolph)": "need an example here"
+	    },
+	    "expires": "1999-12-31T24:59:59.999999",
+	    "id": "28ad60",
+	    "links": {
+		"self": "http://identity:35357/v3/tokens",
+		"x-subject-token": "28ad60"
+	    },
+	    "project": {
+		"domain_id": "1789d1",
+		"enabled": true,
+		"id": "263fd9",
+		"links": {
+		    "self": "http://identity:35357/v3/projects/263fd9"
+		},
+		"name": "project-x"
+	    },
+	    "user": {
+		"default_project_id": "263fd9",
+		"domain_id": "1789d1",
+		"email": "joe@example.com",
+		"enabled": true,
+		"id": "0ca8f6",
+		"links": {
+		    "self": "http://identity:35357/v3/users/0ca8f6"
+		},
+		"name": "Joe"
+	    }
+	}
     }
 
 The above example represents a project-scoped token. If this was a
 domain-scoped token then the following would replace the "project"
 component:
 
-            "domain": {
-                "enabled": true,
-                "id": "1789d1",
-                "links": {
-                    "self": "http://identity:35357/v3/domains/1789d1"
-                },
-                "name": "example.com"
-            },
+	    "domain": {
+		"enabled": true,
+		"id": "1789d1",
+		"links": {
+		    "self": "http://identity:35357/v3/domains/1789d1"
+		},
+		"name": "example.com"
+	    },
 
 ### Policy
 
@@ -859,14 +860,14 @@ Additional required attributes:
 Example entity:
 
     {
-        "policy": {
-            "blob": "{\"default\": false}",
-            "id": "c41a4c",
-            "links": {
-                "self": "http://identity:35357/v3/policies/c41a4c"
-            },
-            "type": "application/json"
-        }
+	"policy": {
+	    "blob": "{\"default\": false}",
+	    "id": "c41a4c",
+	    "links": {
+		"self": "http://identity:35357/v3/policies/c41a4c"
+	    },
+	    "type": "application/json"
+	}
     }
 
 Core API
@@ -923,74 +924,74 @@ token will be issued without an explicit scope of authorization.
 Request (Project Scoping):
 
     {
-        "authentication": {
-            "methods": ["password"],
-            "password": {
-                "user": {
-                    "id": "--optional-user-id--",
-                    "name": "--optional-user-name--",
-                    "password": "--password--",
-                    "domain": {
-                        "id": "--optional-domain-id--",
-                        "name": "--optional-domain-name--"
-                    }
-                }
-            }
-        },
-        "scope": {
-            "project": {
-                "id": "--optional-project-id--",
-                "name": "--optional-project-name--",
-                "domain": {
-                    "id": "--optional-domain-id--",
-                    "name": "--optional-domain-name--"
-                }
-            }
-        }
+	"authentication": {
+	    "methods": ["password"],
+	    "password": {
+		"user": {
+		    "id": "--optional-user-id--",
+		    "name": "--optional-user-name--",
+		    "password": "--password--",
+		    "domain": {
+			"id": "--optional-domain-id--",
+			"name": "--optional-domain-name--"
+		    }
+		}
+	    }
+	},
+	"scope": {
+	    "project": {
+		"id": "--optional-project-id--",
+		"name": "--optional-project-name--",
+		"domain": {
+		    "id": "--optional-domain-id--",
+		    "name": "--optional-domain-name--"
+		}
+	    }
+	}
     }
 
 Request (Domain Scoping):
 
     {
-        "authentication": {
-            "methods": ["password"],
-            "password": {
-                "user": {
-                    "id": "--optional-user-id--",
-                    "name": "--optional-user-name--",
-                    "password": "--password--",
-                    "domain": {
-                        "id": "--optional-domain-id--",
-                        "name": "--optional-domain-name--"
-                    }
-                }
-            }
-        },
-        "scope": {
-            "domain": {
-                "id": "--optional-domain-id--",
-                "name": "--optional-domain-name--"
-            }
-        }
+	"authentication": {
+	    "methods": ["password"],
+	    "password": {
+		"user": {
+		    "id": "--optional-user-id--",
+		    "name": "--optional-user-name--",
+		    "password": "--password--",
+		    "domain": {
+			"id": "--optional-domain-id--",
+			"name": "--optional-domain-name--"
+		    }
+		}
+	    }
+	},
+	"scope": {
+	    "domain": {
+		"id": "--optional-domain-id--",
+		"name": "--optional-domain-name--"
+	    }
+	}
     }
 
 Request (Scope determined by authenticating user):
 
     {
-        "authentication": {
-            "methods": ["password"],
-            "password": {
-                "user": {
-                    "id": "--optional-user-id--",
-                    "name": "--optional-user-name--",
-                    "password": "--password--",
-                    "domain": {
-                        "id": "--optional-domain-id--",
-                        "name": "--optional-domain-name--"
-                    }
-                }
-            }
-        }
+	"authentication": {
+	    "methods": ["password"],
+	    "password": {
+		"user": {
+		    "id": "--optional-user-id--",
+		    "name": "--optional-user-name--",
+		    "password": "--password--",
+		    "domain": {
+			"id": "--optional-domain-id--",
+			"name": "--optional-domain-name--"
+		    }
+		}
+	    }
+	}
     }
 
 
@@ -1004,52 +1005,66 @@ first use case above.
 Request (Domain Scoping):
 
     {
-        "authentication": {
-            "methods": ["token"],
-            "token": {
-                "id": "--token-id--"
-            }
-        },
-        "scope": {
-            "domain": {
-                "id": "--optional-domain-id--",
-                "name": "--optional-domain-name--"
-            }
-        }
+	"authentication": {
+	    "methods": ["token"],
+	    "token": {
+		"id": "--token-id--"
+	    }
+	},
+	"scope": {
+	    "domain": {
+		"id": "--optional-domain-id--",
+		"name": "--optional-domain-name--"
+	    }
+	}
     }
 
 Request (Project Scoping):
 
     {
-        "authentication": {
-            "methods": ["token"],
-            "token": {
-                "id": "--token-id--"
-            }
-        },
-        "scope": {
-            "project": {
-                "id": "--optional-project-id--",
-                "name": "--optional-project-name--",
-                "domain": {
-                    "id": "--optional-domain-id--",
-                    "name": "--optional-domain-name--"
-                }
-            }
-        }
+	"authentication": {
+	    "methods": ["token"],
+	    "token": {
+		"id": "--token-id--"
+	    }
+	},
+	"scope": {
+	    "project": {
+		"id": "--optional-project-id--",
+		"name": "--optional-project-name--",
+		"domain": {
+		    "id": "--optional-domain-id--",
+		    "name": "--optional-domain-name--"
+		}
+	    }
+	}
     }
 
 Request (Scope determined by authenticating user):
 
     {
-        "authentication": {
-            "methods": ["token"],
-            "token": {
-                "id": "--token-id--"
-            }
-        }
+	"authentication": {
+	    "methods": ["token"],
+	    "token": {
+		"id": "--token-id--"
+	    }
+	}
     }
 
+Request (Scope determined by trust):
+
+    {
+	"authentication": {
+	    "methods": ["token"],
+	    "token": {
+		"id": "--token-id--"
+	    }
+	}
+	"trust": {
+      		"id": "--trust-id--"
+	}
+    }
+    
 Response:
 
     Headers: X-Subject-Token
@@ -1059,92 +1074,93 @@ Response:
     Status: 200
 
     {
-        "methods": ["password"],
-        "extras": {
-            "deployment-specific": "deployment-specific",
-            "arbitrary-key"; "arbitrary-value"
-        },
-        "domain": {
-            "enabled": true,
-            "id": "...",
-            "name": "..."
-        },
-        "project": {
-            "domain": {
-                "enabled": true,
-                "id": "...",
-                "name": "...",
-            },
-            "enabled": true,
-            "id": "...",
-            "name": "..."
-        },
-        "services": [
-            {
-                "endpoints": [
-                    {
-                        "interface": "public",
-                        "id": "--endpoint-id--",
-                        "name": null,
-                        "region": "RegionOne",
-                        "url": "http://external:8776/v1/--project-id--"
-                    },
-                    {
-                        "interface": "internal",
-                        "id": "--endpoint-id--",
-                        "name": null,
-                        "region": "RegionOne",
-                        "url": "http://internal:8776/v1/--project-id--"
-                    }
-                ],
-                "id": "--service-id--",
-                "type": "volume"
-            },
-            {
-                "endpoints": [
-                    {
-                        "interface": "public",
-                        "id": "--endpoint-id--",
-                        "name": null,
-                        "region": "RegionOne",
-                        "url": "http://external:9292/v1"
-                    },
-                    {
-                        "interface": "internal",
-                        "id": "--endpoint-id--",
-                        "name": null,
-                        "region": "RegionOne",
-                        "url": "http://internal:9292/v1"
-                    }
-                ],
-                "id": "--service-id--",
-                "type": "identity"
-            }
-        ],
-        "token": {
-            "expires": "2012-06-18T20:08:53Z",
-        },
-        "user": {
-            "default_project_id": "--default-project-id--",
-            "description": "a domain administrator",
-            "domain_id": "--domain-id--",
-            "id": "766f3f4235fa468588e30f31157eb9ac",
-            "name": "admin",
-            "roles": [
-                {
-                    "id": "...",
-                    "name": "Member",
-                    "project_id": "c5271357278e4a2094a96e0e6856c5cf"
-                },
-                {
-                    "description": "desc of domain...",
-                    "domain_id": "0ab841c666284a7ca5941f2471019074",
-                    "id": "...",
-                    "name": "Admin"
-                }
-            ],
-            "roles_links": []
-        }
+	"methods": ["password"],
+	"extras": {
+	    "deployment-specific": "deployment-specific",
+	    "arbitrary-key"; "arbitrary-value"
+	},
+	"domain": {
+	    "enabled": true,
+	    "id": "...",
+	    "name": "..."
+	},
+	"project": {
+	    "domain": {
+		"enabled": true,
+		"id": "...",
+		"name": "...",
+	    },
+	    "enabled": true,
+	    "id": "...",
+	    "name": "..."
+	},
+	"services": [
+	    {
+		"endpoints": [
+		    {
+			"interface": "public",
+			"id": "--endpoint-id--",
+			"name": null,
+			"region": "RegionOne",
+			"url": "http://external:8776/v1/--project-id--"
+		    },
+		    {
+			"interface": "internal",
+			"id": "--endpoint-id--",
+			"name": null,
+			"region": "RegionOne",
+			"url": "http://internal:8776/v1/--project-id--"
+		    }
+		],
+		"id": "--service-id--",
+		"type": "volume"
+	    },
+	    {
+		"endpoints": [
+		    {
+			"interface": "public",
+			"id": "--endpoint-id--",
+			"name": null,
+			"region": "RegionOne",
+			"url": "http://external:9292/v1"
+		    },
+		    {
+			"interface": "internal",
+			"id": "--endpoint-id--",
+			"name": null,
+			"region": "RegionOne",
+			"url": "http://internal:9292/v1"
+		    }
+		],
+		"id": "--service-id--",
+		"type": "identity"
+	    }
+	],
+	"token": {
+	    "expires": "2012-06-18T20:08:53Z",
+	},
+	"user": {
+	    "default_project_id": "--default-project-id--",
+	    "description": "a domain administrator",
+	    "domain_id": "--domain-id--",
+	    "id": "766f3f4235fa468588e30f31157eb9ac",
+	    "name": "admin",
+	    "trustee": "abf8461536ae43f8abfc2db513e0daca"
+	    "roles": [
+		{
+		    "id": "...",
+		    "name": "Member",
+		    "project_id": "c5271357278e4a2094a96e0e6856c5cf"
+		},
+		{
+		    "description": "desc of domain...",
+		    "domain_id": "0ab841c666284a7ca5941f2471019074",
+		    "id": "...",
+		    "name": "Admin"
+		}
+	    ],
+	    "roles_links": []
+	}
     }
 
 In the above example, either the `project` or `domain` object will be
@@ -1165,17 +1181,20 @@ The `methods` attribute merely indicates the methods used to authenticate
 the user for the given token. It is up to the client to look for specific
 methods to determine the factors.
 
+If the token was created as the result of a trust, the trustee field will 
+be present and set with the userid of the trustee.
+
 Failure response (example - additional failure cases are quite possible,
 including 403 Forbidden and 409 Conflict):
 
     Status: 401 Not Authorized
 
     {
-        "error": {
-            "code": 401,
-            "message": "The request you have made requires authentication",
-            "title": "Not Authorized"
-        }
+	"error": {
+	    "code": 401,
+	    "message": "The request you have made requires authentication",
+	    "title": "Not Authorized"
+	}
     }
 
 Optionally, the Identity service implementation may return an `authentication`
@@ -1184,14 +1203,14 @@ attribute to indicate the supported authentication methods.
     Status: 401 Not Authorized
 
     {
-        "error": {
-            "code": 401,
-            "message": "Need to authenticate with one or more supported methods",
-            "title": "Not Authorized"
-        },
-        "authentication": {
-            "methods": ["password", "token", "challenge-response"]
-        }
+	"error": {
+	    "code": 401,
+	    "message": "Need to authenticate with one or more supported methods",
+	    "title": "Not Authorized"
+	},
+	"authentication": {
+	    "methods": ["password", "token", "challenge-response"]
+	}
     }
 
 For authentication processes which require multiple round trips, the Identity
@@ -1203,18 +1222,18 @@ For example:
     Status: 401 Not Authorized
 
     {
-        "error": {
-            "code": 401,
-            "message": "Additional authentications steps required.",
-            "title": "Not Authorized"
-        },
-        "authentication": {
-            "methods": ["challenge-response"],
-            "challenge-response": {
-                "session_id": "123456",
-                "challenge": "What was the zip code of your birth place?"
-            }
-        }
+	"error": {
+	    "code": 401,
+	    "message": "Additional authentications steps required.",
+	    "title": "Not Authorized"
+	},
+	"authentication": {
+	    "methods": ["challenge-response"],
+	    "challenge-response": {
+		"session_id": "123456",
+		"challenge": "What was the zip code of your birth place?"
+	    }
+	}
     }
 
 
@@ -1228,91 +1247,91 @@ Response:
     Status: 200 OK
 
     {
-        "methods": ["password"],
-        "catalog": [
-            {
-                "service": {
-                    "endpoints": [
-                        {
-                            "interface": "public",
-                            "id": "--endpoint-id--",
-                            "name": null,
-                            "region": "RegionOne",
-                            "url": "http://external:8776/v1/--project-id--"
-                        },
-                        {
-                            "interface": "internal",
-                            "id": "--endpoint-id--",
-                            "name": null,
-                            "region": "RegionOne",
-                            "url": "http://internal:8776/v1/--project-id--"
-                        }
-                    ],
-                    "id": "--service-id--",
-                    "type": "volume"
-                }
-            },
-            {
-                "service": {
-                    "endpoints": [
-                        {
-                            "interface": "public",
-                            "id": "--endpoint-id--",
-                            "name": null,
-                            "region": "RegionOne",
-                            "url": "http://external:9292/v1"
-                        },
-                        {
-                            "interface": "internal",
-                            "id": "--endpoint-id--",
-                            "name": null,
-                            "region": "RegionOne",
-                            "url": "http://internal:9292/v1"
-                        }
-                    ],
-                    "id": "--service-id--",
-                    "type": "identity"
-                }
-            }
-        ],
-        "domain": {
-            "enabled": true,
-            "id": "--domain-id--",
-            "name": "--domain-name--"
-        },
-        "project": {
-            "domain": {
-                "enabled": true,
-                "id": "--domain-id--",
-                "name": "--domain-name--",
-            },
-            "enabled": true,
-            "id": "--project-id--",
-            "name": "--project-name--"
-        },
-        "token": {
-            "expires": "2012-06-18T20:08:53Z",
-        },
-        "user": {
-            "default_project_id": "--default-project-id--",
-            "description": "a domain administrator",
-            "domain_id": "--domain-id--",
-            "id": "--user-id--",
-            "name": "admin",
-            "roles": [
-                {
-                    "id": "--role-id--",
-                    "name": "--role-name--",
-                    "project_id": "--project-id--"
-                },
-                {
-                    "domain_id": "--domain-id--",
-                    "id": "--role-id--",
-                    "name": "--role-name--"
-                }
-            ],
-            "roles_links": []
-        }
+	"methods": ["password"],
+	"catalog": [
+	    {
+		"service": {
+		    "endpoints": [
+			{
+			    "interface": "public",
+			    "id": "--endpoint-id--",
+			    "name": null,
+			    "region": "RegionOne",
+			    "url": "http://external:8776/v1/--project-id--"
+			},
+			{
+			    "interface": "internal",
+			    "id": "--endpoint-id--",
+			    "name": null,
+			    "region": "RegionOne",
+			    "url": "http://internal:8776/v1/--project-id--"
+			}
+		    ],
+		    "id": "--service-id--",
+		    "type": "volume"
+		}
+	    },
+	    {
+		"service": {
+		    "endpoints": [
+			{
+			    "interface": "public",
+			    "id": "--endpoint-id--",
+			    "name": null,
+			    "region": "RegionOne",
+			    "url": "http://external:9292/v1"
+			},
+			{
+			    "interface": "internal",
+			    "id": "--endpoint-id--",
+			    "name": null,
+			    "region": "RegionOne",
+			    "url": "http://internal:9292/v1"
+			}
+		    ],
+		    "id": "--service-id--",
+		    "type": "identity"
+		}
+	    }
+	],
+	"domain": {
+	    "enabled": true,
+	    "id": "--domain-id--",
+	    "name": "--domain-name--"
+	},
+	"project": {
+	    "domain": {
+		"enabled": true,
+		"id": "--domain-id--",
+		"name": "--domain-name--",
+	    },
+	    "enabled": true,
+	    "id": "--project-id--",
+	    "name": "--project-name--"
+	},
+	"token": {
+	    "expires": "2012-06-18T20:08:53Z",
+	},
+	"user": {
+	    "default_project_id": "--default-project-id--",
+	    "description": "a domain administrator",
+	    "domain_id": "--domain-id--",
+	    "id": "--user-id--",
+	    "name": "admin",
+	    "roles": [
+		{
+		    "id": "--role-id--",
+		    "name": "--role-name--",
+		    "project_id": "--project-id--"
+		},
+		{
+		    "domain_id": "--domain-id--",
+		    "id": "--role-id--",
+		    "name": "--role-name--"
+		}
+	    ],
+	    "roles_links": []
+	}
     }
 
 In the above example, either the "project" or "domain" object will be present
@@ -1333,11 +1352,11 @@ Failure response:
     Status: 401 Not Authorized
 
     {
-        "error": {
-            "code": 401,
-            "message": "The request you have made requires authentication",
-            "title": "Not Authorized"
-        }
+	"error": {
+	    "code": 401,
+	    "message": "The request you have made requires authentication",
+	    "title": "Not Authorized"
+	}
     }
 
 #### Remove token: `DELETE /auth`
@@ -1363,22 +1382,22 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "id": "--service-id--",
-            "link": {
-                "href": "http://identity:35357/v3/services/--service-id--",
-                "rel": "self"
-            },
-            "type": "volume"
-        },
-        {
-            "id": "--service-id--",
-            "link": {
-                "href": "http://identity:35357/v3/services/--service-id--",
-                "rel": "self"
-            },
-            "type": "identity"
-        }
+	{
+	    "id": "--service-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/services/--service-id--",
+		"rel": "self"
+	    },
+	    "type": "volume"
+	},
+	{
+	    "id": "--service-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/services/--service-id--",
+		"rel": "self"
+	    },
+	    "type": "identity"
+	}
     ]
 
 
@@ -1389,12 +1408,12 @@ Response:
     Status: 200 OK
 
     {
-        "id": "--service-id--",
-        "link": {
-            "href": "http://identity:35357/v3/services/--service-id--",
-            "rel": "self"
-        },
-        "type": "volume"
+	"id": "--service-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/services/--service-id--",
+	    "rel": "self"
+	},
+	"type": "volume"
     }
 
 #### Create service: `POST /services`
@@ -1402,7 +1421,7 @@ Response:
 Request:
 
     {
-        "type": "..."
+	"type": "..."
     }
 
 Response:
@@ -1411,10 +1430,10 @@ Response:
     Location: https://identity:35357/v3/services/--service-id--
 
     {
-        "service": {
-            "id": "--service-id--",
-            "type": "volume"
-        }
+	"service": {
+	    "id": "--service-id--",
+	    "type": "volume"
+	}
     }
 
 #### Update service: `PATCH /services/{service_id}`
@@ -1424,10 +1443,10 @@ Response:
     Status: 200 OK
 
     {
-        "service": {
-            "id": "--service-id--",
-            "type": "volume"
-        }
+	"service": {
+	    "id": "--service-id--",
+	    "type": "volume"
+	}
     }
 
 #### Delete service: `DELETE /services/{service_id}`
@@ -1448,26 +1467,26 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "id": "--endpoint-id--",
-            "interface": "public",
-            "link": {
-                "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
-                "rel": "self"
-            },
-            "name": "the public volume endpoint",
-            "service_id": "--service-id--"
-        },
-        {
-            "id": "--endpoint-id--",
-            "interface": "internal",
-            "link": {
-                "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
-                "rel": "self"
-            },
-            "name": "the internal volume endpoint",
-            "service_id": "--service-id--"
-        }
+	{
+	    "id": "--endpoint-id--",
+	    "interface": "public",
+	    "link": {
+		"href": "http://identity:35357/v3/endpoints/--endpoint-id--",
+		"rel": "self"
+	    },
+	    "name": "the public volume endpoint",
+	    "service_id": "--service-id--"
+	},
+	{
+	    "id": "--endpoint-id--",
+	    "interface": "internal",
+	    "link": {
+		"href": "http://identity:35357/v3/endpoints/--endpoint-id--",
+		"rel": "self"
+	    },
+	    "name": "the internal volume endpoint",
+	    "service_id": "--service-id--"
+	}
     ]
 
 #### Create endpoint: `POST /endpoints`
@@ -1475,9 +1494,9 @@ Response:
 Request:
 
     {
-        "interface": "[admin|public|internal]",
-        "name": "name",
-        "url": "..."
+	"interface": "[admin|public|internal]",
+	"name": "name",
+	"url": "..."
     }
 
 Response:
@@ -1486,14 +1505,14 @@ Response:
     Location: https://identity:35357/v3/endpoints/--endpoint-id--
 
     {
-        "id": "--endpoint-id--",
-        "interface": "internal",
-        "link": {
-            "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
-            "rel": "self"
-        },
-        "name": "the internal volume endpoint",
-        "service_id": "--service-id--"
+	"id": "--endpoint-id--",
+	"interface": "internal",
+	"link": {
+	    "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
+	    "rel": "self"
+	},
+	"name": "the internal volume endpoint",
+	"service_id": "--service-id--"
     }
 
 
@@ -1504,14 +1523,14 @@ Response:
     Status: 200 OK
 
     {
-        "id": "--endpoint-id--",
-        "interface": "internal",
-        "link": {
-            "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
-            "rel": "self"
-        },
-        "name": "the internal volume endpoint",
-        "service_id": "--service-id--"
+	"id": "--endpoint-id--",
+	"interface": "internal",
+	"link": {
+	    "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
+	    "rel": "self"
+	},
+	"name": "the internal volume endpoint",
+	"service_id": "--service-id--"
     }
 
 #### Delete endpoint: `DELETE /endpoints/{endpoint_id}`
@@ -1536,9 +1555,9 @@ The key use cases we need to cover:
 Request:
 
     {
-        "description": "--optional--",
-        "enabled": --optional--,
-        "name": "..."
+	"description": "--optional--",
+	"enabled": --optional--,
+	"name": "..."
     }
 
 Response:
@@ -1547,14 +1566,14 @@ Response:
     Location: https://identity:35357/v3/domains/--domain-id--
 
     {
-        "description": "desc of domain",
-        "enabled": true,
-        "id": "--domain-id--",
-        "link": {
-            "href": "http://identity:35357/v3/domains/--domain-id--",
-            "rel": "self"
-        },
-        "name": "my domain"
+	"description": "desc of domain",
+	"enabled": true,
+	"id": "--domain-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/domains/--domain-id--",
+	    "rel": "self"
+	},
+	"name": "my domain"
     }
 
 #### List domains: `GET /domains`
@@ -1568,26 +1587,26 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "description": "desc of domain",
-            "enabled": true,
-            "id": "--domain-id--",
-            "link": {
-                "href": "http://identity:35357/v3/domains/--domain-id--",
-                "rel": "self"
-            },
-            "name": "my domain"
-        },
-        {
-            "description": "desc of another domain",
-            "enabled": true,
-            "id": "--domain-id--",
-            "link": {
-                "href": "http://identity:35357/v3/domains/--domain-id--",
-                "rel": "self"
-            },
-            "name": "another domain"
-        }
+	{
+	    "description": "desc of domain",
+	    "enabled": true,
+	    "id": "--domain-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/domains/--domain-id--",
+		"rel": "self"
+	    },
+	    "name": "my domain"
+	},
+	{
+	    "description": "desc of another domain",
+	    "enabled": true,
+	    "id": "--domain-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/domains/--domain-id--",
+		"rel": "self"
+	    },
+	    "name": "another domain"
+	}
     ]
 
 #### Get domain: `GET /domains/{domain_id}`
@@ -1597,14 +1616,14 @@ Response:
     Status: 200 OK
 
     {
-        "description": "desc of domain",
-        "enabled": true,
-        "id": "--domain-id--",
-        "link": {
-            "href": "http://identity:35357/v3/domains/--domain-id--",
-            "rel": "self"
-        },
-        "name": "my domain"
+	"description": "desc of domain",
+	"enabled": true,
+	"id": "--domain-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/domains/--domain-id--",
+	    "rel": "self"
+	},
+	"name": "my domain"
     }
 
 #### Update domain: `PATCH /domains/{domain_id}`
@@ -1614,14 +1633,14 @@ Response:
     Status: 200 OK
 
     {
-        "description": "desc of domain",
-        "enabled": true,
-        "id": "--domain-id--",
-        "link": {
-            "href": "http://identity:35357/v3/domains/--domain-id--",
-            "rel": "self"
-        },
-        "name": "my domain"
+	"description": "desc of domain",
+	"enabled": true,
+	"id": "--domain-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/domains/--domain-id--",
+	    "rel": "self"
+	},
+	"name": "my domain"
     }
 
 #### Delete domain: `DELETE /domains/{domain_id}`
@@ -1641,26 +1660,26 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "domain_id": "--domain-id--",
-            "enabled": true,
-            "id": "--project-id--",
-            "link": {
-                "href": "http://identity:35357/v3/projects/--project-id--",
-                "rel": "self"
-            },
-            "name": "a project name"
-        },
-        {
-            "domain_id": "--domain-id--",
-            "enabled": true,
-            "id": "--domain-id--",
-            "link": {
-                "href": "http://identity:35357/v3/projects/--project-id--",
-                "rel": "self"
-            },
-            "name": "another domain"
-        }
+	{
+	    "domain_id": "--domain-id--",
+	    "enabled": true,
+	    "id": "--project-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/projects/--project-id--",
+		"rel": "self"
+	    },
+	    "name": "a project name"
+	},
+	{
+	    "domain_id": "--domain-id--",
+	    "enabled": true,
+	    "id": "--domain-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/projects/--project-id--",
+		"rel": "self"
+	    },
+	    "name": "another domain"
+	}
     ]
 
 #### List users owned by a domain: `GET /domains/{domain_id}/users`
@@ -1674,32 +1693,32 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "a user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
-            },
-            "name": "admin"
-        },
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "another user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
-            },
-            "name": "someone"
-        }
+	{
+	    "default_project_id": "--default-project-id--",
+	    "description": "a user",
+	    "domain_id": "--domain-id--",
+	    "email": "...",
+	    "enabled": true,
+	    "id": "--user-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/users/--user-id--",
+		"rel": "self"
+	    },
+	    "name": "admin"
+	},
+	{
+	    "default_project_id": "--default-project-id--",
+	    "description": "another user",
+	    "domain_id": "--domain-id--",
+	    "email": "...",
+	    "enabled": true,
+	    "id": "--user-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/users/--user-id--",
+		"rel": "self"
+	    },
+	    "name": "someone"
+	}
     ]
 
 ### Projects
@@ -1709,10 +1728,10 @@ Response:
 Request:
 
     {
-        "description": "...",
-        "domain_id": "...",
-        "enabled": "...",
-        "name": "..."
+	"description": "...",
+	"domain_id": "...",
+	"enabled": "...",
+	"name": "..."
     }
 
 Response:
@@ -1721,14 +1740,14 @@ Response:
     Location: http://identity:35357/v3/projects/--project-id--
 
     {
-        "domain_id": "--domain-id--",
-        "enabled": true,
-        "id": "--project-id--",
-        "link": {
-            "href": "http://identity:35357/v3/projects/--project-id--",
-            "rel": "self"
-        },
-        "name": "a project name"
+	"domain_id": "--domain-id--",
+	"enabled": true,
+	"id": "--project-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/projects/--project-id--",
+	    "rel": "self"
+	},
+	"name": "a project name"
     }
 
 #### List projects: `GET /projects`
@@ -1742,26 +1761,26 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "domain_id": "--domain-id--",
-            "enabled": true,
-            "id": "--project-id--",
-            "link": {
-                "href": "http://identity:35357/v3/projects/--project-id--",
-                "rel": "self"
-            },
-            "name": "a project name"
-        },
-        {
-            "domain_id": "--domain-id--",
-            "enabled": true,
-            "id": "--project-id--",
-            "link": {
-                "href": "http://identity:35357/v3/projects/--project-id--",
-                "rel": "self"
-            },
-            "name": "another domain"
-        }
+	{
+	    "domain_id": "--domain-id--",
+	    "enabled": true,
+	    "id": "--project-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/projects/--project-id--",
+		"rel": "self"
+	    },
+	    "name": "a project name"
+	},
+	{
+	    "domain_id": "--domain-id--",
+	    "enabled": true,
+	    "id": "--project-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/projects/--project-id--",
+		"rel": "self"
+	    },
+	    "name": "another domain"
+	}
     ]
 
 #### Get project: `GET /projects/{project_id}`
@@ -1771,14 +1790,14 @@ Response:
     Status: 200 OK
 
     {
-        "domain_id": "--domain-id--",
-        "enabled": true,
-        "id": "--project-id--",
-        "link": {
-            "href": "http://identity:35357/v3/projects/--project-id--",
-            "rel": "self"
-        },
-        "name": "a project name"
+	"domain_id": "--domain-id--",
+	"enabled": true,
+	"id": "--project-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/projects/--project-id--",
+	    "rel": "self"
+	},
+	"name": "a project name"
     }
 
 #### Update project: `PATCH /projects/{project_id}`
@@ -1788,14 +1807,14 @@ Response:
     Status: 200 OK
 
     {
-        "domain_id": "--domain-id--",
-        "enabled": true,
-        "id": "--project-id--",
-        "link": {
-            "href": "http://identity:35357/v3/projects/--project-id--",
-            "rel": "self"
-        },
-        "name": "a project name"
+	"domain_id": "--domain-id--",
+	"enabled": true,
+	"id": "--project-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/projects/--project-id--",
+	    "rel": "self"
+	},
+	"name": "a project name"
     }
 
 #### Delete project: `DELETE /projects/{project_id}`
@@ -1813,32 +1832,32 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "a user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
-            },
-            "name": "admin"
-        },
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "another user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
-            },
-            "name": "someone"
-        }
+	{
+	    "default_project_id": "--default-project-id--",
+	    "description": "a user",
+	    "domain_id": "--domain-id--",
+	    "email": "...",
+	    "enabled": true,
+	    "id": "--user-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/users/--user-id--",
+		"rel": "self"
+	    },
+	    "name": "admin"
+	},
+	{
+	    "default_project_id": "--default-project-id--",
+	    "description": "another user",
+	    "domain_id": "--domain-id--",
+	    "email": "...",
+	    "enabled": true,
+	    "id": "--user-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/users/--user-id--",
+		"rel": "self"
+	    },
+	    "name": "someone"
+	}
     ]
 
 ### Users
@@ -1848,13 +1867,13 @@ Response:
 Request:
 
     {
-        "default_project_id": "...",
-        "description": "...",
-        "domain_id": "--optional--",
-        "email": "...",
-        "enabled": "...",
-        "name": "...",
-        "password": "--optional--"
+	"default_project_id": "...",
+	"description": "...",
+	"domain_id": "--optional--",
+	"email": "...",
+	"enabled": "...",
+	"name": "...",
+	"password": "--optional--"
     }
 
 Response:
@@ -1863,17 +1882,17 @@ Response:
     Location: http://identity:35357/v3/users/--user-id--
 
     {
-        "default_project_id": "--default-project-id--",
-        "description": "a user",
-        "domain_id": "1789d1",
-        "email": "...",
-        "enabled": true,
-        "id": "--user-id--",
-        "link": {
-            "href": "http://identity:35357/v3/users/--user-id--",
-            "rel": "self"
-        },
-        "name": "admin"
+	"default_project_id": "--default-project-id--",
+	"description": "a user",
+	"domain_id": "1789d1",
+	"email": "...",
+	"enabled": true,
+	"id": "--user-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/users/--user-id--",
+	    "rel": "self"
+	},
+	"name": "admin"
     }
 
 #### List users: `GET /users`
@@ -1887,32 +1906,32 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "a user",
-            "domain_id": "1789d1",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
-            },
-            "name": "admin"
-        },
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "another user",
-            "domain_id": "1789d1",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
-            },
-            "name": "someone"
-        }
+	{
+	    "default_project_id": "--default-project-id--",
+	    "description": "a user",
+	    "domain_id": "1789d1",
+	    "email": "...",
+	    "enabled": true,
+	    "id": "--user-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/users/--user-id--",
+		"rel": "self"
+	    },
+	    "name": "admin"
+	},
+	{
+	    "default_project_id": "--default-project-id--",
+	    "description": "another user",
+	    "domain_id": "1789d1",
+	    "email": "...",
+	    "enabled": true,
+	    "id": "--user-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/users/--user-id--",
+		"rel": "self"
+	    },
+	    "name": "someone"
+	}
     ]
 
 #### Get user: `GET /users/{user_id}`
@@ -1922,17 +1941,17 @@ Response:
     Status: 200 OK
 
     {
-        "default_project_id": "--default-project-id--",
-        "description": "a user",
-        "domain_id": "1789d1",
-        "email": "...",
-        "enabled": true,
-        "id": "--user-id--",
-        "link": {
-            "href": "http://identity:35357/v3/users/--user-id--",
-            "rel": "self"
-        },
-        "name": "admin"
+	"default_project_id": "--default-project-id--",
+	"description": "a user",
+	"domain_id": "1789d1",
+	"email": "...",
+	"enabled": true,
+	"id": "--user-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/users/--user-id--",
+	    "rel": "self"
+	},
+	"name": "admin"
     }
 
 #### List user projects: `GET /users/{user_id}/projects`
@@ -1946,26 +1965,26 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "domain_id": "--domain-id--",
-            "enabled": true,
-            "id": "--project-id--",
-            "link": {
-                "href": "http://identity:35357/v3/projects/--project-id--",
-                "rel": "self"
-            },
-            "name": "a project name"
-        },
-        {
-            "domain_id": "--domain-id--",
-            "enabled": true,
-            "id": "--project-id--",
-            "link": {
-                "href": "http://identity:35357/v3/projects/--project-id--",
-                "rel": "self"
-            },
-            "name": "another domain"
-        }
+	{
+	    "domain_id": "--domain-id--",
+	    "enabled": true,
+	    "id": "--project-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/projects/--project-id--",
+		"rel": "self"
+	    },
+	    "name": "a project name"
+	},
+	{
+	    "domain_id": "--domain-id--",
+	    "enabled": true,
+	    "id": "--project-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/projects/--project-id--",
+		"rel": "self"
+	    },
+	    "name": "another domain"
+	}
     ]
 
 #### List groups of which a user is a member: `GET /users/{user_id}/groups`
@@ -1979,26 +1998,26 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "description": "Developers cleared for work on all general projects"
-            "domain_id": "--domain-id--",
-            "id": "--group-id--",
-            "links": {
-                "href": "http://identity:35357/v3/groups/--group-id--",
-                "rel": "self"
-            },
-            "name": "Developers"
-        },
-        {
-            "description": "Developers cleared for work on secret projects"
-            "domain_id": "--domain-id--",
-            "id": "--group-id--",
-            "links": {
-                "href": "http://identity:35357/v3/groups/--group-id--",
-                "rel": "self"
-            },
-            "name": "Secure Developers"
-        }
+	{
+	    "description": "Developers cleared for work on all general projects"
+	    "domain_id": "--domain-id--",
+	    "id": "--group-id--",
+	    "links": {
+		"href": "http://identity:35357/v3/groups/--group-id--",
+		"rel": "self"
+	    },
+	    "name": "Developers"
+	},
+	{
+	    "description": "Developers cleared for work on secret projects"
+	    "domain_id": "--domain-id--",
+	    "id": "--group-id--",
+	    "links": {
+		"href": "http://identity:35357/v3/groups/--group-id--",
+		"rel": "self"
+	    },
+	    "name": "Secure Developers"
+	}
    ]
 
 #### Update user: `PATCH /users/{user_id}`
@@ -2012,17 +2031,17 @@ Response:
     Status: 200 OK
 
     {
-        "default_project_id": "--default-project-id--",
-        "description": "a user",
-        "domain_id": "1789d1",
-        "email": "...",
-        "enabled": true,
-        "id": "--user-id--",
-        "link": {
-            "href": "http://identity:35357/v3/users/--user-id--",
-            "rel": "self"
-        },
-        "name": "admin"
+	"default_project_id": "--default-project-id--",
+	"description": "a user",
+	"domain_id": "1789d1",
+	"email": "...",
+	"enabled": true,
+	"id": "--user-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/users/--user-id--",
+	    "rel": "self"
+	},
+	"name": "admin"
     }
 
 #### Delete user: `DELETE /users/{user_id}`
@@ -2038,9 +2057,9 @@ Response:
 Request:
 
     {
-        "description": "--optional--",
-        "domain_id": "--optional--",
-        "name": "..."
+	"description": "--optional--",
+	"domain_id": "--optional--",
+	"name": "..."
     }
 
 Response:
@@ -2049,13 +2068,13 @@ Response:
     Location: http://identity:35357/v3/groups/--group-id--
 
     {
-        "description": "Developers cleared for work on secret projects",
-        "id": "--group-id--",
-        "link": {
-            "href": "http://identity:35357/v3/groups/--group-id--",
-            "rel": "self"
-        },
-        "name": "Secure Developers"
+	"description": "Developers cleared for work on secret projects",
+	"id": "--group-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/groups/--group-id--",
+	    "rel": "self"
+	},
+	"name": "Secure Developers"
     }
 
 #### List groups: `GET /groups`
@@ -2069,36 +2088,36 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "description": "Developers cleared for work on all general projects"
-            "domain_id": "--domain-id--",
-            "id": "--group-id--",
-            "links": {
-                "href": "http://identity:35357/v3/groups/--group-id--",
-                "rel": "self"
-            },
-            "name": "Developers"
-        },
-        {
-            "description": "Developers cleared for work on secret projects"
-            "domain_id": "--domain-id--",
-            "id": "--group-id--",
-            "links": {
-                "href": "http://identity:35357/v3/groups/--group-id--",
-                "rel": "self"
-            },
-            "name": "Secure Developers"
-        },
-        {
-            "description": "Testers cleared for work on all general projects"
-            "domain_id": "--domain-id--",
-            "id": "--group-id--",
-            "links": {
-                "href": "http://identity:35357/v3/groups/--group-id--",
-                "rel": "self"
-            },
-            "name": "Testers"
-        }
+	{
+	    "description": "Developers cleared for work on all general projects"
+	    "domain_id": "--domain-id--",
+	    "id": "--group-id--",
+	    "links": {
+		"href": "http://identity:35357/v3/groups/--group-id--",
+		"rel": "self"
+	    },
+	    "name": "Developers"
+	},
+	{
+	    "description": "Developers cleared for work on secret projects"
+	    "domain_id": "--domain-id--",
+	    "id": "--group-id--",
+	    "links": {
+		"href": "http://identity:35357/v3/groups/--group-id--",
+		"rel": "self"
+	    },
+	    "name": "Secure Developers"
+	},
+	{
+	    "description": "Testers cleared for work on all general projects"
+	    "domain_id": "--domain-id--",
+	    "id": "--group-id--",
+	    "links": {
+		"href": "http://identity:35357/v3/groups/--group-id--",
+		"rel": "self"
+	    },
+	    "name": "Testers"
+	}
    ]
 
 #### Get group: `GET /groups/{group_id}`
@@ -2108,13 +2127,13 @@ Response:
     Status: 200 OK
 
     {
-        "description": "Developers cleared for work on secret projects",
-        "id": "--group-id--",
-        "link": {
-            "href": "http://identity:35357/v3/groups/--group-id--",
-            "rel": "self"
-        },
-        "name": "Secure Developers"
+	"description": "Developers cleared for work on secret projects",
+	"id": "--group-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/groups/--group-id--",
+	    "rel": "self"
+	},
+	"name": "Secure Developers"
 
 #### List users who are members of a group: `GET /groups/{group_id}/users`
 
@@ -2127,32 +2146,32 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "a user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
-            },
-            "name": "admin"
-        },
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "another user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
-            },
-            "name": "someone"
-        }
+	{
+	    "default_project_id": "--default-project-id--",
+	    "description": "a user",
+	    "domain_id": "--domain-id--",
+	    "email": "...",
+	    "enabled": true,
+	    "id": "--user-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/users/--user-id--",
+		"rel": "self"
+	    },
+	    "name": "admin"
+	},
+	{
+	    "default_project_id": "--default-project-id--",
+	    "description": "another user",
+	    "domain_id": "--domain-id--",
+	    "email": "...",
+	    "enabled": true,
+	    "id": "--user-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/users/--user-id--",
+		"rel": "self"
+	    },
+	    "name": "someone"
+	}
     ]
 
 #### Update group: `PATCH /groups/{group_id}`
@@ -2166,13 +2185,13 @@ Response:
     Status: 200 OK
 
     {
-        "description": "Developers cleared for work on secret projects",
-        "id": "--group-id--",
-        "link": {
-            "href": "http://identity:35357/v3/groups/--group-id--",
-            "rel": "self"
-        },
-        "name": "Secure Developers"
+	"description": "Developers cleared for work on secret projects",
+	"id": "--group-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/groups/--group-id--",
+	    "rel": "self"
+	},
+	"name": "Secure Developers"
     }
 
 #### Delete group: `DELETE /groups/{group_id}`
@@ -2215,13 +2234,13 @@ may be supported by simply changing the content of the key data.
 Request:
 
     {
-        "data": {
-            "access": "...",
-            "secret": "..."
-        },
-        "project_id": "--project-id--",
-        "type": "ec2",
-        "user_id": "--user--id--"
+	"data": {
+	    "access": "...",
+	    "secret": "..."
+	},
+	"project_id": "--project-id--",
+	"type": "ec2",
+	"user_id": "--user--id--"
     }
 
 Response:
@@ -2230,18 +2249,18 @@ Response:
     Location: http://identity:35357/v3/credentials/--credential-id--
 
     {
-        "data": {
-            "access": "...",
-            "secret": "..."
-        },
-        "id": "--credential-id--",
-        "link": {
-            "href": "http://identity:35357/v3/credentials/--credential-id--",
-            "rel": "self"
-        },
-        "project_id": "--project-id--",
-        "type": "ec2",
-        "user_id": "--user--id--"
+	"data": {
+	    "access": "...",
+	    "secret": "..."
+	},
+	"id": "--credential-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/credentials/--credential-id--",
+	    "rel": "self"
+	},
+	"project_id": "--project-id--",
+	"type": "ec2",
+	"user_id": "--user--id--"
     }
 
 #### List credentials: `GET /credentials`
@@ -2254,34 +2273,34 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "data": {
-                "access": "...",
-                "secret": "..."
-            },
-            "id": "--credential-id--",
-            "link": {
-                "href": "http://identity:35357/v3/credentials/--credential-id--",
-                "rel": "self"
-            },
-            "project_id": "--project-id--",
-            "type": "ec2",
-            "user_id": "--user--id--"
-        },
-        {
-            "data": {
-                "access": "...",
-                "secret": "..."
-            },
-            "id": "--credential-id--",
-            "link": {
-                "href": "http://identity:35357/v3/credentials/--credential-id--",
-                "rel": "self"
-            },
-            "project_id": "--project-id--",
-            "type": "ec2",
-            "user_id": "--user--id--"
-        }
+	{
+	    "data": {
+		"access": "...",
+		"secret": "..."
+	    },
+	    "id": "--credential-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/credentials/--credential-id--",
+		"rel": "self"
+	    },
+	    "project_id": "--project-id--",
+	    "type": "ec2",
+	    "user_id": "--user--id--"
+	},
+	{
+	    "data": {
+		"access": "...",
+		"secret": "..."
+	    },
+	    "id": "--credential-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/credentials/--credential-id--",
+		"rel": "self"
+	    },
+	    "project_id": "--project-id--",
+	    "type": "ec2",
+	    "user_id": "--user--id--"
+	}
     ]
 
 #### Get credential: `GET /credentials/{credential_id}`
@@ -2291,18 +2310,18 @@ Response:
     Status: 200 OK
 
     {
-        "data": {
-            "access": "...",
-            "secret": "..."
-        },
-        "id": "--credential-id--",
-        "link": {
-            "href": "http://identity:35357/v3/credentials/--credential-id--",
-            "rel": "self"
-        },
-        "project_id": "--project-id--",
-        "type": "ec2",
-        "user_id": "--user--id--"
+	"data": {
+	    "access": "...",
+	    "secret": "..."
+	},
+	"id": "--credential-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/credentials/--credential-id--",
+	    "rel": "self"
+	},
+	"project_id": "--project-id--",
+	"type": "ec2",
+	"user_id": "--user--id--"
     }
 
 #### Update credential: `PATCH /credentials/{credential_id}`
@@ -2312,18 +2331,18 @@ Response:
     Status: 200 OK
 
     {
-        "data": {
-            "access": "...",
-            "secret": "..."
-        },
-        "id": "--credential-id--",
-        "link": {
-            "href": "http://identity:35357/v3/credentials/--credential-id--",
-            "rel": "self"
-        },
-        "project_id": "--project-id--",
-        "type": "ec2",
-        "user_id": "--user--id--"
+	"data": {
+	    "access": "...",
+	    "secret": "..."
+	},
+	"id": "--credential-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/credentials/--credential-id--",
+	    "rel": "self"
+	},
+	"project_id": "--project-id--",
+	"type": "ec2",
+	"user_id": "--user--id--"
     }
 
 #### Delete credential: `DELETE /credentials/{credential_id}`
@@ -2344,7 +2363,7 @@ The key use cases we need to cover:
 Request:
 
     {
-        "name": ""
+	"name": ""
     }
 
 Response:
@@ -2353,12 +2372,12 @@ Response:
     Location: http://identity:35357/v3/roles/--role-id--
 
     {
-        "id": "--role-id--",
-        "link": {
-            "href": "http://identity:35357/v3/roles/--role-id--",
-            "rel": "self"
-        },
-        "name": "a role name"
+	"id": "--role-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/roles/--role-id--",
+	    "rel": "self"
+	},
+	"name": "a role name"
     }
 
 #### List roles: `GET /roles`
@@ -2372,22 +2391,22 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "id": "--role-id--",
-            "link": {
-                "href": "http://identity:35357/v3/roles/--role-id--",
-                "rel": "self"
-            },
-            "name": "a role name"
-        },
-        {
-            "id": "--role-id--",
-            "link": {
-                "href": "http://identity:35357/v3/roles/--role-id--",
-                "rel": "self"
-            },
-            "name": "a role name"
-        }
+	{
+	    "id": "--role-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/roles/--role-id--",
+		"rel": "self"
+	    },
+	    "name": "a role name"
+	},
+	{
+	    "id": "--role-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/roles/--role-id--",
+		"rel": "self"
+	    },
+	    "name": "a role name"
+	}
     ]
 
 #### Get role: `GET /roles/{role_id}`
@@ -2397,12 +2416,12 @@ Response:
     Status: 200 OK
 
     {
-        "id": "--role-id--",
-        "link": {
-            "href": "http://identity:35357/v3/roles/--roles-id--",
-            "rel": "self"
-        },
-        "name": "a role name"
+	"id": "--role-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/roles/--roles-id--",
+	    "rel": "self"
+	},
+	"name": "a role name"
     }
 
 #### Update role: `PATCH /roles/{role_id}`
@@ -2412,12 +2431,12 @@ Response:
     Status: 200 OK
 
     {
-        "id": "--role-id--",
-        "link": {
-            "href": "http://identity:35357/v3/roles/--roles-id--",
-            "rel": "self"
-        },
-        "name": "a role name"
+	"id": "--role-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/roles/--roles-id--",
+	    "rel": "self"
+	},
+	"name": "a role name"
     }
 
 #### List users with a role: `GET /roles/{role_id}/users`
@@ -2431,32 +2450,32 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "a user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
-            },
-            "name": "admin"
-        },
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "another user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
-            },
-            "name": "someone"
-        }
+	{
+	    "default_project_id": "--default-project-id--",
+	    "description": "a user",
+	    "domain_id": "--domain-id--",
+	    "email": "...",
+	    "enabled": true,
+	    "id": "--user-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/users/--user-id--",
+		"rel": "self"
+	    },
+	    "name": "admin"
+	},
+	{
+	    "default_project_id": "--default-project-id--",
+	    "description": "another user",
+	    "domain_id": "--domain-id--",
+	    "email": "...",
+	    "enabled": true,
+	    "id": "--user-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/users/--user-id--",
+		"rel": "self"
+	    },
+	    "name": "someone"
+	}
     ]
 
 #### Delete role: `DELETE /roles/{role_id}`
@@ -2475,16 +2494,16 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-            "project_id": "--project-id--"
-        },
-        {
-            "domain_id": "--domain-id--",
-            "id": "--role-id--",
-            "name": "--role-name--"
-        }
+	{
+	    "id": "--role-id--",
+	    "name": "--role-name--",
+	    "project_id": "--project-id--"
+	},
+	{
+	    "domain_id": "--domain-id--",
+	    "id": "--role-id--",
+	    "name": "--role-name--"
+	}
     ]
 
 #### Grant role to user on domain: `PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}`
@@ -2506,14 +2525,14 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-        },
-        {
-            "id": "--role-id--",
-            "name": "--role-name--"
-        }
+	{
+	    "id": "--role-id--",
+	    "name": "--role-name--",
+	},
+	{
+	    "id": "--role-id--",
+	    "name": "--role-name--"
+	}
     ]
 
 #### List group's roles on domain: `GET /domains/{domain_id}/groups/{group_id}/roles`
@@ -2523,14 +2542,14 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-        },
-        {
-            "id": "--role-id--",
-            "name": "--role-name--"
-        }
+	{
+	    "id": "--role-id--",
+	    "name": "--role-name--",
+	},
+	{
+	    "id": "--role-id--",
+	    "name": "--role-name--"
+	}
     ]
 
 #### Check if user has role on domain: `HEAD /domains/{domain_id}/users/{user_id}/roles/{role_id}`
@@ -2576,14 +2595,14 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-        },
-        {
-            "id": "--role-id--",
-            "name": "--role-name--"
-        }
+	{
+	    "id": "--role-id--",
+	    "name": "--role-name--",
+	},
+	{
+	    "id": "--role-id--",
+	    "name": "--role-name--"
+	}
     ]
 
 #### List group's roles on project: `GET /projects/{project_id}/groups/{group_id}/roles`
@@ -2593,14 +2612,14 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-        },
-        {
-            "id": "--role-id--",
-            "name": "--role-name--"
-        }
+	{
+	    "id": "--role-id--",
+	    "name": "--role-name--",
+	},
+	{
+	    "id": "--role-id--",
+	    "name": "--role-name--"
+	}
     ]
 
 #### Check if user has role on project: `HEAD /projects/{project_id}/users/{user_id}/roles/{role_id}`
@@ -2639,8 +2658,8 @@ The key use cases we need to cover:
 Request:
 
     {
-        "blob": "--serialized-blob--",
-        "type": "--serialization-mime-type--"
+	"blob": "--serialized-blob--",
+	"type": "--serialization-mime-type--"
     }
 
 Response:
@@ -2649,13 +2668,13 @@ Response:
     Location: http://identity:35357/v3/policies/--policy-id--
 
     {
-        "blob": "--serialized-blob--",
-        "id": "--policy-id--",
-        "link": {
-            "href": "http://identity:35357/v3/policies/--policy-id--",
-            "rel": "self"
-        },
-        "type": "--serialization-mime-type--"
+	"blob": "--serialized-blob--",
+	"id": "--policy-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/policies/--policy-id--",
+	    "rel": "self"
+	},
+	"type": "--serialization-mime-type--"
     }
 
 #### List policies: `GET /policies`
@@ -2669,24 +2688,24 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "blob": "--serialized-blob--",
-            "id": "--policy-id--",
-            "link": {
-                "href": "http://identity:35357/v3/policies/--policy-id--",
-                "rel": "self"
-            },
-            "type": "--serialization-mime-type--"
-        },
-        {
-            "blob": "--serialized-blob--",
-            "id": "--policy-id--",
-            "link": {
-                "href": "http://identity:35357/v3/policies/--policy-id--",
-                "rel": "self"
-            },
-            "type": "--serialization-mime-type--"
-        }
+	{
+	    "blob": "--serialized-blob--",
+	    "id": "--policy-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/policies/--policy-id--",
+		"rel": "self"
+	    },
+	    "type": "--serialization-mime-type--"
+	},
+	{
+	    "blob": "--serialized-blob--",
+	    "id": "--policy-id--",
+	    "link": {
+		"href": "http://identity:35357/v3/policies/--policy-id--",
+		"rel": "self"
+	    },
+	    "type": "--serialization-mime-type--"
+	}
     ]
 
 #### Get policy: `GET /policies/{policy_id}`
@@ -2696,13 +2715,13 @@ Response:
     Status: 200 OK
 
     {
-        "blob": "--serialized-blob--",
-        "id": "--policy-id--",
-        "link": {
-            "href": "http://identity:35357/v3/policies/--policy-id--",
-            "rel": "self"
-        },
-        "type": "--serialization-mime-type--"
+	"blob": "--serialized-blob--",
+	"id": "--policy-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/policies/--policy-id--",
+	    "rel": "self"
+	},
+	"type": "--serialization-mime-type--"
     }
 
 #### Update policy: `PATCH /policies/{policy_id}`
@@ -2712,13 +2731,13 @@ Response:
     Status: 200 OK
 
     {
-        "blob": "--serialized-blob--",
-        "id": "--policy-id--",
-        "link": {
-            "href": "http://identity:35357/v3/policies/--policy-id--",
-            "rel": "self"
-        },
-        "type": "--serialization-mime-type--"
+	"blob": "--serialized-blob--",
+	"id": "--policy-id--",
+	"link": {
+	    "href": "http://identity:35357/v3/policies/--policy-id--",
+	    "rel": "self"
+	},
+	"type": "--serialization-mime-type--"
     }
 
 #### Delete policy: `DELETE /policies/{policy_id}`
@@ -2726,3 +2745,99 @@ Response:
 Response:
 
     Status: 204 No Content
+
+    }
+
+
+#### Trusts
+
+A trust is a promise to allow delegation at some point in the future. The actual delegation is performed in the token. The trust is used to get the token.
+The data for the delegation itself is simply the uuid user_ids for the trustor and trustee, along with the privileges that are being delegated.
+The delegated privileges are a combination of a tenant id and a number of roles that must be a subset of the roles assigned to the trustor.
+
+    If all privileges are missing, then nothing is being delegated (ie. there is not a way of saying "delegate everything").
+
+When POSTing to trusts, the trustor supplies
+
+    trustee: a user ID
+    tenantId:
+    roles
+
+####  Create a trust `POST /trusts`
+
+Request:
+    {
+	 'roles': ['browser'],
+	 'extra': {},
+	 'tenant_id': 'bar',
+	 'trustor': 'foo',
+	 'endpoints': ['e1', 'e2', 'e3'],
+	 'trustee': 'two'}}
+    }
+
+Response:
+
+    Status: 200 OK
+
+    {'trust':
+	 {
+	 'roles': ['browser'],
+	 'extra': {},
+	 'tenant_id': 'bar',
+	 'trustor': 'foo',
+	 'endpoints': ['e1', 'e2', 'e3'],
+	 'id': '1ff9000e74ae4656ab7e1a2fc589a23a',
+	 'trustee': 'two'}}
+    }
+
+###  List trusts `GET /trusts`
+
+GET /trusts/
+This will return a document with two lists.
+
+    The first is the list of trusts for which the user is the trustor
+    The second is a list of trusts for which the user is the trustee
+
+
+Response:
+
+    Status: 200 OK
+
+    {
+	'trusts':
+	'trustor':[
+	   'trustid1','trustid2'
+	]
+	'trustee':[
+	   'trustid3','trustid4'
+	]
+    }
+
+
+
+#### GET /trusts/
+This will return a document with two lists.
+
+To enumerate the set of trustors that have nominated the user as the trustee:
+
+    GET /user/<id>/trustors
+    Which will return a list of trustor user ids, each of which is associated with a list of URLS for the associated trusts.
+    This will view active trusts. disabled trusts will require an additional paramater (disabled)
+    Only the trustor will be able to access this URL. Any other user will get a 403 (Forbidden)
+
+To view a trust
+
+    GET /trusts/{trustID}
+    This will view active trusts. disabled trusts will require an additional paramater (disabled)
+    Only the trustor or trustee will be able to access this URL. Any other user will get a 403 (Forbidden).
+
+To deactivate a trust
+
+    DELETE /trusts/{trustID}
+    This sets the trust status to disabled.
+    Only the trustor will be able to access this URL. Any other user will get a 403 (Forbidden).
+
+
+
+
+
