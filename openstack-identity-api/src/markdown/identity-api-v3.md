@@ -751,7 +751,7 @@ header to inform caches of this pattern.
 
 Additional required attributes:
 
-- `expires` (string, ISO 8601 timestamp)
+- `expires_at` (string, ISO 8601 timestamp)
 
   FIXME(dolph): ISO 8601 defines a few levels of precision... which one are we
                 referring to? May need to update the example below.
@@ -759,6 +759,13 @@ Additional required attributes:
   Specifies the expiration time of the token. Once established, a token's
   expiration may not be changed. A token may be revoked ahead of expiration. If
   the value represents a time in the past, the token is invalid.
+
+- `issued_at` (string, ISO 8601 timestamp)
+
+  FIXME(dolph): ISO 8601 defines a few levels of precision... which one are we
+                referring to? May need to update the example below.
+
+  Specifies the time at which the token was issued.
 
 - `user` (object)
 
@@ -811,7 +818,8 @@ Optional attributes:
 Example entity:
 
     {
-        "expires": "1999-12-31T24:59:59.999999",
+        "expires_at": "1999-12-31T24:59:59.999999",
+        "issued_at": "1999-12-30T24:59:59.999999",
         "methods": [
             "password"
         ],
@@ -822,7 +830,7 @@ Example entity:
                     "self": "http://identity:35357/v3/domains/1789d1"
                 },
                 "name": "example.com"
-            }
+            },
             "email": "joe@example.com",
             "id": "0ca8f6",
             "links": {
@@ -1082,7 +1090,8 @@ the user. Example response:
         X-Subject-Token: e80b74
 
     {
-        "expires": "2012-06-18T20:08:53Z",
+        "expires_at": "2012-06-18T20:08:53Z",
+        "issued_at": "2012-06-17T20:08:53Z",
         "methods": [
             "password"
         ],
@@ -1114,7 +1123,8 @@ the user's roles applicable to the `project`. Example response:
 
     {
         "catalog": "FIXME(dolph): need an example here",
-        "expires": "2012-06-18T20:08:53Z",
+        "expires_at": "2012-06-18T20:08:53Z",
+        "issued_at": "2012-06-17T20:08:53Z",
         "methods": [
             "password"
         ],
@@ -1173,7 +1183,8 @@ user's roles applicable to the `domain`. Example response:
 
     {
         "catalog": "FIXME(dolph): need an example here",
-        "expires": "2012-06-18T20:08:53Z",
+        "expires_at": "2012-06-18T20:08:53Z",
+        "issued_at": "2012-06-17T20:08:53Z",
         "methods": [
             "password"
         ],
@@ -1300,7 +1311,7 @@ if an error occurs or the token is invalid. A 204 response indicates that the
 #### Revoke token: `DELETE /auth`
 
 This call is identical to `HEAD /auth` except that the `X-Subject-Token` token
-is immediately invalidated, regardless of it's `expires` attribute. An
+is immediately invalidated, regardless of it's `expires_at` attribute. An
 additional `X-Auth-Token` is not required.
 
 ### Catalog
