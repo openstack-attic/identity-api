@@ -27,6 +27,7 @@ What's New in Version 3
 - Tokens explicitly represent user+project or user+domain pairs
 - Partial updates are performed using the HTTP `PATCH` method
 - Token ID values no longer appear in URLs
+- Trusts can be used for user to user delegation of attributes
 
 API Conventions
 ---------------
@@ -2726,3 +2727,110 @@ Response:
 Response:
 
     Status: 204 No Content
+
+    }
+
+
+#### Trusts
+
+A trust is a promise to allow delegation at some point in the future. The actual delegation is performed in the token. The trust is used to get the token.
+The data for the delegation itself is simply the uuid user_ids for the trustor and trustee, along with the privileges that are being delegated.
+The delegated privileges are a combination of a tenant id and a number of roles that must be a subset of the roles assigned to the trustor.
+
+    If all privileges are missing, then nothing is being delegated (ie. there is not a way of saying "delegate everything"). 
+
+When POSTing to trusts, the trustor supplies
+
+    trustee: a user ID
+    tenantId:
+    roles
+
+####  Create a trust `POST /trusts`
+
+Request: 
+    {
+	 'roles': ['browser'], 
+         'extra': {}, 
+         'tenant_id': 'bar', 
+         'trustor': 'foo', 
+         'endpoints': ['e1', 'e2', 'e3'], 
+         'trustee': 'two'}}
+    }
+
+Response:
+
+    Status: 200 OK
+
+    {'trust': 
+         {
+	 'roles': ['browser'], 
+         'extra': {}, 
+         'tenant_id': 'bar', 
+         'trustor': 'foo', 
+         'endpoints': ['e1', 'e2', 'e3'], 
+         'id': '1ff9000e74ae4656ab7e1a2fc589a23a', 
+         'trustee': 'two'}}
+    }
+
+###  List trusts `GET /trusts`
+
+GET /trusts/
+This will return a document with two lists.
+
+    The first is the list of trusts for which the user is the trustor
+    The second is a list of trusts for which the user is the trustee 
+
+
+Response:
+
+    Status: 200 OK
+
+    { 
+        'trusts':
+        'trustor':[
+           'trustid1','trustid2'
+        ]
+        'trustee':[
+           'trustid3','trustid4'
+        ]
+    }
+
+
+
+#### GET /trusts/
+This will return a document with two lists.
+
+To enumerate the set of trustors that have nominated the user as the trustee:
+
+    GET /user/<id>/trustors
+    Which will return a list of trustor user ids, each of which is associated with a list of URLS for the associated trusts.
+    This will view active trusts. disabled trusts will require an additional paramater (disabled)
+    Only the trustor will be able to access this URL. Any other user will get a 403 (Forbidden) 
+
+To view a trust
+
+    GET /trusts/{trustID}
+    This will view active trusts. disabled trusts will require an additional paramater (disabled)
+    Only the trustor or trustee will be able to access this URL. Any other user will get a 403 (Forbidden). 
+
+To deactivate a trust
+
+    DELETE /trusts/{trustID}
+    This sets the trust status to disabled.
+    Only the trustor will be able to access this URL. Any other user will get a 403 (Forbidden). 
+
+
+
+#### Delete trust: `DELETE /trusts/{policy_id}`
+
+Response:
+
+    Status: 204 No Content
+
+
+
+To get a token from a trust
+
+
+#### Authenticate: `POST /auth`
+
