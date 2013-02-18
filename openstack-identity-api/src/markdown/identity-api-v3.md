@@ -812,9 +812,15 @@ Optional attributes:
 
   Specifies all endpoints available to/for the token.
 
-  FIXME(dolph): revise with specific expectations.
+- `trust` (object)
 
-Example entity:
+  This object is present in tokens that were created from a trust.  A token
+  created from a trust is created by one user called the trustee.  The token
+  contains the roles for another user called the trustor.  The object includes
+  the `trust_id` used to create the token and `trustee_user_id` of the user
+  that created the token.  The `trustor_user_id` attribute of the token is that
+  of the trustor.  If the trust indicates impersonation, then the user_id of
+  the token is set to the user_id of the trustor as well.
 
     {
         "token": {
@@ -839,6 +845,9 @@ Example entity:
             }
         }
     }
+
+  FIXME(dolph): revise with specific expectations.
+
 
 ### Policy
 
@@ -865,6 +874,93 @@ Example entity:
                 "self": "http://identity:35357/v3/policies/c41a4c"
             },
             "type": "application/json"
+        }
+    }
+
+### Trusts
+
+A trust represents one user's (the 'trustor') authorization to delegate roles
+to second user (the 'trustee'.)  The trust contains the constraints on the
+delegation of attributes that can then be used to create tokens.  Once the
+trustor has created a trust, the trustee can pass the trust's `id` attribute
+along with a `create token` request to the identity server.  A token requested
+with a trust id will have the roles and project_id from the trustor.  In
+addition, if the `impersonation` attribute is specified on the trust, the token
+will specify the trustor as the user_id instead of the trustee.  An issued
+trust-token can then be used by the trustee to perform operations on behalf of
+the trustor.
+
+The attributes of the trust include  the trustor and trustee's `user_id`
+attribute  (`trustor_user_id` and `trustee_user_id`, respectively), along with
+the privileges that are being delegated. The delegated privileges are a set of
+role assignments for a specified project and a set of endpoints.
+
+The roles in the trust must be a subset of the roles assigned to the trustor.
+This rule is enforced when the trustee requests the trust token.
+If the user has specified a role that they are no longer assigned, the identity
+server will not issue the trust token.
+If no roles are specified, then nothing is being delegated. In other words,
+there is no way of saying "delegate all roles", in order to prevent users
+accidentally creating trust that are much more broad in scope than intended.
+
+Trusts are immutable.  If the trustee  wishes to modify the terms of the
+trust, they should create a new trust and deactivate the old trust. If a trust
+is deactivated, all of the trust tokens assocaited with the trust are revoked.
+The record of the trust in the backend is then marked disabled, but maintained
+for auditing purposes.  Trusts are never re-enabled once deleted.
+
+Required attributes:
+
+- `trustor_user_id` (string)
+
+- `trustee_user_id` (string)
+
+- `project_id` (string)
+
+- `impersonation`: (boolean)
+
+  If `impersonation` is set to true, the token will have the trustor_user set
+  as the `user_id` attribute.  If `impersonation` is false, then the token
+  will have the trustee_user_id set as `user_id` attribute.
+
+- `roles`: (object) 
+
+  A set of roles. Contains the role `name` and `id` attributes.
+  The trustor should be assigned these roles in the project indicated by the
+  `project_id` attribute above.
+
+- `endpoints` (object)
+
+  A set of endpoints.  The trust token will be valid only on these
+  endpoints.  If no endpoint is specified, the trust token is valid on all
+  endpoints.  Contain's the endpoint's `id` attribute.
+
+- optional attributes
+
+- `expires` (string, ISO 8601 timestamp)
+
+  Specifies the expiration time of the trust.  A trust may be revoked ahead
+  of expiration. If the value represents a time in the past, the trust is
+  deactivated.
+
+
+
+Example entity:
+
+    {
+        "trust": {
+            "endpoints": [
+                "eaeaf1",
+                "eaeaf2",
+                "eaeaf3"
+            ],
+            "id": "987fe78",
+            "project_id": "0f123331",
+            "roles": [
+                "browser"
+            ],
+            "trustee_user_id": "fea342",
+            "trustor_user_id": "56aed332"
         }
     }
 
@@ -1004,6 +1100,29 @@ combination with request to change authorization scope.
                     "id": "e80b74"
                 }
             }
+        }
+    }
+
+###### `trust` authentication
+
+The token authentication method can be used in conjunction with a trust's id
+to produce a new token that has a different user id.  Only the user specified
+as the `trustee` of the trust will be allowed to use the trust id.  The
+resulting token will have a user id of trustor specified by the trust.
+The trust id is generated as a product of the `create`
+trust API call.
+
+    {
+        "authentication": {
+            "methods": [
+                "token"
+            ],
+            "token": {
+                "id": "e80b74"
+            },
+        }
+        "trust": {
+            "id": "de0945a"
         }
     }
 
@@ -1245,6 +1364,44 @@ user's roles applicable to the `domain`. Example response:
                 },
                 "name": "Joe"
             }
+        }
+    }
+
+A Token created from a trust will have a `trust` section containing the `id`
+of the trust, the `trustee_user_id` and the `trustor_user_id`.  Example
+reponse:
+
+    Headers: X-Subject-Token
+
+    X-Subject-Token: e80b74
+
+    {
+        "expires": "1999-12-31T24:59:59.999999",
+        "methods": [
+            "password"
+        ],
+        "user": {
+            "domain": {
+                "id": "1789d1",
+                "links": {
+                    "self": "http://identity:35357/v3/domains/1789d1"
+                },
+                "name": "example.com"
+            }
+            "email": "joe@example.com",
+            "id": "0ca8f6",
+            "links": {
+                "self": "http://identity:35357/v3/users/0ca8f6"
+            },
+            "name": "Joe"
+        },
+        "trust" {
+            "id": "fe0aef",
+            "trustee_user_id": "0ca8f6",
+            "trustor_user_id": "ada718"
+                "links": {
+                    "self": "http://identity:35357/v3/domains/1789d1"
+                },
         }
     }
 
@@ -2648,3 +2805,199 @@ Response:
 Response:
 
     Status: 204 No Content
+
+
+### Trusts
+
+When creating a trust, the trustor supplies
+
+- trustee_user_id:
+- project_id:
+- impersontation:
+- role_names:
+- expires (optional):
+
+#### Create trust: `POST /trusts`
+
+Request:
+
+    POST /trusts
+
+    { 
+        "trust": {
+            "endpoints": [
+                "eaeaf1",
+                "eaeaf2",
+                "eaeaf3"
+            ],
+            "impersontation": "True",
+            "expires": "2031-02-18T18:10:00Z",
+            "project_id": "bar",
+            "role_names": [
+                "browser"
+            ],
+            "trustee_user_id": "86c0d5",
+            "trustor_user_id": "a0fdfd"
+        }
+    }
+Response:
+
+    Status: 201 Created
+
+    {
+        "trust": {
+            "endpoints": [
+                { "id": "eaeaf1"},
+                { "id": "eaeaf2"},
+                { "id": "eaeaf3"}
+            ],
+            "id": "1ff900",
+            "impersontation": "True",
+            "project_id": "ddef321",
+            "roles": [
+                {
+                     "name": "browser",
+                     "id": "dfe342a",
+                 }
+            ],
+            "link": {
+                "href": "http://identity:35357/v3/trust/1ff900",
+                "rel": "self"
+            },
+            "trustee_user_id": "86c0d5",
+            "trustor_user_id": "a0fdfd"
+        }
+    }
+
+#### List trusts: `GET /trusts`
+
+This will return a lists of trusts.  This operation is reserved for
+administrators.  For any other user this call will return HTTP 403  Forbidden.
+
+GET /trusts
+
+Response:
+
+    Status: 200 OK
+
+        {
+        "trusts": [{
+            "id": "1ff900",
+            "impersontation": "True",
+            "link": {
+                "href": "http://identity:35357/v3/trust/1ff900",
+                "rel": "self"
+            },
+            "trustee_user_id": "86c0d5",
+            "trustor_user_id": "a0fdfd"
+        },
+        "{
+            "id": "f4513a",
+            "impersontation": "True",
+            "link": {
+                "href": "http://identity:35357/v3/trust/f4513a",
+                "rel": "self"
+            },
+            "trustee_user_id": "86c0d5",
+            "trustor_user_id": "3cd2ce"
+        }]
+    }
+
+In order to get a list of the trusts for a given trustor, append the filter:
+`?trustor_user_id={user_id}`.  Only the trustor, the  trustee, or an
+administrator will be able to access this URL. For any other user this call
+will return HTTP 403  Forbidden.
+
+GET /trusts?trustor_user_id=a0fdfd
+    Status: 200 OK
+
+            {
+        "trusts": [{
+            "id": "1ff900",
+            "impersontation": "False",
+            "link": {
+                "href": "http://identity:35357/v3/trust/1ff900",
+                "rel": "self"
+            },
+            "trustee_user_id": "86c0d5",
+            "trustor_user_id": "a0fdfd"
+        }]
+    }
+
+In order to get a list of the trusts for a given trustee, use the filter:
+trustee_user_id={user_id}
+
+GET /trusts?trustee_user_id=86c0d5
+    Status: 200 OK
+
+    {
+        "trusts": [
+            {
+                "id": "1ff900",
+                "impersontation": "True",
+                "link": {
+                    "href": "http://identity:35357/v3/trust/1ff900",
+                    "rel": "self"
+                },
+                "trustee_user_id": "86c0d5",
+                "trustor_user_id": "a0fdfd"
+            },
+            {
+                "id": "f4513a",
+                "impersontation": "False",
+                "link": {
+                    "href": "http://identity:35357/v3/trustf45513a",
+                    "rel": "self"
+                },
+                "trustee_user_id": "86c0d5",
+                "trustor_user_id": "3cd2ce"
+            }
+        ]
+    }
+
+#### Get trust:  `GET /trusts/{trust_id}`
+
+This will view active trusts. Only the trustor or trustee will be able to
+access this URL. For any other user this call will return HTTP 403  Forbidden.
+
+GET /trusts/987fe78
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "endpoints": [
+            { "id": "eaeaf1"},
+            { "id": "eaeaf2"},
+            { "id": "eaeaf3"}
+        ],
+        "id": "987fe8",
+        "impersontation": "True"
+        "link": {
+            "href": "http://identity:35357/v3/trust/987fe8",
+            "rel": "self"
+        },
+        "project_id": "0f1233",
+        "roles": [
+            {
+                "name": "browser",
+                "id": "dfe342a",
+            }
+        ],
+        "trustee_user_id": "be34d1",
+        "trustor_user_id": "56ae32"
+    }
+
+
+#### Delete trust:  `DELETE /trusts/{trust_id}`
+
+This deletes the trust.  Only the trustor or an administrator will be able to
+access this URL. Any other user will get a 403 (Forbidden).
+
+
+DELETE /trusts/987fe78
+
+Response:
+
+    204 No Content
