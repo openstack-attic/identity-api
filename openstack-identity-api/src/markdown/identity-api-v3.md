@@ -1,4 +1,4 @@
-OpenStack Identity API v3
+ OpenStack Identity API v3
 =========================
 
 The Identity API primarily fulfills authentication and authorization needs
@@ -806,6 +806,35 @@ Optional attributes:
 
   Specifies all endpoints available to/for the token.
 
+- `trust` (object)
+
+  Indicates that the token was created from a trust.
+  contains the  `trust_id` and `trustee_user_id` attributes
+
+    {
+        "expires": "1999-12-31T24:59:59.999999",
+        "methods": [
+            "password"
+        ],
+        "user": {
+            "domain": {
+                "id": "1789d1",
+                "links": {
+                    "self": "http://identity:35357/v3/domains/1789d1"
+                },
+                "name": "example.com"
+            }
+            "email": "joe@example.com",
+            "id": "0ca8f6",
+            "links": {
+                "self": "http://identity:35357/v3/users/0ca8f6"
+            },
+            "name": "Joe",
+        }
+    }
+
+
+
   FIXME(dolph): revise with specific expectations.
 
 Example entity:
@@ -829,6 +858,10 @@ Example entity:
                 "self": "http://identity:35357/v3/users/0ca8f6"
             },
             "name": "Joe"
+        },
+        "trust" {
+            "id": "feed0aef",
+            "trustee_user_id": "d01f111a"
         }
     }
 
@@ -859,6 +892,72 @@ Example entity:
             "type": "application/json"
         }
     }
+
+### Trusts
+
+A trust represents one user's (the 'trustor') authorization to delegate roles 
+to second user (the 'trustee') at a point in the future.  The trust contains 
+the constraints on the delegation of attributes that can then be used to 
+create tokens.  Once the trustor has created a trust, the trustee can pass the 
+trust's `id` attribute along with a `create token` request to the identity
+server.  A token requested with a trust id (a `trust token`) will specify the
+trustor as the user_id instead of the trustee. An issued  trust-token can then
+be used by the trustee to perform operations on behalf of the trustor.
+
+The attributes of the trust are the user's `id` attribute for the trustor and
+trustee, along with the privileges that are being delegated. The delegated
+privileges are a set of role assignments for a specified project and a set of
+endpoints.
+
+The roles in the trust must be a subset of the roles assigned to the trustor.
+This rule is enforced when the trustee requests the trust token.
+If the user has specified a role that they are no longer assigned, the identity
+server will not issue the trust token.
+If no roles are specified, then nothing is being delegated. In other words,
+there is not a way of saying "delegate everything", in order to prevent users
+accidentally creating trust that are much more broad in scope than intended.
+
+Trusts are immutable.  If the trustee  wishes to modify the terms of the
+trust, they should creat a new trust and deactivate the old trust. If a trust
+is deactivated, all of the trust tokens assocaited with the trust are revoked.
+The record of the trust in the backend is then marked disabled, but maintained
+for auditing purposes.  Trusts are never re-enabled one disabled.
+
+
+Required Attributes
+- `trustor_user_id` (string)
+- `trustee_user_id`
+- `project_id`
+- `roles`: a set of role names.
+
+The trustor should be assigned these roles in the project indicated by the
+`project_id` attribute above.
+- endpoints:  A set of endpoint.  The trust token will be valid only on these
+endpoints.  If no endpoint is specified, the trust token is valid on all
+endpoints.
+
+
+- optional attributes
+- `expires` (string, ISO 8601 timestamp)
+  Specifies the expiration time of the trust.  A trust may be revoked ahead
+  of expiration. If the value represents a time in the past, the trust is
+  deactivated.
+
+
+
+Example entity:
+
+    {
+        'trust': {
+           'id': '987fe78',
+           'roles': ['browser'],
+           'extra': {},
+           'project_id': '0f123331',
+           'trustor_user_id': '56aed332',
+           'endpoints': ['e1', 'e2', 'e3'],
+           'trustee_user_id': 'two'
+       }
+   }
 
 Core API
 --------
@@ -986,6 +1085,29 @@ combination with request to change authorization scope.
             }
         }
     }
+
+
+###### `trust` authentication
+
+The token authentication method can be used in conjunction with a trusts id
+to produce a new token that has a different user id.  Only the user specified
+as the `trustee` of the trust will be allowed to use the trust id.  The
+resulting token will have a user id of trustor specified by the trust.
+The trust id is generated as a product of the `create`
+trust API call.
+
+    {
+        "authentication": {
+            "methods": [
+                "token"
+            ],
+            "token": {
+                "id": "e80b74"
+            },
+        }
+        "trust_id": "de0945a"
+    }
+
 
 ##### Scope: `scope`
 
@@ -2680,3 +2802,144 @@ Response:
 Response:
 
     Status: 204 No Content
+
+
+### Trusts
+
+When creating a trust, the trustor supplies
+
+- trustee_user_id:
+- project_id:
+- role_names:
+- expires (optional):
+
+#### Create trust: `POST /trusts`
+
+Request:
+
+    POST /trusts
+
+    {
+        "endpoints": [
+            "e1",
+            "e2",
+            "e3"
+        ],
+        "expires": "2031-02-18T18:10:00Z",
+        "project_id": "bar",
+        "role_names": [
+            "browser"
+        ],
+        "trustee_user_id": "86c0d5",
+        "trustor_user_id": "a0fdfd"
+    }
+
+
+Response:
+
+    Status: 201 Created
+
+    {
+        "trust": {
+            "endpoints": [
+                "e1",
+                "e2",
+                "e3"
+            ],
+            "extra": {},
+            "id": "1ff9000e74ae4656ab7e1a2fc589a23a",
+            "project_id": "ddef321",
+            "role_names": [
+                "browser"
+            ],
+            "trustee_user_id": "86c0d5",
+            "trustor_user_id": "a0fdfd"
+        }
+    }
+
+#### List trusts for user: `GET /users/{userid}/trusts`
+
+GET /users/{user_id}/trusts
+This will return a document with two lists.
+The first is the list of trusts for which the user is the trustor
+The second is a list of trusts for which the user is the trustee
+
+
+Response:
+
+    Status: 200 OK
+
+    {
+       'as_trustor':[
+          'trustid1','trustid2'
+       ],
+       'as_trustee':[
+          'trustid3','trustid4'
+       ]
+    }
+
+In order to get just one of the two lists, use the list name as the  filter:
+
+GET /users/{user_id}/trusts?as_trustor
+
+    Status: 200 OK
+
+    {
+       "as_trustor":[
+          "trustid1","trustid2"'
+       ]
+    }
+
+
+GET /users/{user_id}/trusts?as_trustee
+
+
+    Status: 200 OK
+
+    {
+       "as_trustee":[
+          "trustid3","trustid4"
+       ]
+    }
+
+#### Get trust:  `GET /trusts/{trust_id}`
+
+This will view active trusts. disabled trusts will require an additional
+paramater (disabled) Only the trustor or trustee will be able to access this
+URL. For any other user this call will return HTTP 403  Forbidden.
+
+GET /trusts/987fe78
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "endpoints": [
+            "e1",
+            "e2",
+            "e3"
+        ],
+        "extra": {},
+        "id": "987fe78",
+        "project_id": "0f123331",
+        "role_names": [
+            "browser"
+        ],
+        "trustee_user_id": "two",
+        "trustor_user_id": "56aed332"
+    }
+
+
+#### Deactivate trust:  `DELETE /trusts/{trustID}`
+
+This sets the trust status to disabled.
+Only the trustor will be able to access this URL. Any other user will get
+a 403 (Forbidden).
+
+
+DELETE /trusts/'987fe78
+
+Response:
+
+    204 No Content
