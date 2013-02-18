@@ -1384,6 +1384,10 @@ Response:
 
 #### Get service: `GET /services/{service_id}`
 
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+query filter for "type" (optional)
+
 Response:
 
     Status: 200 OK
@@ -1442,6 +1446,10 @@ Response:
 ### Endpoints
 
 #### List endpoints: `GET /endpoints`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+query filter for "interface" and "service_id" (optional)
 
 Response:
 
@@ -2662,7 +2670,7 @@ Response:
 
 query_string: page (optional)
 query_string: per_page (optional, default 30)
-query filter for "service_name", "service_id" (optional)
+query filter for "type" (optional)
 
 Response:
 
