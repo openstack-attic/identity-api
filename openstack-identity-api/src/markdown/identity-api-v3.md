@@ -806,6 +806,11 @@ Optional attributes:
 
   Specifies all endpoints available to/for the token.
 
+- `trust` (object)
+
+  Specifies that the token was created from a trust.  
+
+
   FIXME(dolph): revise with specific expectations.
 
 Example entity:
@@ -859,6 +864,22 @@ Example entity:
             "type": "application/json"
         }
     }
+
+### Trust
+
+A trust represents one user's authorization to delegate roles to second user
+at any point in the future. The  actual delegation is performed in the token.
+The trust is used to get the token.  The data used to create the trust the
+user's  `id` attribute for the trustor and trustee, along with the privileges
+that are being delegated.The delegated privileges are a combination of a
+project id and a set of roles.  The roles in the trust must be a subset of the
+roles assigned to the trustor.
+
+If no roles are specified, then nothing is being delegated. In other words,
+there is not a way of saying "delegate everything".  This is intentional, in
+order to prevent users accidentally creating trust that are much more broad
+in scope than intended.
+
 
 Core API
 --------
@@ -986,6 +1007,33 @@ combination with request to change authorization scope.
             }
         }
     }
+
+
+###### `trust` authentication
+
+The token authentication method can be used in conjunction with a trusts id
+to produce a new token that has a different user id.  Only the user specified
+as the `trustee` of the trust will be allowed to use the trust id.  The
+resulting token will have a user id of trustor specified by the trust.
+The trust id is generated as a product of the `create`
+trust API call.
+
+    {
+        "authentication": {
+            "methods": [
+                "token"
+            ],
+            "token": {
+                "id": "e80b74"
+            },
+            "trust": {
+                "id": "ad1138",
+                "trustee_user_id":"EFA421"
+                
+            }
+        }
+    }
+
 
 ##### Scope: `scope`
 
@@ -2680,3 +2728,138 @@ Response:
 Response:
 
     Status: 204 No Content
+
+
+### Trusts
+
+When creating a trust, the trustor supplies
+
+- trustee_user_id:
+- project_id:
+- roles:
+- expires (optional):
+
+#### Create trust: `POST /trusts`
+
+Request:
+    POST /trusts
+
+    {
+        'roles': ['browser'],
+        'project_id': 'bar',
+        'trustor_user_id': 'a0fdfd',
+        'endpoints': ['e1', 'e2', 'e3'],
+        'expires': '2021-03-14',
+        'trustee_user_id': '86c0d5'}}
+    }
+
+Response:
+
+    Status: 201 CREATED
+
+    {'trust': {
+        'roles': ['browser']
+        'extra': {},
+        'project_id': 'ddef321',
+        'trustor_user_id': 'a0fdfd',
+        'endpoints': ['e1', 'e2', 'e3'],
+        'id': '1ff9000e74ae4656ab7e1a2fc589a23a',
+        'trustee_user_id': '86c0d5'}
+    }
+
+#### List trusts for user: `GET /users/{userid}/trusts`
+
+GET /users/{userid}/trusts
+This will return a document with two lists.
+The first is the list of trusts for which the user is the trustor
+The second is a list of trusts for which the user is the trustee
+
+
+Response:
+
+    Status: 200 OK
+
+    {
+       'as_trustor':[
+          'trustid1','trustid2'
+       ],
+       'as_trustee':[
+          'trustid3','trustid4'
+       ]
+    }
+
+This will view active trusts. disabled trusts will require an additional
+paramater: disabled
+
+GET /user/{userid}/trusts?disabled=True
+
+Response:
+
+    Status: 200 OK
+
+    {
+       'as_trustor':[
+          'trustid15','trustid21'
+       ]
+       'as_trustee':[
+          'trustid33','trustid42'
+       ]
+    }
+
+
+### List trustors: `GET /user/{user_id}/trustors`
+
+Which will return a list of trustor user ids, each of which is associated with
+a list of URLS for the associated trusts.
+
+The user will only be able to perform this for their own account. Any other
+user will get a 403 (Forbidden)
+
+GET /user/{user_id}/trustors
+
+    {
+        "trustors": [
+        "http://identity:35357/v3/users/USERID1",
+        "http://identity:35357/v3/users/USERID2",
+        ]
+    }
+
+
+
+### To view a trust  `GET /trusts/{trustID}`
+
+This will view active trusts. disabled trusts will require an additional
+paramater (disabled) Only the trustor or trustee will be able to access this
+URL. Any other user
+will get a 403 (Forbidden).
+
+GET /trusts/987fe78
+
+Response:
+
+    Status: 200 OK
+
+    {
+        'id': '987fe78',
+        'roles': ['browser'],
+        'extra': {},
+        'project_id': '0f123331',
+        'trustor_user_id': '56aed332',
+        'endpoints': ['e1', 'e2', 'e3'],
+        'trustee_user_id': 'two'}}
+    }
+
+
+
+### To deactivate a trust    `DELETE /trusts/{trustID}`
+
+This sets the trust status to disabled.
+Only the trustor will be able to access this URL. Any other user will get
+a 403 (Forbidden).
+
+
+DELETE /trusts/'987fe78
+
+Response:
+
+    204 No Content
