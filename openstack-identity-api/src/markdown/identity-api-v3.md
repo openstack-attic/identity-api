@@ -987,6 +987,31 @@ combination with request to change authorization scope.
         }
     }
 
+
+###### `trust` authentication
+
+The token authentication method can be used in conjunction with a trusts id
+to produce a new token that has a different user id.  Only the user specified
+as the `trustee` of the trust will be allowed to use the trust id.  The
+resulting token will have a user id of trustor specified by the trust.
+The trust id is generated as a product of the `create`
+<a href="#trusts">trust</a>API call.
+
+    {
+        "authentication": {
+            "methods": [
+                "token"
+            ],
+            "token": {
+                "id": "e80b74"
+            },
+            "trust": {
+                "id": "ad1138"
+            }
+        }
+    }
+
+
 ##### Scope: `scope`
 
 An authorization scope, including either a project or domain, can be optionally
@@ -2680,3 +2705,147 @@ Response:
 Response:
 
     Status: 204 No Content
+
+#### <a id="trusts">Trusts</a>
+
+A trust is a promise to allow delegation at some point in the future. The
+actual delegation is performed in the token. The trust is used to get the token.
+The data for the delegation itself is simply the uuid user_ids for the trustor
+and trustee, along with the privileges that are being delegated.
+The delegated privileges are a combination of a tenant id and a number of roles
+that must be a subset of the roles assigned to the trustor.  If all privileges
+are missing, then nothing is being delegated. There is no way of saying
+"delegate everything".
+
+When POSTing to trusts, the trustor supplies
+
+    trustee: a user ID
+    tenantId:
+    roles
+
+####  Create a trust `POST /trusts`
+
+Request:
+    POST /trusts
+
+    {
+        'roles': ['browser'],
+        'extra': {},
+        'tenant_id': 'bar',
+        'trustor': 'a0fdfd',
+        'endpoints': ['e1', 'e2', 'e3'],
+        'trustee': '86c0d5'}}
+    }
+
+Response:
+
+    Status: 201 CREATED
+
+    {'trust':
+        {
+        'roles': ['browser']
+        'extra': {},
+        'tenant_id': 'ddef321',
+        'trustor': 'a0fdfd',
+        'endpoints': ['e1', 'e2', 'e3'],
+        'id': '1ff9000e74ae4656ab7e1a2fc589a23a',
+        'trustee': '86c0d5'}}
+    }
+
+###  List trusts `GET /trusts`
+
+GET /trusts
+This will return a document with two lists.
+
+    The first is the list of trusts for which the user is the trustor
+    The second is a list of trusts for which the user is the trustee
+
+
+Response:
+
+    Status: 200 OK
+
+    {
+       'as_trustor':[
+          'trustid1','trustid2'
+       ],
+       'as_trustee':[
+          'trustid3','trustid4'
+       ]
+    }
+
+This will view active trusts. disabled trusts will require an additional
+paramater: disabled
+
+GET /trusts?disabled=True
+
+Response:
+
+    Status: 200 OK
+
+    {
+       'as_trustor':[
+          'trustid15','trustid21'
+       ]
+       'as_trustee':[
+          'trustid33','trustid42'
+       ]
+    }
+
+
+### Get the list of trustors `GET /user/{user_id}/trustors`
+
+Which will return a list of trustor user ids, each of which is associated with
+a list of URLS for the associated trusts.
+
+TThe user will only be able to perform this for their own account. Any other
+user will get a 403 (Forbidden)
+
+GET /user/{user_id}/trustors
+
+    {
+        "trustors": [
+        "a7b3f21",
+        "8845ced"]
+    }
+
+
+
+
+### To view a trust    `GET /trusts/{trustID}`
+
+This will view active trusts. disabled trusts will require an additional
+paramater (disabled) Only the trustor or trustee will be able to access this
+URL. Any other user
+will get a 403 (Forbidden).
+
+GET /trusts/987fe78
+
+Response:
+
+    Status: 200 OK
+
+    {
+        'id': '987fe78',
+        'roles': ['browser'],
+        'extra': {},
+        'tenant_id': '0f123331',
+        'trustor': '56aed332',
+        'endpoints': ['e1', 'e2', 'e3'],
+        'trustee': 'two'}}
+    }
+
+
+
+### To deactivate a trust    `DELETE /trusts/{trustID}`
+
+This sets the trust status to disabled.
+Only the trustor will be able to access this URL. Any other user will get
+a 403 (Forbidden).
+
+
+DELETE /trusts/'987fe78
+
+Response:
+
+    204 No Content
