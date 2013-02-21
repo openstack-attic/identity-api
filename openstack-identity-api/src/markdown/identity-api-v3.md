@@ -282,7 +282,7 @@ communicate specific success and failure conditions to the client.
 
 #### 200 OK
 
-This status code is returned in response to successful `GET` and `PATCH
+This status code is returned in response to successful `GET` and `PATCH`
 operations.
 
 #### 201 Created
