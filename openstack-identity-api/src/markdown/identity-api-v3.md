@@ -811,24 +811,26 @@ Optional attributes:
 Example entity:
 
     {
-        "expires": "1999-12-31T24:59:59.999999",
-        "methods": [
-            "password"
-        ],
-        "user": {
-            "domain": {
-                "id": "1789d1",
+        "token": {
+            "expires": "1999-12-31T24:59:59.999999",
+            "methods": [
+                "password"
+            ],
+            "user": {
+                "domain": {
+                    "id": "1789d1",
+                    "links": {
+                        "self": "http://identity:35357/v3/domains/1789d1"
+                    },
+                    "name": "example.com"
+                }
+                "email": "joe@example.com",
+                "id": "0ca8f6",
                 "links": {
-                    "self": "http://identity:35357/v3/domains/1789d1"
+                    "self": "http://identity:35357/v3/users/0ca8f6"
                 },
-                "name": "example.com"
+                "name": "Joe"
             }
-            "email": "joe@example.com",
-            "id": "0ca8f6",
-            "links": {
-                "self": "http://identity:35357/v3/users/0ca8f6"
-            },
-            "name": "Joe"
         }
     }
 
