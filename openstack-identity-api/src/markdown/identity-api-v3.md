@@ -1202,7 +1202,7 @@ user's roles applicable to the `domain`. Example response:
     X-Subject-Token: e80b74
 
     {
-        "token: {
+        "token": {
             "catalog": "FIXME(dolph): need an example here",
             "expires": "2012-06-18T20:08:53Z",
             "methods": [
