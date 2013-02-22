@@ -811,24 +811,26 @@ Optional attributes:
 Example entity:
 
     {
-        "expires": "1999-12-31T24:59:59.999999",
-        "methods": [
-            "password"
-        ],
-        "user": {
-            "domain": {
-                "id": "1789d1",
+        "token": {
+            "expires": "1999-12-31T24:59:59.999999",
+            "methods": [
+                "password"
+            ],
+            "user": {
+                "domain": {
+                    "id": "1789d1",
+                    "links": {
+                        "self": "http://identity:35357/v3/domains/1789d1"
+                    },
+                    "name": "example.com"
+                }
+                "email": "joe@example.com",
+                "id": "0ca8f6",
                 "links": {
-                    "self": "http://identity:35357/v3/domains/1789d1"
+                    "self": "http://identity:35357/v3/users/0ca8f6"
                 },
-                "name": "example.com"
+                "name": "Joe"
             }
-            "email": "joe@example.com",
-            "id": "0ca8f6",
-            "links": {
-                "self": "http://identity:35357/v3/users/0ca8f6"
-            },
-            "name": "Joe"
         }
     }
 
@@ -1082,23 +1084,25 @@ the user. Example response:
         X-Subject-Token: e80b74
 
     {
-        "expires": "2012-06-18T20:08:53Z",
-        "methods": [
-            "password"
-        ],
-        "user": {
-            "domain": {
-                "id": "1789d1",
-                "links": {
-                    "self": "http://identity:35357/v3/domains/1789d1"
+        "token": {
+            "expires": "2012-06-18T20:08:53Z",
+            "methods": [
+                "password"
+            ],
+            "user": {
+                "domain": {
+                    "id": "1789d1",
+                    "links": {
+                        "self": "http://identity:35357/v3/domains/1789d1"
+                    },
+                    "name": "example.com"
                 },
-                "name": "example.com"
-            },
-            "id": "0ca8f6",
-            "links": {
-                "self": "http://identity:35357/v3/users/0ca8f6"
-            },
-            "name": "Joe"
+                "id": "0ca8f6",
+                "links": {
+                    "self": "http://identity:35357/v3/users/0ca8f6"
+                },
+                "name": "Joe"
+            }
         }
     }
 
@@ -1113,54 +1117,56 @@ the user's roles applicable to the `project`. Example response:
     X-Subject-Token: e80b74
 
     {
-        "catalog": "FIXME(dolph): need an example here",
-        "expires": "2012-06-18T20:08:53Z",
-        "methods": [
-            "password"
-        ],
-        "project": {
-            "domain": {
-                "id": "1789d1",
-                "links": {
-                    "self": "http://identity:35357/v3/domains/1789d1"
+        "token": {
+            "catalog": "FIXME(dolph): need an example here",
+            "expires": "2012-06-18T20:08:53Z",
+            "methods": [
+                "password"
+            ],
+            "project": {
+                "domain": {
+                    "id": "1789d1",
+                    "links": {
+                        "self": "http://identity:35357/v3/domains/1789d1"
+                    },
+                    "name": "example.com"
                 },
-                "name": "example.com"
-            },
-            "id": "263fd9",
-            "links": {
-                "self": "http://identity:35357/v3/projects/263fd9"
-            },
-            "name": "project-x"
-        },
-        "roles": [
-            {
-                "id": "76e72a",
+                "id": "263fd9",
                 "links": {
-                    "self": "http://identity:35357/v3/roles/76e72a"
+                    "self": "http://identity:35357/v3/projects/263fd9"
                 },
-                "name": "admin"
+                "name": "project-x"
             },
-            {
-                "id": "f4f392",
-                "links": {
-                    "self": "http://identity:35357/v3/roles/f4f392"
+            "roles": [
+                {
+                    "id": "76e72a",
+                    "links": {
+                        "self": "http://identity:35357/v3/roles/76e72a"
+                    },
+                    "name": "admin"
                 },
-                "name": "member"
+                {
+                    "id": "f4f392",
+                    "links": {
+                        "self": "http://identity:35357/v3/roles/f4f392"
+                    },
+                    "name": "member"
+                }
+            ],
+            "user": {
+                "domain": {
+                    "id": "1789d1",
+                    "links": {
+                        "self": "http://identity:35357/v3/domains/1789d1"
+                    },
+                    "name": "example.com"
+                },
+                "id": "0ca8f6",
+                "links": {
+                    "self": "http://identity:35357/v3/users/0ca8f6"
+                },
+                "name": "Joe"
             }
-        ],
-        "user": {
-            "domain": {
-                "id": "1789d1",
-                "links": {
-                    "self": "http://identity:35357/v3/domains/1789d1"
-                },
-                "name": "example.com"
-            },
-            "id": "0ca8f6",
-            "links": {
-                "self": "http://identity:35357/v3/users/0ca8f6"
-            },
-            "name": "Joe"
         }
     }
 
@@ -1172,35 +1178,12 @@ user's roles applicable to the `domain`. Example response:
     X-Subject-Token: e80b74
 
     {
-        "catalog": "FIXME(dolph): need an example here",
-        "expires": "2012-06-18T20:08:53Z",
-        "methods": [
-            "password"
-        ],
-        "domain": {
-            "id": "1789d1",
-            "links": {
-                "self": "http://identity:35357/v3/domains/1789d1"
-            },
-            "name": "example.com"
-        },
-        "roles": [
-            {
-                "id": "76e72a",
-                "links": {
-                    "self": "http://identity:35357/v3/roles/76e72a"
-                },
-                "name": "admin"
-            },
-            {
-                "id": "f4f392",
-                "links": {
-                    "self": "http://identity:35357/v3/roles/f4f392"
-                },
-                "name": "member"
-            }
-        ],
-        "user": {
+        "token: {
+            "catalog": "FIXME(dolph): need an example here",
+            "expires": "2012-06-18T20:08:53Z",
+            "methods": [
+                "password"
+            ],
             "domain": {
                 "id": "1789d1",
                 "links": {
@@ -1208,11 +1191,36 @@ user's roles applicable to the `domain`. Example response:
                 },
                 "name": "example.com"
             },
-            "id": "0ca8f6",
-            "links": {
-                "self": "http://identity:35357/v3/users/0ca8f6"
-            },
-            "name": "Joe"
+            "roles": [
+                {
+                    "id": "76e72a",
+                    "links": {
+                        "self": "http://identity:35357/v3/roles/76e72a"
+                    },
+                    "name": "admin"
+                },
+                {
+                    "id": "f4f392",
+                    "links": {
+                        "self": "http://identity:35357/v3/roles/f4f392"
+                    },
+                    "name": "member"
+                }
+            ],
+            "user": {
+                "domain": {
+                    "id": "1789d1",
+                    "links": {
+                        "self": "http://identity:35357/v3/domains/1789d1"
+                    },
+                    "name": "example.com"
+                },
+                "id": "0ca8f6",
+                "links": {
+                    "self": "http://identity:35357/v3/users/0ca8f6"
+                },
+                "name": "Joe"
+            }
         }
     }
 
