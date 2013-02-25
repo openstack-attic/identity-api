@@ -19,6 +19,8 @@ What's New in Version 3
 - "Domains": a high-level container for projects, users and groups
 - "Policies": a centralized repository for policy engine rule sets
 - "Credentials": generic credential storage per user (e.g. EC2, PKI, SSH, etc.)
+- "Trusts": Project-specific role delegation between users, with optional
+  impersonation
 - Roles can be granted at either the domain or project level
 - User, group and project names only have to be unique within their owning
   domain
@@ -432,18 +434,19 @@ Example entity:
 
 ### Groups: `/v3/groups`
 
-Group entities represent a collection of Users and are owned by a specific domain.
-As with individual users, role grants explicitly associate groups with projects
-or domains. A group role grant onto a project/domain is the equivilent of granting
-each individual member of the group the role on that project/domain. Once a group
-role grant has been made, the addition or removal of a user to such a group will
-result in the automatic granting/revoking of that role to the user, which will
-also cause any token containing that user and project/domain to be revoked.
+Group entities represent a collection of Users and are owned by a specific
+domain. As with individual users, role grants explicitly associate groups with
+projects or domains. A group role grant onto a project/domain is the equivalent
+of granting each individual member of the group the role on that
+project/domain. Once a group role grant has been made, the addition or removal
+of a user to such a group will result in the automatic granting/revoking of
+that role to the user, which will also cause any token containing that user and
+project/domain to be revoked.
 
-As with users, a group entity without any role grants is effectively useless from the
-perspective an OpenStack service and should never have access to any resources. It is
-allowed, however, as a means of acquiring or loading users/groups from external
-sources prior to mapping them to projects/domains.
+As with users, a group entity without any role grants is effectively useless
+from the perspective an OpenStack service and should never have access to any
+resources. It is allowed, however, as a means of acquiring or loading
+users/groups from external sources prior to mapping them to projects/domains.
 
 Additional required attributes:
 
@@ -474,7 +477,6 @@ Example entity:
             "name": "Developers"
         }
     }
-
 
 ### Credentials: `/v3/credentials`
 
@@ -781,7 +783,7 @@ Required attributes:
   subsequently created tokens will contain both `password` and `token` in their
   `methods` attribute.
 
-  Notice the difference between `methods` and multifactor authentication.  The
+  Notice the difference between `methods` and multifactor authentication. The
   `methods` attribute merely indicates the methods used to authenticate the
   user for the given token. It is up to the client to look for specific methods
   to determine the total number of factors.
@@ -799,12 +801,11 @@ Optional attributes:
 - `domain` (object)
 
   Specifies a domain authorization scope of the token. This is to provide
-  authorization appropriate to domain-wide APIs, for example user and
-  group management within a domain.  Domain authorization does not
-  grant authorization to projects within the domain.  If this attribute
-  is not provided, then the token is not authorized to access any domain
-  level resources. This attribute must not be included if a `project`
-  attribute is included.
+  authorization appropriate to domain-wide APIs, for example user and group
+  management within a domain. Domain authorization does not grant authorization
+  to projects within the domain. If this attribute is not provided, then the
+  token is not authorized to access any domain level resources. This attribute
+  must not be included if a `project` attribute is included.
 
   Includes the full resource description of a domain.
 
@@ -813,6 +814,12 @@ Optional attributes:
   Specifies all endpoints available to/for the token.
 
   FIXME(dolph): revise with specific expectations.
+
+- `trust` (object)
+
+  If present, indicates that the token was created based on a trust. This
+  attribute identifies both the trustor and trustee, and indicates whether the
+  token represents the trustee impersonating the trustor.
 
 Example entity:
 
@@ -865,6 +872,93 @@ Example entity:
                 "self": "http://identity:35357/v3/policies/c41a4c"
             },
             "type": "application/json"
+        }
+    }
+
+### Trusts
+
+A trust represents a user's (the *trustor*) authorization to delegate roles to
+another user (the *trustee*), and optionally allow the trustee to impersonate
+the trustor. After the trustor has created a trust, the trustee can specify the
+trust's `id` attribute as part of an authentication request to then create a
+token representing the delegated authority.
+
+The trust contains constraints on the delegated attributes. A token created
+based on a trust will convey a subset of the trustor's roles on the specified
+project. The trust may only be valid for a specified time period, as defined by
+`expires`.
+
+The `impersonation` flag allows the trustor to optionally delegate
+impersonation abilities to the trustee. To services validating the token, the
+trustee will appear as the trustor, although the token will also contain the
+`impersonation` flag to indicate that this behavior is in effect.
+
+If no roles are specified, then nothing is being delegated. In other words,
+there is no way of implicitly delegating all roles to a trustee, in order to
+prevent users accidentally creating trust that are much more broad in scope
+than intended.
+
+Trusts are immutable. If the trustee wishes to modify the attributes of the
+trust, they should create a new trust and delete the old trust. If a trust is
+deleted, any tokens generated based on the trust are immediately revoked.
+
+If the trustor loses access to any delegated attributes, the trust becomes
+immediately invalid and any tokens generated based on the trust are immediately
+revoked.
+
+Additional required attributes:
+
+- `trustor_user_id` (string)
+
+  Represents the user who created the trust, and who's authorization is being
+  delegated.
+
+- `trustee_user_id` (string)
+
+  Represents the user who is capable of consuming the trust.
+
+- `impersonation`: (boolean)
+
+  If `impersonation` is set to `true`, then the `user` attribute of tokens
+  token's generated based on the trust will represent that of the trustor
+  rather than the trustee, thus allowing the trustee to impersonate the
+  trustor. If `impersonation` is set to `false`, then the token's `user`
+  attribute will represent that of the trustee.
+
+Optional attributes:
+
+- `project_id` (string)
+
+  Identifies the project upon which the trustor is delegating authorization.
+
+- `roles`: (list of objects)
+
+  Specifies the subset of the trustor's roles on the `project_id` to be granted
+  to the trustee when the token in consumed. The trustor must already be
+  granted these roles in the project referenced by the `project_id` attribute.
+
+  Roles are only provided when the trust is created, and are subsequently
+  available as a separate read-only collection. Each role can be specified by
+  either `id` or `name`.
+
+- `expires` (string, ISO 8601 timestamp)
+
+  Specifies the expiration time of the trust. A trust may be revoked ahead of
+  expiration. If the value represents a time in the past, the trust is
+  deactivated.
+
+Example entity:
+
+    {
+        "trust": {
+            "id": "987fe7",
+            "impersonation": true,
+            "project_id": "0f1233",
+            "links": {
+                "self": "http://identity:35357/v3/trusts/987fe7"
+            },
+            "trustee_user_id": "fea342",
+            "trustor_user_id": "56aed3"
         }
     }
 
@@ -1098,6 +1192,36 @@ authenticating `user` has a defined default project (the user's
 authorization scope. If there is no default project defined, then a token will
 be issued without an explicit scope of authorization.
 
+###### Consuming a trust
+
+Consuming a trust effectively assumes the scope as delegated in the trust. No
+other scope attributes may be specified.
+
+The user specified by `authentication` must match the trust's `trustee_user_id`
+attribute.
+
+If the token has the `impersonation` attribute set to `true`, then the
+resulting token's `user` attribute will also represent the trustor, rather than
+the authenticating user (the trustee).
+
+    {
+        "auth": {
+            "identity": {
+                "methods": [
+                    "token"
+                ],
+                "token": {
+                    "id": "e80b74"
+                }
+            },
+            "scope": {
+                "trust": {
+                    "id": "de0945a"
+                }
+            }
+        }
+    }
+
 ##### Authentication responses
 
 A response without an explicit authorization scope does not contain a
@@ -1248,6 +1372,45 @@ user's roles applicable to the `domain`. Example response:
         }
     }
 
+A token created from a trust will have a `trust` section containing the `id` of
+the trust, the `impersonation` flag, the `trustee_user_id` and the
+`trustor_user_id`. Example response:
+
+    Headers: X-Subject-Token
+
+    X-Subject-Token: e80b74
+
+    {
+        "expires": "1999-12-31T24:59:59.999999",
+        "methods": [
+            "password"
+        ],
+        "trust": {
+            "id": "fe0aef",
+            "impersonation": false,
+            "links": {
+                "self": "http://identity:35357/v3/domains/1789d1"
+            },
+            "trustee_user_id": "0ca8f6",
+            "trustor_user_id": "ada718"
+        },
+        "user": {
+            "domain": {
+                "id": "1789d1",
+                "links": {
+                    "self": "http://identity:35357/v3/domains/1789d1"
+                },
+                "name": "example.com"
+            },
+            "email": "joe@example.com",
+            "id": "0ca8f6",
+            "links": {
+                "self": "http://identity:35357/v3/users/0ca8f6"
+            },
+            "name": "Joe"
+        }
+    }
+
 ##### Authentication failures
 
 Several authentication errors are possible, including 403 Forbidden and 409
@@ -1366,7 +1529,6 @@ Response:
             "type": "identity"
         }
     ]
-
 
 #### Get service: `GET /services/{service_id}`
 
@@ -1489,7 +1651,6 @@ Response:
         "name": "the internal volume endpoint",
         "service_id": "--service-id--"
     }
-
 
 #### Update endpoint: `PATCH /endpoints/{endpoint_id}`
 
@@ -2121,7 +2282,6 @@ Response:
 
     Status: 204 No Content
 
-
 ### Credentials
 
 The key use cases we need to cover:
@@ -2537,7 +2697,6 @@ Response:
 
     Status: 204 No Content
 
-
 #### Revoke role from user on project: `DELETE /projects/{project_id}/users/{user_id}/roles/{role_id}`
 
 Response:
@@ -2648,3 +2807,214 @@ Response:
 Response:
 
     Status: 204 No Content
+
+### Trusts
+
+#### Create trust: `POST /trusts`
+
+Request:
+
+    {
+        "trust": {
+            "expires": "2031-02-18T18:10:00Z",
+            "impersonation": true,
+            "project_id": "ddef321",
+            "roles": [
+                {
+                    "name": "browser"
+                }
+            ],
+            "trustee_user_id": "86c0d5",
+            "trustor_user_id": "a0fdfd"
+        }
+    }
+
+Response:
+
+    Status: 201 Created
+
+    {
+        "trust": {
+            "expires": "2031-02-18T18:10:00Z",
+            "id": "1ff900",
+            "impersonation": true,
+            "links": {
+                "self": "http://identity:35357/v3/trusts/1ff900"
+            },
+            "project_id": "ddef321",
+            "trustee_user_id": "86c0d5",
+            "trustor_user_id": "a0fdfd"
+        }
+    }
+
+Note that the list of roles is not included in the response, but is instead
+available as a separate read-only collection.
+
+#### List trusts: `GET /trusts`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+query filter for "trustee_user_id", "trustor_user_id" (optional)
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "trusts": [
+            {
+                "id": "1ff900",
+                "impersonation": true,
+                "links": {
+                    "self": "http://identity:35357/v3/trusts/1ff900"
+                },
+                "project_id": "0f1233",
+                "trustee_user_id": "86c0d5",
+                "trustor_user_id": "a0fdfd"
+            },
+            {
+                "id": "f4513a",
+                "impersonation": true,
+                "links": {
+                    "self": "http://identity:35357/v3/trusts/f4513a"
+                },
+                "project_id": "0f1233",
+                "trustee_user_id": "86c0d5",
+                "trustor_user_id": "3cd2ce"
+            }
+        ]
+    }
+
+In order to list trusts for a given trustor, filter the collection using a
+query string (e.g., `?trustor_user_id={user_id}`).
+
+Request:
+
+    GET /trusts?trustor_user_id=a0fdfd
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "trusts": [
+            {
+                "id": "1ff900",
+                "impersonation": false,
+                "links": {
+                    "self": "http://identity:35357/v3/trusts/1ff900"
+                },
+                "project_id": "0f1233",
+                "trustee_user_id": "86c0d5",
+                "trustor_user_id": "a0fdfd"
+            }
+        ]
+    }
+
+In order to list trusts for a given trustee, filter the collection using a
+query string (e.g., `?trustee_user_id={user_id}`).
+
+Request:
+
+    GET /trusts?trustee_user_id=86c0d5
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "trusts": [
+            {
+                "id": "1ff900",
+                "impersonation": true,
+                "links": {
+                    "self": "http://identity:35357/v3/trusts/1ff900"
+                },
+                "project_id": "0f1233",
+                "trustee_user_id": "86c0d5",
+                "trustor_user_id": "a0fdfd"
+            },
+            {
+                "id": "f4513a",
+                "impersonation": false,
+                "links": {
+                    "self": "http://identity:35357/v3/trusts/f45513a"
+                },
+                "project_id": "0f1233",
+                "trustee_user_id": "86c0d5",
+                "trustor_user_id": "3cd2ce"
+            }
+        ]
+    }
+
+#### Get trust: `GET /trusts/{trust_id}`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "trust": {
+            "id": "987fe8",
+            "impersonation": true,
+            "links": {
+                "self": "http://identity:35357/v3/trusts/987fe8"
+            },
+            "project_id": "0f1233",
+            "trustee_user_id": "be34d1",
+            "trustor_user_id": "56ae32"
+        }
+    }
+
+#### Delete trust: `DELETE /trusts/{trust_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### List roles delegated by a trust: `GET /trusts/{trust_id}/roles`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "roles": [
+            {
+                "id": "c1648e",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/c1648e"
+                },
+                "name": "manager"
+            },
+            {
+                "id": "ed7b78",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/ed7b78"
+                },
+                "name": "member"
+            }
+        ]
+    }
+
+#### Check if role is delegated by a trust: `GET /trusts/{trust_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Get role delegated by a trust: `GET /trusts/{trust_id}/roles/{role_id}`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "role": {
+            "id": "c1648e",
+            "links": {
+                "self": "http://identity:35357/v3/roles/c1648e"
+            },
+            "name": "manager"
+        }
+    }
