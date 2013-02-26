@@ -759,7 +759,7 @@ with `auth` objects in exchange for `token` objects.
 
 Required attributes:
 
-- `expires` (string, ISO 8601 timestamp)
+- `expires_at` (string, ISO 8601 timestamp)
 
   FIXME(dolph): ISO 8601 defines a few levels of precision... which one are we
                 referring to? May need to update the example below.
@@ -767,6 +767,13 @@ Required attributes:
   Specifies the expiration time of the token. Once established, a token's
   expiration may not be changed. A token may be revoked ahead of expiration. If
   the value represents a time in the past, the token is invalid.
+
+- `issued_at` (string, ISO 8601 timestamp)
+
+  FIXME(dolph): ISO 8601 defines a few levels of precision... which one are we
+                referring to? May need to update the example below.
+
+  Specifies the time at which the token was issued.
 
 - `user` (object)
 
@@ -825,7 +832,8 @@ Example entity:
 
     {
         "token": {
-            "expires": "1999-12-31T24:59:59.999999",
+            "expires_at": "2012-06-18T20:08:53Z",
+            "issued_at": "2012-06-17T20:08:53Z",
             "methods": [
                 "password"
             ],
@@ -886,7 +894,7 @@ token representing the delegated authority.
 The trust contains constraints on the delegated attributes. A token created
 based on a trust will convey a subset of the trustor's roles on the specified
 project. The trust may only be valid for a specified time period, as defined by
-`expires`.
+`expires_at`.
 
 The `impersonation` flag allows the trustor to optionally delegate
 impersonation abilities to the trustee. To services validating the token, the
@@ -941,7 +949,7 @@ Optional attributes:
   available as a separate read-only collection. Each role can be specified by
   either `id` or `name`.
 
-- `expires` (string, ISO 8601 timestamp)
+- `expires_at` (string, ISO 8601 timestamp)
 
   Specifies the expiration time of the trust. A trust may be revoked ahead of
   expiration. If the value represents a time in the past, the trust is
@@ -1233,7 +1241,8 @@ the user. Example response:
 
     {
         "token": {
-            "expires": "2012-06-18T20:08:53Z",
+            "expires_at": "2012-06-18T20:08:53Z",
+            "issued_at": "2012-06-17T20:08:53Z",
             "methods": [
                 "password"
             ],
@@ -1267,7 +1276,8 @@ the user's roles applicable to the `project`. Example response:
     {
         "token": {
             "catalog": "FIXME(dolph): need an example here",
-            "expires": "2012-06-18T20:08:53Z",
+            "expires_at": "2012-06-18T20:08:53Z",
+            "issued_at": "2012-06-17T20:08:53Z",
             "methods": [
                 "password"
             ],
@@ -1328,7 +1338,8 @@ user's roles applicable to the `domain`. Example response:
     {
         "token": {
             "catalog": "FIXME(dolph): need an example here",
-            "expires": "2012-06-18T20:08:53Z",
+            "expires_at": "2012-06-18T20:08:53Z",
+            "issued_at": "2012-06-17T20:08:53Z",
             "methods": [
                 "password"
             ],
@@ -1381,33 +1392,36 @@ the trust, the `impersonation` flag, the `trustee_user_id` and the
     X-Subject-Token: e80b74
 
     {
-        "expires": "1999-12-31T24:59:59.999999",
-        "methods": [
-            "password"
-        ],
-        "trust": {
-            "id": "fe0aef",
-            "impersonation": false,
-            "links": {
-                "self": "http://identity:35357/v3/domains/1789d1"
-            },
-            "trustee_user_id": "0ca8f6",
-            "trustor_user_id": "ada718"
-        },
-        "user": {
-            "domain": {
-                "id": "1789d1",
+        "token": {
+            "expires_at": "2012-06-18T20:08:53Z",
+            "issued_at": "2012-06-17T20:08:53Z",
+            "methods": [
+                "password"
+            ],
+            "trust": {
+                "id": "fe0aef",
+                "impersonation": false,
                 "links": {
                     "self": "http://identity:35357/v3/domains/1789d1"
                 },
-                "name": "example.com"
+                "trustee_user_id": "0ca8f6",
+                "trustor_user_id": "ada718"
             },
-            "email": "joe@example.com",
-            "id": "0ca8f6",
-            "links": {
-                "self": "http://identity:35357/v3/users/0ca8f6"
-            },
-            "name": "Joe"
+            "user": {
+                "domain": {
+                    "id": "1789d1",
+                    "links": {
+                        "self": "http://identity:35357/v3/domains/1789d1"
+                    },
+                    "name": "example.com"
+                },
+                "email": "joe@example.com",
+                "id": "0ca8f6",
+                "links": {
+                    "self": "http://identity:35357/v3/users/0ca8f6"
+                },
+                "name": "Joe"
+            }
         }
     }
 
@@ -1488,14 +1502,14 @@ token was issued by `POST /auth/token`.
 
 #### Check token: `HEAD /auth/token`
 
-This call is identical to `GET /auth/token`, but no response body is provided, even
-if an error occurs or the token is invalid. A 204 response indicates that the
-`X-Subject-Token` is valid.
+This call is identical to `GET /auth/token`, but no response body is provided,
+even if an error occurs or the token is invalid. A 204 response indicates that
+the `X-Subject-Token` is valid.
 
 #### Revoke token: `DELETE /auth/token`
 
-This call is identical to `HEAD /auth/token` except that the `X-Subject-Token` token
-is immediately invalidated, regardless of it's `expires` attribute. An
+This call is identical to `HEAD /auth/token` except that the `X-Subject-Token`
+token is immediately invalidated, regardless of it's `expires_at` attribute. An
 additional `X-Auth-Token` is not required.
 
 ### Catalog
@@ -2816,7 +2830,7 @@ Request:
 
     {
         "trust": {
-            "expires": "2031-02-18T18:10:00Z",
+            "expires_at": "2031-02-18T18:10:00Z",
             "impersonation": true,
             "project_id": "ddef321",
             "roles": [
@@ -2835,7 +2849,7 @@ Response:
 
     {
         "trust": {
-            "expires": "2031-02-18T18:10:00Z",
+            "expires_at": "2031-02-18T18:10:00Z",
             "id": "1ff900",
             "impersonation": true,
             "links": {
