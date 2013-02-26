@@ -247,7 +247,7 @@ specified attributes are replaced):
 
     {
         "entity": {
-            "description": string,
+            "description": string
         }
     }
 
