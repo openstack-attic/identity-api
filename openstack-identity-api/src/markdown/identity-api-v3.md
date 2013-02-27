@@ -238,6 +238,55 @@ The full resource is returned in response:
         }
     }
 
+##### Get and entity with a related nested collection
+
+Request a specific entity by ID, including the name of the desired related
+collection as a query string:
+
+    GET /entities/{entity_id}&objects
+
+The full resource is returned in response, with the addition of the related
+collection and it's links:
+
+    200 OK
+
+    {
+        "entity": {
+            "id": string,
+            "name": string,
+            "description": string,
+            "enabled": boolean,
+            "links": {
+                "self": url
+            }
+            "objects": [
+                {
+                    "id": string,
+                    "name": string,
+                    "description": string,
+                    "enabled": boolean,
+                    "links": {
+                        "self": url
+                    }
+                },
+                {
+                    "id": string,
+                    "name": string,
+                    "description": string,
+                    "enabled": boolean,
+                    "links": {
+                        "self": url
+                    }
+                }
+            ],
+            "objects_links":
+                "self": url,
+                "next": url,
+                "previous": url
+            }
+        }
+    }
+
 #### Update an Entity
 
 Partially update an entity (unlike a standard `PUT` operation, only the
@@ -2948,6 +2997,8 @@ Response:
 
 #### Get trust: `GET /trusts/{trust_id}`
 
+query_string: roles (optional)
+
 Response:
 
     Status: 200 OK
@@ -2960,6 +3011,47 @@ Response:
                 "self": "http://identity:35357/v3/trusts/987fe8"
             },
             "project_id": "0f1233",
+            "trustee_user_id": "be34d1",
+            "trustor_user_id": "56ae32"
+        }
+    }
+
+To request the list of roles to be included with the trust as a nested
+collection, included `roles` in the query string.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "trust": {
+            "id": "987fe8",
+            "impersonation": true,
+            "links": {
+                "self": "http://identity:35357/v3/trusts/987fe8"
+            },
+            "project_id": "0f1233",
+            "roles": [
+                {
+                    "id": "c1648e",
+                    "links": {
+                        "self": "http://identity:35357/v3/roles/c1648e"
+                    },
+                    "name": "manager"
+                },
+                {
+                    "id": "ed7b78",
+                    "links": {
+                        "self": "http://identity:35357/v3/roles/ed7b78"
+                    },
+                    "name": "member"
+                }
+            ],
+            "roles_links": {
+                "next": null,
+                "previous": null,
+                "self": "http://identity:35357/v3/trusts/987fe8/roles"
+            },
             "trustee_user_id": "be34d1",
             "trustor_user_id": "56ae32"
         }
