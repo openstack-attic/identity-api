@@ -238,6 +238,43 @@ The full resource is returned in response:
         }
     }
 
+##### Nested collections
+
+An entity may contain nested collections, in which case the required attributes
+for collections still apply; however, to avoid conflicts with other required
+attributes, the required attributes of the collection are prefixed with the
+name of the collection. For example, if an `entity` contains a nested
+collection of `objects`, the `links` for the collection of `objects` is called
+`objects_links`:
+
+    {
+        "entity": {
+            "id": string,
+            "name": string,
+            "description": string,
+            "enabled": boolean,
+            "links": {
+                "self": url
+            },
+            "objects": [
+                {
+                    "id": string,
+                    "name": string,
+                    "description": string,
+                    "enabled": boolean,
+                    "links": {
+                        "self": url
+                    }
+                }
+            ],
+            "objects_links": {
+                "self": url,
+                "next": url,
+                "previous": url
+            }
+        }
+    }
+
 #### Update an Entity
 
 Partially update an entity (unlike a standard `PUT` operation, only the
@@ -901,10 +938,12 @@ impersonation abilities to the trustee. To services validating the token, the
 trustee will appear as the trustor, although the token will also contain the
 `impersonation` flag to indicate that this behavior is in effect.
 
-If no roles are specified, then nothing is being delegated. In other words,
-there is no way of implicitly delegating all roles to a trustee, in order to
-prevent users accidentally creating trust that are much more broad in scope
-than intended.
+A `project_id` may not be specified without at least one role, and vice versa.
+In other words, there is no way of implicitly delegating all roles to a
+trustee, in order to prevent users accidentally creating trust that are much
+more broad in scope than intended. A trust without a `project_id` or any
+delegated roles is unscoped, and therefore does not represent authorization on
+a specific resource.
 
 Trusts are immutable. If the trustee wishes to modify the attributes of the
 trust, they should create a new trust and delete the old trust. If a trust is
@@ -2835,7 +2874,7 @@ Request:
             "project_id": "ddef321",
             "roles": [
                 {
-                    "name": "browser"
+                    "name": "member"
                 }
             ],
             "trustee_user_id": "86c0d5",
@@ -2856,13 +2895,24 @@ Response:
                 "self": "http://identity:35357/v3/trusts/1ff900"
             },
             "project_id": "ddef321",
+            "roles": [
+                {
+                    "id": "ed7b78",
+                    "links": {
+                        "self": "http://identity:35357/v3/roles/ed7b78"
+                    },
+                    "name": "member"
+                }
+            ],
+            "roles_links": {
+                "next": null,
+                "previous": null,
+                "self": "http://identity:35357/v3/trusts/1ff900/roles"
+            },
             "trustee_user_id": "86c0d5",
             "trustor_user_id": "a0fdfd"
         }
     }
-
-Note that the list of roles is not included in the response, but is instead
-available as a separate read-only collection.
 
 #### List trusts: `GET /trusts`
 
@@ -2973,6 +3023,20 @@ Response:
             "impersonation": true,
             "links": {
                 "self": "http://identity:35357/v3/trusts/987fe8"
+            },
+            "roles": [
+                {
+                    "id": "ed7b78",
+                    "links": {
+                        "self": "http://identity:35357/v3/roles/ed7b78"
+                    },
+                    "name": "member"
+                }
+            ],
+            "roles_links": {
+                "next": null,
+                "previous": null,
+                "self": "http://identity:35357/v3/trusts/1ff900/roles"
             },
             "project_id": "0f1233",
             "trustee_user_id": "be34d1",
