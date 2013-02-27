@@ -901,14 +901,17 @@ impersonation abilities to the trustee. To services validating the token, the
 trustee will appear as the trustor, although the token will also contain the
 `impersonation` flag to indicate that this behavior is in effect.
 
-If no roles are specified, then nothing is being delegated. In other words,
-there is no way of implicitly delegating all roles to a trustee, in order to
-prevent users accidentally creating trust that are much more broad in scope
-than intended.
+Before a trust with a defined `project_id` can be consumed by the trustee, the
+trustor must specify the subset of his/her available roles to be delegate to
+the trustee. If no roles are specified before the trust is consumed, then
+nothing will be delegated. In other words, there is no way of implicitly
+delegating all roles to a trustee, in order to prevent users accidentally
+creating trust that are much more broad in scope than intended.
 
-Trusts are immutable. If the trustee wishes to modify the attributes of the
-trust, they should create a new trust and delete the old trust. If a trust is
-deleted, any tokens generated based on the trust are immediately revoked.
+Trusts become immutable after they are consumed at least once by the trustee.
+If the trustee wishes to modify the attributes of the trust after it has been
+utilized, they should create a new trust. If a trust is deleted, any tokens
+generated based on the trust are immediately revoked.
 
 If the trustor loses access to any delegated attributes, the trust becomes
 immediately invalid and any tokens generated based on the trust are immediately
@@ -938,16 +941,6 @@ Optional attributes:
 - `project_id` (string)
 
   Identifies the project upon which the trustor is delegating authorization.
-
-- `roles`: (list of objects)
-
-  Specifies the subset of the trustor's roles on the `project_id` to be granted
-  to the trustee when the token in consumed. The trustor must already be
-  granted these roles in the project referenced by the `project_id` attribute.
-
-  Roles are only provided when the trust is created, and are subsequently
-  available as a separate read-only collection. Each role can be specified by
-  either `id` or `name`.
 
 - `expires_at` (string, ISO 8601 timestamp)
 
@@ -2833,11 +2826,6 @@ Request:
             "expires_at": "2031-02-18T18:10:00Z",
             "impersonation": true,
             "project_id": "ddef321",
-            "roles": [
-                {
-                    "name": "browser"
-                }
-            ],
             "trustee_user_id": "86c0d5",
             "trustor_user_id": "a0fdfd"
         }
@@ -2860,9 +2848,6 @@ Response:
             "trustor_user_id": "a0fdfd"
         }
     }
-
-Note that the list of roles is not included in the response, but is instead
-available as a separate read-only collection.
 
 #### List trusts: `GET /trusts`
 
@@ -2980,7 +2965,38 @@ Response:
         }
     }
 
+#### Update trust: `PATCH /trusts/{trust_id}`
+
+This request should fail with a HTTP 403 Forbidden if the referenced trust has
+already been consumed by the trustee.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "trust": {
+            "id": "987fe8",
+            "impersonation": true,
+            "links": {
+                "self": "http://identity:35357/v3/trusts/987fe8"
+            },
+            "project_id": "0f1233",
+            "trustee_user_id": "be34d1",
+            "trustor_user_id": "56ae32"
+        }
+    }
+
 #### Delete trust: `DELETE /trusts/{trust_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Delegate a role in a trust: `PUT /trusts/{trust_id}/roles/{role_id}`
+
+This request should fail with a HTTP 403 Forbidden if the referenced trust has
+already been consumed by the trustee.
 
 Response:
 
@@ -3032,3 +3048,12 @@ Response:
             "name": "manager"
         }
     }
+
+#### Revoke a role from being delegated by a trust: `DELETE /trusts/{trust_id}/roles/{role_id}`
+
+This request should fail with a HTTP 403 Forbidden if the referenced trust has
+already been consumed by the trustee.
+
+Response:
+
+    Status: 204 No Content
