@@ -1402,10 +1402,20 @@ the trust, the `impersonation` flag, the `trustee_user_id` and the
                 "id": "fe0aef",
                 "impersonation": false,
                 "links": {
-                    "self": "http://identity:35357/v3/domains/1789d1"
+                    "self": "http://identity:35357/v3/trusts/fe0aef"
                 },
-                "trustee_user_id": "0ca8f6",
-                "trustor_user_id": "ada718"
+                "trustee_user": {
+                    "id": "0ca8f6",
+                    "links": {
+                        "self": "http://identity:35357/v3/users/0ca8f6"
+                    }
+                },
+                "trustor_user": {
+                    "id": "bd263c",
+                    "links": {
+                        "self": "http://identity:35357/v3/users/bd263c"
+                    }
+                }
             },
             "user": {
                 "domain": {
