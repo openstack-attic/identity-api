@@ -796,19 +796,13 @@ with `auth` objects in exchange for `token` objects.
 
 Required attributes:
 
-- `expires_at` (string, ISO 8601 timestamp)
-
-  FIXME(dolph): ISO 8601 defines a few levels of precision... which one are we
-                referring to? May need to update the example below.
+- `expires_at` (string, ISO 8601 extended format date time with microseconds)
 
   Specifies the expiration time of the token. Once established, a token's
   expiration may not be changed. A token may be revoked ahead of expiration. If
   the value represents a time in the past, the token is invalid.
 
-- `issued_at` (string, ISO 8601 timestamp)
-
-  FIXME(dolph): ISO 8601 defines a few levels of precision... which one are we
-                referring to? May need to update the example below.
+- `issued_at` (string, ISO 8601 extended format date time with microseconds)
 
   Specifies the time at which the token was issued.
 
@@ -869,8 +863,8 @@ Example entity:
 
     {
         "token": {
-            "expires_at": "2012-06-18T20:08:53Z",
-            "issued_at": "2012-06-17T20:08:53Z",
+            "expires_at": "2013-02-27T18:30:59.999999Z",
+            "issued_at": "2013-02-27T16:30:59.999999Z",
             "methods": [
                 "password"
             ],
@@ -988,7 +982,7 @@ Optional attributes:
   available as a separate read-only collection. Each role can be specified by
   either `id` or `name`.
 
-- `expires_at` (string, ISO 8601 timestamp)
+- `expires_at` (string, ISO 8601 extended format date time with microseconds)
 
   Specifies the expiration time of the trust. A trust may be revoked ahead of
   expiration. If the value represents a time in the past, the trust is
@@ -1280,8 +1274,8 @@ the user. Example response:
 
     {
         "token": {
-            "expires_at": "2012-06-18T20:08:53Z",
-            "issued_at": "2012-06-17T20:08:53Z",
+            "expires_at": "2013-02-27T18:30:59.999999Z",
+            "issued_at": "2013-02-27T16:30:59.999999Z",
             "methods": [
                 "password"
             ],
@@ -1315,8 +1309,8 @@ the user's roles applicable to the `project`. Example response:
     {
         "token": {
             "catalog": "FIXME(dolph): need an example here",
-            "expires_at": "2012-06-18T20:08:53Z",
-            "issued_at": "2012-06-17T20:08:53Z",
+            "expires_at": "2013-02-27T18:30:59.999999Z",
+            "issued_at": "2013-02-27T16:30:59.999999Z",
             "methods": [
                 "password"
             ],
@@ -1377,8 +1371,8 @@ user's roles applicable to the `domain`. Example response:
     {
         "token": {
             "catalog": "FIXME(dolph): need an example here",
-            "expires_at": "2012-06-18T20:08:53Z",
-            "issued_at": "2012-06-17T20:08:53Z",
+            "expires_at": "2013-02-27T18:30:59.999999Z",
+            "issued_at": "2013-02-27T16:30:59.999999Z",
             "methods": [
                 "password"
             ],
@@ -1432,8 +1426,8 @@ the trust, the `impersonation` flag, the `trustee_user_id` and the
 
     {
         "token": {
-            "expires_at": "2012-06-18T20:08:53Z",
-            "issued_at": "2012-06-17T20:08:53Z",
+            "expires_at": "2013-02-27T18:30:59.999999Z",
+            "issued_at": "2013-02-27T16:30:59.999999Z",
             "methods": [
                 "password"
             ],
@@ -2869,7 +2863,7 @@ Request:
 
     {
         "trust": {
-            "expires_at": "2031-02-18T18:10:00Z",
+            "expires_at": "2013-02-27T18:30:59.999999Z",
             "impersonation": true,
             "project_id": "ddef321",
             "roles": [
@@ -2888,7 +2882,7 @@ Response:
 
     {
         "trust": {
-            "expires_at": "2031-02-18T18:10:00Z",
+            "expires_at": "2013-02-27T18:30:59.999999Z",
             "id": "1ff900",
             "impersonation": true,
             "links": {
