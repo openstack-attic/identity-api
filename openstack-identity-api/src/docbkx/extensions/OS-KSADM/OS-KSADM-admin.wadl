@@ -151,7 +151,7 @@
                 </doc>
             </representation>
         </request>
-        <response status="201">
+        <response status="200">
             <representation mediaType="application/xml" element="identity:tenant">
                 <doc xml:lang="EN">
                     <xsdxt:code href="samples/tenant.xml"/>
@@ -298,7 +298,7 @@
                 </doc>
             </representation>
         </request>
-        <response status="201">
+        <response status="200">
             <representation mediaType="application/xml" element="identity:user">
                 <doc xml:lang="EN">
                     <xsdxt:code href="samples/user.xml"/>

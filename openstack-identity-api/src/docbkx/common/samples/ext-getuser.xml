@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <user xmlns="http://docs.openstack.org/identity/api/v2.0"
       enabled="true" email="john.smith@example.org"
-      id="u1000" username="jqsmith">
+      id="u1000" name="jqsmith">
     <metadata
         xmlns="http://docs.rackspacecloud.com/identity/api/ext/meta/v2.0">
         <meta key="MetaKey1">MetaValue1</meta>
