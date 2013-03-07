@@ -1024,7 +1024,7 @@ Use cases:
   (change domain/project being represented with the user).
 - Given a valid token, force it's immediate revocation.
 
-#### Authenticate: `POST /auth/token`
+#### Authenticate: `POST /auth/tokens`
 
 Each request to create a token contains an attribute with `identiy`
 information and, optionally, a `scope` describing the authorization scope being
@@ -1528,7 +1528,7 @@ For example:
         }
     }
 
-#### Validate token: `GET /auth/token`
+#### Validate token: `GET /auth/tokens`
 
 To validate a token using the Identity API, pass your own token in the
 `X-Auth-Token` header, and the token to be validated in the `X-Subject-Token`
@@ -1541,17 +1541,17 @@ header. Example request:
 No request body is required.
 
 The Identity service will return the exact same response as when the subject
-token was issued by `POST /auth/token`.
+token was issued by `POST /auth/tokens`.
 
-#### Check token: `HEAD /auth/token`
+#### Check token: `HEAD /auth/tokens`
 
-This call is identical to `GET /auth/token`, but no response body is provided,
+This call is identical to `GET /auth/tokens`, but no response body is provided,
 even if an error occurs or the token is invalid. A 204 response indicates that
 the `X-Subject-Token` is valid.
 
-#### Revoke token: `DELETE /auth/token`
+#### Revoke token: `DELETE /auth/tokens`
 
-This call is identical to `HEAD /auth/token` except that the `X-Subject-Token`
+This call is identical to `HEAD /auth/tokens` except that the `X-Subject-Token`
 token is immediately invalidated, regardless of it's `expires_at` attribute. An
 additional `X-Auth-Token` is not required.
 
