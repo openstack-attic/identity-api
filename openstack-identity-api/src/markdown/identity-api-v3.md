@@ -1571,17 +1571,15 @@ Response:
     [
         {
             "id": "--service-id--",
-            "link": {
-                "href": "http://identity:35357/v3/services/--service-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/services/--service-id--"
             },
             "type": "volume"
         },
         {
             "id": "--service-id--",
-            "link": {
-                "href": "http://identity:35357/v3/services/--service-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/services/--service-id--"
             },
             "type": "identity"
         }
@@ -1599,9 +1597,8 @@ Response:
 
     {
         "id": "--service-id--",
-        "link": {
-            "href": "http://identity:35357/v3/services/--service-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/services/--service-id--"
         },
         "type": "volume"
     }
@@ -1664,9 +1661,8 @@ Response:
         {
             "id": "--endpoint-id--",
             "interface": "public",
-            "link": {
-                "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
             },
             "name": "the public volume endpoint",
             "service_id": "--service-id--"
@@ -1674,9 +1670,8 @@ Response:
         {
             "id": "--endpoint-id--",
             "interface": "internal",
-            "link": {
-                "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
             },
             "name": "the internal volume endpoint",
             "service_id": "--service-id--"
@@ -1701,9 +1696,8 @@ Response:
     {
         "id": "--endpoint-id--",
         "interface": "internal",
-        "link": {
-            "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
         },
         "name": "the internal volume endpoint",
         "service_id": "--service-id--"
@@ -1718,9 +1712,8 @@ Response:
     {
         "id": "--endpoint-id--",
         "interface": "internal",
-        "link": {
-            "href": "http://identity:35357/v3/endpoints/--endpoint-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
         },
         "name": "the internal volume endpoint",
         "service_id": "--service-id--"
@@ -1762,9 +1755,8 @@ Response:
         "description": "desc of domain",
         "enabled": true,
         "id": "--domain-id--",
-        "link": {
-            "href": "http://identity:35357/v3/domains/--domain-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/domains/--domain-id--"
         },
         "name": "my domain"
     }
@@ -1784,9 +1776,8 @@ Response:
             "description": "desc of domain",
             "enabled": true,
             "id": "--domain-id--",
-            "link": {
-                "href": "http://identity:35357/v3/domains/--domain-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/domains/--domain-id--"
             },
             "name": "my domain"
         },
@@ -1794,9 +1785,8 @@ Response:
             "description": "desc of another domain",
             "enabled": true,
             "id": "--domain-id--",
-            "link": {
-                "href": "http://identity:35357/v3/domains/--domain-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/domains/--domain-id--"
             },
             "name": "another domain"
         }
@@ -1812,9 +1802,8 @@ Response:
         "description": "desc of domain",
         "enabled": true,
         "id": "--domain-id--",
-        "link": {
-            "href": "http://identity:35357/v3/domains/--domain-id--",
-            "rel": "self"
+        "self": {
+            "self": "http://identity:35357/v3/domains/--domain-id--"
         },
         "name": "my domain"
     }
@@ -1829,9 +1818,8 @@ Response:
         "description": "desc of domain",
         "enabled": true,
         "id": "--domain-id--",
-        "link": {
-            "href": "http://identity:35357/v3/domains/--domain-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/domains/--domain-id--"
         },
         "name": "my domain"
     }
@@ -1864,9 +1852,8 @@ Response:
         "domain_id": "--domain-id--",
         "enabled": true,
         "id": "--project-id--",
-        "link": {
-            "href": "http://identity:35357/v3/projects/--project-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/projects/--project-id--"
         },
         "name": "a project name"
     }
@@ -1886,9 +1873,8 @@ Response:
             "domain_id": "--domain-id--",
             "enabled": true,
             "id": "--project-id--",
-            "link": {
-                "href": "http://identity:35357/v3/projects/--project-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/projects/--project-id--"
             },
             "name": "a project name"
         },
@@ -1896,9 +1882,8 @@ Response:
             "domain_id": "--domain-id--",
             "enabled": true,
             "id": "--project-id--",
-            "link": {
-                "href": "http://identity:35357/v3/projects/--project-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/projects/--project-id--"
             },
             "name": "another domain"
         }
@@ -1914,9 +1899,8 @@ Response:
         "domain_id": "--domain-id--",
         "enabled": true,
         "id": "--project-id--",
-        "link": {
-            "href": "http://identity:35357/v3/projects/--project-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/projects/--project-id--"
         },
         "name": "a project name"
     }
@@ -1931,9 +1915,8 @@ Response:
         "domain_id": "--domain-id--",
         "enabled": true,
         "id": "--project-id--",
-        "link": {
-            "href": "http://identity:35357/v3/projects/--project-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/projects/--project-id--"
         },
         "name": "a project name"
     }
@@ -1960,9 +1943,8 @@ Response:
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/users/--user-id--"
             },
             "name": "admin"
         },
@@ -1973,9 +1955,8 @@ Response:
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/users/--user-id--"
             },
             "name": "someone"
         }
@@ -2009,9 +1990,8 @@ Response:
         "email": "...",
         "enabled": true,
         "id": "--user-id--",
-        "link": {
-            "href": "http://identity:35357/v3/users/--user-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/users/--user-id--"
         },
         "name": "admin"
     }
@@ -2034,9 +2014,8 @@ Response:
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/users/--user-id--"
             },
             "name": "admin"
         },
@@ -2047,9 +2026,8 @@ Response:
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/users/--user-id--"
             },
             "name": "someone"
         }
@@ -2068,9 +2046,8 @@ Response:
         "email": "...",
         "enabled": true,
         "id": "--user-id--",
-        "link": {
-            "href": "http://identity:35357/v3/users/--user-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/users/--user-id--"
         },
         "name": "admin"
     }
@@ -2090,9 +2067,8 @@ Response:
             "domain_id": "--domain-id--",
             "enabled": true,
             "id": "--project-id--",
-            "link": {
-                "href": "http://identity:35357/v3/projects/--project-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/projects/--project-id--"
             },
             "name": "a project name"
         },
@@ -2100,9 +2076,8 @@ Response:
             "domain_id": "--domain-id--",
             "enabled": true,
             "id": "--project-id--",
-            "link": {
-                "href": "http://identity:35357/v3/projects/--project-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/projects/--project-id--"
             },
             "name": "another domain"
         }
@@ -2124,8 +2099,7 @@ Response:
             "domain_id": "--domain-id--",
             "id": "--group-id--",
             "links": {
-                "href": "http://identity:35357/v3/groups/--group-id--",
-                "rel": "self"
+                "self": "http://identity:35357/v3/groups/--group-id--"
             },
             "name": "Developers"
         },
@@ -2134,8 +2108,7 @@ Response:
             "domain_id": "--domain-id--",
             "id": "--group-id--",
             "links": {
-                "href": "http://identity:35357/v3/groups/--group-id--",
-                "rel": "self"
+                "self": "http://identity:35357/v3/groups/--group-id--"
             },
             "name": "Secure Developers"
         }
@@ -2158,9 +2131,8 @@ Response:
         "email": "...",
         "enabled": true,
         "id": "--user-id--",
-        "link": {
-            "href": "http://identity:35357/v3/users/--user-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/users/--user-id--"
         },
         "name": "admin"
     }
@@ -2191,9 +2163,8 @@ Response:
     {
         "description": "Developers cleared for work on secret projects",
         "id": "--group-id--",
-        "link": {
-            "href": "http://identity:35357/v3/groups/--group-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/groups/--group-id--"
         },
         "name": "Secure Developers"
     }
@@ -2214,8 +2185,7 @@ Response:
             "domain_id": "--domain-id--",
             "id": "--group-id--",
             "links": {
-                "href": "http://identity:35357/v3/groups/--group-id--",
-                "rel": "self"
+                "self": "http://identity:35357/v3/groups/--group-id--"
             },
             "name": "Developers"
         },
@@ -2224,8 +2194,7 @@ Response:
             "domain_id": "--domain-id--",
             "id": "--group-id--",
             "links": {
-                "href": "http://identity:35357/v3/groups/--group-id--",
-                "rel": "self"
+                "self": "http://identity:35357/v3/groups/--group-id--"
             },
             "name": "Secure Developers"
         },
@@ -2234,8 +2203,7 @@ Response:
             "domain_id": "--domain-id--",
             "id": "--group-id--",
             "links": {
-                "href": "http://identity:35357/v3/groups/--group-id--",
-                "rel": "self"
+                "self": "http://identity:35357/v3/groups/--group-id--"
             },
             "name": "Testers"
         }
@@ -2250,9 +2218,8 @@ Response:
     {
         "description": "Developers cleared for work on secret projects",
         "id": "--group-id--",
-        "link": {
-            "href": "http://identity:35357/v3/groups/--group-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/groups/--group-id--"
         },
         "name": "Secure Developers"
 
@@ -2274,9 +2241,8 @@ Response:
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/users/--user-id--"
             },
             "name": "admin"
         },
@@ -2287,9 +2253,8 @@ Response:
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/users/--user-id--"
             },
             "name": "someone"
         }
@@ -2308,9 +2273,8 @@ Response:
     {
         "description": "Developers cleared for work on secret projects",
         "id": "--group-id--",
-        "link": {
-            "href": "http://identity:35357/v3/groups/--group-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/groups/--group-id--"
         },
         "name": "Secure Developers"
     }
@@ -2374,9 +2338,8 @@ Response:
             "secret": "..."
         },
         "id": "--credential-id--",
-        "link": {
-            "href": "http://identity:35357/v3/credentials/--credential-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/credentials/--credential-id--"
         },
         "project_id": "--project-id--",
         "type": "ec2",
@@ -2399,9 +2362,8 @@ Response:
                 "secret": "..."
             },
             "id": "--credential-id--",
-            "link": {
-                "href": "http://identity:35357/v3/credentials/--credential-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/credentials/--credential-id--"
             },
             "project_id": "--project-id--",
             "type": "ec2",
@@ -2413,9 +2375,8 @@ Response:
                 "secret": "..."
             },
             "id": "--credential-id--",
-            "link": {
-                "href": "http://identity:35357/v3/credentials/--credential-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/credentials/--credential-id--"
             },
             "project_id": "--project-id--",
             "type": "ec2",
@@ -2435,9 +2396,8 @@ Response:
             "secret": "..."
         },
         "id": "--credential-id--",
-        "link": {
-            "href": "http://identity:35357/v3/credentials/--credential-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/credentials/--credential-id--"
         },
         "project_id": "--project-id--",
         "type": "ec2",
@@ -2456,9 +2416,8 @@ Response:
             "secret": "..."
         },
         "id": "--credential-id--",
-        "link": {
-            "href": "http://identity:35357/v3/credentials/--credential-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/credentials/--credential-id--"
         },
         "project_id": "--project-id--",
         "type": "ec2",
@@ -2493,9 +2452,8 @@ Response:
 
     {
         "id": "--role-id--",
-        "link": {
-            "href": "http://identity:35357/v3/roles/--role-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/roles/--role-id--"
         },
         "name": "a role name"
     }
@@ -2513,17 +2471,15 @@ Response:
     [
         {
             "id": "--role-id--",
-            "link": {
-                "href": "http://identity:35357/v3/roles/--role-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/roles/--role-id--"
             },
             "name": "a role name"
         },
         {
             "id": "--role-id--",
-            "link": {
-                "href": "http://identity:35357/v3/roles/--role-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/roles/--role-id--"
             },
             "name": "a role name"
         }
@@ -2537,9 +2493,8 @@ Response:
 
     {
         "id": "--role-id--",
-        "link": {
-            "href": "http://identity:35357/v3/roles/--roles-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/roles/--roles-id--"
         },
         "name": "a role name"
     }
@@ -2552,9 +2507,8 @@ Response:
 
     {
         "id": "--role-id--",
-        "link": {
-            "href": "http://identity:35357/v3/roles/--roles-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/roles/--roles-id--"
         },
         "name": "a role name"
     }
@@ -2577,9 +2531,8 @@ Response:
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/users/--user-id--"
             },
             "name": "admin"
         },
@@ -2590,9 +2543,8 @@ Response:
             "email": "...",
             "enabled": true,
             "id": "--user-id--",
-            "link": {
-                "href": "http://identity:35357/v3/users/--user-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/users/--user-id--"
             },
             "name": "someone"
         }
@@ -2789,9 +2741,8 @@ Response:
     {
         "blob": "--serialized-blob--",
         "id": "--policy-id--",
-        "link": {
-            "href": "http://identity:35357/v3/policies/--policy-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/policies/--policy-id--"
         },
         "type": "--serialization-mime-type--"
     }
@@ -2810,18 +2761,16 @@ Response:
         {
             "blob": "--serialized-blob--",
             "id": "--policy-id--",
-            "link": {
-                "href": "http://identity:35357/v3/policies/--policy-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/policies/--policy-id--"
             },
             "type": "--serialization-mime-type--"
         },
         {
             "blob": "--serialized-blob--",
             "id": "--policy-id--",
-            "link": {
-                "href": "http://identity:35357/v3/policies/--policy-id--",
-                "rel": "self"
+            "links": {
+                "self": "http://identity:35357/v3/policies/--policy-id--"
             },
             "type": "--serialization-mime-type--"
         }
@@ -2836,9 +2785,8 @@ Response:
     {
         "blob": "--serialized-blob--",
         "id": "--policy-id--",
-        "link": {
-            "href": "http://identity:35357/v3/policies/--policy-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/policies/--policy-id--"
         },
         "type": "--serialization-mime-type--"
     }
@@ -2852,9 +2800,8 @@ Response:
     {
         "blob": "--serialized-blob--",
         "id": "--policy-id--",
-        "link": {
-            "href": "http://identity:35357/v3/policies/--policy-id--",
-            "rel": "self"
+        "links": {
+            "self": "http://identity:35357/v3/policies/--policy-id--"
         },
         "type": "--serialization-mime-type--"
     }
