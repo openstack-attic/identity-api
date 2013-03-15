@@ -1838,6 +1838,16 @@ Response:
 
 #### Delete domain: `DELETE /domains/{domain_id}`
 
+Deleting a domain will delete all the entities owned by it (Users,
+Groups & Projects), as well as any Credentials and Role grants that
+relate to these entities.
+
+In order to minimize the risk of an inadvertent deletion of a
+domain and its entities, a domain must first be disabled (using the
+update domain api) before a successful delete domain api call can
+be made. Attempting to delete an enabled domain will result in an
+HTTP 403 Forbidden response.
+
 Response:
 
     Status: 204 No Content
