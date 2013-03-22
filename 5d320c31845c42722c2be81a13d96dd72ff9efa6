@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Approved+1: Joe Heck <heckj@mac.com>
+Code-Review+2: Joe Heck <heckj@mac.com>
+Code-Review+2: guang-yee <guang.yee@hp.com>
+Submitted-by: Jenkins
+Submitted-at: Fri, 22 Mar 2013 02:32:38 +0000
+Reviewed-on: https://review.openstack.org/24338
+Project: openstack/identity-api
+Branch: refs/heads/master
