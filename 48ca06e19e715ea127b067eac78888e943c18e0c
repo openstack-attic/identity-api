@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Approved+1: ayoung <ayoung@redhat.com>
+Code-Review+2: ayoung <ayoung@redhat.com>
+Code-Review+1: Brad Topol <btopol@us.ibm.com>
+Submitted-by: Jenkins
+Submitted-at: Sat, 23 Mar 2013 02:20:57 +0000
+Reviewed-on: https://review.openstack.org/25022
+Project: openstack/identity-api
+Branch: refs/heads/master
