@@ -530,7 +530,7 @@ Additional required attributes:
   Representing the credential type, such as `ec2` or `cert`. A specific
   implementation may determine the list of supported types.
 
-- `data` (blob)
+- `blob` (blob)
 
   Arbitrary blob of the credential data, to be parsed according to the `type`.
 
@@ -544,7 +544,7 @@ Example entity:
 
     {
         "credential": {
-            "data": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+            "blob": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
             "id": "80239a",
             "links": {
                 "self": "http://identity:35357/v3/credentials/80239a"
@@ -2149,7 +2149,7 @@ may be supported by simply changing the content of the key data.
 Request:
 
     {
-        "data": {
+        "blob": {
             "access": "...",
             "secret": "..."
         },
@@ -2164,7 +2164,7 @@ Response:
     Location: http://identity:35357/v3/credentials/--credential-id--
 
     {
-        "data": {
+        "blob": {
             "access": "...",
             "secret": "..."
         },
@@ -2188,7 +2188,7 @@ Response:
 
     [
         {
-            "data": {
+            "blob": {
                 "access": "...",
                 "secret": "..."
             },
@@ -2201,7 +2201,7 @@ Response:
             "user_id": "--user--id--"
         },
         {
-            "data": {
+            "blob": {
                 "access": "...",
                 "secret": "..."
             },
@@ -2222,7 +2222,7 @@ Response:
     Status: 200 OK
 
     {
-        "data": {
+        "blob": {
             "access": "...",
             "secret": "..."
         },
@@ -2242,7 +2242,7 @@ Response:
     Status: 200 OK
 
     {
-        "data": {
+        "blob": {
             "access": "...",
             "secret": "..."
         },
