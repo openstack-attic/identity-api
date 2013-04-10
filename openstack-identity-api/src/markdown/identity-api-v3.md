@@ -1133,7 +1133,7 @@ Alternatively, a `domain` `name` may be used to uniquely identify the
 If neither a `project` nor a `domain` is provided for `scope`, and the
 authenticating `user` has a defined default project (the user's
 `default_project_id` attribute), then this will be treated as the preferred
-authorization scope. If there is no default project defined, then a token will
+authorization scope. If there is no default project defined, or if default project is invalid, then a token will
 be issued without an explicit scope of authorization.
 
 ##### Authentication responses
