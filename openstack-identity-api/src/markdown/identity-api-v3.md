@@ -436,7 +436,8 @@ Optional attributes:
   user does not explicitly specify one when creating a token. Setting this
   attribute does not grant any actual authorization on the project, and is
   merely provided for the user's convenience. Therefore, the referenced
-  project does not need to exist within the user's domain.
+  project does not need to exist within the user's domain. If user's default
+  project is invalid, it will be ignored at token creation.
 
 - `description` (string)
 
@@ -1133,7 +1134,7 @@ Alternatively, a `domain` `name` may be used to uniquely identify the
 If neither a `project` nor a `domain` is provided for `scope`, and the
 authenticating `user` has a defined default project (the user's
 `default_project_id` attribute), then this will be treated as the preferred
-authorization scope. If there is no default project defined, then a token will
+authorization scope. If there is no default project defined, or if default project is invalid, then a token will
 be issued without an explicit scope of authorization.
 
 ##### Authentication responses
