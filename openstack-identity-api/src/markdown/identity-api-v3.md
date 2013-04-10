@@ -9,8 +9,13 @@ The Identity API also provides endpoint discovery through a service catalog,
 identity management, project management, and a centralized repository for
 policy engine rule sets.
 
-What's New in Version 3
------------------------
+What's New in Version 3.1
+-------------------------
+
+- Nothing, yet.
+
+What's New in Version 3.0
+-------------------------
 
 - Former "Service" and "Admin" APIs (including CRUD operations previously
   defined in the v2 OS-KSADM extension) are consolidated into a single core API
