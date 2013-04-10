@@ -12,7 +12,9 @@ policy engine rule sets.
 What's New in Version 3.1
 -------------------------
 
-- Nothing, yet.
+- A token without an explicit scope of authorization is issued if the user
+  does not specify a project and does not have authorization on the project
+  specified by their default project attribute.
 
 What's New in Version 3.0
 -------------------------
@@ -442,6 +444,9 @@ Optional attributes:
   attribute does not grant any actual authorization on the project, and is
   merely provided for the user's convenience. Therefore, the referenced
   project does not need to exist within the user's domain.
+
+  *New in version 3.1* If the user does not have authorization to their default
+   project, the default project will be ignored at token creation.
 
 - `description` (string)
 
@@ -1138,8 +1143,9 @@ Alternatively, a `domain` `name` may be used to uniquely identify the
 If neither a `project` nor a `domain` is provided for `scope`, and the
 authenticating `user` has a defined default project (the user's
 `default_project_id` attribute), then this will be treated as the preferred
-authorization scope. If there is no default project defined, then a token will
-be issued without an explicit scope of authorization.
+authorization scope. If there is no default project defined, then a token will be issued without an explicit scope of authorization.
+
+*New in version 3.1* Additionally, if the user's default project is invalid, a token will be issued without an explicit scope of authorization.
 
 ##### Authentication responses
 
