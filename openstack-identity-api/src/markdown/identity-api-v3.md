@@ -12,7 +12,7 @@ policy engine rule sets.
 What's New in Version 3.1
 -------------------------
 
-- Nothing, yet.
+- "Regions": a hierarchical container of groups of service endpoints
 
 What's New in Version 3.0
 -------------------------
@@ -679,6 +679,63 @@ Example entity:
             },
             "name": "admin"
         }
+    }
+
+### Regions: `/v3/regions`
+
+(Added in v3.1 API)
+
+Region entities represent a general division of an OpenStack deployment. A
+region may have zero or more sub-regions associated with it, making a tree-like
+structured hierarchy possible for the OpenStack deployment.
+
+The Region hierarchy is designed so that a user of an OpenStack can discover
+and navigate an OpenStack deployment in a structured and common way. A user
+of an OpenStack deployment with the v3.1 Keystone API does not need to know
+ahead of time what the names and root endpoints for all of the deployment's
+regions and subregions. Instead, the user can hit a "top" Keystone v3.1 API
+endpoint in the deployment and discover all the subregions available for the
+user to interact with.
+
+It is important to note that the concept of a Region has no geographical
+connotation to it. Deployers are free to use geographical names for their
+regions -- such as "us-east" -- but there is no requirement to do so.
+
+Required attributes:
+
+- `id` (string)
+
+  The id is a **unique identifier** for the region within the OpenStack
+  deployment.
+
+Optional attributes:
+
+- `description` (string)
+
+  Freeform description field for the deployer to use as they choose to describe
+  the region.
+
+- `auth_uri` (string)
+
+  An optional URI pointing to a location where the region's authentication
+  base endpoint is. Clients can use this URI to discover service catalogs that
+  are specific to that region.
+
+- `parent_region` (string)
+
+  If the region is hierarchically a child of another region, this field shall
+  be set to the id of the parent region. Otherwise, it shall be null.
+
+Example entity:
+
+    {
+      "auth_uri": "https://auth.us-east-2.domain.com/v3",
+      "description": "2nd subregion inside the US East region.",
+      "id": "us-east-2",
+      "links": {
+          "self": "http://identity:35357/v3/regions/us-east-2"
+      },
+      "parent_region": "us-east"
     }
 
 ### Services: `/v3/services`
@@ -1385,10 +1442,119 @@ additional `X-Auth-Token` is not required.
 
 The key use cases we need to cover:
 
-- CRUD for services and endpoints
+- CRUD for regions, services and endpoints
 - Retrieving an endpoint URL by service, region, and interface
 
+#### List regions: `GET /regions`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+query filter for "parent_region" (optional)
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "auth_uri": "--auth-uri-or-null--",
+            "description": "--description--",
+            "id": "--region-id--",
+            "links": {
+                "self": "http://identity:35357/v3/regions/--region-id--"
+            },
+            "parent_region": "--region-id-or-null--"
+        },
+        ...
+    ]
+
+#### Get region: `GET /regions/{region_id}`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "auth_uri": "--auth-uri-or-null--",
+        "description": "--description--",
+        "id": "--region-id--",
+        "links": {
+            "self": "http://identity:35357/v3/regions/--region-id--"
+        },
+        "parent_region": "--region-id-or-null--"
+    }
+
+#### Create region: `POST /regions`
+
+Request:
+
+    {
+        "auth_uri": "--auth-uri-or-null--",
+        "description": "...",
+        "id": "...",
+        "parent_region": "--region-id-or-null--"
+    }
+
+Response:
+
+    Status: 201 Created
+    Location: https://identity:35357/v3/regions/--region-id--
+
+    {
+        "auth_uri": "--auth-uri-or-null--",
+        "description": "--description--",
+        "id": "--region-id--",
+        "links": {
+            "self": "http://identity:35357/v3/regions/--region-id--"
+        },
+        "parent_region": "--region-id-or-null--"
+    }
+
+* Note: Adding a region with a parent_region that does not exist
+  should fail with a `404 Not Found`
+
+#### Update region: `PATCH /regions/{region_id}`
+
+Request:
+
+    {
+        "auth_uri": "--auth-uri-or-null--",
+        "description": "...",
+        "id": "...",
+        "parent_region": "--region-id-or-null--"
+    }
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "auth_uri": "--auth-uri-or-null--",
+        "description": "--description--",
+        "id": "--region-id--",
+        "links": {
+            "self": "http://identity:35357/v3/regions/--region-id--"
+        },
+        "parent_region": "--region-id-or-null--"
+    }
+
+* Note: updating a region to have a parent_region that does not exist
+  should fail with a `404 Not Found`
+
+#### Delete region: `DELETE /regions/{region_id}`
+
+* Note: deleting a region when regions have this region as their parent
+  region should fail with a `409 Conflict`
+
+Response:
+
+    Status: 204 No Content
+
 #### List services: `GET /services`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+query filter for "type" (optional)
 
 Response:
 
@@ -1412,10 +1578,6 @@ Response:
     ]
 
 #### Get service: `GET /services/{service_id}`
-
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "type" (optional)
 
 Response:
 
@@ -1450,6 +1612,12 @@ Response:
     }
 
 #### Update service: `PATCH /services/{service_id}`
+
+Request:
+
+    {
+        "type": "..."
+    }
 
 Response:
 
