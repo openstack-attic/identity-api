@@ -1,149 +1,51 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <!-- POM Build file for the Keystone Developer Guide -->
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>org.openstack.identity</groupId>
-    <artifactId>docs</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <name>Keystone Dev Guide</name>
-    <profiles>
-        <profile>
-            <id>Rackspace Research Repositories</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>rackspace-research</id>
-                    <name>Rackspace Research Repository</name>
-                    <url>http://maven.research.rackspacecloud.com/content/groups/public/</url>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>rackspace-research</id>
-                    <name>Rackspace Research Repository</name>
-                    <url>http://maven.research.rackspacecloud.com/content/groups/public/</url>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
-    </profiles>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <doctools.version>1.3.0</doctools.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.1.12</version>
-        </dependency>
-        <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
-            <version>1.3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jettison</groupId>
-            <artifactId>jettison</artifactId>
-            <version>1.1</version>
-        </dependency>
-    </dependencies>
-    <build>
-        <resources>
-            <resource>
-                <directory>target/docbkx/pdf</directory>
-                <excludes>
-                    <exclude>**/*.fo</exclude>
-                </excludes>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>com.rackspace.cloud.api</groupId>
-                <artifactId>clouddocs-maven-plugin</artifactId>
-                <version>${doctools.version}</version>
-                <executions>
-                    <execution>
-                        <id>g1</id>
-                        <goals>
-                            <goal>generate-pdf</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <highlightSource>false</highlightSource>
-                            <includes>common/identity-dev-guide.xml</includes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>g2</id>
-                        <goals>
-                            <goal>generate-webhelp</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <!-- These parameters only apply to webhelp -->
-                            <includes>common/identity-dev-guide.xml</includes>
-                            <enableDisqus>1</enableDisqus>
-                            <disqusShortname>os-identitydevguide</disqusShortname>
-                            <enableGoogleAnalytics>1</enableGoogleAnalytics>
-                            <googleAnalyticsId>UA-17511903-6</googleAnalyticsId>
-                            <pdfUrl>identity-dev-guide-2.0.pdf</pdfUrl>
-                            <generateToc>
-                                appendix  toc,title
-                                article/appendix  nop
-                                article   toc,title
-                                book      title,figure,table,example,equation
-                                chapter   toc,title
-                                part      toc,title
-                                preface   toc,title
-                                qandadiv  toc
-                                qandaset  toc
-                                reference toc,title
-                                set       toc,title
-                            </generateToc>
-                            <postProcess>
-                                <!-- Copies the figures to the correct location for webhelp -->
-                                <copy todir="${basedir}/target/docbkx/webhelp/common/identity-dev-guide/figures">
-                                    <fileset dir="${basedir}/src/docbkx/common/img">
-                                        <include name="**/*.svg" />
-                                    </fileset>
-                                </copy>
-                                <!-- Copies HTML to a release folder for web site-->
-                                <copy
-                                    todir="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0">
-                                    <fileset
-                                        dir="${basedir}/target/docbkx/webhelp/common/identity-dev-guide">
-                                        <include name="**/*" />
-                                    </fileset>
-                                </copy>
-                                <!--Copies PDFs to the needed placement for web site and Google Analytics tracking-->
-                                <copy tofile="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0/content/identity-dev-guide-2.0.pdf">
-                                    <fileset dir="${basedir}/target/docbkx/pdf/common">
-                                        <include name="**/identity-dev-guide*.pdf" />
-                                    </fileset>
-                                </copy>
-                                
-                                <copy tofile="${basedir}/target/docbkx/webhelp/common/identity-dev-guide/content/identity-dev-guide-2.0.pdf">
-                                    <fileset dir="${basedir}/target/docbkx/pdf/common">
-                                        <include name="**/identity-dev-guide*.pdf" />
-                                    </fileset>
-                                </copy>
-                            </postProcess>
-                        </configuration>
-                    </execution>
-
-                    <execution>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- POM Build file for the Keystone Developer Guide -->
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.openstack.identity</groupId>
+  <artifactId>docs</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>OpenStack Specifications</name>
+  <build>
+    <plugins>            
+      <plugin>
+	<groupId>com.rackspace.cloud.api</groupId>
+	<artifactId>clouddocs-maven-plugin</artifactId>
+	<version>1.8.0</version>
+	<executions>
+	  <execution>
+	    <id>identity-dev-guide</id>
+	    <goals>
+	      <goal>generate-webhelp</goal>
+	    </goals>
+	    <phase>generate-sources</phase>
+	    <configuration>
+	      <disqusShortname>os-identitydevguide</disqusShortname>
+	      <enableGoogleAnalytics>1</enableGoogleAnalytics>
+	      <googleAnalyticsId>UA-17511903-6</googleAnalyticsId>
+	      <sourceDirectory>src/docbkx/common</sourceDirectory>
+	      <includes>identity-dev-guide.xml</includes>
+	      <tocSectionDepth>1</tocSectionDepth>
+	      <targetDirectory>target/docbkx/webhelp/api/openstack-identity-service</targetDirectory>
+	      <webhelpDirname>2.0</webhelpDirname>
+	      <pdfFilenameBase>identity-dev-guide-2.0</pdfFilenameBase>
+	      <preProcess>
+		<mkdir dir="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0/"/>		
+		<!-- Copies schema to a folder and styling for the schemas so a browser can display them -->
+		<copy
+		    todir="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0/xsd">
+		  <fileset dir="${basedir}/src/docbkx/common">
+		    <include name="**/*.*"/>
+		    <exclude name="*.xml"/> 
+		  </fileset>
+		</copy>
+	      </preProcess>
+	    </configuration>
+	  </execution>
+		          <execution>
                         <id>OS-KSS3</id>
                         <goals>
                             <goal>generate-pdf</goal>
@@ -151,12 +53,14 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <includes>extensions/OS-KSS3/OS-KSS3-admin-devguide.xml</includes>
+                            <includes>src/docbkx/extensions/OS-KSS3/OS-KSS3-admin-devguide.xml</includes>
                             <trimWadlUriCount>1</trimWadlUriCount>
                             <pdfUrl>OS-KSS3-admin-devguide.pdf</pdfUrl>
                             <canonicalUrlBase>http://docs.rackspacecloud.com/openstack-extensions/auth/OS-KSS3/content</canonicalUrlBase>
                             <chunkSectionDepth>0</chunkSectionDepth>
                             <postProcess>
+                                <mkdir
+                                    dir="${basedir}/target/docbkx/pdf/extensions/OS-KSS3/"/>
                                 <copy todir="target/docbkx/webhelp/extensions/OS-KSS3/OS-KSS3-admin-devguide/content/">
                                     <fileset dir="target/docbkx/pdf/extensions/OS-KSS3">
                                         <include name="**/OS-KSS3-admin-devguide.pdf"/>
@@ -165,7 +69,7 @@
                             </postProcess>
                         </configuration>
                     </execution>
-
+                    
                     <execution>
                         <id>OS-KSADM</id>
                         <goals>
@@ -174,12 +78,14 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <includes>extensions/OS-KSADM/OS-KSADM-admin-devguide.xml</includes>
+                            <includes>src/docbkx/extensions/OS-KSADM/OS-KSADM-admin-devguide.xml</includes>
                             <trimWadlUriCount>1</trimWadlUriCount>
                             <pdfUrl>OS-KSADM-admin-devguide.pdf</pdfUrl>
                             <canonicalUrlBase>http://docs.rackspacecloud.com/openstack-extensions/auth/OS-KSADM/content</canonicalUrlBase>
                             <chunkSectionDepth>0</chunkSectionDepth>
                             <postProcess>
+                                <mkdir
+                                    dir="${basedir}/target/docbkx/pdf/extensions/OS-KSADM/"/>
                                 <copy todir="target/docbkx/webhelp/extensions/OS-KSADM/OS-KSADM-admin-devguide/content/">
                                     <fileset dir="target/docbkx/pdf/extensions/OS-KSADM">
                                         <include name="**/OS-KSADM-admin-devguide.pdf"/>
@@ -188,7 +94,7 @@
                             </postProcess>
                         </configuration>
                     </execution>
-
+                    
                     <execution>
                         <id>OS-KSVALIDATE</id>
                         <goals>
@@ -197,12 +103,14 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <includes>extensions/OS-KSVALIDATE/OS-KSVALIDATE-admin-devguide.xml</includes>
+                            <includes>src/docbkx/extensions/OS-KSVALIDATE/OS-KSVALIDATE-admin-devguide.xml</includes>
                             <trimWadlUriCount>1</trimWadlUriCount>
                             <pdfUrl>OS-KSVALIDATE-admin-devguide.pdf</pdfUrl>
                             <canonicalUrlBase>http://docs.rackspacecloud.com/openstack-extensions/auth/OS-KSVALIDATE/content</canonicalUrlBase>
                             <chunkSectionDepth>0</chunkSectionDepth>
                             <postProcess>
+                                <mkdir
+                                    dir="${basedir}/target/docbkx/pdf/extensions/OS-KSVALIDATE/"/>
                                 <copy todir="target/docbkx/webhelp/extensions/OS-KSVALIDATE/OS-KSVALIDATE-admin-devguide/content/">
                                     <fileset dir="target/docbkx/pdf/extensions/OS-KSVALIDATE">
                                         <include name="**/OS-KSVALIDATE-admin-devguide.pdf"/>
@@ -220,12 +128,14 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <includes>extensions/OS-KSCATALOG/OS-KSCATALOG-admin-devguide.xml</includes>
+                            <includes>src/docbkx/extensions/OS-KSCATALOG/OS-KSCATALOG-admin-devguide.xml</includes>
                             <trimWadlUriCount>1</trimWadlUriCount>
                             <pdfUrl>OS-KSCATALOG-admin-devguide.pdf</pdfUrl>
                             <canonicalUrlBase>http://docs.rackspacecloud.com/openstack-extensions/auth/OS-KSCATALOG/content</canonicalUrlBase>
                             <chunkSectionDepth>0</chunkSectionDepth>
                             <postProcess>
+                                <mkdir
+                                    dir="${basedir}/target/docbkx/pdf/extensions/OS-KSCATALOG/"/>
                                 <copy todir="target/docbkx/webhelp/extensions/OS-KSCATALOG/OS-KSCATALOG-admin-devguide/content/">
                                     <fileset dir="target/docbkx/pdf/extensions/OS-KSCATALOG">
                                         <include name="**/OS-KSCATALOG-admin-devguide.pdf"/>
@@ -243,12 +153,14 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <includes>extensions/RAX-KSGRP/RAX-KSGRP-service-devguide.xml</includes>
+                            <includes>src/docbkx/extensions/RAX-KSGRP/RAX-KSGRP-service-devguide.xml</includes>
                             <trimWadlUriCount>1</trimWadlUriCount>
                             <pdfUrl>RAX-KSGRP-service-devguide.pdf</pdfUrl>
                             <canonicalUrlBase>http://docs.rackspacecloud.com/openstack-extensions/auth/RAX-KSGRP/content</canonicalUrlBase>
                             <chunkSectionDepth>0</chunkSectionDepth>
                             <postProcess>
+                                <mkdir
+                                    dir="${basedir}/target/docbkx/pdf/extensions/RAX-KSGRP/"/>
                                 <copy todir="target/docbkx/webhelp/extensions/RAX-KSGRP/RAX-KSGRP-service-devguide/content/">
                                     <fileset dir="target/docbkx/pdf/extensions/RAX-KSGRP">
                                         <include name="**/RAX-KSGRP-service-devguide.pdf"/>
@@ -257,7 +169,7 @@
                             </postProcess>
                         </configuration>
                     </execution>
-
+                    
                     <execution>
                         <id>HP-IDM</id>
                         <goals>
@@ -266,12 +178,14 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <includes>extensions/HP-IDM/HP-IDM.xml</includes>
+                            <includes>src/docbkx/extensions/HP-IDM/HP-IDM.xml</includes>
                             <trimWadlUriCount>1</trimWadlUriCount>
                             <pdfUrl>hp-idm.pdf</pdfUrl>
                             <canonicalUrlBase>http://docs.rackspacecloud.com/openstack-extensions/auth/hp-idm/content</canonicalUrlBase>
                             <chunkSectionDepth>0</chunkSectionDepth>
                             <postProcess>
+                                <mkdir
+                                    dir="${basedir}/target/docbkx/pdf/extensions/HP-IDM/"/>
                                 <copy todir="target/docbkx/webhelp/extensions/HP-IDM/HP-IDM/content/">
                                     <fileset dir="target/docbkx/pdf/extensions/HP-IDM">
                                         <include name="**/*.pdf"/>
@@ -288,12 +202,14 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <includes>extensions/RAX-KSKEY/RAX-KSKEY-service-devguide.xml</includes>
+                            <includes>src/docbkx/extensions/RAX-KSKEY/RAX-KSKEY-service-devguide.xml</includes>
                             <trimWadlUriCount>1</trimWadlUriCount>
                             <pdfUrl>RAX-KSKEY-service-devguide.pdf</pdfUrl>
                             <canonicalUrlBase>http://docs.rackspacecloud.com/openstack-extensions/auth/RAX-KSKEY-service-devguide/content</canonicalUrlBase>
                             <chunkSectionDepth>0</chunkSectionDepth>
                             <postProcess>
+                                <mkdir
+                                    dir="${basedir}/target/docbkx/pdf/extensions/RAX-KSKEY/"/>
                                 <copy todir="target/docbkx/webhelp/extensions/RAX-KSKEY/RAX-KSKEY-service-devguide/content/">
                                     <fileset dir="target/docbkx/pdf/extensions/RAX-KSKEY">
                                         <include name="**/RAX-KSKEY-service-devguide.pdf"/>
@@ -310,12 +226,13 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <includes>extensions/RAX-KSKEY/RAX-KSKEY-admin-devguide.xml</includes>
+                            <includes>src/docbkx/extensions/RAX-KSKEY/RAX-KSKEY-admin-devguide.xml</includes>
                             <trimWadlUriCount>1</trimWadlUriCount>
                             <pdfUrl>RAX-KSKEY-admin-devguide.pdf</pdfUrl>
                             <canonicalUrlBase>http://docs.rackspacecloud.com/openstack-extensions/auth/RAX-KSKEY-admin-devguide/content</canonicalUrlBase>
                             <chunkSectionDepth>0</chunkSectionDepth>
                             <postProcess>
+                              
                                 <copy todir="target/docbkx/webhelp/extensions/RAX-KSKEY/RAX-KSKEY-admin-devguide/content/">
                                     <fileset dir="target/docbkx/pdf/extensions/RAX-KSKEY">
                                         <include name="**/RAX-KSKEY-admin-devguide.pdf"/>
@@ -332,13 +249,15 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <includes>extensions/RAX-KSQA/RAX-KSQA-admin-devguide.xml</includes>
+                            <includes>src/docbkx/extensions/RAX-KSQA/RAX-KSQA-admin-devguide.xml</includes>
                             <trimWadlUriCount>1</trimWadlUriCount>
                             <pdfUrl>RAX-KSQA-admin-devguide.pdf</pdfUrl>
                             <canonicalUrlBase>http://docs.rackspacecloud.com/openstack-extensions/auth/RAX-KSQA-admin/content</canonicalUrlBase>
                             <chunkSectionDepth>0</chunkSectionDepth>
                             <postProcess>
-                                <copy todir="target/docbkx/webhelp/extensions/RAX-KSQA/RAX-KSQA-admin-devguide/content/">
+                                <mkdir
+                                    dir="${basedir}/target/docbkx/pdf/extensions/RAX-KSQA/"/>                                
+<copy todir="target/docbkx/webhelp/extensions/RAX-KSQA/RAX-KSQA-admin-devguide/content/">
                                     <fileset dir="target/docbkx/pdf/extensions/RAX-KSQA">
                                         <include name="**/RAX-KSQA-admin-devguide.pdf"/>
                                     </fileset>
@@ -354,12 +273,14 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <includes>extensions/RAX-GRPADM/RAX-GRPADM-devguide.xml</includes>
+                            <includes>src/docbkx/extensions/RAX-GRPADM/RAX-GRPADM-devguide.xml</includes>
                             <trimWadlUriCount>1</trimWadlUriCount>
                             <pdfUrl>RAX-GRPADM-devguide.pdf</pdfUrl>
                             <canonicalUrlBase>http://docs.rackspacecloud.com/openstack-extensions/auth/RAX-GRPADM/content</canonicalUrlBase>
                             <chunkSectionDepth>0</chunkSectionDepth>
                             <postProcess>
+                                <mkdir
+                                    dir="${basedir}/target/docbkx/pdf/extensions/RAX-GRPADM/"/>
                                 <copy todir="target/docbkx/webhelp/extensions/RAX-GRPADM/RAX-GRPADM-devguide/content/">
                                     <fileset dir="target/docbkx/pdf/extensions/RAX-GRPADM">
                                         <include name="**/RAX-GRPADM-devguide.pdf"/>
@@ -376,12 +297,14 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <includes>extensions/OS-KSEC2/OS-KSEC2-admin-devguide.xml</includes>
+                            <includes>src/docbkx/extensions/OS-KSEC2/OS-KSEC2-admin-devguide.xml</includes>
                             <trimWadlUriCount>1</trimWadlUriCount>
                             <pdfUrl>OS-KSEC2-admin-devguide.pdf</pdfUrl>
                             <canonicalUrlBase>http://docs.rackspacecloud.com/openstack-extensions/auth/OS-KSEC2-admin-devguide/content</canonicalUrlBase>
                             <chunkSectionDepth>0</chunkSectionDepth>
                             <postProcess>
+                                <mkdir
+                                    dir="${basedir}/target/docbkx/pdf/extensions/OS-KSEC2/"/>
                                 <copy todir="target/docbkx/webhelp/extensions/OS-KSEC2/OS-KSEC2-admin-devguide/content/">
                                     <fileset dir="target/docbkx/pdf/extensions/OS-KSEC2">
                                         <include name="**/OS-KSEC2-admin-devguide.pdf"/>
@@ -398,12 +321,13 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <includes>extensions/OS-KSEC2/OS-KSEC2-service-devguide.xml</includes>
+                            <includes>src/docbkx/extensions/OS-KSEC2/OS-KSEC2-service-devguide.xml</includes>
                             <trimWadlUriCount>1</trimWadlUriCount>
                             <pdfUrl>OS-KSEC2-service-devguide.pdf</pdfUrl>
                             <canonicalUrlBase>http://docs.rackspacecloud.com/openstack-extensions/auth/OS-KSEC2-service-devguide/content</canonicalUrlBase>
                             <chunkSectionDepth>0</chunkSectionDepth>
                             <postProcess>
+                               
                                 <copy todir="target/docbkx/webhelp/extensions/OS-KSEC2/OS-KSEC2-service-devguide/content/">
                                     <fileset dir="target/docbkx/pdf/extensions/OS-KSEC2">
                                         <include name="**/OS-KSEC2-service-devguide.pdf"/>
@@ -411,16 +335,43 @@
                                 </copy>
                             </postProcess>
                         </configuration>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!-- These parameters apply to pdf and webhelp -->
-                    <xincludeSupported>true</xincludeSupported>
-                    <sourceDirectory>src/docbkx</sourceDirectory>
-                    <profileSecurity>reviewer</profileSecurity>
-                    <branding>openstack</branding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+                    </execution> 
+	</executions>
+	<configuration>
+	  <!-- These parameters apply to all executions -->
+	  <xincludeSupported>true</xincludeSupported>
+	  <sourceDirectory>src/docbkx/common/</sourceDirectory>
+	  <includes>identity-dev-guide.xml</includes>
+	  <profileSecurity>reviewer</profileSecurity>
+	  <branding>openstack</branding>
+	</configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>Rackspace Research Repositories</id>
+      <activation>
+	<activeByDefault>true</activeByDefault>
+      </activation>
+      <repositories>
+	<repository>
+	  <id>rackspace-research</id>
+	  <name>Rackspace Research Repository</name>
+	  <url>http://maven.research.rackspacecloud.com/content/groups/public/</url>
+	</repository>
+      </repositories>
+      <pluginRepositories>
+	<pluginRepository>
+	  <id>rackspace-research</id>
+	  <name>Rackspace Research Repository</name>
+	  <url>http://maven.research.rackspacecloud.com/content/groups/public/</url>
+	</pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 </project>
