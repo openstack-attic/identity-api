@@ -5,7 +5,7 @@
     xml:id="Identity-Service-Concepts-e1362">
     <title>Identity Service Concepts</title>
     <para>
-        The Keystone Identity Service has several key concepts which are
+        The Keystone Identity Service has several key concepts, which are
         important to understand:
     </para>
     <variablelist>
@@ -34,7 +34,7 @@
         <varlistentry>
             <term>Authentication</term>
             <listitem><para>
-                In the context of Keystone, authentication is the act of confirming the identity of a
+                In the context of Keystone, the act of confirming the identity of a
                 user or the truth of a claim.
                 Keystone will confirm that incoming request are being made by the user
                 who claims to be making the call by validating a set of claims that the user is making.
@@ -47,7 +47,7 @@
         <varlistentry>
             <term>Token</term>
             <listitem><para>
-                A token is an arbitrary bit of text that is used to access
+                An arbitrary bit of text that is used to access
                 resources. Each token has a scope which describes which
                 resources are accessible with it. A token may be
                 revoked at anytime and is valid for a finite duration.
@@ -83,7 +83,7 @@
         </varlistentry>
         <varlistentry>
             <term>Role</term>
-            <listitem><para> A personality that a user assumes when performing a specific set of operations.
+            <listitem><para>A personality that a user assumes when performing a specific set of operations.
                 A role includes a set of right and privileges. A user assuming that role inherits
                 those rights and privileges.
             </para><para>
@@ -92,7 +92,5 @@
                 of roles a user has and which operations or resources each roles grants access to.
             </para></listitem>
         </varlistentry>
-
     </variablelist>
-
 </chapter>
