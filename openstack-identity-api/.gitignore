@@ -1,1 +1,4 @@
 target
+*.bak
+../.DS_Store
+
