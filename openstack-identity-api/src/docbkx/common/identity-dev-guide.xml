@@ -1,10 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
-<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-    xmlns:html="http://www.w3.org/1999/xhtml" version="5.0" status="draft"
+<book xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:html="http://www.w3.org/1999/xhtml" version="5.0"
     xml:id="Keystone-Developer-Guide">
-    <title>OpenStack Identity Developer Guide</title>
+    <title>OpenStack Identity Service API Specification</title>
+    <?rax title.font.size="28px" subtitle.font.size="28px"?>
+    <titleabbrev>OpenStack Identity Service API
+        Specification</titleabbrev>
     <info>
         <author>
             <personname>
@@ -12,34 +16,35 @@
                 <surname/>
             </personname>
             <affiliation>
-                <orgname>OpenStack</orgname>
+                <orgname>OpenStack Foundation</orgname>
             </affiliation>
         </author>
         <copyright>
             <year>2010</year>
             <year>2011</year>
-            <holder>OpenStack</holder>
+            <year>2012</year>
+            <year>2013</year>
+            <holder>OpenStack Foundation</holder>
         </copyright>
         <releaseinfo>API v2.0</releaseinfo>
-        <productname>OpenStack Identity</productname>
-        <pubdate>2011-08-29</pubdate>
+        <productname>OpenStack Identity Service API</productname>
+        <pubdate/>
         <legalnotice role="apache2">
             <annotation>
-                <remark>Copyright details are filled in by the template.</remark>
+                <remark>Copyright details are filled in by the
+                    template.</remark>
             </annotation>
         </legalnotice>
         <abstract>
-            <para>This document is intended for software developers interested in developing
-                applications that utilize the Keystone Identity Service for authentication. This
-                document also includes details on how to integrate services with the Keystone
-                Identity Service. </para>
+            <para>This document describes how to develop
+                applications that use the OpenStack Identity Service
+                for authentication. This document also describes how
+                to integrate services with the OpenStack Identity
+                Service. </para>
         </abstract>
     </info>
     <!-- Chapters are referred from the book file through these include statements. You can add additional chapters using these types of statements. -->
     <xi:include href="identity-concepts.xml"/>
     <xi:include href="identity-general-api-info.xml"/>
-    <chapter xml:id="api_operations" role="api-reference">
-        <title>API Operations</title>
-        <xi:include href="identity-service-api.xml"/>
-    </chapter>
+    <xi:include href="identity-service-api.xml"/>
 </book>
