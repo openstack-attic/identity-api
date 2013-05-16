@@ -456,6 +456,16 @@ Optional attributes:
 
   The default form of credential used during authentication.
 
+- `expiry_time` (datetime)
+
+  The time this user entry becomes invalid. Omitting this value will create
+  a permanent entry. Token's issued to a user with an expiry_time cannot be
+  valid for longer than the lifetime of the user.
+
+- `id` (string)
+
+  The ID this user should have, if omitted uuid will be generated internally.
+
 Example entity:
 
     {
@@ -465,6 +475,7 @@ Example entity:
             "email": "joe@example.com",
             "enabled": true,
             "id": "0ca8f6",
+            "expiry_time": "2013-05-16T13:22:21.99999Z",
             "links": {
                 "self": "http://identity:35357/v3/users/0ca8f6"
             },
@@ -1805,13 +1816,15 @@ Response:
 Request:
 
     {
+        "id": "--optional--",
         "default_project_id": "...",
         "description": "...",
         "domain_id": "--optional--",
         "email": "...",
         "enabled": "...",
         "name": "...",
-        "password": "--optional--"
+        "password": "--optional--",
+        "expiry_time": "--optional--"
     }
 
 Response:
@@ -1829,7 +1842,8 @@ Response:
         "links": {
             "self": "http://identity:35357/v3/users/--user-id--"
         },
-        "name": "admin"
+        "name": "admin",
+        "expiry_time": "2013-05-16T13:22:21.99999Z"
     }
 
 #### List users: `GET /users`
@@ -1853,7 +1867,8 @@ Response:
             "links": {
                 "self": "http://identity:35357/v3/users/--user-id--"
             },
-            "name": "admin"
+            "name": "admin",
+            "expiry_time": "2013-05-16T13:22:21.99999Z"
         },
         {
             "default_project_id": "--default-project-id--",
@@ -1885,7 +1900,8 @@ Response:
         "links": {
             "self": "http://identity:35357/v3/users/--user-id--"
         },
-        "name": "admin"
+        "name": "admin",
+        "expiry_time": "2013-05-16T13:22:21.99999Z"
     }
 
 #### List user projects: `GET /users/{user_id}/projects`
@@ -1970,7 +1986,8 @@ Response:
         "links": {
             "self": "http://identity:35357/v3/users/--user-id--"
         },
-        "name": "admin"
+        "name": "admin",
+        "expiry_time": "2013-05-16T13:22:21.99999Z"
     }
 
 #### Delete user: `DELETE /users/{user_id}`
@@ -2370,7 +2387,8 @@ Response:
             "links": {
                 "self": "http://identity:35357/v3/users/--user-id--"
             },
-            "name": "admin"
+            "name": "admin",
+            "expiry_time": "2013-05-16T13:22:21.99999Z"
         },
         {
             "default_project_id": "--default-project-id--",
