@@ -12,7 +12,9 @@ policy engine rule sets.
 What's New in Version 3.1
 -------------------------
 
-- Nothing, yet.
+- Support for temporary users, an optional expiry time has been added to the
+  user entity. Tokens issued to users with a expiry time cannot exceed the
+  lifetime of that user.
 
 What's New in Version 3.0
 -------------------------
@@ -456,6 +458,13 @@ Optional attributes:
 
   The default form of credential used during authentication.
 
+- `expires_at` (string, ISO 8601 extended format date time with microseconds)
+
+  The time this user entry becomes invalid. Omitting this value will create
+  a permanent entry. Token's issued to a user with an expires_at cannot be
+  valid for longer than the lifetime of the user.
+
+
 Example entity:
 
     {
@@ -465,6 +474,7 @@ Example entity:
             "email": "joe@example.com",
             "enabled": true,
             "id": "0ca8f6",
+            "expires_at": "2013-05-16T13:22:21.99999Z",
             "links": {
                 "self": "http://identity:35357/v3/users/0ca8f6"
             },
@@ -1811,7 +1821,8 @@ Request:
         "email": "...",
         "enabled": "...",
         "name": "...",
-        "password": "--optional--"
+        "password": "--optional--",
+        "expires_at": "--optional--"
     }
 
 Response:
@@ -1829,7 +1840,8 @@ Response:
         "links": {
             "self": "http://identity:35357/v3/users/--user-id--"
         },
-        "name": "admin"
+        "name": "admin",
+        "expires_at": "2013-05-16T13:22:21.99999Z"
     }
 
 #### List users: `GET /users`
@@ -1853,7 +1865,8 @@ Response:
             "links": {
                 "self": "http://identity:35357/v3/users/--user-id--"
             },
-            "name": "admin"
+            "name": "admin",
+            "expires_at": "2013-05-16T13:22:21.99999Z"
         },
         {
             "default_project_id": "--default-project-id--",
@@ -1885,7 +1898,8 @@ Response:
         "links": {
             "self": "http://identity:35357/v3/users/--user-id--"
         },
-        "name": "admin"
+        "name": "admin",
+        "expires_at": "2013-05-16T13:22:21.99999Z"
     }
 
 #### List user projects: `GET /users/{user_id}/projects`
@@ -1970,7 +1984,8 @@ Response:
         "links": {
             "self": "http://identity:35357/v3/users/--user-id--"
         },
-        "name": "admin"
+        "name": "admin",
+        "expires_at": "2013-05-16T13:22:21.99999Z"
     }
 
 #### Delete user: `DELETE /users/{user_id}`
@@ -2370,7 +2385,8 @@ Response:
             "links": {
                 "self": "http://identity:35357/v3/users/--user-id--"
             },
-            "name": "admin"
+            "name": "admin",
+            "expires_at": "2013-05-16T13:22:21.99999Z"
         },
         {
             "default_project_id": "--default-project-id--",
