@@ -15,6 +15,8 @@ What's New in Version 3.1
 - A token without an explicit scope of authorization is issued if the user
   does not specify a project and does not have authorization on the project
   specified by their default project attribute.
+- A role may now be specified in such a way that when assigned to a domain,
+  the role is optionally inherited by all projects owned by that domain.
 
 What's New in Version 3.0
 -------------------------
@@ -674,11 +676,23 @@ Additional required attributes:
 
   Globally unique name of the role.
 
+Optional attributes:
+
+- `inherited_by_projects` (boolean)
+
+  Setting this to `true` indicates that if this role is assigned to a domain,
+  the assignment should be inherited by all projects owned by that domain (both now
+  and in the future), rather than exist on the domain entity itself.  If set to `false`,
+  which is the default, the role is applied only to the entity named in the assignment.
+  Assigning a role marked as `inherited_to_projects` directly to a project is simply
+  treated like any other directly assigned project role.
+
 Example entity:
 
     {
         "role": {
             "id": "76e72a",
+            "inherited_by_projects": true
             "links": {
                 "self": "http://identity:35357/v3/roles/76e72a"
             },
@@ -2354,7 +2368,8 @@ The key use cases we need to cover:
 Request:
 
     {
-        "name": ""
+        "name": "",
+        "inherited_by_projects": true
     }
 
 Response:
@@ -2363,6 +2378,7 @@ Response:
 
     {
         "id": "--role-id--",
+        "inherited_by_projects": true,
         "links": {
             "self": "http://identity:35357/v3/roles/--role-id--"
         },
@@ -2382,6 +2398,7 @@ Response:
     [
         {
             "id": "--role-id--",
+            "inherited_by_projects": true,
             "links": {
                 "self": "http://identity:35357/v3/roles/--role-id--"
             },
@@ -2389,6 +2406,7 @@ Response:
         },
         {
             "id": "--role-id--",
+            "inherited_by_projects": false,
             "links": {
                 "self": "http://identity:35357/v3/roles/--role-id--"
             },
@@ -2404,6 +2422,7 @@ Response:
 
     {
         "id": "--role-id--",
+        "inherited_by_projects": true,
         "links": {
             "self": "http://identity:35357/v3/roles/--roles-id--"
         },
@@ -2418,6 +2437,7 @@ Response:
 
     {
         "id": "--role-id--",
+        "inherited_by_projects": true,
         "links": {
             "self": "http://identity:35357/v3/roles/--roles-id--"
         },
