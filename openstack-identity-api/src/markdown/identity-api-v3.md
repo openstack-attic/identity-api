@@ -12,7 +12,10 @@ policy engine rule sets.
 What's New in Version 3.1
 -------------------------
 
-- Nothing, yet.
+- Roles on a domain may specified to be inherited by projects owned by that domain
+- Listing/Checking roles on a project allow for the optional inclusion of any
+  effective roles by virtue of group membership or those inherited from the
+  owning domain
 
 What's New in Version 3.0
 -------------------------
@@ -2489,13 +2492,39 @@ Response:
 
     Status: 204 No Content
 
+#### Grant inherited role to user on domain: `PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited`
+
+Specifies a user role assignment that should be inerited by all projects that
+are owned by this domain. Such a user role assignment does not provide any rights
+to the domain itself.
+
+Response:
+
+    Status: 204 No Content
+
 #### Grant role to group on domain: `PUT /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
+#### Grant role to group on domain: `PUT /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
+
+Specifies a group role assignment that should be inerited by all projects that
+are owned by this domain. Such a group role assignment does not provide any rights
+to the domain itself.
+
+Response:
+
+    Status: 204 No Content
+
 #### List user's roles on domain: `GET /domains/{domain_id}/users/{user_id}/roles`
+
+query_string: inherited (optional)
+
+If `inherited` is specified, then only those roles marked as inherited will be returned.
+If `inherited` is not specified in the query string of the url, then only non-inheriting
+user roles on this domain will be returned.
 
 Response:
 
@@ -2504,7 +2533,7 @@ Response:
     [
         {
             "id": "--role-id--",
-            "name": "--role-name--",
+            "name": "--role-name--"
         },
         {
             "id": "--role-id--",
@@ -2514,6 +2543,12 @@ Response:
 
 #### List group's roles on domain: `GET /domains/{domain_id}/groups/{group_id}/roles`
 
+query_string: inherited (optional)
+
+If `inherited` is specified, then only those roles marked as inherited will be returned.
+If `inherited` is not specified in the query string of the url, then only non-inheriting
+group roles on this domain will be returned.
+
 Response:
 
     Status: 200 OK
@@ -2521,7 +2556,7 @@ Response:
     [
         {
             "id": "--role-id--",
-            "name": "--role-name--",
+            "name": "--role-name--"
         },
         {
             "id": "--role-id--",
@@ -2531,11 +2566,24 @@ Response:
 
 #### Check if user has role on domain: `HEAD /domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
+query_string: inherited (optional)
+
+If `inherited` is specified, then only a role marked as inherited will match.
+If `inherited` is not specified in the query string of the url, then only a non-inheriting
+user role on this domain will match.
+
 Response:
 
     Status: 204 No Content
 
 #### Check if group has role on domain: `HEAD /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
+
+
+query_string: inherited (optional)
+
+If `inherited` is specified, then only a role marked as inherited will match.
+If `inherited` is not specified in the query string of the url, then only a non-inheriting
+group role on this domain will match.
 
 Response:
 
@@ -2567,6 +2615,14 @@ Response:
 
 #### List user's roles on project: `GET /projects/{project_id}/users/{user_id}/roles`
 
+query_string: effective (optional)
+
+Specifying `effective` in the query string of the url indicates that the returned list
+should contain all effective roles for this user on the specified project, including
+any by virtue of group membership or roles inherited from the owning domain. The
+effective user roles on a project are what would be returned in a token that was scoped
+to that project.
+
 Response:
 
     Status: 200 OK
@@ -2583,6 +2639,12 @@ Response:
     ]
 
 #### List group's roles on project: `GET /projects/{project_id}/groups/{group_id}/roles`
+
+query_string: effective (optional)
+
+Specifying `effective` in the query string of the url indicates that the returned list
+should contain all effective roles for this group on the specified project, including
+any by virtue of group roles inherited from the owning domain.
 
 Response:
 
@@ -2601,11 +2663,23 @@ Response:
 
 #### Check if user has role on project: `HEAD /projects/{project_id}/users/{user_id}/roles/{role_id}`
 
+query_string: effective (optional)
+
+Specifying `effective` in the query string of the url indicates that the check
+should include all effective roles for this user on the specified project, including
+any by virtue of group membership or roles inherited from the owning domain.
+
 Response:
 
     Status: 204 No Content
 
 #### Check if group has role on project: `HEAD /projects/{project_id}/groups/{group_id}/roles/{role_id}`
+
+query_string: effective (optional)
+
+Specifying `effective` in the query string of the url indicates that the check
+should include all effective roles for this group on the specified project, including
+any by virtue of group roles inherited from the owning domain.
 
 Response:
 
