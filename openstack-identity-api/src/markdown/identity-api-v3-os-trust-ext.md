@@ -403,7 +403,7 @@ Response:
         ]
     }
 
-#### Check if role is delegated by a trust: `GET /OS-TRUST/trusts/{trust_id}/roles/{role_id}`
+#### Check if role is delegated by a trust: `HEAD /OS-TRUST/trusts/{trust_id}/roles/{role_id}`
 
 Response:
 
