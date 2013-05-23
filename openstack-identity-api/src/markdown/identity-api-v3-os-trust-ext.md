@@ -117,7 +117,7 @@ other scope attributes may be specified.
 The user specified by `authentication` must match the trust's `trustee_user_id`
 attribute.
 
-If the token has the `impersonation` attribute set to `true`, then the
+If the trust has the `impersonation` attribute set to `true`, then the
 resulting token's `user` attribute will also represent the trustor, rather than
 the authenticating user (the trustee).
 
