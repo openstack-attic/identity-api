@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preface xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:html="http://www.w3.org/1999/xhtml" version="5.0"
+    xml:id="preface">
+    <title>Preface</title>
+    <para>The OpenStack Identity Service allows clients to obtain
+        tokens that can be used to access OpenStack cloud services. </para>
+    <section xml:id="audience">
+        <title>Intended Audience</title>
+        <para>This reference is for software developers who develop
+            applications that use the Identity Service API for
+            authentication. </para>
+        <para>This reference assumes that the reader is familiar with
+            RESTful web services, HTTP/1.1, and JSON and/or XML
+            serialization formats. </para>
+    </section>
+    <section xml:id="Document_Change_History-d1e118">
+        <title>Document Change History</title>
+        <para>This version of the reference replaces and obsoletes all
+            previous versions. The following table describes recent
+            changes: </para>
+        <?rax revhistory?>
+        <!-- Table generated in output from revision element in the book element -->
+    </section>
+</preface>
