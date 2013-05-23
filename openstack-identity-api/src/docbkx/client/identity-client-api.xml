@@ -1,18 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<section
-        xmlns="http://docbook.org/ns/docbook"
-        xml:id="Service_API_Client_Operations"
-        version="5.0">
-    <title>Service API (Client Operations)</title>
-    <para>The operations described in this chapter allow clients tokens
-        authenticate and get access tokens and service endpoints. The following
-        calls are core Keystone Service APIs in version 2.0:</para>
-    <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-        <wadl:resource href="../admin/identity-admin.wadl#tokens" >
-            <wadl:method href="authenticate"/>
-        </wadl:resource>
-        <wadl:resource href="../admin/identity-admin.wadl#tenants" >
-            <wadl:method href="listTenants"/>
-        </wadl:resource>
-    </wadl:resources>
-</section>
+<chapter xmlns="http://docbook.org/ns/docbook"
+    xml:id="Service_API_Client_Operations" version="5.0"
+    role="api-reference">
+    <title>Client API Operations</title>
+    <para>These operations enable clients to get authentication tokens and list tenants. </para>
+   <section xml:id="client_token"><title>Token Operations</title>
+       <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
+           <wadl:resource href="../wadl/identity.wadl#tokens"/>
+           <!--<wadl:resource
+               href="../wadl/identity-admin.wadl#endpointsForToken"/>
+       </wadl:resources> --></wadl:resources>
+   </section>
+    <section xml:id="client_tenant"><title>Tenant Operations</title>
+        <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
+            <wadl:resource
+                href="../wadl/identity.wadl#tenants"/>
+        </wadl:resources>
+    </section>
+</chapter>

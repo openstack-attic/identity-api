@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chapter xmlns="http://docbook.org/ns/docbook"
+    xml:id="openstack_identity_extensions" version="5.0"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    role="api-reference">
+    <title>OpenStack Identity Service Extensions</title>
+    <xi:include href="../OS-KSADM/OS-KSADM-admin-devguide.xml"
+        xpointer="element(Admin_API_Service_Developer_Operations-d1e1357)"/>
+    <xi:include href="../OS-KSCATALOG/OS-KSCATALOG-admin-devguide.xml"
+        xpointer="element(Admin_API_Service_Developer_Operations-OS-KSCATALOG)"/>
+    <xi:include href="../OS-KSEC2/OS-KSEC2-admin-devguide.xml"
+        xpointer="element(Admin_API_Service_Developer_Operations-OS-KSEC2)"/>
+    <xi:include href="../OS-KSS3/OS-KSS3-admin-devguide.xml"
+        xpointer="element(KSS3_OPERATIONS-token)"/>
+    <xi:include href="../OS-KSVALIDATE/OS-KSVALIDATE-admin-devguide.xml"
+        xpointer="element(KSVALIDATE_OPERATIONS-token)"/>
+</chapter>
+
+
