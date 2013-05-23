@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book [
+        <!-- Some useful entities borrowed from HTML -->
+        <!ENTITY ndash  "&#x2013;">
+        <!ENTITY mdash  "&#x2014;">
+        <!ENTITY hellip "&#x2026;">
+
+        <!-- Useful for describing APIs -->
+        <!ENTITY GET    '<command xmlns="http://docbook.org/ns/docbook">GET</command>'>
+        <!ENTITY PUT    '<command xmlns="http://docbook.org/ns/docbook">PUT</command>'>
+        <!ENTITY POST   '<command xmlns="http://docbook.org/ns/docbook">POST</command>'>
+        <!ENTITY DELETE '<command xmlns="http://docbook.org/ns/docbook">DELETE</command>'>
+
+        <!ENTITY ARROW  '<inlinemediaobject xmlns="http://docbook.org/ns/docbook">
+                 <imageobject>
+                  <imagedata fileref="img/Arrow_east.svg"
+                             format="SVG" scale="60"/>
+                </imageobject>
+              </inlinemediaobject>'>
+
+        <!ENTITY CODES       'Normal Response Code(s):'>
+        <!ENTITY ERROR_CODES 'Error Response Code(s):'>
+
+        <!-- Information about the extension -->
+        <!ENTITY PUB_DATE "2011-09-13">
+        <!ENTITY URI_REFHEAD '
+        <thead xmlns="http://docbook.org/ns/docbook">
+        <tr>
+        <td colspan="1">Verb</td>
+        <td colspan="1">URI</td>
+        <td colspan="4">Description</td>
+        </tr>
+        </thead>'>
+
+        <!ENTITY GROUPSREQUESTXML  "../RAX-GRPADM/samples/groups.xml">
+        <!ENTITY GROUPSREQUESTJSON "../RAX-GRPADM/samples/groups.json">
+
+        <!ENTITY GROUPREQUESTXML  "../RAX-GRPADM/samples/group.xml">
+        <!ENTITY GROUPREQUESTJSON "../RAX-GRPADM/samples/group.json">
+
+        <!ENTITY UPDATEDGROUPREQUESTXML  "../RAX-GRPADM/samples/group-updated.xml">
+        <!ENTITY UPDATEDGROUPREQUESTJSON "../RAX-GRPADM/samples/group-updated.json">
+
+        <!-- Information about the extension -->
+        <!ENTITY PUB_DATE "2011-01-23">
+        <!ENTITY ALIAS "RAX-GRPADM">
+        <!ENTITY NAMESPACE "http://docs.rackspace.com/identity/api/ext/RAX-KSGRP/v1.0">
+        <!ENTITY CURRENTGUIDE "http://docs.openstack.org/api/openstack-identity/ext/admin/RAX-GRPADM.pdf">
+        <!ENTITY CURRENTWADL "http://docs.openstack.org/api/openstack-identity/ext/admin/RAX-GRPADM.wadl">
+        <!ENTITY EXTENSIONXSD "http://docs.openstack.org/api/openstack-identity/ext/admin/common/xsd/RAX-GRPADM.xsd">
+
+]>
+<book xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:m="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:rax="http://docs.rackspace.com/api"
+      xmlns:wadl="http://wadl.dev.java.net/2009/02"
+      version="5.0" xml:id="book_rax_group_admin">
+    <?rax subtitle.font.size="20px"?>
+    <title>OpenStack Identity Rackspace Group Admin Extension</title>
+    <titleabbrev>&ALIAS;</titleabbrev>
+  <info>
+    <author>
+      <personname>
+        <firstname/>
+        <surname/>
+      </personname>
+      <affiliation>
+        <orgname>Rackspace Cloud</orgname>
+      </affiliation>
+    </author>
+    <copyright>
+        <year>2011</year>
+        <holder>Rackspace US, Inc.</holder>
+    </copyright>
+    <productname>OpenStack Identity</productname>
+    <pubdate>&PUB_DATE;</pubdate>
+    <legalnotice role="rs-api">
+        <annotation>
+            <remark>Copyright details are filled in by the template.</remark>
+        </annotation>
+    </legalnotice>
+    <othercredit>
+        <personname>
+            <firstname>Joe</firstname>
+            <surname>Savak</surname>
+        </personname>
+        <email>joe.savak@RACKSPACE.COM</email>
+    </othercredit>
+    <extension  xmlns="http://docs.openstack.org/common/api/v1.0"
+                xmlns:atom="http://www.w3.org/2005/Atom"
+                name="OpenStack Identity Rackspace Group Admin" namespace="http://docs.rackspace.com/identity/api/ext/RAX-KSGRP/v1.0"
+                alias="RAX-GRPADM"
+                updated="2011-08-14T13:25:27-06:00">
+        <description>
+            Rackspace extensions to Keystone v2.0 API
+            enabling Group Admin.
+        </description>
+        <atom:link rel="describedby" type="application/pdf"
+                   href="https://raw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/RAX-GRPADM/RAX-GRPADM-devguide.pdf"/>
+        <atom:link rel="describedby" type="application/vnd.sun.wadl+xml"
+                   href="https://raw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/RAX-GRPADM/RAX-GRPADM.wadl"/>
+    </extension>
+    <abstract>
+      <para>
+          This document is intended for software developers interested
+          in using the Group Admin Extension to the OpenStack
+          Identity Application Programming Interface
+          (<abbrev>API</abbrev>).
+      </para>
+    </abstract>
+    <revhistory>
+        <revision>
+            <date>2012-01-23</date>
+            <revdescription>
+                <itemizedlist spacing="compact">
+                    <listitem>
+                        <para>
+                            Initial release.
+                        </para>
+                    </listitem>
+                </itemizedlist>
+            </revdescription>
+        </revision>
+    </revhistory>
+  </info>
+
+  <chapter xml:id="chapter-0001">
+      <title>Summary of Changes</title>
+      <para>
+          This extension adds capabilities to the RAX-KSGRP extension.
+          It allows for CRUD operations on <parameter>groups</parameter> and gives the
+          ability to associate <parameter>groups</parameter> with <parameter>users</parameter>.
+      </para>
+      <section xml:id="NewHeaders-0001">
+          <title>New Headers</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="NewFaults0001">
+          <title>New Faults</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="NewResources-0001">
+          <title>New Resources</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="NewActions0001">
+          <title>New Actions</title>
+          <para>None.</para>
+      </section>
+      <section xml:id="NewElement0001">
+          <title>New Element</title>
+          <section xml:id="RackExt-0001">
+          <title>groups</title>
+          <para>
+              This extension adds capabilities to the RAX-KSGRP extension.
+              It allows for CRUD operations on <parameter>groups</parameter> and gives the
+              ability to associate <parameter>groups</parameter> with <parameter>users</parameter>.
+          </para>
+          <example>
+              <title>group XML</title>
+              <programlisting language="xml"><xi:include href="&GROUPREQUESTXML;" parse="text"/></programlisting>
+          </example>
+          <example>
+              <title>groups JSON</title>
+              <programlisting language="javascript"><xi:include href="&GROUPREQUESTJSON;" parse="text"/></programlisting>
+          </example>
+          </section>
+      </section>
+
+      <section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xml:id="Admin_API_Service_Developer_Operations-RAX-GRPADM" version="5.0" role="api-reference">
+          <title>RAX-GRPADM Extension API Operations</title>
+          <table rules="all">
+              <caption>Authentication Header</caption>
+              <thead>
+                  <tr>
+                      <td>Header Type</td>
+                      <td>Name</td>
+                      <td>Value</td>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>HTTP/1.1 Request</td>
+                      <td>X-Auth-Token</td>
+                      <td>txfa8426a08eaf</td>
+                  </tr>
+              </tbody>
+          </table>
+          <para>A new resource is created at /RAX-GRPADM/groups that allows for the management of groups. </para>
+          <section xml:id="User_Operations_RAX_KSGRPADM">
+              <title>User Operations</title>
+              <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                   <wadl:resource href="../wadl/RAX-GRPADM.wadl#groups">
+                       <wadl:method href="addGroup"/>
+                   </wadl:resource>
+                   <wadl:resource href="../wadl/RAX-GRPADM.wadl#group">
+                       <wadl:method href="getGroup"/>
+                       <wadl:method href="updateGroup"/>
+                       <wadl:method href="getUsersForGroup"/>
+                       <wadl:method href="deleteGroup"/>
+                   </wadl:resource>
+                   <wadl:resource href="../wadl/RAX-GRPADM.wadl#user">
+                       <wadl:method href="addUserToGroup"/>
+                       <wadl:method href="removeUserFromGroup"/>
+                   </wadl:resource>
+              </wadl:resources>
+          </section>
+      </section>
+  </chapter>
+</book>

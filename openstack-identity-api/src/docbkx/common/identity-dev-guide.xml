@@ -6,7 +6,7 @@
     xmlns:html="http://www.w3.org/1999/xhtml" version="5.0"
     xml:id="Keystone-Developer-Guide">
     <title>OpenStack Identity Service API v2.0 Reference</title>
-    <?rax title.font.size="28px" subtitle.font.size="28px"?>
+    <?rax title.font.size="26px" subtitle.font.size="26px"?>
     <titleabbrev>Identity Service API Reference</titleabbrev>
     <info>
         <author>
@@ -35,15 +35,20 @@
             </annotation>
         </legalnotice>
         <abstract>
-            <para>This document describes how to develop
-                applications that use the OpenStack Identity Service API v2.0
-                for authentication. This document also describes how
-                to integrate services with the OpenStack Identity
-                Service API v2.0. </para>
+
+            <para>This document describes how to develop applications
+                that use the OpenStack Identity Service API v2.0 for
+                authentication. This document also describes how to
+                integrate services with the OpenStack Identity Service
+                API v2.0. </para>
         </abstract>
     </info>
     <!-- Chapters are referred from the book file through these include statements. You can add additional chapters using these types of statements. -->
-    <xi:include href="identity-concepts.xml"/>
+    <xi:include href="preface.xml"/>
     <xi:include href="identity-general-api-info.xml"/>
-    <xi:include href="identity-service-api.xml"/>
+    <xi:include href="../client/identity-client-api.xml"/>
+    <xi:include href="../admin/identity-service-api.xml"/>
+    <xi:include href="ch_os_extensions.xml"/>
+    <xi:include href="ch_hp_extensions.xml"/>
+    <xi:include href="ch_rax_extensions.xml"/>
 </book>
