@@ -1440,7 +1440,6 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: https://identity:35357/v3/services/--service-id--
 
     {
         "service": {
@@ -1517,7 +1516,6 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: https://identity:35357/v3/endpoints/--endpoint-id--
 
     {
         "id": "--endpoint-id--",
@@ -1575,7 +1573,6 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: https://identity:35357/v3/domains/--domain-id--
 
     {
         "description": "desc of domain",
@@ -1682,7 +1679,6 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: http://identity:35357/v3/projects/--project-id--
 
     {
         "domain_id": "--domain-id--",
@@ -1817,7 +1813,6 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: http://identity:35357/v3/users/--user-id--
 
     {
         "default_project_id": "--default-project-id--",
@@ -1994,7 +1989,6 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: http://identity:35357/v3/groups/--group-id--
 
     {
         "description": "Developers cleared for work on secret projects",
@@ -2166,7 +2160,6 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: http://identity:35357/v3/credentials/--credential-id--
 
     {
         "blob": {
@@ -2284,7 +2277,6 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: http://identity:35357/v3/roles/--role-id--
 
     {
         "id": "--role-id--",
@@ -2572,7 +2564,6 @@ Request:
 Response:
 
     Status: 201 Created
-    Location: http://identity:35357/v3/policies/--policy-id--
 
     {
         "blob": "--serialized-blob--",
