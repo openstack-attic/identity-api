@@ -167,7 +167,7 @@
         &getFaults;
     </method>
     <method name="GET" id="listEndpointsForToken">
-        <doc xml:lang="EN" title="List Endoints for a Token">
+        <doc xml:lang="EN" title="List Endpoints for a Token">
             <p xmlns="http://www.w3.org/1999/xhtml">
                 Returns a list of endpoints associated with a specific token.
             </p>
