@@ -1565,9 +1565,11 @@ The key use cases we need to cover:
 Request:
 
     {
-        "description": "--optional--",
-        "enabled": --optional--,
-        "name": "..."
+        "domain": {
+            "description": "--optional--",
+            "enabled": --optional--,
+            "name": "..."
+        }
     }
 
 Response:
@@ -1575,13 +1577,15 @@ Response:
     Status: 201 Created
 
     {
-        "description": "desc of domain",
-        "enabled": true,
-        "id": "--domain-id--",
-        "links": {
-            "self": "http://identity:35357/v3/domains/--domain-id--"
-        },
-        "name": "my domain"
+        "domain": {
+            "description": "desc of domain",
+            "enabled": true,
+            "id": "--domain-id--",
+            "links": {
+                "self": "http://identity:35357/v3/domains/--domain-id--"
+            },
+            "name": "my domain"
+        }
     }
 
 #### List domains: `GET /domains`
@@ -1594,26 +1598,28 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "description": "desc of domain",
-            "enabled": true,
-            "id": "--domain-id--",
-            "links": {
-                "self": "http://identity:35357/v3/domains/--domain-id--"
+    {
+        "domains": [
+            {
+                "description": "desc of domain",
+                "enabled": true,
+                "id": "--domain-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/domains/--domain-id--"
+                },
+                "name": "my domain"
             },
-            "name": "my domain"
-        },
-        {
-            "description": "desc of another domain",
-            "enabled": true,
-            "id": "--domain-id--",
-            "links": {
-                "self": "http://identity:35357/v3/domains/--domain-id--"
-            },
-            "name": "another domain"
-        }
-    ]
+            {
+                "description": "desc of another domain",
+                "enabled": true,
+                "id": "--domain-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/domains/--domain-id--"
+                },
+                "name": "another domain"
+            }
+        ]
+    }
 
 #### Get domain: `GET /domains/{domain_id}`
 
@@ -1622,13 +1628,15 @@ Response:
     Status: 200 OK
 
     {
-        "description": "desc of domain",
-        "enabled": true,
-        "id": "--domain-id--",
-        "self": {
-            "self": "http://identity:35357/v3/domains/--domain-id--"
-        },
-        "name": "my domain"
+        "domain": {
+            "description": "desc of domain",
+            "enabled": true,
+            "id": "--domain-id--",
+            "links": {
+                "self": "http://identity:35357/v3/domains/--domain-id--"
+            },
+            "name": "my domain"
+        }
     }
 
 #### Update domain: `PATCH /domains/{domain_id}`
@@ -1638,13 +1646,15 @@ Response:
     Status: 200 OK
 
     {
-        "description": "desc of domain",
-        "enabled": true,
-        "id": "--domain-id--",
-        "links": {
-            "self": "http://identity:35357/v3/domains/--domain-id--"
-        },
-        "name": "my domain"
+        "domain": {
+            "description": "desc of domain",
+            "enabled": true,
+            "id": "--domain-id--",
+            "links": {
+                "self": "http://identity:35357/v3/domains/--domain-id--"
+            },
+            "name": "my domain"
+        }
     }
 
 #### Delete domain: `DELETE /domains/{domain_id}`
@@ -1670,10 +1680,12 @@ Response:
 Request:
 
     {
-        "description": "...",
-        "domain_id": "...",
-        "enabled": "...",
-        "name": "..."
+        "project": {
+            "description": "...",
+            "domain_id": "...",
+            "enabled": "...",
+            "name": "..."
+        }
     }
 
 Response:
@@ -1681,13 +1693,15 @@ Response:
     Status: 201 Created
 
     {
-        "domain_id": "--domain-id--",
-        "enabled": true,
-        "id": "--project-id--",
-        "links": {
-            "self": "http://identity:35357/v3/projects/--project-id--"
-        },
-        "name": "a project name"
+        "project": {
+            "domain_id": "--domain-id--",
+            "enabled": true,
+            "id": "--project-id--",
+            "links": {
+                "self": "http://identity:35357/v3/projects/--project-id--"
+            },
+            "name": "a project name"
+        }
     }
 
 #### List projects: `GET /projects`
@@ -1700,26 +1714,33 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "domain_id": "--domain-id--",
-            "enabled": true,
-            "id": "--project-id--",
-            "links": {
-                "self": "http://identity:35357/v3/projects/--project-id--"
+    {
+        "projects": [
+            {
+                "domain_id": "--domain-id--",
+                "enabled": true,
+                "id": "--project-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/projects/--project-id--"
+                },
+                "name": "a project name"
             },
-            "name": "a project name"
-        },
-        {
-            "domain_id": "--domain-id--",
-            "enabled": true,
-            "id": "--project-id--",
-            "links": {
-                "self": "http://identity:35357/v3/projects/--project-id--"
-            },
-            "name": "another domain"
+            {
+                "domain_id": "--domain-id--",
+                "enabled": true,
+                "id": "--project-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/projects/--project-id--"
+                },
+                "name": "another project"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/projects",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Get project: `GET /projects/{project_id}`
 
@@ -1728,13 +1749,15 @@ Response:
     Status: 200 OK
 
     {
-        "domain_id": "--domain-id--",
-        "enabled": true,
-        "id": "--project-id--",
-        "links": {
-            "self": "http://identity:35357/v3/projects/--project-id--"
-        },
-        "name": "a project name"
+        "project": {
+            "domain_id": "--domain-id--",
+            "enabled": true,
+            "id": "--project-id--",
+            "links": {
+                "self": "http://identity:35357/v3/projects/--project-id--"
+            },
+            "name": "a project name"
+        }
     }
 
 #### Update project: `PATCH /projects/{project_id}`
@@ -1744,13 +1767,15 @@ Response:
     Status: 200 OK
 
     {
-        "domain_id": "--domain-id--",
-        "enabled": true,
-        "id": "--project-id--",
-        "links": {
-            "self": "http://identity:35357/v3/projects/--project-id--"
-        },
-        "name": "a project name"
+        "project": {
+            "domain_id": "--domain-id--",
+            "enabled": true,
+            "id": "--project-id--",
+            "links": {
+                "self": "http://identity:35357/v3/projects/--project-id--"
+            },
+            "name": "a project name"
+        }
     }
 
 #### Delete project: `DELETE /projects/{project_id}`
@@ -1801,13 +1826,15 @@ Response:
 Request:
 
     {
-        "default_project_id": "...",
-        "description": "...",
-        "domain_id": "--optional--",
-        "email": "...",
-        "enabled": "...",
-        "name": "...",
-        "password": "--optional--"
+        "user": {
+            "default_project_id": "...",
+            "description": "...",
+            "domain_id": "--optional--",
+            "email": "...",
+            "enabled": "...",
+            "name": "...",
+            "password": "--optional--"
+        }
     }
 
 Response:
@@ -1815,16 +1842,18 @@ Response:
     Status: 201 Created
 
     {
-        "default_project_id": "--default-project-id--",
-        "description": "a user",
-        "domain_id": "1789d1",
-        "email": "...",
-        "enabled": true,
-        "id": "--user-id--",
-        "links": {
-            "self": "http://identity:35357/v3/users/--user-id--"
-        },
-        "name": "admin"
+        "user": {
+            "default_project_id": "--default-project-id--",
+            "description": "a user",
+            "domain_id": "1789d1",
+            "email": "...",
+            "enabled": true,
+            "id": "--user-id--",
+            "links": {
+                "self": "http://identity:35357/v3/users/--user-id--"
+            },
+            "name": "admin"
+        }
     }
 
 #### List users: `GET /users`
@@ -1837,8 +1866,48 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
+    {
+        "users": [
+            {
+                "default_project_id": "--default-project-id--",
+                "description": "a user",
+                "domain_id": "1789d1",
+                "email": "...",
+                "enabled": true,
+                "id": "--user-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/users/--user-id--"
+                },
+                "name": "admin"
+            },
+            {
+                "default_project_id": "--default-project-id--",
+                "description": "another user",
+                "domain_id": "1789d1",
+                "email": "...",
+                "enabled": true,
+                "id": "--user-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/users/--user-id--"
+                },
+                "name": "someone"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/users",
+            "previous": null,
+            "next": null
+        }
+    }
+
+#### Get user: `GET /users/{user_id}`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "user": {
             "default_project_id": "--default-project-id--",
             "description": "a user",
             "domain_id": "1789d1",
@@ -1849,38 +1918,7 @@ Response:
                 "self": "http://identity:35357/v3/users/--user-id--"
             },
             "name": "admin"
-        },
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "another user",
-            "domain_id": "1789d1",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "links": {
-                "self": "http://identity:35357/v3/users/--user-id--"
-            },
-            "name": "someone"
         }
-    ]
-
-#### Get user: `GET /users/{user_id}`
-
-Response:
-
-    Status: 200 OK
-
-    {
-        "default_project_id": "--default-project-id--",
-        "description": "a user",
-        "domain_id": "1789d1",
-        "email": "...",
-        "enabled": true,
-        "id": "--user-id--",
-        "links": {
-            "self": "http://identity:35357/v3/users/--user-id--"
-        },
-        "name": "admin"
     }
 
 #### List user projects: `GET /users/{user_id}/projects`
@@ -1893,26 +1931,33 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "domain_id": "--domain-id--",
-            "enabled": true,
-            "id": "--project-id--",
-            "links": {
-                "self": "http://identity:35357/v3/projects/--project-id--"
+    {
+        "projects": [
+            {
+                "domain_id": "--domain-id--",
+                "enabled": true,
+                "id": "--project-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/projects/--project-id--"
+                },
+                "name": "a project name"
             },
-            "name": "a project name"
-        },
-        {
-            "domain_id": "--domain-id--",
-            "enabled": true,
-            "id": "--project-id--",
-            "links": {
-                "self": "http://identity:35357/v3/projects/--project-id--"
-            },
-            "name": "another domain"
+            {
+                "domain_id": "--domain-id--",
+                "enabled": true,
+                "id": "--project-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/projects/--project-id--"
+                },
+                "name": "another domain"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/users/--user-id--/projects",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### List groups of which a user is a member: `GET /users/{user_id}/groups`
 
@@ -1924,26 +1969,33 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "description": "Developers cleared for work on all general projects"
-            "domain_id": "--domain-id--",
-            "id": "--group-id--",
-            "links": {
-                "self": "http://identity:35357/v3/groups/--group-id--"
+    {
+        "groups": [
+            {
+                "description": "Developers cleared for work on all general projects"
+                "domain_id": "--domain-id--",
+                "id": "--group-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/groups/--group-id--"
+                },
+                "name": "Developers"
             },
-            "name": "Developers"
-        },
-        {
-            "description": "Developers cleared for work on secret projects"
-            "domain_id": "--domain-id--",
-            "id": "--group-id--",
-            "links": {
-                "self": "http://identity:35357/v3/groups/--group-id--"
-            },
-            "name": "Secure Developers"
+            {
+                "description": "Developers cleared for work on secret projects"
+                "domain_id": "--domain-id--",
+                "id": "--group-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/groups/--group-id--"
+                },
+                "name": "Secure Developers"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/users/--user-id--/groups",
+            "previous": null,
+            "next": null
         }
-   ]
+    }
 
 #### Update user: `PATCH /users/{user_id}`
 
@@ -1956,16 +2008,18 @@ Response:
     Status: 200 OK
 
     {
-        "default_project_id": "--default-project-id--",
-        "description": "a user",
-        "domain_id": "1789d1",
-        "email": "...",
-        "enabled": true,
-        "id": "--user-id--",
-        "links": {
-            "self": "http://identity:35357/v3/users/--user-id--"
-        },
-        "name": "admin"
+        "user": {
+            "default_project_id": "--default-project-id--",
+            "description": "a user",
+            "domain_id": "1789d1",
+            "email": "...",
+            "enabled": true,
+            "id": "--user-id--",
+            "links": {
+                "self": "http://identity:35357/v3/users/--user-id--"
+            },
+            "name": "admin"
+        }
     }
 
 #### Delete user: `DELETE /users/{user_id}`
@@ -1981,9 +2035,11 @@ Response:
 Request:
 
     {
-        "description": "--optional--",
-        "domain_id": "--optional--",
-        "name": "..."
+        "group": {
+            "description": "--optional--",
+            "domain_id": "--optional--",
+            "name": "..."
+        }
     }
 
 Response:
@@ -1991,12 +2047,14 @@ Response:
     Status: 201 Created
 
     {
-        "description": "Developers cleared for work on secret projects",
-        "id": "--group-id--",
-        "links": {
-            "self": "http://identity:35357/v3/groups/--group-id--"
-        },
-        "name": "Secure Developers"
+        "group": {
+            "description": "Developers cleared for work on secret projects",
+            "id": "--group-id--",
+            "links": {
+                "self": "http://identity:35357/v3/groups/--group-id--"
+            },
+            "name": "Secure Developers"
+        }
     }
 
 #### List groups: `GET /groups`
@@ -2009,35 +2067,42 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "description": "Developers cleared for work on all general projects"
-            "domain_id": "--domain-id--",
-            "id": "--group-id--",
-            "links": {
-                "self": "http://identity:35357/v3/groups/--group-id--"
+    {
+        "groups": [
+            {
+                "description": "Developers cleared for work on all general projects"
+                "domain_id": "--domain-id--",
+                "id": "--group-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/groups/--group-id--"
+                },
+                "name": "Developers"
             },
-            "name": "Developers"
-        },
-        {
-            "description": "Developers cleared for work on secret projects"
-            "domain_id": "--domain-id--",
-            "id": "--group-id--",
-            "links": {
-                "self": "http://identity:35357/v3/groups/--group-id--"
+            {
+                "description": "Developers cleared for work on secret projects"
+                "domain_id": "--domain-id--",
+                "id": "--group-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/groups/--group-id--"
+                },
+                "name": "Secure Developers"
             },
-            "name": "Secure Developers"
-        },
-        {
-            "description": "Testers cleared for work on all general projects"
-            "domain_id": "--domain-id--",
-            "id": "--group-id--",
-            "links": {
-                "self": "http://identity:35357/v3/groups/--group-id--"
-            },
-            "name": "Testers"
+            {
+                "description": "Testers cleared for work on all general projects"
+                "domain_id": "--domain-id--",
+                "id": "--group-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/groups/--group-id--"
+                },
+                "name": "Testers"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/groups",
+            "previous": null,
+            "next": null
         }
-   ]
+    }
 
 #### Get group: `GET /groups/{group_id}`
 
@@ -2046,12 +2111,15 @@ Response:
     Status: 200 OK
 
     {
-        "description": "Developers cleared for work on secret projects",
-        "id": "--group-id--",
-        "links": {
-            "self": "http://identity:35357/v3/groups/--group-id--"
-        },
-        "name": "Secure Developers"
+        "group": {
+            "description": "Developers cleared for work on secret projects",
+            "id": "--group-id--",
+            "links": {
+                "self": "http://identity:35357/v3/groups/--group-id--"
+            },
+            "name": "Secure Developers"
+        }
+    }
 
 #### List users who are members of a group: `GET /groups/{group_id}/users`
 
@@ -2063,32 +2131,39 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "a user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "links": {
-                "self": "http://identity:35357/v3/users/--user-id--"
+    {
+        "users": [
+            {
+                "default_project_id": "--default-project-id--",
+                "description": "a user",
+                "domain_id": "--domain-id--",
+                "email": "...",
+                "enabled": true,
+                "id": "--user-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/users/--user-id--"
+                },
+                "name": "admin"
             },
-            "name": "admin"
-        },
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "another user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "links": {
-                "self": "http://identity:35357/v3/users/--user-id--"
-            },
-            "name": "someone"
+            {
+                "default_project_id": "--default-project-id--",
+                "description": "another user",
+                "domain_id": "--domain-id--",
+                "email": "...",
+                "enabled": true,
+                "id": "--user-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/users/--user-id--"
+                },
+                "name": "someone"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/groups/--group-id--/users",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Update group: `PATCH /groups/{group_id}`
 
@@ -2101,12 +2176,14 @@ Response:
     Status: 200 OK
 
     {
-        "description": "Developers cleared for work on secret projects",
-        "id": "--group-id--",
-        "links": {
-            "self": "http://identity:35357/v3/groups/--group-id--"
-        },
-        "name": "Secure Developers"
+        "group": {
+            "description": "Developers cleared for work on secret projects",
+            "id": "--group-id--",
+            "links": {
+                "self": "http://identity:35357/v3/groups/--group-id--"
+            },
+            "name": "Secure Developers"
+        }
     }
 
 #### Delete group: `DELETE /groups/{group_id}`
