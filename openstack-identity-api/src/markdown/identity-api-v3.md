@@ -2424,43 +2424,6 @@ Response:
         "name": "a role name"
     }
 
-#### List users with a role: `GET /roles/{role_id}/users`
-
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "name", "enabled", "email" (optional)
-
-Response:
-
-    Status: 200 OK
-
-    [
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "a user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "links": {
-                "self": "http://identity:35357/v3/users/--user-id--"
-            },
-            "name": "admin"
-        },
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "another user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "links": {
-                "self": "http://identity:35357/v3/users/--user-id--"
-            },
-            "name": "someone"
-        }
-    ]
-
 #### Delete role: `DELETE /roles/{role_id}`
 
 Response:
