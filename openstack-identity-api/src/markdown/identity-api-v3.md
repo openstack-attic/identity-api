@@ -2467,28 +2467,6 @@ Response:
 
     Status: 204 No Content
 
-#### List a user's roles: `GET /users/{user_id}/roles`
-
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-
-Response:
-
-    Status: 200 OK
-
-    [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-            "project_id": "--project-id--"
-        },
-        {
-            "domain_id": "--domain-id--",
-            "id": "--role-id--",
-            "name": "--role-name--"
-        }
-    ]
-
 #### Grant role to user on domain: `PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
 Response:
