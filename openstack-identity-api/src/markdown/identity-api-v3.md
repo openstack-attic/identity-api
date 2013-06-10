@@ -15,6 +15,8 @@ What's New in Version 3.1
 - A token without an explicit scope of authorization is issued if the user
   does not specify a project and does not have authorization on the project
   specified by their default project attribute.
+- Introduced a generalized call for getting role assignments, with filtering
+  foruser, group, project, domain and role.
 
 What's New in Version 3.0
 -------------------------
@@ -2532,6 +2534,143 @@ Response:
 Response:
 
     Status: 204 No Content
+
+#### List effective role assignments: `GET /role-assignments`
+
+query_filter: domain.id, group.id, inherited_to, project.id, role.id, user.id (optional)
+query_string: effective (optional)
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+
+Get a list of role assignments. This API is only available from v3.1 onwards.
+
+If the query_string `effective` is specified then the API returns a list assignments at the
+user level, including those that are directly assigned as well as those by virtue of group membership. Such a list will not include the group assigment entities themselves. If the
+query_string `effective` is not specified then the API returns a list of the actual
+assignments made.
+
+This API would typically always be used with one of more of the filter queries; for example
+using the `user.id` filter would return a response listing which roles a given user has on
+which entities.  Using `project.id` or `domain.id` returns a response showing which users
+have roles on that entity, and which roles they are. A combined query filter of `user.id`, `project.id` and `effective` would return the equivilent set of role assignments that would
+be included in the token response of a project scoped token.
+
+Each role assignment entity in the collection contains a link to the assignment that gave
+rise to this entity.  If the query_string `effective` is specified and the effective role
+was by virtue of group membership, then a membership link is also included given the
+url that can be used to access the membership involved.
+
+An example response for an API call without the query_string `effective` specified is given below:
+ 
+Response:
+
+    Status: 200 OK
+
+    {
+        "role-assignments": [
+            {
+                "links": {
+                    "assignment": "http://identity:35357/v3/domains/--domain-id--/users/
+                                   --user-id--/roles/--role-id--/inherited_to_projects"
+                },
+                "role": {
+                    "id": "--role-id--"
+                },
+                "scope": {
+                    "assign_to": {
+                        "domain": {
+                            "id": "--domain-id--"
+                        }
+                    },
+                    "inherited_to": {"projects"}
+                },
+                "user": {
+                    "id": "--user-id--"
+                }
+            },
+            {
+                "group": {
+                    "id": "--group-id--"
+                },
+                "links": {
+                    "assignment": "http://identity:35357/v3/projects/--project-id--/
+                                   groups/--group-id--/roles/--role-id--"
+                },
+                "role": {
+                    "id": "--role-id--"
+                },
+                "scope": {
+                    "assign_to": {
+                        "project": {
+                            "id": "--project-id--"
+                        }
+                    }
+                }
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/role-assignments",
+            "previous": null,
+            "next": null
+        }
+    }
+
+An example response for the same API call with the query_string `effective` specified is
+given below:
+ 
+Response:
+
+    Status: 200 OK
+
+    {
+        "role-assignments": [
+            {
+                "links": {
+                    "assignment": "http://identity:35357/v3/domains/--domain-id--/users/
+                                   --user-id--/roles/--role-id--/inherited_to_projects"
+                },
+                "role": {
+                    "id": "--role-id--"
+                },
+                "scope": {
+                    "assign_to": {
+                        "project": {
+                            "id": "--project-id--"
+                        }
+                    }
+                },
+                "user": {
+                    "id": "--user-id--"
+                }
+            },
+            {
+                "links": {
+                    "assignment": "http://identity:35357/v3/projects/--project-id--/
+                                   groups/--group-id--/roles/--role-id--",
+                    "membership": "http://identity:35357/v3/groups/--group-id--/
+                                   users/--user-id--"
+                },
+                "role": {
+                    "id": "--role-id--"
+                },
+                "scope": {
+                    "assign_to": {
+                        "project": {
+                            "id": "--project-id--"
+                        }
+                    }
+                },
+                "user": {
+                    "id": "--user-id--"
+                }
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/role-assignments",
+            "previous": null,
+            "next": null
+        }
+    }
 
 ### Policies
 
