@@ -15,6 +15,9 @@ What's New in Version 3.1
 - A token without an explicit scope of authorization is issued if the user
   does not specify a project and does not have authorization on the project
   specified by their default project attribute.
+- Removed the un-implemented calls to list all users with a given role and list
+  roles for a given user from this specification.  Replaced these with a more
+  generalized call for getting role assignments for user, project, domain or role.
 
 What's New in Version 3.0
 -------------------------
@@ -2424,70 +2427,11 @@ Response:
         "name": "a role name"
     }
 
-#### List users with a role: `GET /roles/{role_id}/users`
-
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "name", "enabled", "email" (optional)
-
-Response:
-
-    Status: 200 OK
-
-    [
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "a user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "links": {
-                "self": "http://identity:35357/v3/users/--user-id--"
-            },
-            "name": "admin"
-        },
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "another user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "links": {
-                "self": "http://identity:35357/v3/users/--user-id--"
-            },
-            "name": "someone"
-        }
-    ]
-
 #### Delete role: `DELETE /roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
-
-#### List a user's roles: `GET /users/{user_id}/roles`
-
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-
-Response:
-
-    Status: 200 OK
-
-    [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-            "project_id": "--project-id--"
-        },
-        {
-            "domain_id": "--domain-id--",
-            "id": "--role-id--",
-            "name": "--role-name--"
-        }
-    ]
 
 #### Grant role to user on domain: `PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
@@ -2628,6 +2572,56 @@ Response:
 Response:
 
     Status: 204 No Content
+
+#### List effective role assignments: `GET /role-assignments`
+
+query_string: domain_id, project_id, role_id, user_id
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+
+Get a list of effective role assignments at the user level, including those that are
+directly assigned as well as those by virtue of group membership. This API is only
+available from v3.1 onwards.
+
+This API would typically always be used with one of more of the filter queries; for example
+using the `user_id` filter would return a response listing which roles a given user has on
+which entities.  Using `project_id` or `domain_id` returns a response showing which users
+have roles on that entity, and which roles they are. A combined query filter of `user_id`
+and `project_id` would return the equivilent set of role assignments that would be included
+in the token response of a project scoped token.
+
+This API only returns the effective user roles, after talking into account any group
+membership - the group assignments themselves are not included in the response.
+
+Each role assignment entity in the collection contains links to the grant that gave rise
+to this assignment, along with any group membership involved.
+  
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "links": {
+                "assignment": "http://identity:35357/v3/projects/--project-id--/
+                               users/--user-id--/roles/--role-id--"
+            {
+            "role_id": "--role-id--",
+            "project_id": "--project-id--",
+            "user_id": "--user-id--"
+        },
+        {
+            "domain_id": "--domain-id--",
+            "links": {
+                "assignment": "http://identity:35357/v3/domains/--domain-id--/
+                               groups/--group-id--/roles/--role-id--",
+                "membership": "http://identity:35357/v3/groups/--group-id--/
+                               users/--user-id--"
+            {
+            "role_id": "--role-id--",
+            "user_id": "--user-id--"
+        }
+    ]
 
 ### Policies
 
