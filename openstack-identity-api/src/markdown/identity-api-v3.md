@@ -26,7 +26,7 @@ What's New in Version 3.0
 - "Domains": a high-level container for projects, users and groups
 - "Policies": a centralized repository for policy engine rule sets
 - "Credentials": generic credential storage per user (e.g. EC2, PKI, SSH, etc.)
-- Roles can be granted at either the domain or project level
+- Roles can be assigned at either the domain or project level
 - User, group and project names only have to be unique within their owning
   domain
 - Retrieving your list of projects (previously `GET /tenants`) is now
@@ -415,11 +415,12 @@ API Resources
 User entities represent individual API consumers and are owned by a specific
 domain.
 
-Role grants explicitly associate users with projects or domains. Each
-user-project or user-domain pair can have a unique set of roles granted on them.
+Role assignments explicitly associate users with projects or domains. Each
+user-project or user-domain pair can have a unique set of roles assigned to
+them.
 
-A user without any role grants is effectively useless from the perspective of
-an OpenStack service and should never have access to any resources. It is
+A user without any role assignments is effectively useless from the perspective
+of an OpenStack service and should never have access to any resources. It is
 allowed, however, as a means of acquiring or loading users from external
 sources prior to mapping them to projects.
 
@@ -480,17 +481,17 @@ Example entity:
 ### Groups: `/v3/groups`
 
 Group entities represent a collection of Users and are owned by a specific
-domain. As with individual users, role grants explicitly associate groups with
-projects or domains. A group role grant onto a project/domain is the equivalent
-of granting each individual member of the group the role on that
-project/domain. Once a group role grant has been made, the addition or removal
-of a user to such a group will result in the automatic granting/revoking of
-that role to the user, which will also cause any token containing that user and
-project/domain to be revoked.
+domain. As with individual users, role assignments explicitly associate groups
+with projects or domains. A group role assignment onto a project/domain is the
+equivalent of assigning each individual member of the group the role on that
+project/domain. Once a group role assignment has been made, the addition or
+removal of a user to such a group will result in the automatic
+assigning/revoking of that role to the user, which will also cause any token
+containing that user and project/domain to be revoked.
 
-As with users, a group entity without any role grants is effectively useless
-from the perspective an OpenStack service and should never have access to any
-resources. It is allowed, however, as a means of acquiring or loading
+As with users, a group entity without any role assignments is effectively
+useless from the perspective an OpenStack service and should never have access
+to any resources. It is allowed, however, as a means of acquiring or loading
 users/groups from external sources prior to mapping them to projects/domains.
 
 Additional required attributes:
@@ -611,9 +612,9 @@ Example entity:
 
 ### Domains: `/v3/domains`
 
-Domains represent collections of users, groups and projects. Each is owned
-by exactly one domain. Users, however, can be associated with multiple
-projects by granting roles to the user on a project (including projects owned
+Domains represent collections of users, groups and projects, each of which is
+owned by exactly one domain. Users, however, can be associated with multiple
+projects by assigning roles to the user on a project (including projects owned
 by other domains).
 
 Each domain defines a namespace in which certain API-visible name attributes
@@ -1665,15 +1666,14 @@ Response:
 
 #### Delete domain: `DELETE /domains/{domain_id}`
 
-Deleting a domain will delete all the entities owned by it (Users,
-Groups & Projects), as well as any Credentials and Role grants that
-relate to these entities.
+Deleting a domain will delete all the entities owned by it (Users, Groups &
+Projects), as well as any Credentials and Role assignments that relate to these
+entities.
 
-In order to minimize the risk of an inadvertent deletion of a
-domain and its entities, a domain must first be disabled (using the
-update domain API) before a successful delete domain API call can
-be made. Attempting to delete an enabled domain will result in an
-HTTP 403 Forbidden response.
+In order to minimize the risk of an inadvertent deletion of a domain and its
+entities, a domain must first be disabled (using the update domain API) before
+a successful delete domain API call can be made. Attempting to delete an
+enabled domain will result in an HTTP 403 Forbidden response.
 
 Response:
 
@@ -2393,13 +2393,13 @@ Response:
 
     Status: 204 No Content
 
-#### Grant role to user on domain: `PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}`
+#### Assign role to user on domain: `PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Grant role to group on domain: `PUT /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
+#### Assign role to group on domain: `PUT /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
 
 Response:
 
@@ -2463,13 +2463,13 @@ Response:
 
     Status: 204 No Content
 
-#### Grant role to user on project: `PUT /projects/{project_id}/users/{user_id}/roles/{role_id}`
+#### Assign role to user on project: `PUT /projects/{project_id}/users/{user_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Grant role to group on project: `PUT /projects/{project_id}/groups/{group_id}/roles/{role_id}`
+#### Assign role to group on project: `PUT /projects/{project_id}/groups/{group_id}/roles/{role_id}`
 
 Response:
 

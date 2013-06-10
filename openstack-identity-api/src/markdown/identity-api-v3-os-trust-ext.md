@@ -67,9 +67,10 @@ Optional attributes:
 
 - `roles`: (list of objects)
 
-  Specifies the subset of the trustor's roles on the `project_id` to be granted
-  to the trustee when the token in consumed. The trustor must already be
-  granted these roles in the project referenced by the `project_id` attribute.
+  Specifies the subset of the trustor's roles on the `project_id` to be
+  assigned to the trustee when the token is consumed. The trustor must already
+  be assigned these roles in the project referenced by the `project_id`
+  attribute.
 
   Roles are only provided when the trust is created, and are subsequently
   available as a separate read-only collection. Each role can be specified by
