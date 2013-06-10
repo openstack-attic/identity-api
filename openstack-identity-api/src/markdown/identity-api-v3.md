@@ -15,6 +15,8 @@ What's New in Version 3.1
 - A token without an explicit scope of authorization is issued if the user
   does not specify a project and does not have authorization on the project
   specified by their default project attribute.
+- Introduced a generalized call for getting role assignments, with filtering
+  for user, group, project, domain and role.
 
 What's New in Version 3.0
 -------------------------
@@ -2532,6 +2534,149 @@ Response:
 Response:
 
     Status: 204 No Content
+
+#### List effective role assignments: `GET /role_assignments`
+
+query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id (all optional)
+query_string: effective (optional, default false)
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+
+Get a list of role assignments. This API is only available from v3.1 onwards.
+
+If no query filters are specified, then this API will return a list of all role assignments.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "role_assignments": [
+            {
+                "links": {
+                    "assignment": "http://identity:35357/v3/domains/--domain-id--/users/
+                                   --user-id--/roles/--role-id--"
+                },
+                "role": {
+                    "id": "--role-id--"
+                },
+                "scope": {
+                    "domain": {
+                        "id": "--domain-id--"
+                    }
+                },
+                "user": {
+                    "id": "--user-id--"
+                }
+            },
+            {
+                "group": {
+                    "id": "--group-id--"
+                },
+                "links": {
+                    "assignment": "http://identity:35357/v3/projects/--project-id--/
+                                   groups/--group-id--/roles/--role-id--"
+                },
+                "role": {
+                    "id": "--role-id--"
+                },
+                "scope": {
+                    "project": {
+                        "id": "--project-id--"
+                    }
+                }
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/role_assignments",
+            "previous": null,
+            "next": null
+        }
+    }
+
+Since this list is likely to be very long, this API would typically always be used with
+one of more of the filter queries. Some typical examples are:
+
+`GET /role_assignments?user.id={user_id}` would list all role assignments involving the
+specified user.
+
+`GET /role_assignments?scope.project.id={project_id}` would list all role assignments
+involving the specified project.
+
+Each role assignment entity in the collection contains a link to the assignment that gave
+rise to this entity.
+
+If the query_string `effective` is specified then, rather than simply returning a list of
+role assignments that have been made, the API returns a list of effective assignments at
+the user, project and domain level, having allowed for the effects of group membership.
+Since the effects of group membership have already been allowed for, the group role
+assignment entities themselves will not be returned in the collection. This represents the
+effective role assignments that would be included in a scoped token. The same set of query
+filters can also be used with the `effective` query string. For example:
+
+`GET /role_assignments?user.id={user_id}&effective` would, in other words, answer the
+question "what can this user actually do?".
+
+`GET /role_assignments?user.id={user_id}&scope.project.id={project_id}&effective` would
+return the equivilent set of role assignments that would be included in the token response
+of a project scoped token.
+
+An example response for an API call with the query_string `effective` specified is
+given below:
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "role_assignments": [
+            {
+                "links": {
+                    "assignment": "http://identity:35357/v3/domains/--domain-id--/users/
+                                   --user-id--/roles/--role-id--"
+                },
+                "role": {
+                    "id": "--role-id--"
+                },
+                "scope": {
+                    "domain": {
+                        "id": "--domain-id--"
+                    }
+                },
+                "user": {
+                    "id": "--user-id--"
+                }
+            },
+            {
+                "links": {
+                    "assignment": "http://identity:35357/v3/projects/--project-id--/
+                                   groups/--group-id--/roles/--role-id--",
+                    "membership": "http://identity:35357/v3/groups/--group-id--/
+                                   users/--user-id--"
+                },
+                "role": {
+                    "id": "--role-id--"
+                },
+                "scope": {
+                    "project": {
+                        "id": "--project-id--"
+                    }
+                },
+                "user": {
+                    "id": "--user-id--"
+                }
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/role_assignments?effective",
+            "previous": null,
+            "next": null
+        }
+    }
+
+The entity `links` section of a response using the `effective` query string also contains,
+for entities that are included by virtue of group memebership, a url that can be used to
+access the membership of the group.
 
 ### Policies
 
