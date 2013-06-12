@@ -1788,43 +1788,6 @@ Response:
 
     Status: 204 No Content
 
-#### List project users: `GET /projects/{project_id}/users`
-
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "name", "enabled", "email" on user resources (optional)
-
-Response:
-
-    Status: 200 OK
-
-    [
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "a user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "links": {
-                "self": "http://identity:35357/v3/users/--user-id--"
-            },
-            "name": "admin"
-        },
-        {
-            "default_project_id": "--default-project-id--",
-            "description": "another user",
-            "domain_id": "--domain-id--",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "links": {
-                "self": "http://identity:35357/v3/users/--user-id--"
-            },
-            "name": "someone"
-        }
-    ]
-
 ### Users
 
 #### Create user: `POST /users`
