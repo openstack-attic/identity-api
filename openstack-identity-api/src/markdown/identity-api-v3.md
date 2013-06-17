@@ -15,6 +15,8 @@ What's New in Version 3.1
 - A token without an explicit scope of authorization is issued if the user
   does not specify a project and does not have authorization on the project
   specified by their default project attribute.
+- Role assignment to a domain can be optionally specified to inherit the assignment
+  to the owned projects.
 
 What's New in Version 3.0
 -------------------------
@@ -2399,13 +2401,55 @@ Response:
 
     Status: 204 No Content
 
+#### Grant role to user on projects owned by a domain:
+`PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects`
+
+The inherited role is only applied to the owned projects (both existing and future
+projects), and will not appear as a role in a domain scoped token.
+
+Response:
+
+    Status: 204 No Content
+
 #### Grant role to group on domain: `PUT /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
+#### Grant role to group on projects owned by a domain:
+`PUT /domains/{domain_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects`
+
+
+The inherited role is only applied to the owned projects (both existing and future
+projects), and will not appear as a role in a domain scoped token.
+
+Response:
+
+    Status: 204 No Content
+
 #### List user's roles on domain: `GET /domains/{domain_id}/users/{user_id}/roles`
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "id": "--role-id--",
+            "name": "--role-name--",
+        },
+        {
+            "id": "--role-id--",
+            "name": "--role-name--"
+        }
+    ]
+
+#### List user's inherited project roles on a domain:
+`GET /domains/{domain_id}/users/{user_id}/roles/inherited_to_projects`
+
+The list only contains those role assignments to the domain that were specified
+as being inherited to projects within that domain.
 
 Response:
 
@@ -2439,7 +2483,35 @@ Response:
         }
     ]
 
+#### List group's inherited project roles on domain:
+`GET /domains/{domain_id}/groups/{group_id}/roles/inherited_to_projects`
+
+The list only contains those role assignments to the domain that were specified
+as being inherited to projects within that domain.
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "id": "--role-id--",
+            "name": "--role-name--",
+        },
+        {
+            "id": "--role-id--",
+            "name": "--role-name--"
+        }
+    ]
+
 #### Check if user has role on domain: `HEAD /domains/{domain_id}/users/{user_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Check if user has an inherited project role on domain:
+`HEAD /domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects`
 
 Response:
 
@@ -2451,13 +2523,34 @@ Response:
 
     Status: 204 No Content
 
+#### Check if group has an inherited project role on domain:
+`HEAD /domains/{domain_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
 #### Revoke role from user on domain: `DELETE /domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
+#### Revoke an inherited project role from user on domain:
+`DELETE /domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
 #### Revoke role from group on domain: `DELETE /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke an inherited project role from group on domain:
+`DELETE /domains/{domain_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects`
 
 Response:
 
