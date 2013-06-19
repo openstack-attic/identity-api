@@ -17,8 +17,9 @@ token representing the delegated authority.
 
 The trust contains constraints on the delegated attributes. A token created
 based on a trust will convey a subset of the trustor's roles on the specified
-project. The trust may only be valid for a specified time period, as defined by
-`expires_at`.
+project. Optionally, the trust may only be valid for a specified time period,
+as defined by `expires_at`. If no `expires_at` is specified, then the trust is
+valid until it is explicitly revoked.
 
 The `impersonation` flag allows the trustor to optionally delegate
 impersonation abilities to the trustee. To services validating the token, the
