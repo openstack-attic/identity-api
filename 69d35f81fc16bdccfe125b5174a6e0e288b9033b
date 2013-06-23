@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Code-Review+2: Joe Heck <heckj@mac.com>
+Approved+1: Brant Knudson <bknudson@us.ibm.com>
+Code-Review+2: Brant Knudson <bknudson@us.ibm.com>
+Submitted-by: Jenkins
+Submitted-at: Sun, 23 Jun 2013 15:43:17 +0000
+Reviewed-on: https://review.openstack.org/33719
+Project: openstack/identity-api
+Branch: refs/heads/master
