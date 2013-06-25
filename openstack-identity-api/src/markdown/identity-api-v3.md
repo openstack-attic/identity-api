@@ -17,6 +17,10 @@ What's New in Version 3.1
   specified by their default project attribute.
 - Introduced a generalized call for getting role assignments, with filtering
   for user, group, project, domain and role.
+- Introduced a mechanism to opt-out from catalog information during token
+  creation
+- Added a method to request the service catalog
+- "Catalogs": List of endpoints related to the various services
 
 What's New in Version 3.0
 -------------------------
@@ -943,7 +947,12 @@ Use cases:
 
 Each request to create a token contains an attribute with `identiy`
 information and, optionally, a `scope` describing the authorization scope being
-requested. Example request structure:
+requested. 
+
+*New in version 3.1* Additionally, if the caller specifies a `no-catalog` in
+the query string the token data will not contain the services catalog.
+
+Example request structure:
 
     {
         "auth": {
@@ -1393,8 +1402,66 @@ additional `X-Auth-Token` is not required.
 
 The key use cases we need to cover:
 
+- Retrieving the services' catalog
 - CRUD for services and endpoints
 - Retrieving an endpoint URL by service, region, and interface
+
+#### Retrieve Catalog: `GET /catalog`
+
+*New in version 3.1*
+The caller must present a valid token in the X-Auth-Token header otherwise
+a HTTP code 401 will be returned.
+
+Response:
+
+    Status: 200 OK
+
+    { "catalogs":
+        [
+            { "endpoints":
+                [
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "public",
+                        "links": {
+                            "self": "http://identity:35357/v3/endpoints/--ep-id--"
+                        },
+                        "name": "the public volume endpoint",
+                        "service_id": "--service-id--"
+                    },
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "internal",
+                        "links": {
+                            "self": "http://identity:35357/v3/endpoints/--ep-id--"
+                    }
+                ],
+                "name": "the internal volume endpoint",
+                "service_id": "--service-id--"
+            },
+            { "endpoints":
+                [
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "public",
+                        "links": {
+                            "self": "http://identity:35357/v3/endpoints/--ep-id--"
+                        },
+                        "name": "the public volume endpoint",
+                        "service_id": "--service-id--"
+                    },
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "internal",
+                        "links": {
+                            "self": "http://identity:35357/v3/endpoints/--ep-id--"
+                    }
+                ],
+                "name": "the internal volume endpoint",
+                "service_id": "--service-id--"
+            }
+        ]
+    }
 
 #### List services: `GET /services`
 
