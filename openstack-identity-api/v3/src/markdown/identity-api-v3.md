@@ -17,6 +17,8 @@ What's New in Version 3.1
   specified by their default project attribute.
 - Introduced a generalized call for getting role assignments, with filtering
   for user, group, project, domain and role.
+- Introduced a mechanism to opt-out from catalog information during token
+  creation
 
 What's New in Version 3.0
 -------------------------
@@ -1145,9 +1147,18 @@ Alternatively, a `domain` `name` may be used to uniquely identify the
 If neither a `project` nor a `domain` is provided for `scope`, and the
 authenticating `user` has a defined default project (the user's
 `default_project_id` attribute), then this will be treated as the preferred
-authorization scope. If there is no default project defined, then a token will be issued without an explicit scope of authorization.
+authorization scope. If there is no default project defined, then a token will
+be issued without an explicit scope of authorization.
 
-*New in version 3.1* Additionally, if the user's default project is invalid, a token will be issued without an explicit scope of authorization.
+*New in version 3.1* Additionally, if the user's default project is invalid, a
+token will be issued without an explicit scope of authorization.
+
+##### Catalog Opt-Out: 'POST /v3/auth/tokens?nocatalog'
+
+*New in version 3.1* If the caller specifies a `nocatalog` query parameter in
+the authentication request, then the authentication response will not contain
+the service catalog. The service catalog will otherwise be included in the response
+by default.
 
 ##### Authentication responses
 
