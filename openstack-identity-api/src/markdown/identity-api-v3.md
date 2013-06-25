@@ -17,6 +17,9 @@ What's New in Version 3.1
   specified by their default project attribute.
 - Introduced a generalized call for getting role assignments, with filtering
   for user, group, project, domain and role.
+- Introduced a mechanism to opt-out from catalog information during token
+  creation
+- Added a method to request the service catalog
 
 What's New in Version 3.0
 -------------------------
@@ -943,7 +946,8 @@ Use cases:
 
 Each request to create a token contains an attribute with `identiy`
 information and, optionally, a `scope` describing the authorization scope being
-requested. Example request structure:
+requested. 
+Example request structure:
 
     {
         "auth": {
@@ -1145,9 +1149,44 @@ Alternatively, a `domain` `name` may be used to uniquely identify the
 If neither a `project` nor a `domain` is provided for `scope`, and the
 authenticating `user` has a defined default project (the user's
 `default_project_id` attribute), then this will be treated as the preferred
-authorization scope. If there is no default project defined, then a token will be issued without an explicit scope of authorization.
+authorization scope. If there is no default project defined, then a token will
+be issued without an explicit scope of authorization.
 
-*New in version 3.1* Additionally, if the user's default project is invalid, a token will be issued without an explicit scope of authorization.
+*New in version 3.1* Additionally, if the user's default project is invalid, a
+token will be issued without an explicit scope of authorization.
+
+##### Catalog Opt-Out
+
+*New in version 3.1* If the caller specifies an `include_catalog` field and it
+is set to `false` in the authentication request body then authentication
+response will not contain the service catalog.
+The service catalog will otherwise be included in the response by default.
+Example request opting the catalog out:
+
+    {
+        "auth": {
+            "identity": {
+                "methods": [
+                    "password"
+                ],
+                "password": {
+                    "user": {
+                        "id": "0ca8f6",
+                        "password": "secrete"
+                    }
+                }
+            },
+            "scope": {
+                "project": {
+                    "domain": {
+                        "name": "example.com"
+                    },
+                    "name": "project-x"
+                }
+            },
+            "include_catalog": "false"
+        }
+    }
 
 ##### Authentication responses
 
@@ -1393,8 +1432,75 @@ additional `X-Auth-Token` is not required.
 
 The key use cases we need to cover:
 
+- Retrieving the service catalog
 - CRUD for services and endpoints
 - Retrieving an endpoint URL by service, region, and interface
+
+#### Retrieve Catalog: `GET /catalog`
+
+*New in version 3.1*
+
+The caller must present a valid project-scoped token in the X-Auth-Token header
+otherwise a HTTP 401 Unauthorized will be returned.
+
+* Note: a valid project-scoped token is necessary to access the user and
+project ids which are required to build a catalog response.
+
+Response:
+
+    Status: 200 OK
+
+    { "catalogs":
+        [
+            { "endpoints":
+                [
+                    {
+                        "url": "http://identity:35357/v1.1/--endpoint-id--",
+                        "region": "RegionOne",
+                        "legacy_endpoint_id": "--endpoint-id-legacy--",
+                        "interface": "admin",
+                        "id": "--endpoint-id--"
+                    },
+                    {
+                        "url": "http://identity:8774/v1.1/--endpoint-id--",
+                        "region": "RegionOne",
+                        "legacy_endpoint_id": "--endpoint-id-legacy--",
+                        "interface": "internal",
+                        "id": "--endpoint-id--"
+                    },
+                    {
+                        "url": "http://identity:5000/v1.1/--endpoint-id--",
+                        "region": "RegionOne",
+                        "legacy_endpoint_id": "--endpoint-id-legacy--",
+                        "interface": "public",
+                        "id": "--endpoint-id--"
+                    }
+                ],
+                "type": "compute",
+                "service_id": "--service-id--"
+            },
+            { "endpoints":
+                [
+                    {
+                        "url": "http://identity:9292/v1.1/--endpoint-id--",
+                        "region": "RegionOne",
+                        "legacy_endpoint_id": "--endpoint-id-legacy--",
+                        "interface": "admin",
+                        "id": "--endpoint-id--"
+                    },
+                    {
+                        "url": "http://identity:9292/v1.1/--endpoint-id--",
+                        "region": "RegionOne",
+                        "legacy_endpoint_id": "--endpoint-id-legacy--",
+                        "interface": "public",
+                        "id": "--endpoint-id--"
+                    }
+                ],
+                "type": "image",
+                "service_id": "--service-id--"
+            }
+        ]
+    }
 
 #### List services: `GET /services`
 
