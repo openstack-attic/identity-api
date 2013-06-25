@@ -17,6 +17,10 @@ What's New in Version 3.1
   specified by their default project attribute.
 - Introduced a generalized call for getting role assignments, with filtering
   for user, group, project, domain and role.
+- Introduced a mechanism to opt-out from catalog information during token
+  creation
+- Added a method to request the service catalog
+- "Catalogs": List of endpoints related to the various services
 
 What's New in Version 3.0
 -------------------------
@@ -943,7 +947,9 @@ Use cases:
 
 Each request to create a token contains an attribute with `identiy`
 information and, optionally, a `scope` describing the authorization scope being
-requested. Example request structure:
+requested. 
+
+Example request structure:
 
     {
         "auth": {
@@ -1148,6 +1154,68 @@ authenticating `user` has a defined default project (the user's
 authorization scope. If there is no default project defined, then a token will be issued without an explicit scope of authorization.
 
 *New in version 3.1* Additionally, if the user's default project is invalid, a token will be issued without an explicit scope of authorization.
+
+##### Catalog Opt-Out
+
+*New in version 3.1* Additionally, if the caller specifies an
+`include_catalog` field set to `false` in the authentication request body.
+The authentication response will not contain the services catalog.
+Otherwise if the same field is set to `True` or omitted the response will
+contain the service catalog.
+
+Example request opting the catalog out:
+
+    {
+        "auth": {
+            "identity": {
+                "methods": [
+                    "password"
+                ],
+                "password": {
+                    "user": {
+                        "id": "0ca8f6",
+                        "password": "secrete"
+                    }
+                }
+            },
+            "scope": {
+                "project": {
+                    "domain": {
+                        "name": "example.com"
+                    },
+                    "name": "project-x"
+                }
+            },
+            "include_catalog": "false"
+        }
+    }
+
+Example request opting the catalog in:
+
+    {
+        "auth": {
+            "identity": {
+                "methods": [
+                    "password"
+                ],
+                "password": {
+                    "user": {
+                        "id": "0ca8f6",
+                        "password": "secrete"
+                    }
+                }
+            },
+            "scope": {
+                "project": {
+                    "domain": {
+                        "name": "example.com"
+                    },
+                    "name": "project-x"
+                }
+            },
+            "include_catalog": "true"
+        }
+    }
 
 ##### Authentication responses
 
@@ -1393,8 +1461,69 @@ additional `X-Auth-Token` is not required.
 
 The key use cases we need to cover:
 
+- Retrieving the services' catalog
 - CRUD for services and endpoints
 - Retrieving an endpoint URL by service, region, and interface
+
+#### Retrieve Catalog: `GET /catalog`
+
+*New in version 3.1*
+The caller must present a valid token in the X-Auth-Token header otherwise
+a HTTP code 401 will be returned.
+
+* Note: a valid scoped token is required to harvest the user and project
+ids and build an appropriate catalog in response.
+
+Response:
+
+    Status: 200 OK
+
+    { "catalogs":
+        [
+            { "endpoints":
+                [
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "public",
+                        "links": {
+                            "self": "http://identity:35357/v3/endpoints/--ep-id--"
+                        },
+                        "name": "the public volume endpoint",
+                        "service_id": "--service-id--"
+                    },
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "internal",
+                        "links": {
+                            "self": "http://identity:35357/v3/endpoints/--ep-id--"
+                    }
+                ],
+                "name": "the internal volume endpoint",
+                "service_id": "--service-id--"
+            },
+            { "endpoints":
+                [
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "public",
+                        "links": {
+                            "self": "http://identity:35357/v3/endpoints/--ep-id--"
+                        },
+                        "name": "the public volume endpoint",
+                        "service_id": "--service-id--"
+                    },
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "internal",
+                        "links": {
+                            "self": "http://identity:35357/v3/endpoints/--ep-id--"
+                    }
+                ],
+                "name": "the internal volume endpoint",
+                "service_id": "--service-id--"
+            }
+        ]
+    }
 
 #### List services: `GET /services`
 
