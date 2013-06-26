@@ -17,6 +17,9 @@ What's New in Version 3.1
   specified by their default project attribute.
 - Introduced a generalized call for getting role assignments, with filtering
   for user, group, project, domain and role.
+- Introduce a mechanism to create associations between projects and endpoints;
+  this enables filtering endpoints returned in the service catalog based on the
+  token scope.
 
 What's New in Version 3.0
 -------------------------
@@ -1194,7 +1197,48 @@ the user's roles applicable to the `project`. Example response:
 
     {
         "token": {
-            "catalog": "FIXME(dolph): need an example here",
+            "catalog": [
+                { "endpoints": [
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "public",
+                        "region": "region-a",
+                        "url": "--endpoint-url--",
+                        "name": "the public endpoint",
+                        "legacy_endpoint_id": "--legacy-id--"
+                    },
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "internal",
+                        "region": "region-a",
+                        "url": "--endpoint-url--",
+                        "name": "the internal endpoint",
+                        "legacy_endpoint_id": "--legacy-id--"
+                    } ],
+                    "type": "compute",
+                    "id": "--service-id--"
+                },
+                { "endpoints": [
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "public",
+                        "region": "region-b",
+                        "url": "--endpoint-url--",
+                        "name": "the public endpoint",
+                        "legacy_endpoint_id": "--legacy-id--"
+                    },
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "internal",
+                        "region": "region-b",
+                        "url": "--endpoint-url--",
+                        "name": "the internal endpoint",
+                        "legacy_endpoint_id": "--legacy-id--"
+                    } ],
+                    "type": "identity",
+                    "id": "--service-id--"
+                } ]
+            },
             "expires_at": "2013-02-27T18:30:59.999999Z",
             "issued_at": "2013-02-27T16:30:59.999999Z",
             "methods": [
@@ -1254,9 +1298,49 @@ user's roles applicable to the `domain`. Example response:
 
     X-Subject-Token: e80b74
 
-    {
-        "token": {
-            "catalog": "FIXME(dolph): need an example here",
+    { "token": {
+            "catalog": [
+                { "endpoints": [
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "public",
+                        "region": "region-a",
+                        "url": "--endpoint-url--",
+                        "name": "the public endpoint",
+                        "legacy_endpoint_id": "--legacy-id--"
+                    },
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "internal",
+                        "region": "region-a",
+                        "url": "--endpoint-url--",
+                        "name": "the internal endpoint",
+                        "legacy_endpoint_id": "--legacy-id--"
+                    } ],
+                    "type": "compute",
+                    "id": "--service-id--"
+                },
+                { "endpoints": [
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "public",
+                        "region": "region-b",
+                        "url": "--endpoint-url--",
+                        "name": "the public endpoint",
+                        "legacy_endpoint_id": "--legacy-id--"
+                    },
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "internal",
+                        "region": "region-b",
+                        "url": "--endpoint-url--",
+                        "name": "the internal endpoint",
+                        "legacy_endpoint_id": "--legacy-id--"
+                    } ],
+                    "type": "identity",
+                    "id": "--service-id--"
+                } ]
+            },
             "expires_at": "2013-02-27T18:30:59.999999Z",
             "issued_at": "2013-02-27T16:30:59.999999Z",
             "methods": [
@@ -1301,6 +1385,9 @@ user's roles applicable to the `domain`. Example response:
             }
         }
     }
+
+*New in version 3.1* The returned catalog will only include the endpoints
+associated with the project.
 
 ##### Authentication failures
 
@@ -1557,6 +1644,46 @@ Response:
 
     Status: 204 No Content
 
+#### Get projects associated with endpoint: `GET /endpoints/{endpoint_id}/projects`
+
+*New in version 3.1* Returns a list of projects that are currently associated with
+the given endpoint.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "projects":
+        [
+            {
+                "domain_id": "--domain-id--",
+                "enabled": true,
+                "id": "--project-id--",
+                "links": {
+                     "self": "http://identity:35357/v3/projects/--project-id--"
+                },
+                "name": "a project name 1",
+                "description": "a project description 1"
+            },
+            {
+                "domain_id": "--domain-id--",
+                "enabled": true,
+                "id": "--project-id--",
+                "links": {
+                     "self": "http://identity:35357/v3/projects/--project-id--"
+                },
+                "name": "a project name 2",
+                "description": "a project description 2"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/endpoints/--endpoint-id--/projects",
+            "previous": null,
+            "next": null
+        },
+   }
+
 ## Identity
 
 The key use cases we need to cover:
@@ -1787,6 +1914,66 @@ Response:
     }
 
 #### Delete project: `DELETE /projects/{project_id}`
+
+    Status: 204 No Content
+
+### Project-Endpoint Associations
+
+*New in version 3.1* If a valid X-Auth-Token token in not present in the HTTP
+header and/or the user does not have the right authorization a HTTP 401 code
+will be returned.
+
+#### Create Association: `PUT /projects/{project_id}/endpoints/{endpoint_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Check Association: `HEAD /projects/{project_id}/endpoints/{endpoint_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### List Associations for Project: `GET /projects/{project_id}/endpoints`
+
+Response:
+
+    Status: 200 OK
+    {
+        "endpoints":
+        [
+            {
+                "id": "--endpoint-id--",
+                "interface": "public",
+                "url": "http://identity:35357/",
+                "region": "north",
+                "links": {
+                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                },
+                "service_id": "--service-id--"
+            },
+            {
+                "id": "--endpoint-id--",
+                "interface": "internal",
+                "region": "south",
+                "url": "http://identity:35357/",
+                "links": {
+                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                },
+                "service_id": "--service-id--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/projects/{project_id}/endpoints",
+            "previous": null,
+            "next": null
+        }
+    }
+
+#### Delete Association: `DELETE /projects/{project_id}/endpoints/{endpoint_id}`
+
+Response:
 
     Status: 204 No Content
 
