@@ -11,28 +11,25 @@
     <!ENTITY % common  SYSTEM "common.ent">
     %common;
 ]>
-
 <application xmlns="http://wadl.dev.java.net/2009/02"
     xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
     xmlns:capi="http://docs.openstack.org/common/api/v1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
     xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:wadl="http://wadl.dev.java.net/2009/02"
     xsi:schemaLocation="http://docs.openstack.org/identity/api/v2.0 ../xsd/api.xsd
                                  http://docs.openstack.org/common/api/v1.0 ../xsd/api-common.xsd
                                  http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd
                                  ">
-
     <grammars>
         <include href="../xsd/api.xsd"/>
         <include href="../xsd/api-common.xsd"/>
     </grammars>
-
     <!--*******************************************************-->
     <!--             All Resources                             -->
     <!--*******************************************************-->
-
     <!-- We should use SSL in production -->
     <resources base="http://localhost:5000">
         <resource id="version" type="#VersionDetails" path="v2.0/">
@@ -96,8 +93,8 @@
 
     <method name="GET" id="listExtensions">
         <doc xml:lang="EN" title="List Extensions">
-            <p xmlns="http://www.w3.org/1999/xhtml">Lists 
-                available extensions.</p>
+            <p xmlns="http://www.w3.org/1999/xhtml">Lists available
+                extensions.</p>
         </doc>
         <response status="200 203">
             <representation mediaType="application/xml"
@@ -124,7 +121,6 @@
                 element="capi:extension"/>
             <representation mediaType="application/json"/>
         </response> &commonFaults; &getFaults; </method>
-
     <!-- Token Operations -->
     <method name="POST" id="authenticate">
         <wadl:doc xml:lang="EN" title="Authenticate"
@@ -134,8 +130,7 @@
                 with v2.0/tokens supplied as the path. A payload of
                 credentials must be included in the body. See <a
                     href="../xsd/credentials.xsd">supported
-                    credentials</a>.
-            </p>
+                    credentials</a>. </p>
             <p> Each ReST request against the Identity Service
                 requires the inclusion of a specific authorization
                 token HTTP x-header, defined as X-Auth-Token. Clients
@@ -147,38 +142,94 @@
                 Identity Service, you must know the URL of the
                 Identity Service. </p>
         </wadl:doc>
-        <request>
+        <request> 
+            <representation mediaType="application/json">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample
+                        title="Authenticate with credentials request: JSON">
+                        <xsdxt:code
+                            href="../samples/auth_credentials.json"/>
+                    </xsdxt:sample>
+                </wadl:doc>
+            </representation>
             <representation mediaType="application/xml"
-                element="identity:auth"/>
-            <representation mediaType="application/json"/>
+                element="identity:auth">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample
+                        title="Authenticate with credentials request: XML">
+                        <xsdxt:code
+                            href="../samples/auth_credentials.xml"/>
+                    </xsdxt:sample>
+                </wadl:doc>
+            </representation>
         </request>
         <response status="200 203">
-            <representation mediaType="application/xml"
-                element="identity:access"/>
-            <representation mediaType="application/json"/>
-        </response>
+            <representation mediaType="application/json"
+                element="identity:access">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample
+                        title="Authenticate with credentials response: JSON">
+                        <xsdxt:code href="../samples/auth.json"/>
+                    </xsdxt:sample>
+                </wadl:doc>
+            </representation>
+ <representation mediaType="application/xml"
+                element="identity:access">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample
+                        title="Authenticate with credentials response: XML">
+                        <xsdxt:code href="../samples/auth.xml"/>
+                    </xsdxt:sample>
+                </wadl:doc>
+            </representation>
+        </response>     
         <response status="403">
-            <representation mediaType="application/xml"
+            <representation mediaType="application/json"
                 element="identity:userDisabled"/>
-            <representation mediaType="application/json"/>
         </response> &commonFaults; &getFaults; </method>
-
     <!-- Tenant Operations -->
-
     <method name="GET" id="listTenants">
         <wadl:doc title="List Tenants" xml:lang="EN"
             xmlns="http://www.w3.org/1999/xhtml">
-            <p> Returns a list of tenants. </p>
+            <p>Returns a list of tenants. </p>
         </wadl:doc>
         <request>
             <param name="marker" style="query" required="false"
                 type="xsd:string"/>
             <param name="limit" style="query" required="false"
                 type="xsd:int"/>
-        </request>
-        <response status="200 203">
+            <representation mediaType="application/json"
+                element="identity:tenants">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample title="List tenants request: HTTP/JSON">
+                        <xsdxt:code href="../samples/tenants-request-JSON.txt"/>
+                    </xsdxt:sample>
+                </wadl:doc>
+            </representation>   
             <representation mediaType="application/xml"
-                element="identity:tenants"/>
-            <representation mediaType="application/json"/>
+                element="identity:tenants">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample title="List tenants request: HTTP/XML">
+                        <xsdxt:code href="../samples/tenants-request-XML.txt"/>
+                    </xsdxt:sample>
+                </wadl:doc>
+            </representation>   
+        </request>
+        <response status="200 203">    
+            <representation mediaType="application/json">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample title="List tenants response: JSON">
+                        <xsdxt:code href="../samples/tenants.json"/>
+                    </xsdxt:sample>
+                </wadl:doc>
+            </representation>
+            <representation mediaType="application/xml"
+                element="identity:tenants">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample title="List tenants response: XML">
+                        <xsdxt:code href="../samples/tenants.xml"/>
+                    </xsdxt:sample>
+                </wadl:doc>
+            </representation>
         </response> &commonFaults; &getFaults; </method>
 </application>

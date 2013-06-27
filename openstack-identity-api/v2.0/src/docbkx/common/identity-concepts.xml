@@ -6,9 +6,9 @@
     <title>Identity Service Concepts</title>
     <para>The OpenStack Identity Service has the following key
         concepts: </para>
-    <variablelist>
+    <variablelist wordsize="10">
         <varlistentry>
-            <term>User</term>
+            <term><emphasis role="bold">User</emphasis></term>
             <listitem>
                 <para>A digital representation of a person, system, or
                     service that uses OpenStack cloud services.
@@ -22,7 +22,7 @@
             </listitem>
         </varlistentry>
         <varlistentry>
-            <term>Credentials</term>
+            <term><emphasis role="bold">Credentials</emphasis></term>
             <listitem>
                 <para>Data that belongs to, is owned by, and generally
                     only known by a user that the user can present to
@@ -44,7 +44,8 @@
             </listitem>
         </varlistentry>
         <varlistentry>
-            <term>Authentication</term>
+            <term><emphasis role="bold"
+                >Authentication</emphasis></term>
             <listitem>
                 <para>In the context of OpenStack Identity Service,
                     the act of confirming the identity of a user or
@@ -63,7 +64,7 @@
             </listitem>
         </varlistentry>
         <varlistentry>
-            <term>Token</term>
+            <term><emphasis role="bold">Token</emphasis></term>
             <listitem>
                 <para>An arbitrary bit of text that is used to access
                     resources. Each token has a scope that describes
@@ -80,7 +81,7 @@
             </listitem>
         </varlistentry>
         <varlistentry>
-            <term>Tenant</term>
+            <term><emphasis role="bold">Tenant</emphasis></term>
             <listitem>
                 <para>A container used to group or isolate resources
                     and/or identity objects. Depending on the service
@@ -89,7 +90,7 @@
             </listitem>
         </varlistentry>
         <varlistentry>
-            <term>Service</term>
+            <term><emphasis role="bold">Service</emphasis></term>
             <listitem>
                 <para>An OpenStack service, such as Compute (Nova),
                     Object Storage (Swift), or Image Service (Glance).
@@ -99,7 +100,7 @@
             </listitem>
         </varlistentry>
         <varlistentry>
-            <term>Endpoint</term>
+            <term><emphasis role="bold">Endpoint</emphasis></term>
             <listitem>
                 <para>An network-accessible address, usually described
                     by a URL, where a service may be accessed. If
@@ -110,7 +111,7 @@
             </listitem>
         </varlistentry>
         <varlistentry>
-            <term>Role</term>
+            <term><emphasis role="bold">Role</emphasis></term>
             <listitem>
                 <para>A personality that a user assumes when
                     performing a specific set of operations. A role
@@ -121,8 +122,8 @@
                     issued to a user includes the list of roles that
                     user can assume. Services that are being called by
                     that user determine how they interpret the set of
-                    roles a user has and which operations or resources
-                    each roles grants access to. </para>
+                    roles a user has and to which operations or
+                    resources each role grants access. </para>
             </listitem>
         </varlistentry>
     </variablelist>
