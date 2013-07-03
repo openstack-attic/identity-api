@@ -13,61 +13,61 @@
 ]>
 <application xmlns="http://wadl.dev.java.net/2009/02"
     xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
-    xmlns:RAX-KSGRP="http://docs.openstack.org/identity/api/ext/RAX-KSGRP/v1.0"
+    xmlns:RAX-KSGRP="http://docs.openstack.org/identity/api/ext/RAX-KSGRP/v1.0"	
     xmlns:capi="http://docs.openstack.org/common/api/v1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+    xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0" 
+    xmlns:wadl="http://wadl.dev.java.net/2009/02"
     xsi:schemaLocation="http://docs.openstack.org/identity/api/v2.0 ../xsd/api.xsd
     http://docs.openstack.org/common/api/v1.0 ../xsd/api-common.xsd
     http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd
     http://docs.rackspace.com/identity/api/ext/RAX-KSGRP/v1.0 ../xsd/RAX-KSGRP-groups.xsd
     ">
-
+    
     <grammars>
         <include href="../xsd/api.xsd"/>
         <include href="../xsd/api-common.xsd"/>
         <include href="../xsd/RAX-KSGRP-groups.xsd"/>
     </grammars>
-
     <!--*******************************************************-->
     <!--             All Resources                             -->
     <!--*******************************************************-->
-
+    
     <!-- We should use SSL in production -->
     <resources base="http://localhost:35357">
         <resource id="version" path="v2.0">
             <param name="X-Auth-Token" style="header" type="xsd:string" required="true">
-                <doc>You need a valid admin token for access.</doc>
-            </param>
+                <wadl:doc xmlns="http://docbook.org/ns/docbook">A valid authentication token for an administrative user.</wadl:doc>
+            </param>            
             <resource id="users" path="users">
                 <resource id="userById" path="{userId}">
-                    <param name="userId" style="template" type="xsd:string"/>
+                    <param name="userId" style="template" type="xsd:string"><wadl:doc xmlns="http://docbook.org/ns/docbook">The user ID.</wadl:doc></param>
                     <resource id="user-groups-RAX-KSGRP" path="RAX-KSGRP">
                         <method href="#listUserGroups"/>
                     </resource>
                 </resource>
             </resource>
         </resource>
-    </resources>
-
+    </resources>  
     <method name="GET" id="listUserGroups">
-        <doc xml:lang="EN" title="List Groups for a User">
-            <p xmlns="http://www.w3.org/1999/xhtml">List all the groups for a user.</p>
-        </doc>
+        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List Groups for a User">
+            <para role="shortdesc">List groups for a specified user.</para>       
+        </wadl:doc>
         <response status="200 203">
             <representation mediaType="application/xml" element="RAX-KSGRP:groups">
-                <doc xml:lang="EN">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
                     <xsdxt:code href="../RAX-KSGRP/samples/RAX-KSGRP-groups.xml"/>
-                </doc>
+                </wadl:doc>
             </representation>
             <representation mediaType="application/json">
-                <doc xml:lang="EN">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
                     <xsdxt:code href="../RAX-KSGRP/samples/RAX-KSGRP-groups.json"/>
-                </doc>
+                </wadl:doc>
             </representation>
         </response>
         &commonFaults;
         &getFaults;
     </method>
-</application>
+   </application> 
+   

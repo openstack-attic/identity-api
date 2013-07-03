@@ -133,15 +133,12 @@
         <section xml:id="NewElement0001">
             <title>New Element</title>
             <section xml:id="RackExt-0001">
-                <title>apikeyCredentials</title>
-                <para>This extension allows authentication calls to
-                    accept new type of credentials
-                        <parameter>apikeyCredentials</parameter>.
-                    These are additional type of credentials defined
-                    to support rackspace style authentication.
-                    Examples of
-                        <parameter>apikeyCredentials</parameter> are
-                    illustrated below </para>
+                <title>RAX-KSKEY Admin Extension</title>
+                <para>This extension enables authentication calls to
+                    accept the
+                        <parameter>apikeyCredentials</parameter> parameter.
+                    These credentials support Rackspace-style authentication.
+                   </para>
                 <example>
                     <title>apikeyCredentials XML</title>
                     <programlisting language="xml"><xi:include href="&APIKEYCREDENTIALSREQUESTXML;" parse="text"/></programlisting>
@@ -152,14 +149,12 @@
                 </example>
             </section>
         </section>
-
         <section xmlns="http://docbook.org/ns/docbook"
             xmlns:xi="http://www.w3.org/2001/XInclude"
             xmlns:xlink="http://www.w3.org/1999/xlink"
             xml:id="Admin_API_Service_Developer_Operations-RAX-KSKEY-admin"
             version="5.0" role="api-reference">
-            <title>RAX-KSKEY-admin Extension API Operations</title>
-
+            <title>RAX-KSKEY Admin Extension</title>
             <table rules="all">
                 <caption>Authentication Header</caption>
                 <thead>
@@ -177,18 +172,19 @@
                     </tr>
                 </tbody>
             </table>
-
-            <para>Following operations are the list of operations
-                whose behavior is altered by Rackspace API Key
-                Authentication Extension:</para>
+            <para>The Rackspace API Key
+                Authentication Extension adds the following calls:</para>
             <section xml:id="User_Operations_RAX_KSKEY">
                 <title>User Operations</title>
                 <wadl:resources
-                    xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                    xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                        href="../wadl/RAX-KSKEY-admin.wadl">
                     <wadl:resource
-                        href="../wadl/RAX-KSKEY-admin.wadl#userCredentials">
-                        <wadl:method href="addUserCredential"/>
-                        <wadl:method href="listCredentials"/>
+                        href="../wadl/RAX-KSKEY-admin.wadl#users">
+                    <!--  <wadl:method href="addUserCredential"/>       
+                            <wadl:resource href="../wadl/RAX-KSKEY-admin.wadl#tenants">
+                            <wadl:method href="listCredentials"/>
+                            </wadl:resource>      
                     </wadl:resource>
                     <wadl:resource
                         href="../wadl/RAX-KSKEY-admin.wadl#userCredentialsByType">
@@ -196,7 +192,7 @@
                         <wadl:method href="deleteUserCredential"/>
                         <wadl:method href="getUserCredential"/>
                     </wadl:resource>
-                </wadl:resources>
+                </wadl:resources>--></wadl:resource> </wadl:resources>
             </section>
         </section>
     </chapter>
