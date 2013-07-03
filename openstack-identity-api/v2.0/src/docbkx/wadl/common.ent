@@ -1,8 +1,7 @@
-
-     <!--
+<!--
          A collection of common faults, these are pretty much expected
          in every request.
-     -->
+-->
      <!ENTITY commonFaults
            '
         <response xmlns="http://wadl.dev.java.net/2009/02">
@@ -54,3 +53,12 @@
             <representation mediaType="application/json"/>
         </response>
            '>
+
+ <!-- Authenticate Parameters -->
+	<!ENTITY authParameters
+	           '
+	<param xmlns="http://wadl.dev.java.net/2009/02" name="username" style="plain" required="true" type="xsd:string"><doc><p xmlns="http://www.w3.org/1999/xhtml">The user name.</p></doc></param>
+	<param xmlns="http://wadl.dev.java.net/2009/02" name="password" style="plain" required="true" type="xsd:string"><doc><p xmlns="http://www.w3.org/1999/xhtml">The password of the user.</p></doc></param>
+	<param xmlns="http://wadl.dev.java.net/2009/02" name="tenantName" style="plain" required="false" type="xsd:string"><doc><p xmlns="http://www.w3.org/1999/xhtml">The tenant name.</p></doc></param>
+	<param xmlns="http://wadl.dev.java.net/2009/02" name="tenantId" style="plain" required="false" type="capi:UUID"><doc><p xmlns="http://www.w3.org/1999/xhtml">The tenant ID.</p></doc></param>
+'>

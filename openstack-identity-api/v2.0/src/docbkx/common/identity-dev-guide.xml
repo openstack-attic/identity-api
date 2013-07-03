@@ -26,7 +26,7 @@
             <holder>OpenStack Foundation</holder>
         </copyright>
         <releaseinfo>API v2.0</releaseinfo>
-        <productname>OpenStack Identity Service API v2.0</productname>
+        <productname>OpenStack Identity Service</productname>
         <pubdate/>
         <legalnotice role="apache2">
             <annotation>
@@ -42,6 +42,17 @@
                 API v2.0. </para>
         </abstract>
         <revhistory>
+            <revision>
+                <date>2013-07-13</date>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Added missing code samples and
+                                request parameter descriptions.</para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
             <revision>
                 <date>2013-05-30</date>
                 <revdescription>

@@ -36,12 +36,17 @@
     <!-- We should use SSL in production -->
     <resources base="http://localhost:35357">
         <resource id="version" path="v2.0">
-            <param name="X-Auth-Token" style="header" type="xsd:string" required="true">
-                <doc>You need a valid admin token for access.</doc>
+            <param name="X-Auth-Token" style="header"
+                type="xsd:string" required="true">
+                <doc>A valid authentication token for an
+                    administrative user.</doc>
             </param>
             <resource id="users" path="users">
                 <resource id="userById" path="{userId}">
-                    <param name="userId" style="template" type="xsd:string"/>
+                    <param name="userId" style="template"
+                        type="xsd:string">
+                        <doc>The user ID.</doc>
+                    </param>
                     <resource id="user-RAX-KSQA" path="RAX-KSQA">
                         <resource id="secretqa" path="secretqa">
                             <method href="#getUserSecretQA"/>
@@ -52,55 +57,67 @@
             </resource>
         </resource>
     </resources>
-
     <method name="GET" id="getUserSecretQA">
-        <doc xml:lang="EN" title="Get User SecretQA">
-            <p xmlns="http://www.w3.org/1999/xhtml">Gets a User secret Question and Answer.</p>
+        <doc xml:lang="EN" title="Get User Secret Question and Answer">
+            <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc"
+                >Gets a secret question and answer for a specified
+                user.</p>
         </doc>
         <response status="200 203">
-            <representation mediaType="application/xml" element="RAX-KSQA:secretQA">
+            <representation mediaType="application/xml"
+                element="RAX-KSQA:secretQA">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../RAX-KSQA/samples/RAX-KSQA-secretQA.xml"/>
+                    <xsdxt:code
+                        href="../RAX-KSQA/samples/RAX-KSQA-secretQA.xml"
+                    />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../RAX-KSQA/samples/RAX-KSQA-secretQA.json"/>
+                    <xsdxt:code
+                        href="../RAX-KSQA/samples/RAX-KSQA-secretQA.json"
+                    />
                 </doc>
             </representation>
-        </response>
-        &commonFaults;
-        &getFaults;
-    </method>
+        </response> &commonFaults; &getFaults; </method>
     <method name="PUT" id="updateUserSecretQA">
-        <doc xml:lang="EN" title="Update User SecretQA">
-            <p xmlns="http://www.w3.org/1999/xhtml">Updates a User secret Question and Answer.</p>
+        <doc xml:lang="EN" title="Update User Secret Question and Answer">
+            <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc"
+                >Updates a secret question and answer for a specified
+                user.</p>
         </doc>
         <request>
-            <representation mediaType="application/xml" element="RAX-KSQA:secretQA">
+            <representation mediaType="application/xml"
+                element="RAX-KSQA:secretQA">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../RAX-KSQA/samples/RAX-KSQA-secretQA.xml"/>
+                    <xsdxt:code
+                        href="../RAX-KSQA/samples/RAX-KSQA-secretQA.xml"
+                    />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../RAX-KSQA/samples/RAX-KSQA-secretQA.json"/>
+                    <xsdxt:code
+                        href="../RAX-KSQA/samples/RAX-KSQA-secretQA.json"
+                    />
                 </doc>
             </representation>
         </request>
         <response status="200">
-            <representation mediaType="application/xml" element="RAX-KSQA:secretQA">
+            <representation mediaType="application/xml"
+                element="RAX-KSQA:secretQA">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../RAX-KSQA/samples/RAX-KSQA-secretQA.xml"/>
+                    <xsdxt:code
+                        href="../RAX-KSQA/samples/RAX-KSQA-secretQA.xml"
+                    />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../RAX-KSQA/samples/RAX-KSQA-secretQA.json"/>
+                    <xsdxt:code
+                        href="../RAX-KSQA/samples/RAX-KSQA-secretQA.json"
+                    />
                 </doc>
             </representation>
-        </response>
-        &commonFaults;
-        &postPutFaults;
-    </method>
-   </application>
+        </response> &commonFaults; &postPutFaults; </method>
+</application>
