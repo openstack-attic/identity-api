@@ -151,7 +151,7 @@ format="SVG" scale="60"/>
         <section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
             xmlns:xlink="http://www.w3.org/1999/xlink"
             xml:id="Admin_API_Service_Developer_Operations-OS-KSEC2" version="5.0" role="api-reference">
-            <title>OS-KSEC2-admin Extension API Operations</title>
+            <title>OS-KSEC2 Admin Extension</title>
             <table rules="all">
                 <caption>Authentication Header</caption>
                 <thead>
@@ -169,7 +169,7 @@ format="SVG" scale="60"/>
                     </tr>
                 </tbody>
             </table>
-            <para>Following operations are the list of operations whose behavior is altered by OpenStack EC2 authentication Extension:</para>
+            <para>The OpenStack EC2 authentication extension adds the following calls:</para>
             <section xml:id="User_Operations_OS-KSEC2">
                 <title>User Operations</title>
                 <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">

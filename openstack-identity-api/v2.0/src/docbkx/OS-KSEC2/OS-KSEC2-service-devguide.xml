@@ -131,19 +131,12 @@
         <section xml:id="NewElement0001">
             <title>New Element</title>
             <section xml:id="RackExt-0001">
-                <title> Openstack extension to Identity Service v2.0
-                    API enabling EC2 style authentication. </title>
+                <title>OS-KSEC2 Admin Extension</title>
                 <section xml:id="Authenticate-d1e1166">
                     <title>Authenticate</title>
-                    <para>This extension allows authentication calls
-                        to accept new type of credentials
-                            <parameter>ec2Credentials</parameter>.
-                        These are additional type of credentials
-                        defined to support EC2 style authentication.
-                        The usage of
-                            <parameter>ec2Credentials</parameter> on a
-                        existing call to authenticate is illustrated
-                        below </para>
+                    <para>This extension enables the
+                            <parameter>ec2Credentials</parameter> parameter, which supports the EC2 style of authentication.
+                       </para>
                     <informaltable rules="all"> &URI_REFHEAD; <tbody>
                             <tr>
                                 <td colspan="1"> &POST; </td>
@@ -161,7 +154,7 @@
                             (<errorcode>400</errorcode>),
                         identityFault (<errorcode>500</errorcode>),
                             serviceUnavailable(<errorcode>503</errorcode>)</simpara>
-                    <para> This call will return a token if
+                    <para>This call returns a token if
                         successful. Clients obtain this token, along
                         with the URL to other service APIs, by first
                         authenticating against the Identity Service
