@@ -30,7 +30,7 @@
                     <param name="X-Auth-Token" style="header" type="xsd:string" required="true">
                         <doc xml:lang="EN" title="Auth Token">
                             <p xmlns="http://www.w3.org/1999/xhtml">
-                                A valid authentication token.
+                                A valid authentication token for an administrative user.
                             </p>
                         </doc>
                     </param>
@@ -39,7 +39,7 @@
                         <param name="groupId" style="template" type="xsd:string">
                             <doc xml:lang="EN" title="GroupId">
                                 <p xmlns="http://www.w3.org/1999/xhtml">
-                                    A unique identifier for the group.
+                                    The group ID.
                                 </p>
                             </doc>
                         </param>
@@ -52,7 +52,7 @@
                                 <param name="userId" style="template" type="xsd:string">
                                     <doc xml:lang="EN" title="GroupId">
                                         <p xmlns="http://www.w3.org/1999/xhtml">
-                                            A unique identifier for the user.
+                                            The user ID.
                                         </p>
                                     </doc>
                                 </param>
@@ -81,26 +81,31 @@
                 A list of groups.
             </p>
         </doc>
+        <param name="marker" style="query" required="false"
+            type="xsd:string">
+            <doc>The ID of the last item in the previous
+                list.</doc>
+        </param>
+        <param name="limit" style="query" required="false"
+            type="xsd:int">
+            <doc>The page size. </doc>
+        </param>
+        <param name="name"  style="query" required="false" type="xsd:string"><doc>The group name.</doc></param>
         <method href="#listGroups"/>
     </resource_type>
 
     <!-- Methods -->
     <method id="listGroups"  name="GET">
-        <doc xml:lang="EN" title="Get Groups">
+        <doc xml:lang="EN" title="List Groups">
             <p xmlns="http://www.w3.org/1999/xhtml" role="shortdesc">
-                List of groups.
+                Lists groups.
             </p>
             <p xmlns="http://www.w3.org/1999/xhtml">
-                Displays a list of available groups.  You can use the
+                Lists available groups. Use the
                 <parameter>name</parameter> to display only
-                those groups matching a particular name.
+                those groups that match a specified name.
             </p>
         </doc>
-        <request>
-            <param name="marker" style="query" required="false" type="xsd:string"/>
-            <param name="limit"  style="query" required="false" type="xsd:int"/>
-            <param name="name"  style="query" required="false" type="xsd:string"/>
-        </request>
         <response status="200 203">
             <representation mediaType="application/xml" element="grp:groups">
                 <doc xml:lang="EN">
@@ -150,8 +155,8 @@
                 required="true" type="xsd:anyURI">
                 <doc xml:lang="EN" title="Location Header">
                     <p xmlns="http://www.w3.org/1999/xhtml">
-                        The full URL to the newly created group is
-                        returned via the <code>Loctaton</code>
+                        The full URL to the new group is
+                        returned in the <code>Location</code>
                         header.
                     </p>
                 </doc>
@@ -174,7 +179,7 @@
     <method id="getGroup"    name="GET">
         <doc xml:lang="EN" title="Get Group">
             <p xmlns="http://www.w3.org/1999/xhtml" role="shortdesc">
-                Get group by id.
+                Gets group information for a specified group ID.
             </p>
         </doc>
         <response status="200 203">
@@ -194,7 +199,7 @@
         &getFaults;
     </method>
     <method id="updateGroup"    name="PUT">
-        <doc xml:lang="EN" title="Update a Group">
+        <doc xml:lang="EN" title="Update Group">
             <p xmlns="http://www.w3.org/1999/xhtml" role="shortdesc">
                 Updates a group.
             </p>
@@ -242,9 +247,9 @@
         &getFaults;
     </method>
     <method id="getUsersForGroup" name="GET">
-        <doc xml:lang="EN" title="Get Users For Group">
+        <doc xml:lang="EN" title="Get Users for Group">
             <p xmlns="http://www.w3.org/1999/xhtml" role="shortdesc">
-                Lists users for group.
+                Lists users for a group.
             </p>
             <p xmlns="http://www.w3.org/1999/xhtml">
                 A list of users that belong to a specified group.
@@ -289,7 +294,7 @@
         &getFaults;
     </method>
     <method id="removeUserFromGroup" name="DELETE">
-        <doc xml:lang="EN" title="Remove User From Group">
+        <doc xml:lang="EN" title="Remove User from Group">
             <p xmlns="http://www.w3.org/1999/xhtml" role="shortdesc">
                 Removes a user from a group.
             </p>

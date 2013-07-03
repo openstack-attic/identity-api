@@ -152,7 +152,7 @@
             <title>New Element</title>
             <section xml:id="RackExt-0001">
                 <title>groups</title>
-                <para> This extension adds capabilities to the
+                <para>This extension adds capabilities to the
                     RAX-KSGRP extension. It allows for CRUD operations
                     on <parameter>groups</parameter> and gives the
                     ability to associate <parameter>groups</parameter>
@@ -173,7 +173,7 @@
             xmlns:xlink="http://www.w3.org/1999/xlink"
             xml:id="Admin_API_Service_Developer_Operations-RAX-GRPADM"
             version="5.0" role="api-reference">
-            <title>RAX-GRPADM Extension API Operations</title>
+            <title>RAX-GRPADM Admin Extension</title>
             <table rules="all">
                 <caption>Authentication Header</caption>
                 <thead>
@@ -191,10 +191,10 @@
                     </tr>
                 </tbody>
             </table>
-            <para>A new resource is created at /RAX-GRPADM/groups that
-                allows for the management of groups. </para>
-            <section xml:id="User_Operations_RAX_KSGRPADM">
-                <title>User Operations</title>
+            <para>A new resource is created at <literal>/RAX-GRPADM/groups</literal> that
+                enables the management of groups. </para>
+            <section xml:id="Group_Operations_RAX_KSGRPADM">
+                <title>Group Operations</title>
                 <wadl:resources
                     xmlns:wadl="http://wadl.dev.java.net/2009/02">
                     <wadl:resource

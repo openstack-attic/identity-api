@@ -30,7 +30,7 @@
         the <code>X-Auth-Token</code> header on the request from the
         client. The Identity Service will verify the token has (or
         belongs to a user that has) the <code>Admin</code> role. </para>
-    <para>See the readme file or administrator guides for how to
+    <para>See the README file or administrator guides for how to
         bootstrap the Identity Service and create your first
         administrator. </para>
     <table rules="all">
@@ -50,8 +50,8 @@
             </tr>
         </tbody>
     </table>
-    <para>The following calls are core for the OpenStack Identity
-        Service administrative APIs v2.0:</para>
+    <para>The OpenStack Identity Service administrative API v2.0 calls
+        are:</para>
     <section xml:id="Token_Operations">
         <title>Token Operations</title>
         <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
@@ -64,10 +64,27 @@
     </section>
     <section xml:id="User_Operations">
         <title>User Operations</title>
-        <para>See <xref linkend="User_Operations_OS-KSADM"/>.</para>
+        <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
+            <wadl:resource href="../wadl/identity-admin.wadl#users"/>
+            <wadl:resource href="../wadl/identity-admin.wadl#name"/>
+            <wadl:resource href="../wadl/identity-admin.wadl#userid"/>
+            <wadl:resource
+                href="../wadl/identity-admin.wadl#userRoles"/>
+        </wadl:resources>
     </section>
     <section xml:id="Tenant_Operations">
         <title>Tenant Operations</title>
-        <para>See <xref linkend="Tenant_Operations_OS-KSADM"/>.</para>
+        <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
+            <wadl:resource href="../wadl/identity-admin.wadl#tenants"/>
+            <wadl:resource
+                href="../wadl/identity-admin.wadl#tenantById"/>
+            <wadl:resource
+                href="../wadl/identity-admin.wadl#usersForTenant"/>
+            <wadl:resource
+                href="../wadl/identity-admin.wadl#getTenantUser"/>
+            <wadl:resource
+                href="../wadl/identity-admin.wadl#userRolesForTenant"
+            />
+        </wadl:resources>
     </section>
 </chapter>

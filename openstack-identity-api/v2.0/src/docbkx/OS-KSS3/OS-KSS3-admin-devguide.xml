@@ -155,8 +155,7 @@
             </section>
         </section>
         <section xml:id="RackExt-0001">
-            <title>OS-KSS3 extension to Identity Service v2.0
-                API</title>
+            <title>OS-KSS3 Admin Extension</title>
             <section xml:id="New-Elements-details-0002">
                 <title>New Elements</title>
                 <para> This extension allows token validation and
@@ -168,7 +167,7 @@
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xml:id="KSS3_OPERATIONS-token" version="5.0"
                 role="api-reference">
-                <title>OS-KSS3 Extension API Operations</title>
+                <title>OS-KSS3 Admin Extension</title>
 
                 <table rules="all">
                     <caption>Authentication Header</caption>
@@ -187,10 +186,6 @@
                         </tr>
                     </tbody>
                 </table>
-                <para>Following operations are the list of operations
-                    available in the OS-KSS3 Admin Extension:</para>
-                <section xml:id="OS-KSS3_OPERATIONS">
-                    <title>API operations</title>
                     <wadl:resources
                         xmlns:wadl="http://wadl.dev.java.net/2009/02">
                         <wadl:resource
@@ -207,6 +202,5 @@
                     </wadl:resources>
                 </section>
             </section>
-        </section>
     </chapter>
 </book>
