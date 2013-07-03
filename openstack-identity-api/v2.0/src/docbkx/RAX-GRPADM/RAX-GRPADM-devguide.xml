@@ -173,7 +173,7 @@
             xmlns:xlink="http://www.w3.org/1999/xlink"
             xml:id="Admin_API_Service_Developer_Operations-RAX-GRPADM"
             version="5.0" role="api-reference">
-            <title>RAX-GRPADM Extension API Operations</title>
+            <title>RAX-GRPADM Admin Extension</title>
             <table rules="all">
                 <caption>Authentication Header</caption>
                 <thead>

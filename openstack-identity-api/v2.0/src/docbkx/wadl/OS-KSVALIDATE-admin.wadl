@@ -18,6 +18,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+    xmlns:wadl="http://wadl.dev.java.net/2009/02"
     xsi:schemaLocation="http://docs.openstack.org/identity/api/v2.0 ../xsd/api.xsd
         http://docs.openstack.org/common/api/v1.0 ../xsd/api-common.xsd
         http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd
@@ -40,35 +41,61 @@
                     <resource id="validate" path="validate">
                         <param name="X-Auth-Token" style="header"
                             type="xsd:string" required="true">
-                            <doc>You need a valid admin token for
-                                access.</doc>
+                            <wadl:doc
+                                xmlns="http://docbook.org/ns/docbook"
+                                xml:lang="EN">A valid authentication token for an
+                                administrative user.</wadl:doc>
                         </param>
                         <param name="X-Subject-Token" style="header"
                             type="xsd:string" required="true">
-                            <doc>You need to supply a token to
-                                validate.</doc>
+                            <wadl:doc
+                                xmlns="http://docbook.org/ns/docbook"
+                                xml:lang="EN">A valid authentication token.</wadl:doc>
                         </param>
                         <param name="belongsTo" style="query"
-                            type="xsd:string" required="false"/>
+                            required="false" type="xsd:string">
+                            <wadl:doc
+                                xmlns="http://docbook.org/ns/docbook"
+                                xml:lang="EN"><para>Validates that a
+                                   token has the specified tenant in
+                                   scope, for performance. Valid
+                                   tokens are in the
+                                   <code>/tokens/{tokenId}</code>
+                                   path. An itemNotFound
+                                   (<code>404</code>) fault is
+                                   returned for a token that is not
+                                   valid.</para></wadl:doc>
+                        </param>
                         <param name="HP-IDM-serviceId" style="query"
                             type="xsd:string" required="false"/>
                         <method href="#validateToken"/>
                         <method href="#checkToken"/>
                     </resource>
-
                     <resource id="endpointsForToken" path="endpoints">
                         <param name="X-Auth-Token" style="header"
                             type="xsd:string" required="true">
-                            <doc>You need a valid admin token for
-                                access.</doc>
+                            <wadl:doc
+                                xmlns="http://docbook.org/ns/docbook"
+                                xml:lang="EN">A valid authentication token for an
+                                administrative user.</wadl:doc>
                         </param>
                         <param name="X-Subject-Token" style="header"
                             type="xsd:string" required="true">
-                            <doc>You need to supply a token to
-                                validate.</doc>
+                            <wadl:doc
+                                xmlns="http://docbook.org/ns/docbook"
+                                xml:lang="EN">A valid authentication token.</wadl:doc>
                         </param>
                         <param name="HP-IDM-serviceId" style="query"
-                            type="xsd:string" required="false"/>
+                            type="xsd:string" required="false">
+                            <wadl:doc
+                                xmlns="http://docbook.org/ns/docbook"
+                                xml:lang="EN">A comma-separated string of service
+                                IDs. Checks the roles against the
+                                specified service IDs. If a service ID
+                                is not valid or if no roles are
+                                associated with a service ID, a 401
+                                fault is returned.</wadl:doc>
+                        </param>
                         <method href="#listEndpointsForToken"/>
                     </resource>
                 </resource>
@@ -82,117 +109,89 @@
 
     <!-- Token Operations -->
     <method name="GET" id="validateToken">
-        <doc xml:lang="EN" title="Validate Token">
-            <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc">
-                Check that a token is valid and that it belongs to a
-                supplied tenant and services and return the
-                permissions relevant to a particular client. </p>
-            <p xmlns="http://www.w3.org/1999/xhtml"> Behavior is
-                similar to <code>/tokens/{tokenId}</code>. In other
-                words, a user should expect an itemNotFound
-                    (<code>404</code>) fault for an invalid token. </p>
-            <p xmlns="http://www.w3.org/1999/xhtml"> 'X-Subject-Token'
-                may be encrypted, but can still be used for caching.
-                This extension may decrypt this header and internally
-                call the Identity Service's normal validation, passing
-                along all headers and query parameters. It should
+        <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN" title="Validate Token">
+            <para role="shortdesc">
+                Checks that a token is valid and that it belongs to a
+                specified tenant and service IDs. Returns the
+                permissions for a particular client. </para>
+            <para>Behavior is
+                similar to <code>/tokens/{tokenId}</code>. An
+                itemNotFound (<code>404</code>) fault is returned for
+                a token that is not valid. </para>
+            <para>This extension
+                might decrypt 'X-Subject-Token' header and internally
+                call the normal validation for the Identity Service,
+                passing in all headers and query parameters. It should
                 therefore support all existing calls on
                     <code>/tokens/{tokenId}</code>, including
-                extensions such as HP-IDM. </p>
-        </doc>
-        <request>
-            <param name="belongsTo" style="query" required="false"
-                type="xsd:string">
-                <doc xml:lang="EN">
-                    <p xmlns="http://www.w3.org/1999/xhtml"> Validates
-                        a token has the supplied tenant in scope. </p>
-                </doc>
-            </param>
-            <param name="OS-KSVALIDATE-serviceId" style="query"
-                required="false" type="xsd:string">
-                <doc xml:lang="EN">
-                    <p xmlns="http://www.w3.org/1999/xhtml"> If
-                        provided, filters the roles to be returned by
-                        the given service IDs. </p>
-                </doc>
-            </param>
-        </request>
+                extensions such as HP-IDM. </para>
+        </wadl:doc>
         <response status="200 203">
             <representation mediaType="application/xml"
                 element="identity:access">
-                <doc>
+                <wadl:doc
+                    xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN">
                     <xsdxt:code
                         href="../OS-KSVALIDATE/samples/validatetoken.xml"
                     />
-                </doc>
+                </wadl:doc>
             </representation>
             <representation mediaType="application/json">
-                <doc>
+                <wadl:doc
+                    xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN">
                     <xsdxt:code
                         href="../OS-KSVALIDATE/samples/validatetoken.json"
                     />
-                </doc>
+                </wadl:doc>
             </representation>
         </response> &commonFaults; &getFaults; </method>
     <method name="HEAD" id="checkToken">
-        <doc xml:lang="EN" title="Check Token">
-            <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc">
+        <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN" title="Check Token">
+            <para role="shortdesc">
                 Checks that a token is valid and that it belongs to a
-                particular tenant and services (For performance). </p>
-            <p xmlns="http://www.w3.org/1999/xhtml"> Behavior is
-                similar to <code>/tokens/{tokenId}</code>. A user
-                should expect an itemNotFound (<code>404</code>) fault
-                for an invalid token. </p>
-            <p xmlns="http://www.w3.org/1999/xhtml"> 'X-Subject-Token'
-                may be encrypted, but can still be used for caching.
-                This extension may decrypt this header and internally
-                call the Identity Service's normal validation, passing
-                along all headers and query parameters. It should
+                specified tenant and service IDs, for performance.</para>
+            <para>Behavior is
+                similar to <code>/tokens/{tokenId}</code>. An
+                itemNotFound (<code>404</code>) fault is returned for
+                a token that is not valid. </para>
+            <para>This extension
+                might decrypt 'X-Subject-Token' header and internally
+                call the normal validation for the Identity Service,
+                passing in all headers and query parameters. It should
                 therefore support all existing calls on
                     <code>/tokens/{tokenId}</code>, including
-                extensions such as HP-IDM. </p>
-            <p xmlns="http://www.w3.org/1999/xhtml"> No response body
-                is returned for this method. </p>
-        </doc>
-        <request>
-            <param name="belongsTo" style="query" required="false"
-                type="xsd:string">
-                <doc xml:lang="EN">
-                    <p xmlns="http://www.w3.org/1999/xhtml"> Validates
-                        a token has the supplied tenant in scope. (for
-                        performance). </p>
-                </doc>
-            </param>
-            <param name="OS-KSVALIDATE-serviceId" style="query"
-                required="false" type="xsd:string">
-                <doc xml:lang="EN">
-                    <p xmlns="http://www.w3.org/1999/xhtml"> Checks
-                        the roles against the given service IDs. </p>
-                </doc>
-            </param>
-        </request>
+                extensions such as HP-IDM.</para>
+        </wadl:doc>
         <response status="200 203"/> &commonFaults; &getFaults; </method>
     <method name="GET" id="listEndpointsForToken">
-        <doc xml:lang="EN" title="List Endpoints for a Token">
-            <p xmlns="http://www.w3.org/1999/xhtml"> Returns a list of
-                endpoints associated with a specific token. </p>
-        </doc>
+        <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN" title="List Endpoints for a Token">
+            <para>Lists endpoints
+                associated with a specific token. </para>
+        </wadl:doc>
         <response status="200 203">
             <representation mediaType="application/xml"
                 element="identity:endpoints">
-                <doc>
+                <wadl:doc
+                    xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN">
                     <xsdxt:code
                         href="../OS-KSVALIDATE/samples/endpoints.xml"
                     />
-                </doc>
+                </wadl:doc>
             </representation>
             <representation mediaType="application/json">
-                <doc>
+                <wadl:doc
+                    xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN">
                     <xsdxt:code
                         href="../OS-KSVALIDATE/samples/endpoints.json"
                     />
-                </doc>
+                </wadl:doc>
             </representation>
         </response> &commonFaults; &getFaults; </method>
-
 </application>

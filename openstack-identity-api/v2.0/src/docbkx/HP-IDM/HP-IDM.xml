@@ -64,7 +64,7 @@
         alias="HP-IDM"
         updated="2011-12-06T17:00:00-00:00">
         <description>
-              Validate token with the optional HP-IDM-serviceId
+              Validates tokens with the optional HP-IDM-serviceId
               parameter so that only the roles associated with the
               given service IDs are returned. See
             <link xlink:href="https://bugs.launchpad.net/keystone/+bug/890411">https://bugs.launchpad.net/keystone/+bug/890411</link> for more
@@ -110,8 +110,8 @@
           overview of how the extensions works and what capabilities it
           adds.
       -->
-      <section xml:id="hp-idm-overview"><title>HP-IDM Admin Extension to Identity Service API v2.0</title><para>
-          HP-IDM Admin Extension to Identity Service API v2.0 adds capability to filter roles
+      <section xml:id="hp-idm-overview"><title>HP-IDM Admin Extension</title><para>
+          The HP-IDM Admin extension adds capability to filter roles
           with optional service IDs for token validation to mitigate security risks
           with role name conflicts.
           See
@@ -149,43 +149,19 @@
       </section>
       <section xml:id="hp-idm-new-resources" role="api-reference">
           <title>New Resources</title>
-          <!--
-              List any new resources here.  The api-reference role
-              above means that a reference table of all new resources
-              will be placed here.
-          -->
           <para>
               No new resource. HP-IDM Extension merely introduced a new optional HP-IDM-serviceId parameter for the validate token operations. The following APIs are affected.
           </para>
           <section xml:id="hp-idm-validate-tokens">
-              <title>Validate Tokens With The New Optional HP-IDM-serviceId Parameter</title>
+              <title>HP-IDM Admin Extension</title>
               <para>
-                  The following are a list of operations on templates.
+                  Use the HP-IDM extension to perform the following operations on templates:
               </para>
-              <!--
-                  You can insert a WADL by referencing it from another
-                  file.  The WADL need not be normalized because you
-                  can insert a normalization step in the build process
-                  (see pom.xml).
-              -->
               <wadl:resources>
                   <wadl:resource href="../wadl/HP-IDM-admin.wadl#tokenById"/>
               </wadl:resources>
           </section>
       </section>
-      <section xml:id="hp-idm-new-actions">
-          <title>New Actions</title>
-          <!--
-              Describe any new actions if any.
-          -->
-          <para>None.</para>
-      </section>
-      <section xml:id="hp-idm-new-states">
-          <title>New States</title>
-          <!--
-              Describe any new states.
-          -->
-          <para>None.</para>
-      </section></section>
+     </section>
   </chapter>
 </book>
