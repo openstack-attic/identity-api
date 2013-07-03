@@ -187,10 +187,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <para>Following operations are the list of operations
+             <!--   <para>Following operations are the list of operations
                     available in the OS-KSS3 Admin Extension:</para>
-                <section xml:id="OS-KSS3_OPERATIONS">
-                    <title>API operations</title>
+                <section xml:id="OS-KSS3_OPERATIONS"> 
+                    <title>API operations</title> -->
                     <wadl:resources
                         xmlns:wadl="http://wadl.dev.java.net/2009/02">
                         <wadl:resource
@@ -207,6 +207,6 @@
                     </wadl:resources>
                 </section>
             </section>
-        </section>
+     <!--   </section> -->
     </chapter>
 </book>

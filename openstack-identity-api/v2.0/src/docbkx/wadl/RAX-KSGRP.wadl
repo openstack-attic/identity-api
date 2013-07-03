@@ -38,11 +38,11 @@
     <resources base="http://localhost:35357">
         <resource id="version" path="v2.0">
             <param name="X-Auth-Token" style="header" type="xsd:string" required="true">
-                <doc>You need a valid admin token for access.</doc>
+                <doc>A valid authentication token for an administrative user.</doc>
             </param>
             <resource id="users" path="users">
                 <resource id="userById" path="{userId}">
-                    <param name="userId" style="template" type="xsd:string"/>
+                    <param name="userId" style="template" type="xsd:string"><doc>The user ID.</doc></param>
                     <resource id="user-groups-RAX-KSGRP" path="RAX-KSGRP">
                         <method href="#listUserGroups"/>
                     </resource>
@@ -50,10 +50,9 @@
             </resource>
         </resource>
     </resources>
-
     <method name="GET" id="listUserGroups">
-        <doc xml:lang="EN" title="List Groups for a User">
-            <p xmlns="http://www.w3.org/1999/xhtml">List all the groups for a user.</p>
+        <doc xml:lang="EN" title="List Groups for User">
+            <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc">Lists the groups for a specified user.</p>
         </doc>
         <response status="200 203">
             <representation mediaType="application/xml" element="RAX-KSGRP:groups">

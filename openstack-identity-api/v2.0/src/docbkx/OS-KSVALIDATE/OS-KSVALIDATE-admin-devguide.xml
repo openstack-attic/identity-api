@@ -169,11 +169,11 @@
                         </tbody>
                     </table>
 
-                    <para>Following operations are the list of
+                  <!--  <para>Following operations are the list of
                         operations available in the OS-KSVALIDATE
                         Service Extension:</para>
                     <section xml:id="OS-KSVALIDATE_OPERATIONS">
-                        <title>API operations</title>
+                        <title>API operations</title> -->
                         <wadl:resources
                             xmlns:wadl="http://wadl.dev.java.net/2009/02">
                             <wadl:resource
@@ -190,6 +190,6 @@
                     </section>
                 </section>
             </section>
-        </section>
+      <!--  </section> -->
     </chapter>
 </book>

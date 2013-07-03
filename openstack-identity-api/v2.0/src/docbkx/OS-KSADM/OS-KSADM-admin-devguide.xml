@@ -193,28 +193,28 @@ format="SVG" scale="60"/>
             <section xml:id="Role_Operations_OS-KSADM">
                 <title>Role Operations</title>
                 <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#roles">
-                        <wadl:method href="listRoles"/>
+                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#roles"/>
+                       <!-- <wadl:method href="listRoles"/>
                         <wadl:method href="addRole"/>
-                    </wadl:resource>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#roleId">
-                        <wadl:method href="getRole"/>
+                    </wadl:resource>-->
+                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#roleId"/>
+                       <!-- <wadl:method href="getRole"/>
                         <wadl:method href="deleteRole"/>
-                    </wadl:resource>
+                    </wadl:resource>-->
                 </wadl:resources>
             </section>
             <?hard-pagebreak?>
             <section xml:id="Service_Operations_OS-KSADM">
                 <title>Service Operations</title>
                 <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#services">
-                        <wadl:method href="listServices"/>
+                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#services"/>
+                      <!--  <wadl:method href="listServices"/>
                         <wadl:method href="addService"/>
-                    </wadl:resource>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#serviceId">
-                        <wadl:method href="getService"/>
+                    </wadl:resource> -->
+                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#serviceId"/>
+                      <!--  <wadl:method href="getService"/>
                         <wadl:method href="deleteService"/>
-                    </wadl:resource>
+                    </wadl:resource> -->
                 </wadl:resources>
             </section>
         </section>
