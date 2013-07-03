@@ -82,15 +82,14 @@ format="SVG" scale="60"/>
                     alias="OS-KSADM"
                     updated="2011-08-14T13:25:27-06:00">
                     <description>
-                                Openstack extensions to Identity Service API v2.0
-                                 enabling Admin Operations.
+                                Openstack extensions to Identity Service API v2.0, which
+                                 enable administrative API operations.
                     </description>
                     <atom:link rel="describedby" type="application/pdf"
                                 href="https://raw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/OS-KSADM/OS-KSADM-admin-devguide.pdf"/>
                     <atom:link rel="describedby" type="application/pdf"
                                 href="https://raw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/OS-KSADM/OS-KSADM-admin.wadl"/>
         </extension>
-
         <abstract>
             <para>This document includes details on various operations supported by the OS-KSADM extensions on top of core OpenStack Identity Service operations.</para>
         </abstract>
@@ -109,15 +108,13 @@ format="SVG" scale="60"/>
             </revision>
         </revhistory>
     </info>
-
     <chapter xml:id="api_operations" role="api-reference">
         <title>Extension Operations</title>
         <section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
             xmlns:xlink="http://www.w3.org/1999/xlink"
             xml:id="Admin_API_Service_Developer_Operations-d1e1357" version="5.0" role="api-reference">
-            <title>OS-KSADM Admin Extension API (Service Developer Operations)</title>
+            <title>OS-KSADM Admin Extension</title>
             <para>Extension operations. </para>
-
             <table rules="all">
                 <caption>Authentication Header</caption>
                 <thead>
@@ -193,31 +190,18 @@ format="SVG" scale="60"/>
             <section xml:id="Role_Operations_OS-KSADM">
                 <title>Role Operations</title>
                 <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#roles">
-                        <wadl:method href="listRoles"/>
-                        <wadl:method href="addRole"/>
-                    </wadl:resource>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#roleId">
-                        <wadl:method href="getRole"/>
-                        <wadl:method href="deleteRole"/>
-                    </wadl:resource>
+                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#roles"/>
+                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#roleId"/>
                 </wadl:resources>
             </section>
             <?hard-pagebreak?>
             <section xml:id="Service_Operations_OS-KSADM">
                 <title>Service Operations</title>
                 <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#services">
-                        <wadl:method href="listServices"/>
-                        <wadl:method href="addService"/>
-                    </wadl:resource>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#serviceId">
-                        <wadl:method href="getService"/>
-                        <wadl:method href="deleteService"/>
-                    </wadl:resource>
+                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#services"/>
+                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#serviceId"/>
                 </wadl:resources>
             </section>
         </section>
-
     </chapter>
 </book>

@@ -17,7 +17,8 @@
     xmlns:capi="http://docs.openstack.org/common/api/v1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0">
+    xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+    xmlns:wadl="http://wadl.dev.java.net/2009/02">
 
     <grammars>
         <include href="../xsd/api.xsd"/>
@@ -33,12 +34,41 @@
         <resource id="version" path="v2.0">
             <resource id="tokens" path="tokens">
                 <resource id="tokenById" path="{tokenId}">
-                    <param name="X-Auth-Token" style="header" type="xsd:string" required="true">
-                        <doc>You need a valid admin token for access.</doc>
-                   </param>
-                    <param name="tokenId" style="template" type="xsd:string" required="true"/>
-                    <param name="belongsTo" style="query" type="xsd:string" required="false"/>
-                    <param name="HP-IDM-serviceId" style="query" type="xsd:string" required="false"/>
+                    <param name="X-Auth-Token" style="header"
+                        type="xsd:string" required="true">
+                        <wadl:doc
+                            xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN">A valid authentication token.</wadl:doc>
+                    </param>
+                    <param name="tokenId" style="template"
+                        type="xsd:string" required="true">
+                        <wadl:doc
+                            xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN">The token ID.</wadl:doc>
+                    </param>
+                    <param name="belongsTo" style="query"
+                        required="false" type="xsd:string">
+                        <wadl:doc
+                            xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"><para>Validates that a token
+                                has the specified tenant in scope, for
+                                performance. Valid tokens are in the
+                                   <code>/tokens/{tokenId}</code>
+                                path. An itemNotFound
+                                   (<code>404</code>) fault is
+                                returned for a token that is not
+                                valid.</para></wadl:doc>
+                    </param>
+                    <param name="HP-IDM-serviceId" style="query"
+                        type="xsd:string" required="false">
+                        <wadl:doc
+                            xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN">A comma-separated string of service IDs.
+                            Checks the roles against the specified service
+                            IDs. If a service ID is not valid or if no
+                            roles are associated with a service ID, a
+                            401 fault is returned.</wadl:doc>
+                    </param>
                     <method href="#validateToken"/>
                     <method href="#checkToken"/>
                 </resource>
@@ -52,98 +82,37 @@
 
     <!-- Token Operations -->
     <method name="GET" id="validateToken">
-        <doc xml:lang="EN" title="Validate Token">
-            <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc">
-                Checks that a token is valid and that it belongs to a supplied tenant
-                and services and return the permissions relevant to a particular client.
-            </p>
-            <p xmlns="http://www.w3.org/1999/xhtml">
-                Valid tokens will exist in the
-                <code>/tokens/{tokenId}</code> path and invalid
-                tokens will not.  In other words, a user should expect an
-                itemNotFound (<code>404</code>) fault for an
-                invalid token.
-            </p>
-            <p xmlns="http://www.w3.org/1999/xhtml">
-                If 'HP-IDM-serviceId' is provided, it must be a comma-separated string of
-                service IDs. If any of the service IDs is invalid or if there are no
-                roles associated with the service IDs, a user should expect a 401.
-            </p>
-        </doc>
-        <request>
-            <param name="belongsTo" style="query" required="false" type="xsd:string">
-                <doc xml:lang="EN">
-                    <p xmlns="http://www.w3.org/1999/xhtml">
-                        Validates a token has the supplied tenant in scope.
-                    </p>
-                </doc>
-            </param>
-            <param name="HP-IDM-serviceId" style="query" required="false" type="xsd:string">
-                <doc xml:lang="EN">
-                    <p xmlns="http://www.w3.org/1999/xhtml">
-                        If provided, filter the roles to be returned by the given service IDs.
-                    </p>
-                </doc>
-            </param>
-        </request>
+        <wadl:doc
+            xmlns="http://docbook.org/ns/docbook" title="Validate Token">
+            <para role="shortdesc">
+                Validates a token and that it belongs to a
+                specified tenant and services. Returns the permissions
+                relevant to a particular client. </para>
+        </wadl:doc>
         <response status="200 203">
-            <representation mediaType="application/xml" element="identity:access">
-          <doc>
-        <xsdxt:code href="../samples/validatetoken.xml"/>
-          </doc>
-        </representation>
+            <representation mediaType="application/xml"
+                element="identity:access">
+                <wadl:doc
+                            xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN">
+                    <xsdxt:code href="../samples/validatetoken.xml"/>
+                </wadl:doc>
+            </representation>
             <representation mediaType="application/json">
-          <doc>
-        <xsdxt:code href="../samples/validatetoken.json"/>
-          </doc>
-        </representation>
-        </response>
-        &commonFaults;
-        &getFaults;
-    </method>
+                <wadl:doc
+                            xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN">
+                    <xsdxt:code href="../samples/validatetoken.json"/>
+                </wadl:doc>
+            </representation>
+        </response> &commonFaults; &getFaults; </method>
     <method name="HEAD" id="checkToken">
-        <doc xml:lang="EN" title="Check Token">
-            <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc">
-                Checks that a token is valid and that it belongs to a particular tenant and services
-                (For performance).
-            </p>
-            <p xmlns="http://www.w3.org/1999/xhtml">
-                Valid tokens will exist in the
-                <code>/tokens/{tokenId}</code> path and invalid
-                tokens will not.  In other words, a user should expect an
-                itemNotFound (<code>404</code>) fault for an
-                invalid token.
-            </p>
-            <p xmlns="http://www.w3.org/1999/xhtml">
-                If `belongsTo` is provided, validates that a token has a specific tenant in scope.
-            </p>
-            <p xmlns="http://www.w3.org/1999/xhtml">
-                If 'HP-IDM-serviceId' is provided, it must be a comma-separated string of
-                service IDs. If any of the service ID is invalid or if there are no
-                roles associated with the service IDs, a user should expect a 401.
-            </p>
-            <p xmlns="http://www.w3.org/1999/xhtml">
-                No response body is returned for this method.
-            </p>
-        </doc>
-        <request>
-            <param name="belongsTo" style="query" required="false" type="xsd:string">
-                <doc xml:lang="EN">
-                    <p xmlns="http://www.w3.org/1999/xhtml">
-                        Validates a token has the supplied tenant in scope. (for performance).
-                    </p>
-                </doc>
-            </param>
-            <param name="HP-IDM-serviceId" style="query" required="false" type="xsd:string">
-                <doc xml:lang="EN">
-                    <p xmlns="http://www.w3.org/1999/xhtml">
-                        Checks the roles against the given service IDs.
-                    </p>
-                </doc>
-            </param>
-        </request>
-        <response status="200 203"/>
-        &commonFaults;
-        &getFaults;
+        <wadl:doc
+            xmlns="http://docbook.org/ns/docbook" title="Check Token">
+            <para role="shortdesc">
+                Validates a token and that it belongs to a
+                specified tenant and services, for performance. </para>
+        </wadl:doc>
+        <response status="200 203"/> &commonFaults; &getFaults;
     </method>
 </application>
