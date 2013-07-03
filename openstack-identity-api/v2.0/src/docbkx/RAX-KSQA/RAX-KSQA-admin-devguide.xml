@@ -142,14 +142,12 @@
                 </example>
             </section>
         </section>
-
         <section xmlns="http://docbook.org/ns/docbook"
             xmlns:xi="http://www.w3.org/2001/XInclude"
             xmlns:xlink="http://www.w3.org/1999/xlink"
             xml:id="Admin_API_Service_Developer_Operations-RAX-KSQA"
             version="5.0" role="api-reference">
-            <title>RAX-KSQA Extension API Operations</title>
-
+            <title>RAX-KSQA Admin Extension</title>
             <table rules="all">
                 <caption>Authentication Header</caption>
                 <thead>
@@ -167,7 +165,6 @@
                     </tr>
                 </tbody>
             </table>
-
             <para>Following operations are the list of operations
                 supported by Rackspace Secret Question and Answer
                 Extension:</para>
@@ -178,7 +175,6 @@
                     <wadl:resource
                         href="../wadl/RAX-KSQA-admin.wadl#secretqa"/>
                 </wadl:resources>
-
             </section>
         </section>
     </chapter>

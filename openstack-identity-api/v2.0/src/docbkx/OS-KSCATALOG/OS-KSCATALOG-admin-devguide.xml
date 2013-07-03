@@ -112,8 +112,6 @@ format="SVG" scale="60"/>
             xmlns:xlink="http://www.w3.org/1999/xlink"
             xml:id="Admin_API_Service_Developer_Operations-OS-KSCATALOG" version="5.0" role="api-reference">
             <title>OS-KSCATALOG Admin Extension</title>
-            <para>Extension operations.</para>
-
             <table rules="all">
                 <caption>Authentication Header</caption>
                 <thead>
@@ -131,10 +129,8 @@ format="SVG" scale="60"/>
                     </tr>
                 </tbody>
             </table>
-
             <?hard-pagebreak?>
-
-            <para>The following calls are supported by API OS-KSCATALOG Extension on top of OpenStack Identity Service Admin API v2.0:</para>
+            <para>The OS-KSCATALOG extension extends the OpenStack Identity Service Admin API v2.0 with the following calls:</para>
             <section xml:id="Endpoint_Template_Operations_OS-KSCATALOG">
                 <title>Endpoint Template Operations</title>
                 <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
