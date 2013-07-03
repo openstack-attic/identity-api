@@ -148,9 +148,7 @@
                     xmlns:xlink="http://www.w3.org/1999/xlink"
                     xml:id="KSVALIDATE_OPERATIONS-token" version="5.0"
                     role="api-reference">
-                    <title>OS-KSVALIDATE Extension API
-                        Operations</title>
-
+                    <title>OS-KSVALIDATE Admin Extension</title>
                     <table rules="all">
                         <caption>Authentication Header</caption>
                         <thead>
@@ -168,12 +166,6 @@
                             </tr>
                         </tbody>
                     </table>
-
-                    <para>Following operations are the list of
-                        operations available in the OS-KSVALIDATE
-                        Service Extension:</para>
-                    <section xml:id="OS-KSVALIDATE_OPERATIONS">
-                        <title>API operations</title>
                         <wadl:resources
                             xmlns:wadl="http://wadl.dev.java.net/2009/02">
                             <wadl:resource
@@ -190,6 +182,5 @@
                     </section>
                 </section>
             </section>
-        </section>
     </chapter>
 </book>

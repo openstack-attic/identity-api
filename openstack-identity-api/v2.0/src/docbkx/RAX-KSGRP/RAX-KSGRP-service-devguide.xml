@@ -168,8 +168,7 @@
                     xmlns:xlink="http://www.w3.org/1999/xlink"
                     xml:id="Admin_API_Service_Developer_Operations-RAX-KSGRP"
                     version="5.0" role="api-reference">
-                    <title>RAX-KSGRP Extension API Operations</title>
-
+                    <title>RAX-KSGRP Admin Extension</title>
                     <table rules="all">
                         <caption>Authentication Header</caption>
                         <thead>
@@ -187,10 +186,8 @@
                             </tr>
                         </tbody>
                     </table>
-
-                    <para>Following operations are the list of
-                        operations whose behavior is altered by
-                        Rackspace API Groups Service Extension:</para>
+                    <para>The
+                        Rackspace API Groups Service Extension adds the following calls:</para>
                     <section xml:id="User_Operations_RAX_KSGRP">
                         <title>User Operations</title>
                         <wadl:resources
