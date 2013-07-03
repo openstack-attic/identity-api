@@ -18,6 +18,7 @@
     xmlns:capi="http://docs.openstack.org/common/api/v1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wadl="http://wadl.dev.java.net/2009/02"
     xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
     xsi:schemaLocation="http://docs.openstack.org/identity/api/v2.0 ../xsd/api.xsd
         http://docs.openstack.org/common/api/v1.0 ../xsd/api-common.xsd
@@ -39,25 +40,33 @@
         <resource id="version" path="v2.0">
             <param name="X-Auth-Token" style="header"
                 type="xsd:string" required="true">
-                <doc>You need a valid admin token for access.</doc>
+                <doc>A valid authentication token.</doc>
             </param>
             <resource id="users" path="users">
                 <method href="#listUsers"/>
                 <method href="#addUser"/>
                 <resource id="userById" path="{userId}">
                     <param name="userId" style="template"
-                        required="true" type="xsd:string"/>
+                        required="true" type="xsd:string">
+                        <doc>The user ID.</doc>
+                    </param>
                     <method href="#updateUser"/>
                     <method href="#deleteUser"/>
 
                     <resource id="userRoles" path="roles">
+                        <param name="serviceId" style="query"
+                            required="false" type="xsd:string">
+                            <doc>The service ID.</doc>
+                        </param>
                         <method href="#listUserRoles"/>
                         <resource id="user-roles-OS-KSADM"
                             path="OS-KSADM">
                             <resource id="userRoleById"
                                 path="{roleId}">
                                 <param name="roleId" style="template"
-                                   type="xsd:string"/>
+                                   type="xsd:string">
+                                   <doc>The role ID.</doc>
+                                </param>
                                 <method href="#addUserRole"/>
                                 <method href="#deleteUserRole"/>
                             </resource>
@@ -78,7 +87,9 @@
                                 <param name="credentialType"
                                    style="template"
                                    type="OS-KSADM:extensibleCredentialsType"
-                                   required="true"/>
+                                   required="true">
+                                   <doc>The credential type.</doc>
+                                </param>
                                 <method href="#updateUserCredential"/>
                                 <method href="#deleteUserCredential"/>
                                 <method href="#getUserCredential"/>
@@ -92,14 +103,27 @@
                 <method href="#addTenant"/>
                 <resource id="tenantById" path="{tenantId}">
                     <param name="tenantId" style="template"
-                        type="xsd:string"/>
+                        type="xsd:string">
+                        <doc>The tenant ID.</doc>
+                    </param>
                     <method href="#updateTenant"/>
                     <method href="#deleteTenant"/>
                     <resource id="usersForTenant" path="users">
+                        <param name="marker" style="query"
+                            required="false" type="xsd:string">
+                            <doc>The ID of the last item in the
+                                previous list.</doc>
+                        </param>
+                        <param name="limit" style="query"
+                            required="false" type="xsd:int">
+                            <doc>The page size. </doc>
+                        </param>
                         <method href="#listUsersForTenant"/>
                         <resource id="userForTenant" path="{userId}">
                             <param name="userId" style="template"
-                                type="xsd:string"/>
+                                type="xsd:string">
+                                <doc>The user ID.</doc>
+                            </param>
                             <resource id="userRolesForTenant"
                                 path="roles">
                                 <resource
@@ -109,7 +133,9 @@
                                    id="userSpecificRoleForTenant"
                                    path="{roleId}">
                                    <param name="roleId"
-                                   style="template" type="xsd:string"/>
+                                   style="template" type="xsd:string">
+                                   <doc>The role ID.</doc>
+                                   </param>
                                    <method
                                    href="#addRolesToUserOnTenant"/>
                                    <method
@@ -125,23 +151,56 @@
 
             <resource id="role-service-OS-KSADM" path="OS-KSADM">
                 <resource id="roles" path="roles">
+
+                    <param name="name" style="query" type="xsd:string"
+                        required="true">
+                        <doc>The role name.</doc>
+                    </param>
+
                     <method href="#getRoleByName"/>
-                    <method href="#listRoles"/>
+                    <resource id="roles_list">
+                        <param name="serviceId" style="query"
+                            required="false" type="xsd:string">
+                            <doc>The service ID.</doc>
+                        </param>
+                        <method href="#listRoles"/>
+                    </resource>
                     <method href="#addRole"/>
                     <resource id="roleId" path="{roleId}">
                         <param name="roleId" style="template"
-                            type="xsd:string"/>
+                            type="xsd:string">
+                            <doc>The role ID.</doc>
+                        </param>
                         <method href="#getRole"/>
                         <method href="#deleteRole"/>
                     </resource>
                 </resource>
                 <resource id="services" path="services">
+                    <param name="marker" style="query"
+                        required="false" type="xsd:string">
+                        <doc>The ID of the last item in the previous
+                            list.</doc>
+                    </param>
+                    <param name="limit" style="query" required="false"
+                        type="xsd:int">
+                        <doc>The page size. </doc>
+                    </param>
                     <method href="#listServices"/>
                     <method href="#addService"/>
-                    <method href="#getServiceByName"/>
+
+                    <resource id="serviceName">
+                        <param name="name" style="query"
+                            type="xsd:string" required="true">
+                            <doc>The service name.</doc>
+                        </param>
+
+                        <method href="#getServiceByName"/>
+                    </resource>
                     <resource id="serviceId" path="{serviceId}">
                         <param name="serviceId" style="template"
-                            type="xsd:string"/>
+                            type="xsd:string">
+                            <doc>The service ID.</doc>
+                        </param>
                         <method href="#getService"/>
                         <method href="#deleteService"/>
                     </resource>
@@ -159,19 +218,21 @@
         <doc xml:lang="EN" title="Add Tenant">
             <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc">
                 Creates a tenant. </p>
-            <p xmlns="http://www.w3.org/1999/xhtml">Creates
-                a tenant.</p>
         </doc>
         <request>
             <representation mediaType="application/xml"
                 element="identity:tenant">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/tenantwithoutid.xml"/>
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/tenantwithoutid.xml"
+                    />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/tenantwithoutid.json"/>
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/tenantwithoutid.json"
+                    />
                 </doc>
             </representation>
         </request>
@@ -179,12 +240,14 @@
             <representation mediaType="application/xml"
                 element="identity:tenant">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/tenant.xml"/>
+                    <xsdxt:code href="../OS-KSADM/samples/tenant.xml"
+                    />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/tenant.json"/>
+                    <xsdxt:code href="../OS-KSADM/samples/tenant.json"
+                    />
                 </doc>
             </representation>
         </response> &commonFaults; &postPutFaults; </method>
@@ -193,19 +256,19 @@
         <doc xml:lang="EN" title="Update Tenant">
             <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc">
                 Updates a tenant. </p>
-            <p xmlns="http://www.w3.org/1999/xhtml">Updates
-                a tenant.</p>
         </doc>
         <request>
             <representation mediaType="application/xml"
                 element="identity:tenant">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/tenant.xml"/>
+                    <xsdxt:code href="../OS-KSADM/samples/tenant.xml"
+                    />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/tenant.json"/>
+                    <xsdxt:code href="../OS-KSADM/samples/tenant.json"
+                    />
                 </doc>
             </representation>
         </request>
@@ -213,38 +276,30 @@
             <representation mediaType="application/xml"
                 element="identity:tenant">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/tenant.xml"/>
+                    <xsdxt:code href="../OS-KSADM/samples/tenant.xml"
+                    />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/tenant.json"/>
+                    <xsdxt:code href="../OS-KSADM/samples/tenant.json"
+                    />
                 </doc>
             </representation>
         </response> &commonFaults; &getFaults; &postPutFaults; </method>
 
     <method name="DELETE" id="deleteTenant">
-        <doc xml:lang="EN" title="Delete a Tenant">
+        <doc xml:lang="EN" title="Delete Tenant">
             <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc">
                 Deletes a tenant. </p>
-            <p xmlns="http://www.w3.org/1999/xhtml">Deletes
-                a tenant.</p>
         </doc>
         <response status="204"/> &commonFaults; &getFaults; </method>
 
     <method name="GET" id="listUsersForTenant">
-        <doc xml:lang="EN" title="List users for a Tenant">
+        <doc xml:lang="EN" title="List Users for a Tenant">
             <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc"
                 >Lists all the users for a tenant.</p>
-            <p xmlns="http://www.w3.org/1999/xhtml">Lists all the
-                users for a tenant.</p>
         </doc>
-        <request>
-            <param name="marker" style="query" required="false"
-                type="xsd:string"/>
-            <param name="limit" style="query" required="false"
-                type="xsd:int"/>
-        </request>
         <response status="200 203">
             <representation mediaType="application/xml"
                 element="identity:users">
@@ -254,13 +309,14 @@
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/users.json"/>
+                    <xsdxt:code href="../OS-KSADM/samples/users.json"
+                    />
                 </doc>
             </representation>
         </response> &commonFaults; &getFaults; </method>
 
     <method name="PUT" id="addRolesToUserOnTenant">
-        <doc xml:lang="EN" title="Add roles to a user on a tenant">
+        <doc xml:lang="EN" title="Add Roles to a User on a Tenant">
             <p xmlns="http://www.w3.org/1999/xhtml">Adds a specific
                 role to a user for a tenant.</p>
         </doc>
@@ -268,15 +324,16 @@
         &getFaults; </method>
 
     <method name="DELETE" id="deleteRoleFromUserOnTenant">
-        <doc xml:lang="EN" title="Delete roles from a user on tenant">
-            <p xmlns="http://www.w3.org/1999/xhtml">Deletes a specified
-                role from a user for a tenant.</p>
+        <doc xml:lang="EN"
+            title="Delete Roles from a User on a Tenant">
+            <p xmlns="http://www.w3.org/1999/xhtml">Deletes a
+                specified role from a user on a tenant.</p>
         </doc>
         <response status="204"/> &commonFaults; &getFaults; </method>
 
     <!-- User Operations -->
     <method name="GET" id="listUsers">
-        <doc xml:lang="EN" title="List users">
+        <doc xml:lang="EN" title="List Users">
             <p xmlns="http://www.w3.org/1999/xhtml">Lists users.</p>
         </doc>
         <response status="200 203">
@@ -288,27 +345,48 @@
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/users.json"/>
+                    <xsdxt:code href="../OS-KSADM/samples/users.json"
+                    />
                 </doc>
             </representation>
         </response> &commonFaults; &getFaults; </method>
 
     <method name="POST" id="addUser">
-        <doc xml:lang="EN" title="Add user">
-            <p xmlns="http://www.w3.org/1999/xhtml">Adds a user.</p>
-        </doc>
+
+        <wadl:doc xml:lang="EN" title="Add User"
+            xmlns="http://docbook.org/ns/docbook">
+            <para role="shortdesc">Adds a user.</para>
+            <table rules="all">
+                <caption>Add User Request Attributes</caption>
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>user</td>
+                        <td>string</td>
+                        <td>Required. The user name.</td></tr>
+                </tbody></table>
+        </wadl:doc>
         <request>
             <representation mediaType="application/xml"
                 element="identity:user">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/userwithoutid.xml"/>
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/userwithoutid.xml"/>
                 </doc>
                 <param name="user" style="plain" path="/identity:user"
                     type="OS-KSADM:UserForCreate"/>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/userwithoutid.json"/>
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/userwithoutid.json"
+                    />
                 </doc>
             </representation>
         </request>
@@ -327,8 +405,9 @@
         </response> &commonFaults; &getFaults; &postPutFaults; </method>
 
     <method name="POST" id="updateUser">
-        <doc xml:lang="EN" title="Update user">
-            <p xmlns="http://www.w3.org/1999/xhtml">Updates a user.</p>
+        <doc xml:lang="EN" title="Update User">
+            <p xmlns="http://www.w3.org/1999/xhtml">Updates a
+                user.</p>
         </doc>
         <request>
             <representation mediaType="application/xml"
@@ -358,20 +437,38 @@
         </response> &commonFaults; &postPutFaults; &getFaults; </method>
 
     <method name="DELETE" id="deleteUser">
-        <doc xml:lang="EN" title="Delete user">
-            <p xmlns="http://www.w3.org/1999/xhtml">Deletes a user.</p>
+        <doc xml:lang="EN" title="Delete User">
+            <p xmlns="http://www.w3.org/1999/xhtml">Deletes a
+                user.</p>
         </doc>
         <response status="204"/> &commonFaults; &getFaults; </method>
 
     <method name="PUT" id="setUserEnabled">
-        <doc xml:lang="EN" title="Set user enabled">
-            <p xmlns="http://www.w3.org/1999/xhtml">Enables user.</p>
-        </doc>
+        <wadl:doc xml:lang="EN" title="Enable User"
+            xmlns="http://docbook.org/ns/docbook">
+            <para role="shortdesc">Enables a specified user.</para>
+            <table rules="all">
+                <caption>Enable User Request Attributes</caption>
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>user</td>
+                        <td>string</td>
+                        <td>Required. The user name.</td></tr>
+                </tbody></table>
+        </wadl:doc>
         <request>
             <representation mediaType="application/xml"
                 element="identity:user">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/userwithenabledonly.xml"
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/userwithenabledonly.xml"
                     />
                 </doc>
                 <param name="user" style="plain" path="/identity:user"
@@ -380,7 +477,8 @@
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
                     <xsdxt:code
-                        href="../OS-KSADM/samples/userwithenabledonly.json"/>
+                        href="../OS-KSADM/samples/userwithenabledonly.json"
+                    />
                 </doc>
             </representation>
         </request>
@@ -401,13 +499,9 @@
     <!-- User Roles -->
     <method name="GET" id="listUserRoles">
         <doc xml:lang="EN" title="List Global Roles for a User">
-            <p xmlns="http://www.w3.org/1999/xhtml">Lists global roles
-                for a user.</p>
+            <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc"
+                >Lists global roles for a specified user.</p>
         </doc>
-        <request>
-            <param name="serviceId" style="query" required="false"
-                type="xsd:string"/>
-        </request>
         <response status="200 203">
             <representation mediaType="application/xml"
                 element="identity:roles">
@@ -417,7 +511,8 @@
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/roles.json"/>
+                    <xsdxt:code href="../OS-KSADM/samples/roles.json"
+                    />
                 </doc>
             </representation>
         </response> &commonFaults; &getFaults; </method>
@@ -439,7 +534,7 @@
 
     <!-- User Credentials -->
     <method name="POST" id="addUserCredential">
-        <doc xml:lang="EN" title="Add user Credential">
+        <doc xml:lang="EN" title="Add User Credential">
             <p xmlns="http://www.w3.org/1999/xhtml">Adds a credential
                 to a user.</p>
         </doc>
@@ -447,14 +542,16 @@
             <representation mediaType="application/xml"
                 element="identity:credential">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/passwordcredentials.xml"
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/passwordcredentials.xml"
                     />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
                     <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.json"/>
+                        href="../OS-KSADM/samples/passwordcredentials.json"
+                    />
                 </doc>
             </representation>
         </request>
@@ -462,14 +559,16 @@
             <representation mediaType="application/xml"
                 element="identity:credential">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/passwordcredentials.xml"
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/passwordcredentials.xml"
                     />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
                     <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.json"/>
+                        href="../OS-KSADM/samples/passwordcredentials.json"
+                    />
                 </doc>
             </representation>
         </response> &commonFaults; &postPutFaults; &getFaults; </method>
@@ -479,43 +578,42 @@
             <p xmlns="http://www.w3.org/1999/xhtml">Lists
                 credentials.</p>
         </doc>
-        <request>
-            <param name="marker" style="query" required="false"
-                type="xsd:string"/>
-            <param name="limit" style="query" required="false"
-                type="xsd:int"/>
-        </request>
+
         <response status="200 203">
             <representation mediaType="application/xml"
                 element="identity:credentials">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/credentials.xml"/>
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/credentials.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/credentials.json"/>
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/credentials.json"/>
                 </doc>
             </representation>
         </response> &commonFaults; &getFaults; </method>
 
     <method name="POST" id="updateUserCredential">
-        <doc xml:lang="EN" title="Update user credential">
-            <p xmlns="http://www.w3.org/1999/xhtml">Updates
-                credentials.</p>
+        <doc xml:lang="EN" title="Update User Credentials">
+            <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc"
+                >Updates credentials for a specified user.</p>
         </doc>
         <request>
             <representation mediaType="application/xml"
                 element="identity:credential">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/passwordcredentials.xml"
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/passwordcredentials.xml"
                     />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
                     <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.json"/>
+                        href="../OS-KSADM/samples/passwordcredentials.json"
+                    />
                 </doc>
             </representation>
         </request>
@@ -523,28 +621,30 @@
             <representation mediaType="application/xml"
                 element="identity:credential">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/passwordcredentials.xml"
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/passwordcredentials.xml"
                     />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
                     <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.json"/>
+                        href="../OS-KSADM/samples/passwordcredentials.json"
+                    />
                 </doc>
             </representation>
         </response> &commonFaults; &postPutFaults; &getFaults; </method>
 
     <method name="DELETE" id="deleteUserCredential">
-        <doc xml:lang="EN" title="Delete user credential">
-            <p xmlns="http://www.w3.org/1999/xhtml">Deletes user
-                credentials.</p>
+        <doc xml:lang="EN" title="Delete User Credentials">
+            <p xmlns="http://www.w3.org/1999/xhtml">Deletes
+                credentials for a specified user.</p>
         </doc>
         <response status="204"/> &commonFaults; &postPutFaults;
         &getFaults; </method>
 
     <method name="GET" id="getUserCredential">
-        <doc xml:lang="EN" title="Get user Credentials">
+        <doc xml:lang="EN" title="Get User Credentials">
             <p xmlns="http://www.w3.org/1999/xhtml">Gets user
                 credentials.</p>
         </doc>
@@ -552,14 +652,16 @@
             <representation mediaType="application/xml"
                 element="identity:credential">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/passwordcredentials.xml"
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/passwordcredentials.xml"
                     />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
                     <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.json"/>
+                        href="../OS-KSADM/samples/passwordcredentials.json"
+                    />
                 </doc>
             </representation>
         </response> &commonFaults; &getFaults; </method>
@@ -569,14 +671,6 @@
         <doc xml:lang="EN" title="List Roles">
             <p xmlns="http://www.w3.org/1999/xhtml">Lists roles.</p>
         </doc>
-        <request>
-            <param name="serviceId" style="query" required="false"
-                type="xsd:string"/>
-            <param name="marker" style="query" required="false"
-                type="xsd:string"/>
-            <param name="limit" style="query" required="false"
-                type="xsd:int"/>
-        </request>
         <response status="200 203">
             <representation mediaType="application/xml"
                 element="identity:roles">
@@ -586,7 +680,8 @@
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/roles.json"/>
+                    <xsdxt:code href="../OS-KSADM/samples/roles.json"
+                    />
                 </doc>
             </representation>
         </response> &commonFaults; &getFaults; </method>
@@ -627,14 +722,11 @@
         </response> &commonFaults; &postPutFaults; &getFaults; </method>
 
     <method name="GET" id="getRoleByName">
-        <doc xml:lang="EN" title="Get Role by name">
-            <p xmlns="http://www.w3.org/1999/xhtml">Gets a role by
-                name.</p>
+        <doc xml:lang="EN" title="Get Role by Name">
+            <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc"
+                >Gets a role by name.</p>
         </doc>
-        <request>
-            <param name="name" style="query" type="xsd:string"
-                required="true"/>
-        </request>
+
         <response status="200 203">
             <representation mediaType="application/xml"
                 element="identity:role">
@@ -677,87 +769,91 @@
 
     <method name="DELETE" id="deleteRole">
         <doc xml:lang="EN" title="Delete Role">
-            <p xmlns="http://www.w3.org/1999/xhtml">Deletes a role.</p>
+            <p xmlns="http://www.w3.org/1999/xhtml">Deletes a
+                role.</p>
         </doc>
         <response status="204"/> &commonFaults; &getFaults; </method>
 
     <!-- Service Operations -->
     <method name="GET" id="listServices">
         <doc xml:lang="EN" title="List Services">
-            <p xmlns="http://www.w3.org/1999/xhtml">Lists services.</p>
+            <p xmlns="http://www.w3.org/1999/xhtml">Lists
+                services.</p>
         </doc>
-        <request>
-            <param name="marker" style="query" required="false"
-                type="xsd:string"/>
-            <param name="limit" style="query" required="false"
-                type="xsd:int"/>
-        </request>
+
         <response status="200 203">
             <representation mediaType="application/xml"
                 element="OS-KSADM:services">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/services.xml"/>
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/services.xml"/>
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/services.json"/>
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/services.json"/>
                 </doc>
             </representation>
         </response> &commonFaults; &getFaults; </method>
     <method name="GET" id="getServiceByName">
-        <doc xml:lang="EN" title="Get Service">
+        <doc xml:lang="EN" title="Get Service by Name">
             <p xmlns="http://www.w3.org/1999/xhtml">Gets a service by
                 name.</p>
         </doc>
-        <request>
-            <param name="name" style="query" type="xsd:string"
-                required="true"/>
-        </request>
+
         <response status="200 203">
             <representation mediaType="application/xml"
                 element="OS-KSADM:service">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/service.xml"/>
+                    <xsdxt:code href="../OS-KSADM/samples/service.xml"
+                    />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/service.json"/>
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/service.json"/>
                 </doc>
             </representation>
         </response> &commonFaults; &getFaults; </method>
     <method name="GET" id="getService">
         <doc xml:lang="EN" title="Get Service">
-            <p xmlns="http://www.w3.org/1999/xhtml">Gets a service.</p>
+            <p xmlns="http://www.w3.org/1999/xhtml">Gets a
+                service.</p>
         </doc>
         <response status="200 203">
             <representation mediaType="application/xml"
                 element="OS-KSADM:service">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/service.xml"/>
+                    <xsdxt:code href="../OS-KSADM/samples/service.xml"
+                    />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/service.json"/>
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/service.json"/>
                 </doc>
             </representation>
         </response> &commonFaults; &getFaults; </method>
     <method name="POST" id="addService">
         <doc xml:lang="EN" title="Add Service">
-            <p xmlns="http://www.w3.org/1999/xhtml">Adds a service.</p>
+            <p xmlns="http://www.w3.org/1999/xhtml">Adds a
+                service.</p>
         </doc>
         <request>
             <representation mediaType="application/xml"
                 element="OS-KSADM:service">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/service.xml"/>
+                    <xsdxt:code href="../OS-KSADM/samples/service.xml"
+                    />
                 </doc>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/service.json"/>
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/service.json"/>
                 </doc>
             </representation>
         </request>
@@ -765,14 +861,16 @@
             <representation mediaType="application/xml"
                 element="OS-KSADM:service">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/service.xml"/>
+                    <xsdxt:code href="../OS-KSADM/samples/service.xml"
+                    />
                 </doc>
                 <param name="Location" type="xsd:anyURI"
                     style="header"/>
             </representation>
             <representation mediaType="application/json">
                 <doc xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/service.json"/>
+                    <xsdxt:code
+                        href="../OS-KSADM/samples/service.json"/>
                 </doc>
                 <param name="Location" type="xsd:anyURI"
                     style="header"/>

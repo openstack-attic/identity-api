@@ -40,13 +40,12 @@
                     <resource id="validate" path="validate">
                         <param name="X-Auth-Token" style="header"
                             type="xsd:string" required="true">
-                            <doc>You need a valid admin token for
-                                access.</doc>
+                            <doc>A valid authentication token for an
+                                administrative user.</doc>
                         </param>
                         <param name="X-Subject-Token" style="header"
                             type="xsd:string" required="true">
-                            <doc>You need to supply a token to
-                                validate.</doc>
+                            <doc>A valid authentication token.</doc>
                         </param>
                         <param name="belongsTo" style="query"
                             type="xsd:string" required="false"/>
@@ -59,13 +58,12 @@
                     <resource id="endpointsForToken" path="endpoints">
                         <param name="X-Auth-Token" style="header"
                             type="xsd:string" required="true">
-                            <doc>You need a valid admin token for
-                                access.</doc>
+                            <doc>A valid authentication token for an
+                                administrative user.</doc>
                         </param>
                         <param name="X-Subject-Token" style="header"
                             type="xsd:string" required="true">
-                            <doc>You need to supply a token to
-                                validate.</doc>
+                            <doc>A valid authentication token.</doc>
                         </param>
                         <param name="HP-IDM-serviceId" style="query"
                             type="xsd:string" required="false"/>
@@ -84,7 +82,7 @@
     <method name="GET" id="validateToken">
         <doc xml:lang="EN" title="Validate Token">
             <p xmlns="http://www.w3.org/1999/xhtml" class="shortdesc">
-                Check that a token is valid and that it belongs to a
+                Checks that a token is valid and that it belongs to a
                 supplied tenant and services and return the
                 permissions relevant to a particular client. </p>
             <p xmlns="http://www.w3.org/1999/xhtml"> Behavior is
@@ -104,14 +102,14 @@
             <param name="belongsTo" style="query" required="false"
                 type="xsd:string">
                 <doc xml:lang="EN">
-                    <p xmlns="http://www.w3.org/1999/xhtml"> Validates
+                    <p xmlns="http://www.w3.org/1999/xhtml">Validates
                         a token has the supplied tenant in scope. </p>
                 </doc>
             </param>
             <param name="OS-KSVALIDATE-serviceId" style="query"
                 required="false" type="xsd:string">
                 <doc xml:lang="EN">
-                    <p xmlns="http://www.w3.org/1999/xhtml"> If
+                    <p xmlns="http://www.w3.org/1999/xhtml">If
                         provided, filters the roles to be returned by
                         the given service IDs. </p>
                 </doc>
@@ -158,7 +156,7 @@
             <param name="belongsTo" style="query" required="false"
                 type="xsd:string">
                 <doc xml:lang="EN">
-                    <p xmlns="http://www.w3.org/1999/xhtml"> Validates
+                    <p xmlns="http://www.w3.org/1999/xhtml">Validates
                         a token has the supplied tenant in scope. (for
                         performance). </p>
                 </doc>
@@ -166,7 +164,7 @@
             <param name="OS-KSVALIDATE-serviceId" style="query"
                 required="false" type="xsd:string">
                 <doc xml:lang="EN">
-                    <p xmlns="http://www.w3.org/1999/xhtml"> Checks
+                    <p xmlns="http://www.w3.org/1999/xhtml">Checks
                         the roles against the given service IDs. </p>
                 </doc>
             </param>
@@ -174,7 +172,7 @@
         <response status="200 203"/> &commonFaults; &getFaults; </method>
     <method name="GET" id="listEndpointsForToken">
         <doc xml:lang="EN" title="List Endpoints for a Token">
-            <p xmlns="http://www.w3.org/1999/xhtml"> Returns a list of
+            <p xmlns="http://www.w3.org/1999/xhtml">Lists
                 endpoints associated with a specific token. </p>
         </doc>
         <response status="200 203">

@@ -7,26 +7,14 @@
     <artifactId>docs</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>OpenStack API Reference</name>
+    <name>OpenStack API References</name>
     <build>
-        <plugins>
+        <plugins>            
             <plugin>
                 <groupId>com.rackspace.cloud.api</groupId>
                 <artifactId>clouddocs-maven-plugin</artifactId>
                 <version>1.8.0</version>
                 <executions>
-                    <execution>
-                        <id>generate-pdf</id>
-                        <goals>
-                            <goal>generate-pdf</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <sourceDirectory>src/docbkx/common</sourceDirectory>
-                            <includes>identity-dev-guide.xml</includes>
-                            <highlightSource>false</highlightSource>
-                        </configuration>
-                    </execution>
                     <execution>
                         <id>identity-dev-guide</id>
                         <goals>
@@ -42,6 +30,11 @@
                             <tocSectionDepth>1</tocSectionDepth>
                             <targetDirectory>target/docbkx/webhelp/api/openstack-identity-service</targetDirectory>
                             <webhelpDirname>2.0</webhelpDirname>
+                            <pdfFilenameBase>identity-dev-guide-2.0</pdfFilenameBase>
+                            <sectionAutolabel>0</sectionAutolabel>
+                            <sectionLabelIncludesComponentLabel>0</sectionLabelIncludesComponentLabel>
+                            <tocDepthSection>1</tocDepthSection>
+                            <includeDateInPdfFilename>0</includeDateInPdfFilename>
                             <generateToc>
                                 appendix  toc,title
                                 article/appendix  nop
@@ -50,28 +43,20 @@
                                 chapter   toc
                                 section   toc
                                 part      toc,title
-                                preface   toc
+                                preface   toc,title
                                 qandadiv  toc
                                 qandaset  toc
                                 reference toc,title
                                 set       toc,title
-                            </generateToc>
-                            <pdfFilenameBase>identity-dev-guide-2.0</pdfFilenameBase>
+                            </generateToc>     
                             <preProcess>
-                                <mkdir dir="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0/"/>
+                                <mkdir dir="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0/"/>		
                                 <!-- Copies schema to a folder and styling for the schemas so a browser can display them -->
                                 <copy
                                     todir="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0/xsd">
-                                    <fileset dir="${basedir}/src/docbkx/xsd">
+                                    <fileset dir="${basedir}/src/docbkx/common">
                                         <include name="**/*.*"/>
-                                        <exclude name="*.xml"/>
-                                    </fileset>
-                                </copy>
-                                <copy
-                                    todir="${basedir}/target/docbkx/webhelp/api/openstack-identity-service/2.0/img">
-                                    <fileset dir="${basedir}/src/docbkx/img">
-                                        <include name="**/*.*"/>
-                                        <exclude name="*.xml"/>
+                                        <exclude name="*.xml"/> 
                                     </fileset>
                                 </copy>
                             </preProcess>
@@ -89,6 +74,7 @@
             </plugin>
         </plugins>
     </build>
+    
     <profiles>
         <profile>
             <id>Rackspace Research Repositories</id>
