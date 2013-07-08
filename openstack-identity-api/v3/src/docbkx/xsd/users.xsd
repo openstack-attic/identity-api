@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../xslt/schema.xslt"?>
+
+<!-- (C) 2011 OpenStack LLC., All Rights Reserved -->
+
+<schema
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:identity="http://docs.openstack.org/identity/api/v3.0"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"   
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    targetNamespace="http://docs.openstack.org/identity/api/v3.0" 
+>
+
+    <!-- Import ATOM specific schema definitions -->
+    <import vc:minVersion="1.1" namespace="http://www.w3.org/2005/Atom"
+            schemaLocation="atom/atom.xsd" />
+     
+    <include schemaLocation="domains.xsd"/>
+
+    <!-- Elements -->
+    <element name="users" type="identity:UserList"  >
+        <annotation>
+            <xsd:documentation
+                    xml:lang="EN"
+                    xmlns="http://www.w3.org/2001/XMLSchema">
+                <p>
+                    A list of Users.
+                </p>
+            </xsd:documentation>
+        </annotation>
+    </element>
+
+    <element name="user" type="identity:UserType">
+        <annotation>
+            <xsd:documentation
+                xml:lang="EN"
+                xmlns="http://www.w3.org/2001/XMLSchema">
+                <p>
+                    A Keystone User.
+                </p>
+            </xsd:documentation>
+        </annotation>
+    </element>
+
+    <!-- Complex Types -->
+    <complexType name="UserType">
+       <complexContent>
+            <extension base="identity:EntityType">
+		<sequence>
+		  <element name="domain"  type="identity:DomainsType" />
+		</sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="UserList">
+        <sequence>
+            <element name="user" type="identity:UserType" minOccurs="0" maxOccurs="unbounded"/>
+            <!-- element vc:minVersion="1.1" ref="atom:link" minOccurs="0" maxOccurs="unbounded" /-->
+            <any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+        </sequence>
+        <anyAttribute namespace="##other" processContents="lax"/>
+    </complexType>
+</schema>
