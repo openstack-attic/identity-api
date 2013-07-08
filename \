@@ -1,0 +1,11 @@
+Host gerrit
+ HostName  gerrit.hpcloud.net
+ Port 29418
+ User haali1
+ IdentityFile /home/haneef/.ssh/id_rsa
+
+Host *
+  User haneef
+  IdentityFile /home/haneef/.ssh/id_rsa
+# ProxyCommand corkscrew web-proxy.cup.hp.com 8080 %h %p
+
