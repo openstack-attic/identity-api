@@ -19,6 +19,7 @@ What's New in Version 3.1
   for user, group, project, domain and role.
 - Introduced a mechanism to opt-out from catalog information during token
   creation
+- Added optional bind information to token structure.
 
 What's New in Version 3.0
 -------------------------
@@ -859,6 +860,35 @@ Optional attributes:
 
   Includes the full resource description of a domain.
 
+- `bind` (object)
+
+  Specifies one or more external authorization mechanisms that must be used in
+  conjunction with the current token. For example a token may only be usable
+  over a kerberos authenticated connection or with a specific client
+  certificate.
+
+  Includes a mechanism identifier with protocol specific data. The officially
+  supported mechanisms are ``kerberos`` and ``x509`` where:
+
+    - The ``kerberos`` bind payload is of the form:
+
+            "kerberos": {
+                "principal": "USER@REALM"
+            }
+
+      where the user's kerberos principal is "USER@REALM".
+
+    - The ``x509`` bind payload is of the form:
+
+            "x509": {
+                "fingerprint": "0123456789ABCDEF",
+                "algorithm": "sha1"
+            }
+
+      the ``fingerprint`` should be the hex form without seperating spaces or
+      colons. The only supported ``algorithm`` is currently ``sha1``. Using
+      multiple bind mechanisms together is supported.
+
 - `catalog` (object)
 
   Specifies all endpoints available to/for the token.
@@ -874,6 +904,11 @@ Example entity:
             "methods": [
                 "password"
             ],
+            "bind": {
+                "kerberos": {
+                    "principal": "USER@REALM"
+                }
+            },
             "user": {
                 "domain": {
                     "id": "1789d1",
