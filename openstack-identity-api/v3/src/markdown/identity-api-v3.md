@@ -17,6 +17,7 @@ What's New in Version 3.1
   specified by their default project attribute.
 - Introduced a generalized call for getting role assignments, with filtering
   for user, group, project, domain and role.
+- Added optional bind information to token structure.
 
 What's New in Version 3.0
 -------------------------
@@ -857,6 +858,15 @@ Optional attributes:
 
   Includes the full resource description of a domain.
 
+- `bind` (object)
+
+  Specifies one or more authorization mechanisms that must be used in
+  conjunction with the current token. For example a token may only be usable
+  over a kerberos authenticated connection or with a specific client
+  certificate.
+
+  Includes a mechanism identifier with protocol specific data.
+
 - `catalog` (object)
 
   Specifies all endpoints available to/for the token.
@@ -872,6 +882,15 @@ Example entity:
             "methods": [
                 "password"
             ],
+            "bind": {
+                "kerberos": {
+                    "principal": "USER@REALM"
+                },
+                "x509": {
+                    "fingerprint": "0123456789ABCDEF",
+                    "algorithm": "sha1"
+                }
+            },
             "user": {
                 "domain": {
                     "id": "1789d1",
