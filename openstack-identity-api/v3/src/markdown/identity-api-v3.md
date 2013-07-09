@@ -19,6 +19,7 @@ What's New in Version 3.1
   for user, group, project, domain and role.
 - Introduced a mechanism to opt-out from catalog information during token
   creation
+- Added optional bind information to token structure.
 
 What's New in Version 3.0
 -------------------------
@@ -865,6 +866,43 @@ Optional attributes:
 
   FIXME(dolph): revise with specific expectations.
 
+- `bind` (object) *New in version 3.1*
+
+  Token binding refers to the practice of embedding information from external
+  authentication providers (like a company's Kerberos server) inside the token
+  such that a client may validate that the token is used in conjunction with that
+  authentication mechanism. By coupling this authentication we can prevent re-use
+  of a stolen token as an attacker would not have access to the external 
+  authentication.
+
+  Specifies one or more external authorization mechanisms that can be used
+  in conjunction with the token for it to be validated by a bind enforcing
+  client. For example a token may only be used over a Kerberos authenticated
+  connection or with a specific client certificate.
+
+  Includes one or more mechanism identifiers with protocol specific data.
+  The officially supported mechanisms are ``kerberos`` and ``x509`` where:
+
+    - The ``kerberos`` bind payload is of the form:
+
+            "kerberos": {
+                "principal": "USER@REALM"
+            }
+
+      where the user's Kerberos principal is "USER@REALM".
+
+    - The ``x509`` bind payload is of the form:
+
+            "x509": {
+                "fingerprint": "0123456789ABCDEF",
+                "algorithm": "sha1"
+            }
+
+      the ``fingerprint`` is the hash of the client certificate to be validated in
+      the specified algorithm. It should be the hex form without seperating spaces
+      or colons. The only supported ``algorithm`` is currently ``sha1``. 
+
+
 Example entity:
 
     {
@@ -874,6 +912,11 @@ Example entity:
             "methods": [
                 "password"
             ],
+            "bind": {
+                "kerberos": {
+                    "principal": "USER@REALM"
+                }
+            },
             "user": {
                 "domain": {
                     "id": "1789d1",
