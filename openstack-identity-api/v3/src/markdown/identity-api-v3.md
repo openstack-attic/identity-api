@@ -1456,22 +1456,33 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "id": "--service-id--",
-            "links": {
-                "self": "http://identity:35357/v3/services/--service-id--"
+    {
+        "services": [
+            {
+                "enabled": true,
+                "id": "--service-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/services/--service-id--"
+                },
+                "name": "--service-name",
+                "type": "volume"
             },
-            "type": "volume"
-        },
-        {
-            "id": "--service-id--",
-            "links": {
-                "self": "http://identity:35357/v3/services/--service-id--"
-            },
-            "type": "identity"
+            {
+                "enabled": true,
+                "id": "--service-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/services/--service-id--"
+                },
+                "name": "--service-name",
+                "type": "identity"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/services",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Get service: `GET /services/{service_id}`
 
@@ -1484,11 +1495,15 @@ Response:
     Status: 200 OK
 
     {
-        "id": "--service-id--",
-        "links": {
-            "self": "http://identity:35357/v3/services/--service-id--"
-        },
-        "type": "volume"
+        "service": {
+            "enabled": true,
+            "id": "--service-id--",
+            "links": {
+                "self": "http://identity:35357/v3/services/--service-id--"
+            },
+            "name": "--service-name",
+            "type": "volume"
+        }
     }
 
 #### Create service: `POST /services`
@@ -1496,7 +1511,11 @@ Response:
 Request:
 
     {
-        "type": "..."
+        "service": {
+            "enabled": true,
+            "name": "--optional--",
+            "type": "..."
+        }
     }
 
 Response:
@@ -1505,12 +1524,20 @@ Response:
 
     {
         "service": {
+            "enabled": true,
             "id": "--service-id--",
+            "links": {
+                "self": "http://identity:35357/v3/services/--service-id--"
+            },
+            "name": "--service-name--",
             "type": "volume"
         }
     }
 
 #### Update service: `PATCH /services/{service_id}`
+
+The request block is the same as for create service, except that only the attributes
+that are being updated need to be included.
 
 Response:
 
@@ -1518,7 +1545,12 @@ Response:
 
     {
         "service": {
+            "enabled": true,
             "id": "--service-id--",
+            "links": {
+                "self": "http://identity:35357/v3/services/--service-id--"
+            },
+            "name": "--service-name",
             "type": "volume"
         }
     }
@@ -1544,17 +1576,57 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "id": "--endpoint-id--",
-            "interface": "public",
-            "links": {
-                "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+    {
+        "endpoints": [
+            {
+                "enabled": true,
+                "id": "--endpoint-id--",
+                "interface": "public",
+                "links": {
+                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                },
+                "name": "the public volume endpoint",
+                "service_id": "--service-id--"
             },
-            "name": "the public volume endpoint",
-            "service_id": "--service-id--"
-        },
-        {
+            {
+                "enabled": true,
+                "id": "--endpoint-id--",
+                "interface": "internal",
+                "links": {
+                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                },
+                "name": "the internal volume endpoint",
+                "service_id": "--service-id--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/endpoints",
+            "previous": null,
+            "next": null
+        }
+    }
+
+#### Create endpoint: `POST /endpoints`
+
+Request:
+
+    {
+        "endpoint": {
+            "enabled": true,
+            "interface": "[admin|public|internal]",
+            "name": "name",
+            "region": "--optional--",
+            "url": "..."
+        }
+    }
+
+Response:
+
+    Status: 201 Created
+
+    {
+        "endpoint": {
+            "enabled": true,
             "id": "--endpoint-id--",
             "interface": "internal",
             "links": {
@@ -1563,46 +1635,29 @@ Response:
             "name": "the internal volume endpoint",
             "service_id": "--service-id--"
         }
-    ]
-
-#### Create endpoint: `POST /endpoints`
-
-Request:
-
-    {
-        "interface": "[admin|public|internal]",
-        "name": "name",
-        "url": "..."
-    }
-
-Response:
-
-    Status: 201 Created
-
-    {
-        "id": "--endpoint-id--",
-        "interface": "internal",
-        "links": {
-            "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
-        },
-        "name": "the internal volume endpoint",
-        "service_id": "--service-id--"
     }
 
 #### Update endpoint: `PATCH /endpoints/{endpoint_id}`
+
+The request block is the same as for create endpoint, except that only the attributes
+that are being updated need to be included.
+
 
 Response:
 
     Status: 200 OK
 
     {
-        "id": "--endpoint-id--",
-        "interface": "internal",
-        "links": {
-            "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
-        },
-        "name": "the internal volume endpoint",
-        "service_id": "--service-id--"
+        "endpoint": {
+            "enabled": true,
+            "id": "--endpoint-id--",
+            "interface": "internal",
+            "links": {
+                "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+            },
+            "name": "the internal volume endpoint",
+            "service_id": "--service-id--"
+        }
     }
 
 #### Delete endpoint: `DELETE /endpoints/{endpoint_id}`
@@ -1629,7 +1684,7 @@ Request:
     {
         "domain": {
             "description": "--optional--",
-            "enabled": --optional--,
+            "enabled": true,
             "name": "..."
         }
     }
@@ -1680,7 +1735,12 @@ Response:
                 },
                 "name": "another domain"
             }
-        ]
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/domains",
+            "previous": null,
+            "next": null
+        }
     }
 
 #### Get domain: `GET /domains/{domain_id}`
@@ -1702,6 +1762,10 @@ Response:
     }
 
 #### Update domain: `PATCH /domains/{domain_id}`
+
+The request block is the same as for create domain, except that only the attributes
+that are being updated need to be included.
+
 
 Response:
 
@@ -1745,7 +1809,7 @@ Request:
         "project": {
             "description": "...",
             "domain_id": "...",
-            "enabled": "...",
+            "enabled": true,
             "name": "..."
         }
     }
@@ -1824,6 +1888,10 @@ Response:
 
 #### Update project: `PATCH /projects/{project_id}`
 
+The request block is the same as for create project, except that only the attributes
+that are being updated need to be included.
+
+
 Response:
 
     Status: 200 OK
@@ -1856,7 +1924,7 @@ Request:
             "description": "...",
             "domain_id": "--optional--",
             "email": "...",
-            "enabled": "...",
+            "enabled": true,
             "name": "...",
             "password": "--optional--"
         }
@@ -2024,9 +2092,11 @@ Response:
 
 #### Update user: `PATCH /users/{user_id}`
 
-Use this method attempt to update user password or enable/disable the user.
-This may return a HTTP 501 Not Implemented if the back-end driver doesn't allow
-for the functionality.
+
+The request block is the same as for create user, except that only the attributes
+that are being updated need to be included. Use this method attempt to update user
+password or enable/disable the user. This may return a HTTP 501 Not Implemented if the
+back-end driver doesn't allow for the functionality.
 
 Response:
 
@@ -2192,9 +2262,9 @@ Response:
 
 #### Update group: `PATCH /groups/{group_id}`
 
-Use this method attempt to update name and/or description of group.
-This may return a HTTP 501 Not Implemented if the back-end driver doesn't allow
-for the functionality.
+The request block is the same as for create group, except that only the attributes
+that are being updated need to be included. This may return a HTTP 501 Not Implemented
+if the back-end driver doesn't allow for the functionality.
 
 Response:
 
@@ -2250,13 +2320,12 @@ may be supported by simply changing the content of the key data.
 Request:
 
     {
-        "blob": {
-            "access": "...",
-            "secret": "..."
-        },
-        "project_id": "--project-id--",
-        "type": "ec2",
-        "user_id": "--user--id--"
+        "credential": {
+            "blob": "--JSON serialized object containing 'access' and 'secret'--",
+            "project_id": "--project-id--",
+            "type": "ec2",
+            "user_id": "--user--id--"
+        }
     }
 
 Response:
@@ -2264,17 +2333,16 @@ Response:
     Status: 201 Created
 
     {
-        "blob": {
-            "access": "...",
-            "secret": "..."
-        },
-        "id": "--credential-id--",
-        "links": {
-            "self": "http://identity:35357/v3/credentials/--credential-id--"
-        },
-        "project_id": "--project-id--",
-        "type": "ec2",
-        "user_id": "--user--id--"
+        "credential": {
+            "blob": "--JSON serialized object containing 'access' and 'secret'--",
+            "id": "--credential-id--",
+            "links": {
+                "self": "http://identity:35357/v3/credentials/--credential-id--"
+            },
+            "project_id": "--project-id--",
+            "type": "ec2",
+            "user_id": "--user--id--"
+        }
     }
 
 #### List credentials: `GET /credentials`
@@ -2286,34 +2354,35 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "blob": {
-                "access": "...",
-                "secret": "..."
+    {
+        "credentials": [
+            {
+                "blob": "--JSON serialized object containing 'access' and 'secret'--",
+                "id": "--credential-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/credentials/--credential-id--"
+                },
+                "project_id": "--project-id--",
+                "type": "ec2",
+                "user_id": "--user--id--"
             },
-            "id": "--credential-id--",
-            "links": {
-                "self": "http://identity:35357/v3/credentials/--credential-id--"
-            },
-            "project_id": "--project-id--",
-            "type": "ec2",
-            "user_id": "--user--id--"
-        },
-        {
-            "blob": {
-                "access": "...",
-                "secret": "..."
-            },
-            "id": "--credential-id--",
-            "links": {
-                "self": "http://identity:35357/v3/credentials/--credential-id--"
-            },
-            "project_id": "--project-id--",
-            "type": "ec2",
-            "user_id": "--user--id--"
+            {
+                "blob": "--JSON serialized object containing 'access' and 'secret'--",
+                "id": "--credential-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/credentials/--credential-id--"
+                },
+                "project_id": "--project-id--",
+                "type": "ec2",
+                "user_id": "--user--id--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/credentials",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Get credential: `GET /credentials/{credential_id}`
 
@@ -2322,37 +2391,38 @@ Response:
     Status: 200 OK
 
     {
-        "blob": {
-            "access": "...",
-            "secret": "..."
-        },
-        "id": "--credential-id--",
-        "links": {
-            "self": "http://identity:35357/v3/credentials/--credential-id--"
-        },
-        "project_id": "--project-id--",
-        "type": "ec2",
-        "user_id": "--user--id--"
+        "credential": {
+            "blob": "--JSON serialized object containing 'access' and 'secret'--",
+            "id": "--credential-id--",
+            "links": {
+                "self": "http://identity:35357/v3/credentials/--credential-id--"
+            },
+            "project_id": "--project-id--",
+            "type": "ec2",
+            "user_id": "--user--id--"
+        }
     }
 
 #### Update credential: `PATCH /credentials/{credential_id}`
+
+The request block is the same as for create credential, except that only the attributes
+that are being updated need to be included.
 
 Response:
 
     Status: 200 OK
 
     {
-        "blob": {
-            "access": "...",
-            "secret": "..."
-        },
-        "id": "--credential-id--",
-        "links": {
-            "self": "http://identity:35357/v3/credentials/--credential-id--"
-        },
-        "project_id": "--project-id--",
-        "type": "ec2",
-        "user_id": "--user--id--"
+        "credential": {
+            "blob": "--JSON serialized object containing 'access' and 'secret'--",
+            "id": "--credential-id--",
+            "links": {
+                "self": "http://identity:35357/v3/credentials/--credential-id--"
+            },
+            "project_id": "--project-id--",
+            "type": "ec2",
+            "user_id": "--user--id--"
+        }
     }
 
 #### Delete credential: `DELETE /credentials/{credential_id}`
@@ -2373,7 +2443,9 @@ The key use cases we need to cover:
 Request:
 
     {
-        "name": ""
+        "role": {
+            "name": "..."
+        }
     }
 
 Response:
@@ -2381,11 +2453,13 @@ Response:
     Status: 201 Created
 
     {
-        "id": "--role-id--",
-        "links": {
-            "self": "http://identity:35357/v3/roles/--role-id--"
-        },
-        "name": "a role name"
+        "role": {
+            "id": "--role-id--",
+            "links": {
+                "self": "http://identity:35357/v3/roles/--role-id--"
+            },
+            "name": "a role name"
+        }
     }
 
 #### List roles: `GET /roles`
@@ -2398,22 +2472,29 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "id": "--role-id--",
-            "links": {
-                "self": "http://identity:35357/v3/roles/--role-id--"
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "a role name"
             },
-            "name": "a role name"
-        },
-        {
-            "id": "--role-id--",
-            "links": {
-                "self": "http://identity:35357/v3/roles/--role-id--"
-            },
-            "name": "a role name"
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "a role name"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/roles",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Get role: `GET /roles/{role_id}`
 
@@ -2422,25 +2503,32 @@ Response:
     Status: 200 OK
 
     {
-        "id": "--role-id--",
-        "links": {
-            "self": "http://identity:35357/v3/roles/--roles-id--"
-        },
-        "name": "a role name"
+        "role": {
+            "id": "--role-id--",
+            "links": {
+                "self": "http://identity:35357/v3/roles/--role-id--"
+            },
+            "name": "a role name"
+        }
     }
 
 #### Update role: `PATCH /roles/{role_id}`
+
+The request block is the same as for create role, except that only the attributes
+that are being updated need to be included.
 
 Response:
 
     Status: 200 OK
 
     {
-        "id": "--role-id--",
-        "links": {
-            "self": "http://identity:35357/v3/roles/--roles-id--"
-        },
-        "name": "a role name"
+        "role": {
+            "id": "--role-id--",
+            "links": {
+                "self": "http://identity:35357/v3/roles/--role-id--"
+            },
+            "name": "a role name"
+        }
     }
 
 #### Delete role: `DELETE /roles/{role_id}`
@@ -2467,16 +2555,29 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-        },
-        {
-            "id": "--role-id--",
-            "name": "--role-name--"
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/domains/--domain_id--/users/--user_id--/roles",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### List group's roles on domain: `GET /domains/{domain_id}/groups/{group_id}/roles`
 
@@ -2484,16 +2585,29 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-        },
-        {
-            "id": "--role-id--",
-            "name": "--role-name--"
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/domains/--domain_id--/groups/--group_id--/roles",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Check if user has role on domain: `HEAD /domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
@@ -2537,16 +2651,29 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-        },
-        {
-            "id": "--role-id--",
-            "name": "--role-name--"
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/projects/--project_id--/users/--user_id--/roles",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### List group's roles on project: `GET /projects/{project_id}/groups/{group_id}/roles`
 
@@ -2554,16 +2681,29 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-        },
-        {
-            "id": "--role-id--",
-            "name": "--role-name--"
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/projects/--project_id--/groups/--group_id--/roles",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Check if user has role on project: `HEAD /projects/{project_id}/users/{user_id}/roles/{role_id}`
 
@@ -2608,8 +2748,7 @@ Response:
         "role_assignments": [
             {
                 "links": {
-                    "assignment": "http://identity:35357/v3/domains/--domain-id--/users/
-                                   --user-id--/roles/--role-id--"
+                    "assignment": "http://identity:35357/v3/domains/--domain-id--/users/--user-id--/roles/--role-id--"
                 },
                 "role": {
                     "id": "--role-id--"
@@ -2628,8 +2767,7 @@ Response:
                     "id": "--group-id--"
                 },
                 "links": {
-                    "assignment": "http://identity:35357/v3/projects/--project-id--/
-                                   groups/--group-id--/roles/--role-id--"
+                    "assignment": "http://identity:35357/v3/projects/--project-id--/groups/--group-id--/roles/--role-id--"
                 },
                 "role": {
                     "id": "--role-id--"
@@ -2686,8 +2824,7 @@ Response:
         "role_assignments": [
             {
                 "links": {
-                    "assignment": "http://identity:35357/v3/domains/--domain-id--/users/
-                                   --user-id--/roles/--role-id--"
+                    "assignment": "http://identity:35357/v3/domains/--domain-id--/users/--user-id--/roles/--role-id--"
                 },
                 "role": {
                     "id": "--role-id--"
@@ -2703,10 +2840,8 @@ Response:
             },
             {
                 "links": {
-                    "assignment": "http://identity:35357/v3/projects/--project-id--/
-                                   groups/--group-id--/roles/--role-id--",
-                    "membership": "http://identity:35357/v3/groups/--group-id--/
-                                   users/--user-id--"
+                    "assignment": "http://identity:35357/v3/projects/--project-id--/groups/--group-id--/roles/--role-id--",
+                    "membership": "http://identity:35357/v3/groups/--group-id--/users/--user-id--"
                 },
                 "role": {
                     "id": "--role-id--"
@@ -2752,12 +2887,14 @@ Response:
     Status: 201 Created
 
     {
-        "blob": "--serialized-blob--",
-        "id": "--policy-id--",
-        "links": {
-            "self": "http://identity:35357/v3/policies/--policy-id--"
-        },
-        "type": "--serialization-mime-type--"
+        "policy": {
+            "blob": "--serialized-blob--",
+            "id": "--policy-id--",
+            "links": {
+                "self": "http://identity:35357/v3/policies/--policy-id--"
+            },
+            "type": "--serialization-mime-type--"
+        }
     }
 
 #### List policies: `GET /policies`
@@ -2770,24 +2907,31 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "blob": "--serialized-blob--",
-            "id": "--policy-id--",
-            "links": {
-                "self": "http://identity:35357/v3/policies/--policy-id--"
+    {
+        "policies": [
+            {
+                "blob": "--serialized-blob--",
+                "id": "--policy-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/policies/--policy-id--"
+                },
+                "type": "--serialization-mime-type--"
             },
-            "type": "--serialization-mime-type--"
-        },
-        {
-            "blob": "--serialized-blob--",
-            "id": "--policy-id--",
-            "links": {
-                "self": "http://identity:35357/v3/policies/--policy-id--"
-            },
-            "type": "--serialization-mime-type--"
+            {
+                "blob": "--serialized-blob--",
+                "id": "--policy-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/policies/--policy-id--"
+                },
+                "type": "--serialization-mime-type--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/policies",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Get policy: `GET /policies/{policy_id}`
 
@@ -2796,27 +2940,34 @@ Response:
     Status: 200 OK
 
     {
-        "blob": "--serialized-blob--",
-        "id": "--policy-id--",
-        "links": {
-            "self": "http://identity:35357/v3/policies/--policy-id--"
-        },
-        "type": "--serialization-mime-type--"
+        "policy": {
+            "blob": "--serialized-blob--",
+            "id": "--policy-id--",
+            "links": {
+                "self": "http://identity:35357/v3/policies/--policy-id--"
+            },
+            "type": "--serialization-mime-type--"
+        }
     }
 
 #### Update policy: `PATCH /policies/{policy_id}`
+
+The request block is the same as for create policy, except that only the attributes
+that are being updated need to be included.
 
 Response:
 
     Status: 200 OK
 
     {
-        "blob": "--serialized-blob--",
-        "id": "--policy-id--",
-        "links": {
-            "self": "http://identity:35357/v3/policies/--policy-id--"
-        },
-        "type": "--serialization-mime-type--"
+        "policy": {
+            "blob": "--serialized-blob--",
+            "id": "--policy-id--",
+            "links": {
+                "self": "http://identity:35357/v3/policies/--policy-id--"
+            },
+            "type": "--serialization-mime-type--"
+        }
     }
 
 #### Delete policy: `DELETE /policies/{policy_id}`
