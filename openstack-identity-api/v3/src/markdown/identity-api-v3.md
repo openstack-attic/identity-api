@@ -1414,21 +1414,28 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "id": "--service-id--",
-            "links": {
-                "self": "http://identity:35357/v3/services/--service-id--"
+        "services": [
+            {
+                "id": "--service-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/services/--service-id--"
+                },
+                "type": "volume"
             },
-            "type": "volume"
-        },
-        {
-            "id": "--service-id--",
-            "links": {
-                "self": "http://identity:35357/v3/services/--service-id--"
-            },
-            "type": "identity"
+            {
+                "id": "--service-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/services/--service-id--"
+                },
+                "type": "identity"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/services",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Get service: `GET /services/{service_id}`
 
@@ -1502,25 +1509,32 @@ Response:
     Status: 200 OK
 
     [
-        {
-            "id": "--endpoint-id--",
-            "interface": "public",
-            "links": {
-                "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+        "endpoints": [
+            {
+                "id": "--endpoint-id--",
+                "interface": "public",
+                "links": {
+                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                },
+                "name": "the public volume endpoint",
+                "service_id": "--service-id--"
             },
-            "name": "the public volume endpoint",
-            "service_id": "--service-id--"
-        },
-        {
-            "id": "--endpoint-id--",
-            "interface": "internal",
-            "links": {
-                "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
-            },
-            "name": "the internal volume endpoint",
-            "service_id": "--service-id--"
+            {
+                "id": "--endpoint-id--",
+                "interface": "internal",
+                "links": {
+                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                },
+                "name": "the internal volume endpoint",
+                "service_id": "--service-id--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/endpoints",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Create endpoint: `POST /endpoints`
 
@@ -1537,13 +1551,15 @@ Response:
     Status: 201 Created
 
     {
-        "id": "--endpoint-id--",
-        "interface": "internal",
-        "links": {
-            "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
-        },
-        "name": "the internal volume endpoint",
-        "service_id": "--service-id--"
+        "endpoint": {
+            "id": "--endpoint-id--",
+            "interface": "internal",
+            "links": {
+                "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+            },
+            "name": "the internal volume endpoint",
+            "service_id": "--service-id--"
+        }
     }
 
 #### Update endpoint: `PATCH /endpoints/{endpoint_id}`
@@ -1553,13 +1569,15 @@ Response:
     Status: 200 OK
 
     {
-        "id": "--endpoint-id--",
-        "interface": "internal",
-        "links": {
-            "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
-        },
-        "name": "the internal volume endpoint",
-        "service_id": "--service-id--"
+        "endpoint": {
+            "id": "--endpoint-id--",
+            "interface": "internal",
+            "links": {
+                "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+            },
+            "name": "the internal volume endpoint",
+            "service_id": "--service-id--"
+        }
     }
 
 #### Delete endpoint: `DELETE /endpoints/{endpoint_id}`
@@ -1637,7 +1655,12 @@ Response:
                 },
                 "name": "another domain"
             }
-        ]
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/domains",
+            "previous": null,
+            "next": null
+        }
     }
 
 #### Get domain: `GET /domains/{domain_id}`
@@ -2221,43 +2244,7 @@ Response:
     Status: 201 Created
 
     {
-        "blob": {
-            "access": "...",
-            "secret": "..."
-        },
-        "id": "--credential-id--",
-        "links": {
-            "self": "http://identity:35357/v3/credentials/--credential-id--"
-        },
-        "project_id": "--project-id--",
-        "type": "ec2",
-        "user_id": "--user--id--"
-    }
-
-#### List credentials: `GET /credentials`
-
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-
-Response:
-
-    Status: 200 OK
-
-    [
-        {
-            "blob": {
-                "access": "...",
-                "secret": "..."
-            },
-            "id": "--credential-id--",
-            "links": {
-                "self": "http://identity:35357/v3/credentials/--credential-id--"
-            },
-            "project_id": "--project-id--",
-            "type": "ec2",
-            "user_id": "--user--id--"
-        },
-        {
+        "credential": {
             "blob": {
                 "access": "...",
                 "secret": "..."
@@ -2270,7 +2257,52 @@ Response:
             "type": "ec2",
             "user_id": "--user--id--"
         }
-    ]
+    }
+
+#### List credentials: `GET /credentials`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "credentials": [
+            {
+                "blob": {
+                    "access": "...",
+                    "secret": "..."
+                },
+                "id": "--credential-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/credentials/--credential-id--"
+                },
+                "project_id": "--project-id--",
+                "type": "ec2",
+                "user_id": "--user--id--"
+            },
+            {
+                "blob": {
+                    "access": "...",
+                    "secret": "..."
+                },
+                "id": "--credential-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/credentials/--credential-id--"
+                },
+                "project_id": "--project-id--",
+                "type": "ec2",
+                "user_id": "--user--id--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/credentials",
+            "previous": null,
+            "next": null
+        }
+    }
 
 #### Get credential: `GET /credentials/{credential_id}`
 
@@ -2279,17 +2311,19 @@ Response:
     Status: 200 OK
 
     {
-        "blob": {
-            "access": "...",
-            "secret": "..."
-        },
-        "id": "--credential-id--",
-        "links": {
-            "self": "http://identity:35357/v3/credentials/--credential-id--"
-        },
-        "project_id": "--project-id--",
-        "type": "ec2",
-        "user_id": "--user--id--"
+        "credential": {
+            "blob": {
+                "access": "...",
+                "secret": "..."
+            },
+            "id": "--credential-id--",
+            "links": {
+                "self": "http://identity:35357/v3/credentials/--credential-id--"
+            },
+            "project_id": "--project-id--",
+            "type": "ec2",
+            "user_id": "--user--id--"
+        }
     }
 
 #### Update credential: `PATCH /credentials/{credential_id}`
@@ -2299,17 +2333,19 @@ Response:
     Status: 200 OK
 
     {
-        "blob": {
-            "access": "...",
-            "secret": "..."
-        },
-        "id": "--credential-id--",
-        "links": {
-            "self": "http://identity:35357/v3/credentials/--credential-id--"
-        },
-        "project_id": "--project-id--",
-        "type": "ec2",
-        "user_id": "--user--id--"
+        "credential": {
+            "blob": {
+                "access": "...",
+                "secret": "..."
+            },
+            "id": "--credential-id--",
+            "links": {
+                "self": "http://identity:35357/v3/credentials/--credential-id--"
+            },
+            "project_id": "--project-id--",
+            "type": "ec2",
+            "user_id": "--user--id--"
+        }
     }
 
 #### Delete credential: `DELETE /credentials/{credential_id}`
@@ -2338,11 +2374,13 @@ Response:
     Status: 201 Created
 
     {
-        "id": "--role-id--",
-        "links": {
-            "self": "http://identity:35357/v3/roles/--role-id--"
-        },
-        "name": "a role name"
+        "role": {
+            "id": "--role-id--",
+            "links": {
+                "self": "http://identity:35357/v3/roles/--role-id--"
+            },
+            "name": "a role name"
+        }
     }
 
 #### List roles: `GET /roles`
@@ -2355,22 +2393,29 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "id": "--role-id--",
-            "links": {
-                "self": "http://identity:35357/v3/roles/--role-id--"
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "a role name"
             },
-            "name": "a role name"
-        },
-        {
-            "id": "--role-id--",
-            "links": {
-                "self": "http://identity:35357/v3/roles/--role-id--"
-            },
-            "name": "a role name"
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "a role name"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/roles",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Get role: `GET /roles/{role_id}`
 
@@ -2379,11 +2424,13 @@ Response:
     Status: 200 OK
 
     {
-        "id": "--role-id--",
-        "links": {
-            "self": "http://identity:35357/v3/roles/--roles-id--"
-        },
-        "name": "a role name"
+        "role": {
+            "id": "--role-id--",
+            "links": {
+                "self": "http://identity:35357/v3/roles/--role-id--"
+            },
+            "name": "a role name"
+        }
     }
 
 #### Update role: `PATCH /roles/{role_id}`
@@ -2393,11 +2440,13 @@ Response:
     Status: 200 OK
 
     {
-        "id": "--role-id--",
-        "links": {
-            "self": "http://identity:35357/v3/roles/--roles-id--"
-        },
-        "name": "a role name"
+        "role": {
+            "id": "--role-id--",
+            "links": {
+                "self": "http://identity:35357/v3/roles/--role-id--"
+            },
+            "name": "a role name"
+        }
     }
 
 #### Delete role: `DELETE /roles/{role_id}`
@@ -2424,16 +2473,30 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-        },
-        {
-            "id": "--role-id--",
-            "name": "--role-name--"
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/domains/--domain_id--"
+                    "/users/--user_id--/roles",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### List group's roles on domain: `GET /domains/{domain_id}/groups/{group_id}/roles`
 
@@ -2441,16 +2504,30 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-        },
-        {
-            "id": "--role-id--",
-            "name": "--role-name--"
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/domains/--domain_id--"
+                    "/groups/--group_id--/roles",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Check if user has role on domain: `HEAD /domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
@@ -2494,16 +2571,30 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-        },
-        {
-            "id": "--role-id--",
-            "name": "--role-name--"
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/projects/--project_id--"
+                    "/users/--user_id--/roles",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### List group's roles on project: `GET /projects/{project_id}/groups/{group_id}/roles`
 
@@ -2511,16 +2602,30 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "id": "--role-id--",
-            "name": "--role-name--",
-        },
-        {
-            "id": "--role-id--",
-            "name": "--role-name--"
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/projects/--project_id--"
+                    "/groups/--group_id--/roles",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Check if user has role on project: `HEAD /projects/{project_id}/users/{user_id}/roles/{role_id}`
 
@@ -2709,12 +2814,14 @@ Response:
     Status: 201 Created
 
     {
-        "blob": "--serialized-blob--",
-        "id": "--policy-id--",
-        "links": {
-            "self": "http://identity:35357/v3/policies/--policy-id--"
-        },
-        "type": "--serialization-mime-type--"
+        "policy": {
+            "blob": "--serialized-blob--",
+            "id": "--policy-id--",
+            "links": {
+                "self": "http://identity:35357/v3/policies/--policy-id--"
+            },
+            "type": "--serialization-mime-type--"
+        }
     }
 
 #### List policies: `GET /policies`
@@ -2727,24 +2834,31 @@ Response:
 
     Status: 200 OK
 
-    [
-        {
-            "blob": "--serialized-blob--",
-            "id": "--policy-id--",
-            "links": {
-                "self": "http://identity:35357/v3/policies/--policy-id--"
+    {
+        "policies": [
+            {
+                "blob": "--serialized-blob--",
+                "id": "--policy-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/policies/--policy-id--"
+                },
+                "type": "--serialization-mime-type--"
             },
-            "type": "--serialization-mime-type--"
-        },
-        {
-            "blob": "--serialized-blob--",
-            "id": "--policy-id--",
-            "links": {
-                "self": "http://identity:35357/v3/policies/--policy-id--"
-            },
-            "type": "--serialization-mime-type--"
+            {
+                "blob": "--serialized-blob--",
+                "id": "--policy-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/policies/--policy-id--"
+                },
+                "type": "--serialization-mime-type--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/policies",
+            "previous": null,
+            "next": null
         }
-    ]
+    }
 
 #### Get policy: `GET /policies/{policy_id}`
 
@@ -2753,12 +2867,14 @@ Response:
     Status: 200 OK
 
     {
-        "blob": "--serialized-blob--",
-        "id": "--policy-id--",
-        "links": {
-            "self": "http://identity:35357/v3/policies/--policy-id--"
-        },
-        "type": "--serialization-mime-type--"
+        "policy": {
+            "blob": "--serialized-blob--",
+            "id": "--policy-id--",
+            "links": {
+                "self": "http://identity:35357/v3/policies/--policy-id--"
+            },
+            "type": "--serialization-mime-type--"
+        }
     }
 
 #### Update policy: `PATCH /policies/{policy_id}`
@@ -2768,12 +2884,14 @@ Response:
     Status: 200 OK
 
     {
-        "blob": "--serialized-blob--",
-        "id": "--policy-id--",
-        "links": {
-            "self": "http://identity:35357/v3/policies/--policy-id--"
-        },
-        "type": "--serialization-mime-type--"
+        "policy": {
+            "blob": "--serialized-blob--",
+            "id": "--policy-id--",
+            "links": {
+                "self": "http://identity:35357/v3/policies/--policy-id--"
+            },
+            "type": "--serialization-mime-type--"
+        }
     }
 
 #### Delete policy: `DELETE /policies/{policy_id}`
