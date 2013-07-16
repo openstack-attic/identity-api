@@ -36,7 +36,7 @@
                         <configuration>
                             <disqusShortname>os-identitydevguide</disqusShortname>
                             <enableGoogleAnalytics>1</enableGoogleAnalytics>
-                            <googleAnalyticsId>UA-17511903-6</googleAnalyticsId>
+                            <googleAnalyticsId>UA-17511903-1</googleAnalyticsId>
                             <sourceDirectory>src/docbkx/common</sourceDirectory>
                             <includes>identity-dev-guide.xml</includes>
                             <tocSectionDepth>1</tocSectionDepth>
