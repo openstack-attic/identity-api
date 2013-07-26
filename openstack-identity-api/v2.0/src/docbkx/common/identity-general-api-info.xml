@@ -94,7 +94,7 @@ This operation does not require a request body.</para>'>
         <example>
             <title>JSON Request with Headers</title>
             <programlisting language="http"><xi:include href="../samples/samplerequestheader.txt" parse="text"/></programlisting>
-            <programlisting language="xml"><xi:include href="../samples/auth_credentials.json" parse="text"/></programlisting>
+            <programlisting language="json"><xi:include href="../samples/auth_credentials.json" parse="text"/></programlisting>
         </example>
         <example>
             <title>XML Response with Headers</title>
