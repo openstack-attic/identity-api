@@ -1484,9 +1484,9 @@ Response:
 
 #### Get service: `GET /services/{service_id}`
 
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "type" (optional)
+query_string: page (optional)  
+query_string: per_page (optional, default 30)  
+query filter for "type" (optional)  
 
 Response:
 
@@ -1562,9 +1562,9 @@ Response:
 
 #### List endpoints: `GET /endpoints`
 
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "interface" and "service_id" (optional)
+query_string: page (optional)  
+query_string: per_page (optional, default 30)  
+query filter for "interface" and "service_id" (optional)  
 
 Response:
 
@@ -1700,9 +1700,9 @@ Response:
 
 #### List domains: `GET /domains`
 
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "name" and "enabled" (optional)
+query_string: page (optional)  
+query_string: per_page (optional, default 30)  
+query filter for "name" and "enabled" (optional)  
 
 Response:
 
@@ -1825,9 +1825,9 @@ Response:
 
 #### List projects: `GET /projects`
 
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "domain_id", "enabled", "name" (optional)
+query_string: page (optional)  
+query_string: per_page (optional, default 30)  
+query filter for "domain_id", "enabled", "name" (optional)  
 
 Response:
 
@@ -1944,9 +1944,9 @@ Response:
 
 #### List users: `GET /users`
 
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "domain_id", "email", "enabled", "name" (optional)
+query_string: page (optional)  
+query_string: per_page (optional, default 30)  
+query filter for "domain_id", "email", "enabled", "name" (optional)  
 
 Response:
 
@@ -2009,9 +2009,9 @@ Response:
 
 #### List user projects: `GET /users/{user_id}/projects`
 
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "name", "enabled" on project resources (optional)
+query_string: page (optional)  
+query_string: per_page (optional, default 30)  
+query filter for "name", "enabled" on project resources (optional)  
 
 Response:
 
@@ -2047,9 +2047,9 @@ Response:
 
 #### List groups of which a user is a member: `GET /users/{user_id}/groups`
 
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "name" (optional)
+query_string: page (optional)  
+query_string: per_page (optional, default 30)  
+query filter for "name" (optional)  
 
 Response:
 
@@ -2147,9 +2147,9 @@ Response:
 
 #### List groups: `GET /groups`
 
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "domain_id", "name" (optional)
+query_string: page (optional)  
+query_string: per_page (optional, default 30)  
+query filter for "domain_id", "name" (optional)  
 
 Response:
 
@@ -2211,9 +2211,9 @@ Response:
 
 #### List users who are members of a group: `GET /groups/{group_id}/users`
 
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "name", "enabled", "email" (optional)
+query_string: page (optional)  
+query_string: per_page (optional, default 30)  
+query filter for "name", "enabled", "email" (optional)  
 
 Response:
 
@@ -2340,8 +2340,8 @@ Response:
 
 #### List credentials: `GET /credentials`
 
-query_string: page (optional)
-query_string: per_page (optional, default 30)
+query_string: page (optional)  
+query_string: per_page (optional, default 30)  
 
 Response:
 
@@ -2457,9 +2457,9 @@ Response:
 
 #### List roles: `GET /roles`
 
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "name" (optional)
+query_string: page (optional)  
+query_string: per_page (optional, default 30)  
+query filter for "name" (optional)  
 
 Response:
 
@@ -2724,10 +2724,10 @@ Response:
 
 #### List effective role assignments: `GET /role_assignments`
 
-query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id (all optional)
-query_string: effective (optional, default false)
-query_string: page (optional)
-query_string: per_page (optional, default 30)
+query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id (all optional)  
+query_string: effective (optional, default false)  
+query_string: page (optional)  
+query_string: per_page (optional, default 30)  
 
 Get a list of role assignments. This API is only available from v3.1 onwards.
 
@@ -2892,9 +2892,9 @@ Response:
 
 #### List policies: `GET /policies`
 
-query_string: page (optional)
-query_string: per_page (optional, default 30)
-query filter for "type" (optional)
+query_string: page (optional)  
+query_string: per_page (optional, default 30)  
+query filter for "type" (optional)  
 
 Response:
 
