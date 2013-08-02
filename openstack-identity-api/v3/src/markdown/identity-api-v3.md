@@ -12,6 +12,7 @@ policy engine rule sets.
 What's New in Version 3.2
 -------------------------
 - Publish CA and Signing Certificates
+- Publish tokens revocation list
 
 What's New in Version 3.1
 -------------------------
@@ -1453,6 +1454,40 @@ the `X-Subject-Token` is valid.
 This call is identical to `HEAD /auth/tokens` except that the `X-Subject-Token`
 token is immediately invalidated, regardless of it's `expires_at` attribute. An
 additional `X-Auth-Token` is not required.
+
+### Token Revocation List
+The key use cases we need to cover:
+
+- Retrieveing the token revoaction list
+
+#### List revoked tokens: `GET /tokens/revoked`
+
+Response:
+
+    Status: 200 OK
+
+Response:
+-----BEGIN CMS-----
+MIICWgYJKoZIhvcNAQcCoIICSzCCAkcCAQExCTAHBgUrDgMCGjBpBgkqhkiG9w0B
+BwGgXARaeyJyZXZva2VkIjpbeyJpZCI6IjdhY2ZjZmRhZjZhMTRhZWJlOTdjNjFj
+NTk0N2JjNGQzIiwiZXhwaXJlcyI6IjIwMTItMDgtMTRUMTc6NTg6NDhaIn1dfQ0K
+MYIByjCCAcYCAQEwgaQwgZ4xCjAIBgNVBAUTATUxCzAJBgNVBAYTAlVTMQswCQYD
+VQQIEwJDQTESMBAGA1UEBxMJU3Vubnl2YWxlMRIwEAYDVQQKEwlPcGVuU3RhY2sx
+ETAPBgNVBAsTCEtleXN0b25lMSUwIwYJKoZIhvcNAQkBFhZrZXlzdG9uZUBvcGVu
+c3RhY2sub3JnMRQwEgYDVQQDEwtTZWxmIFNpZ25lZAIBETAHBgUrDgMCGjANBgkq
+hkiG9w0BAQEFAASCAQC2f05VHM7zjNT3TBO80AmZ00n7AEWUjbFe5nqIM8kWGM83
+01Bi3uU/nQ0daAd3tqCmDL2EfETAjD+xnIzjlN6eIA74Vy51wFD/KiyWYPWzw8mH
+WcATHmE4E8kLdt8NhUodCY9TCFxcHJNDR1Eai/U7hH+5O4p9HcmMjv/GWegZL6HB
+Up9Cxu6haxvPFmYylzM6Qt0Ad/WiO/JZLPTA4qXJEJSa9EMFMb0c2wSDSn30swJe
+7J79VTFktTr2djv8KFvaHr4vLFYv2Y3ZkTeHqam0m91vllxLZJUP5QTSHjjY6LFE
+5eEjIlOv9wOOm1uTtPIq6pxCugU1Wm7gstkqr55R
+-----END CMS-----
+
+The data is in crypto message syntax.  The encrypted data is a json document: 
+{"revoked":[
+	{"id":"7acfcfdaf6a14aebe97c61c5947bc4d3",
+     "expires":"2012-08-14T17:58:48Z"}]}
+
 
 ### Catalog
 
