@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Code-Review+2: ayoung <ayoung@redhat.com>
+Approved+1: Morgan Fainberg <m@metacloud.com>
+Code-Review+2: Morgan Fainberg <m@metacloud.com>
+Submitted-by: Jenkins
+Submitted-at: Tue, 13 Aug 2013 08:29:14 +0000
+Reviewed-on: https://review.openstack.org/40776
+Project: openstack/identity-api
+Branch: refs/heads/master
