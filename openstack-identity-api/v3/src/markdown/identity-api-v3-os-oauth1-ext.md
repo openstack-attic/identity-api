@@ -27,15 +27,18 @@ Definitions
 Delegated Authentication Flow
 -----------------------------
 
-Delegated Authentication via OAuth is done in four steps:
+Delegated Authentication via OAuth is done in five steps:
 
-1. An Identity API service User [creates a Consumer](#Create Consumer).
-2. The Consumer [obtains an unauthorized Request Token](#Create Request Token).
-3. The User [authorizes the Request Token](#Authorize Request Token).
-4. The Consumer [exchanges the Request Token for an Access Token](#Create
-   Access Token).
+1. An Identity API service User [creates a
+   Consumer](#create-consumer-post-os-oauth1consumers).
+2. The Consumer [obtains an unauthorized Request
+   Token](#create-request-token-post-os-oauth1request_token).
+3. The User [authorizes the Request
+   Token](#authorize-request-token-put-os-oauth1authorizerequest_token_key).
+4. The Consumer [exchanges the Request Token for an Access
+   Token](#create-access-token-post-os-oauth1access_token).
 5. The Consumer [uses the Access Token to request a Identity API service
-   Token](#Request an Identity API Token).
+   Token](#request-an-identity-api-token-post-authtokens).
 
 API Resources
 -------------
