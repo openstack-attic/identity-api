@@ -1,0 +1,152 @@
+Protocol Discovery for (Federated) Authentication
+=================================================
+
+This extension provides a mechanism for a client to interrogate Keystone
+to determine which authentication protocols are supported, and which
+providers are available for any particular protocol.
+
+#### List Protocols`GET /OS-PROTOCOLS`
+
+Response:
+
+    Status: 200 OK
+    {
+        "OS-PROTOCOLS": {
+            "protocols": [
+                "saml",
+                "moonshot"
+            ]
+        }
+    }
+
+#### List Protocol Providers `GET /OS-PROTOCOLS/providers`
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+query filter for "protocol" (optional)
+
+Response:
+
+    Status: 200 OK
+    {
+        "OS-PROTOCOLS": {
+            "providers": [
+                {
+                    "protocol": "saml",
+                    "name": "My SAML IdP",
+                    "endpoint": "http://my-saml-idp/SSOLogin",
+                    "links": {
+                        "self": "http://localhost:5000/v3/services/123456"
+                    },
+                    "id": "123456"
+                }
+                {
+                    "protocol": "keystone",
+                    "name": "My Remote Keystone",
+                    "endpoint": "http://my-remote-keystone:5000/v3/auth",
+                    "links": {
+                        "self": "http://localhost:5000/v3/services/098765"
+                    },
+                    "id": "098765"
+                }
+            ]
+        }
+    }
+
+In order to list providers for a given protocol, filter the collection using a
+query string (e.g., `?protocol={protocol_string}`).
+
+#### Get Provider `GET /OS-PROTOCOLS/providers/<provider-id>`
+
+Response:
+
+    Status: 200 OK
+    {
+        "OS-PROTOCOLS": {
+            "provider": {
+                "protocol": "saml",
+                "name": "My SAML IdP",
+                "endpoint": "http://my-saml-idp/SSOLogin",
+                "links": {
+                    "self": "http://localhost:5000/v3/services/123456"
+                },
+                "id": "123456"
+            }
+        }
+    }
+
+#### Create Provider `POST /OS-PROTOCOLS/providers/`
+
+Request:
+
+    {
+        "OS-PROTOCOLS": {
+            "provider": {
+                "protocol": "saml",
+                "endpoint": "http://my-saml-idp/SSOLogin",
+                "name": "My SAML IdP",
+                "validation": {
+                    "certdata": "jfhbds"
+                }
+            }
+        }
+    }
+
+Response:
+
+    Status: 201 Created
+    {
+        "OS-PROTOCOLS": {
+            "provider": {
+                "protocol": "saml",
+                "endpoint": "http://my-saml-idp/SSOLogin",
+                "name": "My SAML IdP",
+                "links": {
+                    "self": "http://localhost:5000/v3/services/123456"
+                },
+                "id": "123456"
+            }
+        }
+    }
+
+Note: the validation data is not returned by the discovery service.
+
+#### Delete Provider `DELETE /OS-PROTOCOLS/providers/<provider-id>`
+
+Response:
+
+    Status: 204 No Content
+
+#### Update Provider `PATCH /OS-PROTOCOLS/providers/`
+
+Request:
+
+    {
+        "OS-PROTOCOLS": {
+            "provider": {
+                "protocol": "saml",
+                "endpoint": "https://my-saml-idp/SSOLogin",
+                "name": "My SAML IdP",
+                "validation": {
+                    "certdata": "jfhbds"
+                },
+                "id": "123456"
+            }
+        }
+    }
+
+Response:
+
+    Status: 200 OK
+    {
+        "OS-PROTOCOLS": {
+            "provider": {
+                "protocol": "saml",
+                "endpoint": "https://my-saml-idp/SSOLogin",
+                "name": "My SAML IdP",
+                "links": {
+                    "self": "http://localhost:5000/v3/services/123456"
+                },
+                "id": "123456"
+            }
+        }
+    }
