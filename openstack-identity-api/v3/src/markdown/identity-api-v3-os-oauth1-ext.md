@@ -214,7 +214,7 @@ Response Parameters:
   - `oauth_token_secret`: The secret associated with the Request Token.
   - `oauth_expires_at` (optional): The ISO 8601 datetime at which a Request Token will expire.
 
-### Authorize Request Token: `PUT /OS-OAUTH1/authorize/{request_token_key}`
+### Authorize Request Token: `PUT /OS-OAUTH1/authorize/{request_token_id}`
 
 To authorize the Request Token, the authorizing user must have the requested
 role assignments on the requested project. Upon successful authorization, an
