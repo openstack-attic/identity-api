@@ -179,12 +179,11 @@ Delegated Auth APIs
 A Consumer uses the Consumer Key and Secret to obtain a Request Token. The
 Request Token is used to initiate User authorization. The Request Token, once
 authorized, can be exchanged along with the OAuth Verifier for an Access
-Token. Note that there are two extra parameters, `requested_role_ids` and
-`requested_project_id`. `requested_role_ids` contains the IDs of the roles the
-Consumer would like delegated. `requested_project_id` contains the ID of the
-project upon which the requested roles must be assigned. The Identity service
-may include an `oauth_expires_at` attribute in the response. If no such
-attribute is included, or is null, then the token may last indefinitely.
+Token. Note that there is one extra parameter, `requested_project_id`.
+`requested_project_id` contains the ID of the project upon which the Consumer
+would like delegated. The Identity service may include an `oauth_expires_at`
+attribute in the response. If no such attribute is included, or is null,
+then the token may last indefinitely.
 
 The authorizing User receives the Request Token Key from the Consumer
 out-of-band.
@@ -198,10 +197,6 @@ Request Parameters:
   See: [http://oauth.net/core/1.0a/#auth_step1](http://oauth.net/core/1.0a/#auth_step1)
 
 Additional Request Parameters:
-
-- `requested_role_ids`: IDs of requested roles, comma separated
-
-  - Example: `requested_role_ids=a3b29b,49993e`
 
 - `requested_project_id`: IDs of requested project
 
@@ -219,10 +214,22 @@ Response Parameters:
 
 ### Authorize Request Token: `PUT /OS-OAUTH1/authorize/{request_token_id}`
 
-To authorize the Request Token, the authorizing user must have the requested
-role assignments on the requested project. Upon successful authorization, an
-OAuth Verifier code is returned. The Consumer receives the OAuth Verifier from
-the User out-of-band.
+To authorize the Request Token, the authorizing user must belong to the requested
+project. Upon successful authorization, an OAuth Verifier code is returned. The
+Consumer receives the OAuth Verifier from the User out-of-band.
+
+Request:
+
+    {
+        "roles": [
+            {
+                "id": "a3b29b"
+            },
+            {
+                "id": "49993e"
+            }
+        ]
+    }
 
 Response:
 
@@ -272,11 +279,11 @@ Request Parameters:
 
   See: [http://oauth.net/core/1.0a/#anchor12](http://oauth.net/core/1.0a/#anchor12)
 
-The returned token is scoped to the requested project and with the requested
+The returned token is scoped to the requested project and with the delegated
 roles. In addition to the standard token response, as seen in the link below,
 the token has an OAuth-specific object.
 
-Example OpenStack token response: [Various Openstack token responses](https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3.md#authentication-responses)
+Example OpenStack token response: [Various OpenStack token responses](https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3.md#authentication-responses)
 
 Example OAuth-specific object in a token:
 
