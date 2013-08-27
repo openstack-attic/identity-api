@@ -13,6 +13,7 @@ What's New in Version 3.2
 -------------------------
 
 - Extension Discovery.
+- Inexact filtering is supported on string attributes
 
 What's New in Version 3.1
 -------------------------
@@ -208,6 +209,11 @@ with one or more attribute/value pairs:
 
     GET /entities?name={entity_name}&enabled={entity_enabled}
 
+If multiple filters are specified in a query, then all filters must match for
+an entity to be included in the response. The values specified in a filter
+should be of the same type as the attribute, and in the case of strings are
+limited to the same maximum length as the attribute.
+
 The response is a subset of the full collection:
 
     200 OK
@@ -230,6 +236,45 @@ The response is a subset of the full collection:
             "previous": url
         }
     }
+
+*New in version 3.2* String attributes may also be filtered using inexact
+patterns, for example:
+
+    GET /entities?name__startswith={first_few_characters_of_entity_name}
+
+The following inexact suffixes are supported:
+
+- `__startswith`
+
+  Matches if the attribute starts with the characters specified, with the
+  comparison being case-sensitive.
+
+- `__istartswith`
+
+  Matches if the attribute starts with the characters specified, with the
+  comparison being case-insensitive.
+
+- `__endswith`
+
+  Matches if the attribute ends with the characters specified, with the
+  comparison being case-sensitive.
+
+- `__iendswith`
+
+  Matches if the attribute ends with the characters specified, with the
+  comparison being case-insensitive.
+
+- `__contains`
+
+  Matches if the attribute contains the characters specified, with the
+  comparison being case-sensitive.
+
+- `__icontains`
+
+  Matches if the attribute contains the characters specified, with the
+  comparison being case-insensitive.
+
+Inexact filters specified for non-string attributes will be ignored.
 
 #### Get an Entity
 
