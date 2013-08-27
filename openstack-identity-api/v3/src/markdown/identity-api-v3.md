@@ -13,6 +13,7 @@ What's New in Version 3.2
 -------------------------
 
 - Extension Discovery.
+- Inexact filtering is supported on string attributes
 
 What's New in Version 3.1
 -------------------------
@@ -230,6 +231,43 @@ The response is a subset of the full collection:
             "previous": url
         }
     }
+
+*New in version 3.2* String attributes may also be filtered using inexact
+patterns, for example:
+
+    GET /entities?name__startswith={first_few_characters_of_entity_name}
+
+The following inexact suffixes are supported:
+
+- `__startswith=str`
+
+  Matches if the attribute starts with the characters in `str`, with the
+  comparison being case-sensitive.
+
+- `__istartswith=str`
+
+  Matches if the attribute starts with the characters in `str`, with the
+  comparison being case-insensitive.
+
+- `__endswith=str`
+
+  Matches if the attribute ends with the characters in `str` with the
+  comparison being case-sensitive.
+
+- `__iendswith=str`
+
+  Matches if the attribute ends with the characters in `str`, with the
+  comparison being case-insensitive.
+
+- `__contains=str`
+
+  Matches if the attribute contains the characters in `str` with the
+  comparison being case-sensitive.
+
+- `__icontains=str`
+
+  Matches if the attribute contains the characters in `str` with the
+  comparison being case-insensitive.
 
 #### Get an Entity
 
