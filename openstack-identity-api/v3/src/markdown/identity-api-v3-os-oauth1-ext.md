@@ -281,7 +281,8 @@ Example OpenStack token response: [Various Openstack token responses](https://gi
 Example OAuth-specific object in a token:
 
     "OS-OAUTH1": {
-        "access_token_id": "cce0b8be7",
+        "consumer_id": "7fea2d",
+        "access_token_id": "cce0b8be7"
     }
 
 User Access Token APIs
