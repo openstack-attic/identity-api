@@ -272,6 +272,21 @@ Request Parameters:
 
   See: [http://oauth.net/core/1.0a/#anchor12](http://oauth.net/core/1.0a/#anchor12)
 
+To authenticate with the OS-OAUTH1 extension, `oauth1` must be specified as an
+authentication method.
+Example request:
+
+    {
+        "auth": {
+            "identity": {
+                "methods": [
+                    "oauth1"
+                ],
+                "oauth1": {}
+            }
+        }
+    }
+
 The returned token is scoped to the requested project and with the requested
 roles. In addition to the standard token response, as seen in the link below,
 the token has an OAuth-specific object.
