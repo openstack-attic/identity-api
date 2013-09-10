@@ -1491,6 +1491,15 @@ No request body is required.
 The Identity service will return the exact same response as when the subject
 token was issued by `POST /auth/tokens`.
 
+#### Validate token: `GET /auth/tokens?nocatalog`
+
+*New in version 3.2* To validate a token using the Identity API without
+receiving a catalog in the response. The request has the same format as
+`GET /auth/tokens`.
+
+The Identity service will return the exact same response as when the subject
+token was issued by `POST /auth/tokens?nocatalog`.
+
 #### Check token: `HEAD /auth/tokens`
 
 This call is identical to `GET /auth/tokens`, but no response body is provided,
