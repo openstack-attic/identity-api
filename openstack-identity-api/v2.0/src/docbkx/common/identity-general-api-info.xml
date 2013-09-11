@@ -154,12 +154,12 @@ This operation does not require a request body.</para>'>
             which is supported by the deployment an overLimit
                 (<errorcode>413</errorcode>) fault may be thrown. A
             marker with an invalid ID will return an itemNotFound
-                (<errorcode>404</errorcode>) fault. </para>
+                (<errorcode>404</errorcode>) fault.</para>
         <note>
             <para> Paginated collections never return itemNotFound
                     (<errorcode>404</errorcode>) faults when the
                 collection is empty &mdash; clients should expect an
-                empty collection. </para>
+                empty collection.</para>
         </note>
         <para> For convenience, collections contain atom "next" and
             "previous" links. The first page in the list will not
@@ -173,7 +173,7 @@ This operation does not require a request body.</para>'>
             "next" and "previous" links will honor the initial page
             size. Thus, a client may follow links to traverse a
             paginated collection without having to input the
-                <parameter>marker</parameter> parameter. </para>
+                <parameter>marker</parameter> parameter.</para>
         <example>
             <title>Tenant Collection, First Page: XML</title>
             <programlisting language="xml"><xi:include href="../samples/tenants-1.xml" parse="text"/></programlisting>
@@ -207,7 +207,7 @@ This operation does not require a request body.</para>'>
             collections to be embedded in other objects as illustrated
             below. Here, a subset of groups are presented within a
             user. Clients must follow the "next" link to continue to
-            retrieve additional groups belonging to a user. </para>
+            retrieve additional groups belonging to a user.</para>
         <example>
             <title>Paginated Roles in a User: XML</title>
             <programlisting language="xml"><xi:include href="../samples/getuser-1.xml" parse="text"/></programlisting>
@@ -222,7 +222,7 @@ This operation does not require a request body.</para>'>
         <para> The OpenStack Identity API uses both a URI and a MIME
             type versioning scheme. In the URI scheme, the first
             element of the path contains the target version identifier
-            (e.g. https://identity.api.openstack.org/ v2.0/&hellip;).
+            (for example, https://identity.api.openstack.org/ v2.0/&hellip;).
             The MIME type versioning scheme uses HTTP content
             negotiation where the <code>Accept</code> or
                 <code>Content-Type</code> headers contains a MIME type
@@ -231,7 +231,7 @@ This operation does not require a request body.</para>'>
             version MIME type is always linked to a base MIME type
             (application/xml or application/json). If conflicting
             versions are specified using both an HTTP header and a
-            URI, the URI takes precedence. </para>
+            URI, the URI takes precedence.</para>
         <example>
             <title>Request with MIME type versioning</title>
             <literallayout class="monospaced">
@@ -255,12 +255,12 @@ X-Auth-Token: eaaafd18-0fed-4b3a-81b4-663c99ec1cbb
                 creating of permanent links, because the version
                 scheme is not specified in the URI path:
                 https://api.identity.openstack.org/tenants/12234.
-            </para>
+           </para>
         </note>
         <para> If a request is made without a version specified in the
             URI or via HTTP headers, then a multiple-choices response
                 (<returnvalue>300</returnvalue>) will follow providing
-            links and MIME types to available versions. </para>
+            links and MIME types to available versions.</para>
         <example>
             <title>Multiple Choices Response: XML</title>
             <programlisting language="xml"><xi:include href="../samples/choices.xml" parse="text"/></programlisting>
@@ -280,7 +280,7 @@ X-Auth-Token: eaaafd18-0fed-4b3a-81b4-663c99ec1cbb
             versions will be marked as <code>DEPRECATED</code>.
             Providers should work with developers and partners to
             ensure there is adequate time to migrate to the new
-            version before deprecated versions are discontinued. </para>
+            version before deprecated versions are discontinued.</para>
         <para> Your application can programmatically determine
             available API versions by performing a &GET; on the root
             URL (such as, with the version and everything to the right
@@ -290,7 +290,7 @@ X-Auth-Token: eaaafd18-0fed-4b3a-81b4-663c99ec1cbb
                 <code>Accept</code> header containing
             application/atom+xml or by adding a .atom to the request
             URI. This allows standard Atom clients to track version
-            changes. </para>
+            changes.</para>
         <example>
             <title>Versions List Request</title>
             <literallayout class="monospaced">
@@ -318,15 +318,15 @@ Host: identity.api.openstack.org
         </example>
         <para> You can also obtain additional information about a
             specific version by performing a &GET; on the base version
-            URL (e.g. https://identity.api.openstack.org/v1.1/).
+            URL (for example, https://identity.api.openstack.org/v1.1/).
             Version request URLs should always end with a trailing
             slash (/). If the slash is omitted, the server may respond
             with a <returnvalue>302</returnvalue> redirection request.
-            Format extensions may be placed after the slash (e.g.
+            Format extensions may be placed after the slash (for example,
             https://identity.api.openstack.org/v1.1/.xml). Note that
             this is a special case that does not hold true for other
             API requests. In general, requests such as /tenants.xml
-            and /tenants/.xml are handled equivalently. </para>
+            and /tenants/.xml are handled equivalently.</para>
         <example>
             <title>Version Details Request</title>
             <literallayout class="monospaced">
@@ -356,12 +356,12 @@ Host: identity.api.openstack.org/v1.1/
             a human-readable and a machine-processable description of
             the API service. The machine-processable description is
             written in the Web Application Description Language
-            (WADL). </para>
+            (WADL).</para>
         <note>
             <para>If there is a discrepancy between the two
                 specifications, the WADL is authoritative as it
                 contains the most accurate and up-to-date description
-                of the API service. </para>
+                of the API service.</para>
         </note>
     </section>
     <section xml:id="Extensions-d1e688">
@@ -374,7 +374,7 @@ Host: identity.api.openstack.org/v1.1/
             what extensions are available by performing a &GET; on the
             /extensions URI. Note that this is a versioned request
             &mdash; that is, an extension available in one API version
-            may not be available in another. </para>
+            may not be available in another.</para>
         <informaltable rules="all">
             <thead>
                 <tr>
@@ -401,7 +401,7 @@ Host: identity.api.openstack.org/v1.1/
         &NO_REQUEST; <para> Each extension is identified by two unique
             identifiers, a <property>namespace</property> and an
                 <property>alias</property>. Additionally an extension
-            contains documentation links in various formats. </para>
+            contains documentation links in various formats.</para>
         <example>
             <title>Extensions Response: XML</title>
             <programlisting language="xml"><xi:include href="../samples/extensions.xml" parse="text"/></programlisting>
@@ -414,7 +414,7 @@ Host: identity.api.openstack.org/v1.1/
             unique alias. This provides the simplest method of
             checking if an extension is available as an unavailable
             extension will issue an itemNotFound
-                (<errorcode>404</errorcode>) response. </para>
+                (<errorcode>404</errorcode>) response.</para>
         <informaltable rules="all">
             <thead>
                 <tr>
@@ -460,12 +460,12 @@ Host: identity.api.openstack.org/v1.1/
             headers are always prefixed with <code>X-</code> followed
             by the alias and a dash: (<code>X-RS-META-HEADER1</code>).
             Parameters must be prefixed with the extension alias
-            followed by a colon. </para>
+            followed by a colon.</para>
         <important>
             <para>Applications should be prepared to ignore response
                 data that contains extension elements. Also,
                 applications should also verify that an extension is
-                available before submitting an extended request. </para>
+                available before submitting an extended request.</para>
         </important>
         <example xml:id="UserEXT">
             <title>Extended User Response: XML</title>
@@ -478,10 +478,10 @@ Host: identity.api.openstack.org/v1.1/
     </section>
     <section xml:id="Faults-d1e908">
         <title>Faults</title>
-        <para>When an error occurs the system will return an HTTP
+        <para>When an error occurs, the system returns an HTTP
             error response code denoting the type of error. The system
-            will also return additional information about the fault in
-            the body of the response. </para>
+            also returns additional information about the fault in
+            the body of the response.</para>
         <example>
             <title>XML Fault Response</title>
             <programlisting language="xml"><xi:include href="../samples/identity_fault.xml" parse="text"/></programlisting>
@@ -493,11 +493,11 @@ Host: identity.api.openstack.org/v1.1/
         <para>The error code is returned in the body of the response
             for convenience. The message section returns a human
             readable message. The details section is optional and may
-            contain useful information for tracking down an error (e.g
-            a stack trace). </para>
-        <para>The root element of the fault (e.g. identityFault) may
+            contain useful information for tracking down an error (such as,
+            a stack trace).</para>
+        <para>The root element of the fault (for example, identityFault) may
             change depending on the type of error. The following is an
-            example of an itemNotFound error. </para>
+            example of an itemNotFound error.</para>
         <example>
             <title>XML Not Found Fault</title>
             <programlisting language="xml"><xi:include href="../samples/item_not_found.xml" parse="text"/></programlisting>
@@ -506,8 +506,8 @@ Host: identity.api.openstack.org/v1.1/
             <title>JSON Not Found Fault</title>
             <programlisting language="json"><xi:include href="../samples/item_not_found.json" parse="text"/></programlisting>
         </example>
-        <para> The following is a list of possible fault types along
-            with their associated error codes. </para>
+        <para> The following list shows the possible fault types 
+            with associated error codes.</para>
         <table rules="all">
             <caption>Fault Types</caption>
             <thead>
@@ -571,6 +571,6 @@ Host: identity.api.openstack.org/v1.1/
             that binds XML to actual classes (such as JAXB), one
             should be capable of using <type>identityFault</type> as a
             “catch-all” if there&apos;s no interest in distinguishing
-            between individual fault types. </para>
+            between individual fault types.</para>
     </section>
 </chapter>
