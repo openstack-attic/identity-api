@@ -62,7 +62,7 @@ Response:
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/OS-FILTER/projects/{project_id}/endpoints",
+            "self": "http://identity:35357/v3/OS-EP-FILTER/projects/{project_id}/endpoints",
             "previous": null,
             "next": null
         }
@@ -109,7 +109,7 @@ Response:
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/OS-FILTER/endpoints/--endpoint-id--/projects",
+            "self": "http://identity:35357/v3/OS-EP-FILTER/endpoints/--endpoint-id--/projects",
             "previous": null,
             "next": null
         },
