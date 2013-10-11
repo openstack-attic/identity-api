@@ -12,6 +12,7 @@
 ]>
 <application xmlns="http://wadl.dev.java.net/2009/02"
     xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+    xmlns:csapi="http://docs.openstack.org/identity/api/v2.0"
     xmlns:capi="http://docs.openstack.org/common/api/v1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -69,7 +70,7 @@
                             ><para>Optional. The tenant
                         ID.</para></wadl:doc>
                 </param>
-                <method href="#authenticate"/>
+                <method href="#admin-authenticate"/>
                 <resource id="tokenById" path="{tokenId}">
                     <param name="tokenId" style="template"
                         type="capi:UUID" required="true">
@@ -182,9 +183,9 @@
     <!-- Version -->
 
     <method name="GET" id="getVersionInfo">
-        <doc xml:lang="EN" title="Version Details">
+        <doc xml:lang="EN" title="Get Version Details">
             <p xmlns="http://www.w3.org/1999/xhtml">Gets detailed
-                information about a specified version of the API. </p>
+                information about a specified version of the Identity Service API.</p>
         </doc>
         <response status="200 203">
             <!-- <param name="location" style="plain" type="xsd:anyURI"
@@ -273,7 +274,7 @@
         </response> &commonFaults; &getFaults; </method>
     <!-- Token Operations -->
 
-    <method name="POST" id="authenticate">
+    <method name="POST" id="admin-authenticate">
         <wadl:doc xml:lang="EN" title="Authenticate for Admin API"
             xmlns="http://docbook.org/ns/docbook">
             <para role="shortdesc">Authenticates and generates a
@@ -291,30 +292,33 @@
                 token, along with the URL to other service APIs, by
                 first authenticating against the Identity Service with
                 valid credentials.</para>
-            <table rules="all">
-                <caption>Authenticate Request Attributes</caption>
-                <thead>
-                    <tr>
-                        <th>Attribute</th>
-                        <th>Type</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>username</td>
-                        <td>string</td>
-                        <td>Required. The user name.</td></tr>
-                    <tr><td>password</td>
-                        <td>string</td><td>Required. The password of
-                            the user.</td>
-                    </tr>
-                    <tr><td>tenantName</td><td>string</td><td>Optional.
-                            The tenant name.</td></tr>
-                    <tr><td>tenantId</td><td>UUID</td><td>Optional.
-                            The tenant ID.</td></tr></tbody></table> 
+            <para>If the authentication token has expired, a
+                <errorcode>401</errorcode> response code is
+                returned.</para>
+            <para>If the subject token has expired, this call returns
+                a <errorcode>404</errorcode> response code.</para>
+            <para>The Identity Service treats expired tokens as
+                invalid tokens.</para>
+            <para>The deployment determines how long expired tokens
+                are stored.</para>
+            <para>As the following example responses show, the
+                response to an authentication request returns the
+                token ID in the <code>X-Subject-Token</code> header
+                instead of in the token data.</para>
         </wadl:doc>
         <request>
+            <param name="username" style="plain"
+                type="xsd:string" required="true">
+                <doc>The user name.</doc>
+            </param>
+            <param name="tenantName" style="plain"
+                type="xsd:string" required="false">
+                <doc>The tenant name.</doc>
+            </param>
+            <param name="tenantId" style="plain"
+                type="csapi:uuid" required="false">
+                <doc>The tenant ID.</doc>
+            </param>
             <representation mediaType="application/json"
                 element="identity:auth">
                 <wadl:doc xmlns="http://docbook.org/ns/docbook">

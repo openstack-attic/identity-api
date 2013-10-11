@@ -88,7 +88,7 @@
                         </resource>
                         <resource id="userCredentials"
                             path="credentials">
-                            <method href="#addUserCredential"/>
+                            <method href="#ksadm-addUserCredential"/>
                             <method href="#listCredentials"/>
                             <resource id="userCredentialsByType"
                                 path="{credential-type}">
@@ -601,7 +601,7 @@
         </wadl:doc>
         <response status="204"/> &commonFaults; &getFaults; </method>
     <!-- User Credentials -->
-    <method name="POST" id="addUserCredential">
+    <method name="POST" id="ksadm-addUserCredential">
         <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"
             title="Add User Credentials">
             <para role="shortdesc">Adds a credential to a user.</para>

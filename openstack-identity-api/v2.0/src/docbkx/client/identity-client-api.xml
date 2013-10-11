@@ -5,11 +5,11 @@
     <para>These operations enable clients to get API version and
         extension information, get authentication tokens, and list
         tenants.</para>
-    <wadl:resources href="../wadl/identity.wadl"
+    <wadl:resources 
         xmlns:wadl="http://wadl.dev.java.net/2009/02">
         <wadl:resource href="../wadl/identity.wadl#extensions"
             xmlns:wadl="http://wadl.dev.java.net/2009/02"/>
-            <wadl:resource href="../wadl/identity.wadl#tokens"
+        <wadl:resource href="../wadl/identity.wadl#tokens"
                 xmlns:wadl="http://wadl.dev.java.net/2009/02"/>
 </wadl:resources>
 </chapter>

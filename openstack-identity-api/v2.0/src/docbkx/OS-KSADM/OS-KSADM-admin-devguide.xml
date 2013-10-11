@@ -156,7 +156,7 @@ format="SVG" scale="60"/>
                         <wadl:method href="deleteUserRole"/>
                     </wadl:resource>
                     <wadl:resource href="../wadl/OS-KSADM-admin.wadl#userCredentials">
-                        <wadl:method href="addUserCredential"/>
+                        <wadl:method href="ksadm-addUserCredential"/>
                         <wadl:method href="listCredentials"/>
                     </wadl:resource>
                     <wadl:resource href="../wadl/OS-KSADM-admin.wadl#userCredentialsByType">
