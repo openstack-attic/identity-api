@@ -69,8 +69,8 @@
                             roles are associated with a service ID, a
                             401 fault is returned.</wadl:doc>
                     </param>
-                    <method href="#validateToken"/>
-                    <method href="#checkToken"/>
+                    <method href="#hp-idm-validateToken"/>
+                    <method href="#hp-idm-checkToken"/>
                 </resource>
             </resource>
         </resource>
@@ -81,7 +81,7 @@
     <!--*******************************************************-->
 
     <!-- Token Operations -->
-    <method name="GET" id="validateToken">
+    <method name="GET" id="hp-idm-validateToken">
         <wadl:doc
             xmlns="http://docbook.org/ns/docbook" title="Validate Token">
             <para role="shortdesc">
@@ -95,18 +95,18 @@
                 <wadl:doc
                             xmlns="http://docbook.org/ns/docbook"
                             xml:lang="EN">
-                    <xsdxt:code href="../samples/validatetoken.xml"/>
+                    <xsdxt:code href="../samples/validateToken.xml"/>
                 </wadl:doc>
             </representation>
             <representation mediaType="application/json">
                 <wadl:doc
                             xmlns="http://docbook.org/ns/docbook"
                             xml:lang="EN">
-                    <xsdxt:code href="../samples/validatetoken.json"/>
+                    <xsdxt:code href="../samples/validateToken.json"/>
                 </wadl:doc>
             </representation>
         </response> &commonFaults; &getFaults; </method>
-    <method name="HEAD" id="checkToken">
+    <method name="HEAD" id="hp-idm-checkToken">
         <wadl:doc
             xmlns="http://docbook.org/ns/docbook" title="Check Token">
             <para role="shortdesc">
