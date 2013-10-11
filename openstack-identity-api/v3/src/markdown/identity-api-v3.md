@@ -12,12 +12,16 @@ policy engine rule sets.
 What's New in Version 3.2
 -------------------------
 
+These features are not yet considered stable (expected January 2014).
+
 - Extension Discovery.
 - Introduced a mechanism to opt-out from catalog information during token
   validation.
 
 What's New in Version 3.1
 -------------------------
+
+These features are considered stable as of July 18, 2013.
 
 - A token without an explicit scope of authorization is issued if the user
   does not specify a project and does not have authorization on the project
@@ -30,6 +34,8 @@ What's New in Version 3.1
 
 What's New in Version 3.0
 -------------------------
+
+These features are considered stable as of February 20, 2013.
 
 - Former "Service" and "Admin" APIs (including CRUD operations previously
   defined in the v2 OS-KSADM extension) are consolidated into a single core API
@@ -47,12 +53,64 @@ What's New in Version 3.0
 - Partial updates are performed using the HTTP `PATCH` method
 - Token ID values no longer appear in URLs
 
+Document Overview
+-----------------
+
+This document is always evolving as new features are added, use cases are
+clarified, etc. API features added since the original publication of this
+document are summarized above, grouped by the API version in which they were
+first introduced. This document is treated as the single source of truth for
+the entire 3.x series of the API.
+
+A particular implementation of the API is never referenced by name. This is
+documentation for the HTTP API itself. Details of the code-base servicing the
+API, such as architecture, configuration, and deployment, are not relevant
+here.
+
+The "API Conventions" section defines architectural patterns applied to the
+entire API until a portion of the API documents an exception to the overall
+conventions. Details of the conventions are not repeated throughout the
+document, except in examples, so the reader is expected to have understood the
+conventions before reading any further. The goal is to reduce the cost of
+documentation maintenance (DRY) and improve self-consistency across the API,
+which makes the API more intuitive to readers and fosters simpler
+implementations.
+
+A high level overview of the resources presented by the API are documented in
+the "API Resources" section, including required and optional attributes, use
+cases and expected behaviors. Specific API calls are not enumerated, although
+the feature set of the related calls should be described if it deviates from
+the conventions used by the rest of the API (for example, a resource could be
+constrained as "a read-only collection").
+
+Finally, the specific calls supported by the API are enumerated with examples
+at the end of the document. The examples are intended to be "realistic"
+representations of actual requests and responses you could expect from an
+implementation of the API. Specifically, the JSON should be syntactically valid
+and use data that is self-consistent with related calls.
+
+The features described by this document are intended to be applicable to all
+implementations of the API. If a particular implementation or deployment should
+not be expected to have a use case for a particular feature, that feature
+should be documented as an extension to this API. Extensions may suffix
+existing resources with their own namespace in order to add new resources, or
+prefix new attributes on existing resource representations. To clearly
+distinguish extensions from the core API (which is described by this document)
+and avoid namespace collisions between extensions, suffixes and prefixes are
+composed of an uppercased abbreviation of the organization supporting the
+extension (such as "OS" for OpenStack), followed by a hyphen ("-"), followed by
+an uppercased abbreviation of the extension name (such as "OAUTH1" for OAuth
+1.0). Therefore, an extension could be identified as "OS-OAUTH1".
+
 API Conventions
 ---------------
 
-The Identity API provides a RESTful JSON interface.
+This section describes architectural patterns applied throughout the Identity
+API, unless an exception to these conventions is specifically documented. In
+general, the Identity API provides an HTTP interface using JSON as the primary
+transport format.
 
-Each REST resource contains a canonically unique identifier (ID) defined by the
+Each resource contains a canonically unique identifier (ID) defined by the
 Identity service implementation and is provided as the `id` attribute; Resource
 ID's are strings of non-zero length.
 
@@ -64,19 +122,19 @@ TCP port 35357 is designated by the Internet Assigned Numbers Authority
 responses in this document therefore assume that the Identity service
 implementation is deployed at the root of `http://identity:35357/`.
 
+### Headers
+
+- `X-Auth-Token`
+
+  This header is used to convey the API user's authentication token when
+  accessing Identity APIs.
+
+- `X-Subject-Token`
+
+  This header is used to convey the subject of the request for token-related
+  operations.
+
 ### Required Attributes
-
-Headers:
-
- - `X-Auth-Token`
-
-   This header is used to convey the authentication token when accessing
-   Identity APIs.
-
- - `X-Subject-Token`
-
-   This header is used to convey the subject of the request for token-related
-   operations.
 
 For collections:
 
