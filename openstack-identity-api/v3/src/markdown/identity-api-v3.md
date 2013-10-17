@@ -17,6 +17,8 @@ These features are not yet considered stable (expected January 2014).
 - Extension Discovery.
 - Introduced a mechanism to opt-out from catalog information during token
   validation.
+- Credential based password storage for multiple password and expiration
+  date support.
 
 What's New in Version 3.1
 -------------------------
@@ -607,8 +609,8 @@ Additional required attributes:
 
 - `type` (string)
 
-  Representing the credential type, such as `ec2` or `cert`. A specific
-  implementation may determine the list of supported types.
+  Representing the credential type, such as `password`, `ec2` or `cert`. A
+  specific implementation may determine the list of supported types.
 
 - `blob` (blob)
 
@@ -619,6 +621,17 @@ Optional attributes:
 - `project_id` (string)
 
   References a project which limits the scope the credential applies to.
+
+- `expires_at` (string, ISO 8601 extended format date time with microseconds)
+
+  *New in version 3.2* Timestamp indicating when this credential ceases from being `active` and need to be replaced/re-issued. A typical usage, for the credential type
+  `password`, is to set a password expiration date.
+
+- `status` (string)
+
+  *New in version 3.2* References the current status of the credentials in case an expiration timestamp has been set.
+  In this case the `status` field can have the following values: `active` or
+  `expired`.
 
 Example entity:
 
@@ -631,6 +644,45 @@ Example entity:
             },
             "project_id": "263fd9",
             "type": "ec2",
+            "user_id": "0ca8f6"
+        }
+    }
+
+*New in version 3.2* Example of entities with type password:
+
+Active Credential
+
+    {
+        "credential": {
+            "blob": "secrete",
+            "id": "0ca8f6",
+            "expires_at": "2014-01-01T00:00:00Z",
+            "links": {
+                "self": "http://identity:35357/v3/credentials/80239a"
+            },
+            "project_id": "263fd9",
+            "status": "active"
+            "type": "password",
+            "user_id": "0ca8f6"
+        }
+    }
+
+*Note*: when the `user_id` and credential `id` are the same, it means that the specific credentia is the main credential for the given user. Additional credentials can be added referencing them to the user using the `user_id`, but having a different credential `id`. A credential rotation can be performed simply swapping the credential `id` to `user_id`, for the new credential, and
+`user_id` to `id` for the old one.
+
+Expired Credential
+
+    {
+        "credential": {
+            "blob": "segreto",
+            "id": "80238a",
+            "expires_at": "2013-01-01T00:00:00Z",
+            "links": {
+                "self": "http://identity:35357/v3/credentials/80238a"
+            },
+            "project_id": "263fd9",
+            "status": "expired"
+            "type": "password",
             "user_id": "0ca8f6"
         }
     }
@@ -2231,6 +2283,21 @@ Response:
 
     Status: 204 No Content
 
+#### Change user password: `POST /users/{user_id}/password`
+
+Request:
+
+    {
+        "user": {
+            "password": "...",
+            "original_password": "..."
+        }
+    }
+
+Response:
+
+    Status: 204 No Content
+
 ### Groups
 
 #### Create group: `POST /groups`
@@ -2416,6 +2483,42 @@ The key use cases we need to cover:
 - CRUD on a credential
 
 #### Create credential: `POST /credentials`
+
+*New in version 3.2* The `password` credential type has been added to support
+password based authentication method. Password is not stored in the user entity
+anymore and instead in the credential `blob` when the credential type is set to
+`password`.
+
+Example::
+
+Request:
+
+    {
+        "credential": {
+            "blob": "--password string--",
+            "expires_at": "--optional--",
+            "project_id": "--optional--",
+            "type": "password",
+            "user_id": "--user--id--"
+        }
+    }
+
+Response:
+
+    {
+        "credential": {
+            "blob": "secrete",
+            "id": "--credential-id--",
+            "expires_at": "-- ",
+            "links": {
+                "self": "http://identity:35357/v3/credentials/--credential-id--"
+            },
+            "project_id": "--project-id--",
+            "status": "active"
+            "type": "password",
+            "user_id": "--user--id--"
+        }
+    }
 
 This example shows creating an EC2 style credential where the credentials are a
 combination of access_key and secret. Other credentials (such as access_key)
