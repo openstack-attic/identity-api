@@ -2231,6 +2231,21 @@ Response:
 
     Status: 204 No Content
 
+#### Change user password: `POST /users/{user_id}/password`
+
+Request:
+
+    {
+        "user": {
+            "password": "...",
+            "original_password": "..."
+        }
+    }
+
+Response:
+
+    Status: 204 No Content
+
 ### Groups
 
 #### Create group: `POST /groups`
