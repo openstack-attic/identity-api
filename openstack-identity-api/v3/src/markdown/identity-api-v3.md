@@ -17,6 +17,7 @@ These features are not yet considered stable (expected January 2014).
 - Extension Discovery.
 - Introduced a mechanism to opt-out from catalog information during token
   validation.
+- "Regions": a hierarchical container of groups of service endpoints
 
 What's New in Version 3.1
 -------------------------
@@ -756,6 +757,64 @@ Example entity:
         }
     }
 
+### Regions: `/v3/regions`
+
+(Added in v3.2 API)
+
+Region entities represent a general division of an OpenStack deployment. A
+region may have zero or more sub-regions associated with it, making a tree-like
+structured hierarchy possible for the OpenStack deployment.
+
+The Region hierarchy is designed so that a user of an OpenStack cloud can
+discover and navigate an OpenStack deployment in a structured and common way.
+A user off an OpenStack deployment with the v3.2 Keystone API does not need
+to know ahead of time what the names and root endpoints for all of the
+deployment's regions and subregions. Instead, the user can hit a "top" Keystone
+v3.1 API endpoint in the deployment and discover all the subregions available
+for the user to interact with.
+
+It is important to note that the concept of a Region has no geographical
+connotation to it. Deployers are free to use geographical names for their
+regions -- such as "us-east" -- but there is no requirement to do so.
+
+Required attributes:
+
+- `id` (string)
+
+  The id is a **unique identifier** for the region within the OpenStack
+  deployment. It is encoded from the value of the `name` field, which
+  means the `name` field must be unique within the OpenStack deployment.
+
+Optional attributes:
+
+- `description` (string)
+
+  Freeform description field for the deployer to use as they choose to describe
+  the region.
+
+- `name` (string)
+
+  The name is a string that is the common name of the region. It should be
+  unique within the OpenStack deployment. The `id` field is constructed by
+  encoding the name of the region.
+
+- `parent_region_id` (string)
+
+  If the region is hierarchically a child of another region, this field shall
+  be set to the id of the parent region. Otherwise, it shall be null.
+
+Example entity:
+
+    {
+      "description": "2nd subregion inside the US East region.",
+      "id": "us-east-2",
+      "links": {
+          "self": "http://identity:35357/v3/regions/us-east-2"
+      },
+      "name": "US East 2",
+      "parent_region_id": "us-east"
+    }
+
 ### Services: `/v3/services`
 
 Service entities represent web services in the OpenStack deployment. A service
@@ -828,9 +887,16 @@ Optional attributes:
 
 - `region` (string)
 
+  **DEPRECATED**. Use `region_id` when referring to the v3.2 API concept of a
+  region.
+
   Represents the geographic location of the service endpoint, if relevant to
   the deployment. The value of this attribute is intended to be implementation
   specific in meaning.
+
+- `region_id` (string)
+
+  Represents the containing v3.2 API region of the service endpoint, if any.
 
 - `enabled` (boolean)
 
@@ -1576,11 +1642,123 @@ additional `X-Auth-Token` is not required.
 
 The key use cases we need to cover:
 
-- CRUD for services and endpoints
+- CRUD for regions, services and endpoints
 - Retrieving an endpoint URL by service, region, and interface
+
+#### List regions: `GET /regions`
+
+query_string: page (optional)
+query_string: per_page (optional, default 30)
+query filter for "parent_region_id" (optional)
+query filter for "parent_region_name" (optional)
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "description": "--description--",
+            "id": "--region-id--",
+            "links": {
+                "self": "http://identity:35357/v3/regions/--region-id--"
+            },
+            "name": "--region-name--",
+            "parent_region_id": "--region-id-or-null--"
+        },
+        ...
+    ]
+
+#### Get region: `GET /regions/{region_id}`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "description": "--description--",
+        "id": "--region-id--",
+        "links": {
+            "self": "http://identity:35357/v3/regions/--region-id--"
+        },
+        "name": "--region-name--",
+        "parent_region_id": "--region-id-or-null--"
+    }
+
+#### Create region: `POST /regions`
+
+Request:
+
+    {
+        "description": "...",
+        "name": "...",
+        "parent_region_id": "--region-id-or-null--"
+    }
+
+* Note: The region's ID shall be automatically encoded from the region's name
+  attribute.
+
+Response:
+
+    Status: 201 Created
+    Location: https://identity:35357/v3/regions/--region-id--
+
+    {
+        "description": "--description--",
+        "id": "--region-id--",
+        "links": {
+            "self": "http://identity:35357/v3/regions/--region-id--"
+        },
+        "name": "--region-name--",
+        "parent_region_id": "--region-id-or-null--"
+    }
+
+* Note: Adding a region with a parent_region_id that does not exist
+  should fail with a `404 Not Found`
+
+#### Update region: `PATCH /regions/{region_id}`
+
+Request:
+
+    {
+        "description": "...",
+        "name": "...",
+        "parent_region_id": "--region-id-or-null--"
+    }
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "description": "--description--",
+        "id": "--region-id--",
+        "links": {
+            "self": "http://identity:35357/v3/regions/--region-id--"
+        },
+        "name": "--region-name--",
+        "parent_region_id": "--region-id-or-null--"
+    }
+
+* Note: Updating a region with a parent_region_id that does not exist
+  should fail with a `404 Not Found`
+* Note: Updating a region's name shall cause the region's ID to be
+  updated as well, and regions that have the updated region as their
+  parent will have their parent_region_id value changed accordingly.
+
+#### Delete region: `DELETE /regions/{region_id}`
+
+* Note: deleting a region when regions have this region as their parent
+  region should fail with a `409 Conflict`
+
+Response:
+
+    Status: 204 No Content
 
 #### List services: `GET /services`
 
+query_string: page (optional)
+query_string: per_page (optional, default 30)
 query filter for "type" (optional)
 
 Response:
