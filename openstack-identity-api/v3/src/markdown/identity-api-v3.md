@@ -17,6 +17,8 @@ These features are not yet considered stable (expected January 2014).
 - Extension Discovery.
 - Introduced a mechanism to opt-out from catalog information during token
   validation.
+- Introduced a region resource for constructing a hierarchical container
+  of groups of service endpoints
 
 What's New in Version 3.1
 -------------------------
@@ -756,6 +758,55 @@ Example entity:
         }
     }
 
+### Regions: `/v3/regions`
+
+(New in v3.2 API)
+
+Region entities represent a general division of an OpenStack deployment. A
+region may have zero or more sub-regions associated with it, making a tree-like
+structured hierarchy possible for the OpenStack deployment.
+
+The Region hierarchy is designed so that a user of an OpenStack cloud can
+discover and navigate an OpenStack deployment in a structured and common way.
+A user off an OpenStack deployment with the v3.2 Keystone API does not need
+to know ahead of time what the names and root endpoints for all of the
+deployment's regions and subregions. Instead, the user can hit a "top" Keystone
+v3.1 API endpoint in the deployment and discover all the subregions available
+for the user to interact with.
+
+It is important to note that the concept of a Region has no geographical
+connotation to it. Deployers are free to use geographical names for their
+regions -- such as "us-east" -- but there is no requirement to do so.
+
+Required attributes:
+
+- `id` (string)
+
+  The id is a unique identifier within an OpenStack deployment.
+
+Optional attributes:
+
+- `description` (string)
+
+  Freeform description field for the deployer to use as they choose to describe
+  the region.
+
+- `parent_region_id` (string)
+
+  If the region is hierarchically a child of another region, this field shall
+  be set to the id of the parent region. Otherwise, it shall be null.
+
+Example entity:
+
+    {
+      "description": "2nd subregion inside the US East region.",
+      "id": "us-east-2",
+      "links": {
+          "self": "http://identity:35357/v3/regions/us-east-2"
+      },
+      "parent_region_id": "us-east"
+    }
+
 ### Services: `/v3/services`
 
 Service entities represent web services in the OpenStack deployment. A service
@@ -828,9 +879,15 @@ Optional attributes:
 
 - `region` (string)
 
+  **DEPRECATED**. Use `region_id`
+
   Represents the geographic location of the service endpoint, if relevant to
   the deployment. The value of this attribute is intended to be implementation
   specific in meaning.
+
+- `region_id` (string)
+
+  Represents the containing region of the service endpoint, if any.
 
 - `enabled` (boolean)
 
@@ -847,7 +904,7 @@ Example entity:
             "links": {
                 "self": "http://identity:35357/v3/endpoints/6fedc0"
             },
-            "region": "north",
+            "region_id": "us-east-2",
             "service_id": "ee057c",
             "url": "http://identity:35357/"
         }
@@ -1576,8 +1633,142 @@ additional `X-Auth-Token` is not required.
 
 The key use cases we need to cover:
 
-- CRUD for services and endpoints
+- CRUD for regions, services and endpoints
 - Retrieving an endpoint URL by service, region, and interface
+
+#### List regions: `GET /regions`
+
+query_string: page (optional)
+query_string: per_page (optional)
+query filter for "parent_region_id" (optional)
+
+Response:
+
+    Status: 200 OK
+
+    [
+        {
+            "description": "--description--",
+            "id": "--region-id--",
+            "links": {
+                "self": "http://identity:35357/v3/regions/--region-id--",
+                "child_regions": "http://identity:35357/v3/regions?parent_region_id=--region-id--"
+            },
+            "parent_region_id": "--region-id-or-null--"
+        },
+        ...
+    ]
+
+#### Get region: `GET /regions/{region_id}`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "description": "--description--",
+        "id": "--region-id--",
+        "links": {
+            "self": "http://identity:35357/v3/regions/--region-id--",
+            "child_regions": "http://identity:35357/v3/regions?parent_region_id=--region-id--"
+        },
+        "parent_region_id": "--region-id-or-null--"
+    }
+
+#### Create region: `POST /regions`
+
+Request:
+
+    {
+        "description": "--region-description-or-null--",
+        "parent_region_id": "--region-id-or-null--"
+    }
+
+Response:
+
+    Status: 201 Created
+
+    {
+        "description": "--description--",
+        "id": "--region-id--",
+        "links": {
+            "self": "http://identity:35357/v3/regions/--region-id--",
+            "child_regions": "http://identity:35357/v3/regions?parent_region_id=--region-id--"
+        },
+        "parent_region_id": "--region-id-or-null--"
+    }
+
+* Adding a region with a parent_region_id that does not exist
+  should fail with a `404 Not Found`
+* Adding a region with a parent_region_id that would form a
+  circular relationship should fail with a `409 Conflict`
+
+#### Create region with specific ID: `PUT /regions/{user_defined_region_id}`
+
+Request:
+
+    {
+        "description": "--region-description-or-null--",
+        "parent_region_id": "--region-id-or-null--"
+    }
+
+Response:
+
+    Status: 201 Created
+
+    {
+        "description": "--description--",
+        "id": "--region-id--",
+        "links": {
+            "self": "http://identity:35357/v3/regions/--region-id--",
+            "child_regions": "http://identity:35357/v3/regions?parent_region_id=--region-id--"
+        },
+        "parent_region_id": "--region-id-or-null--"
+    }
+
+* The {user_defined_region_id} must be unique to the OpenStack deployment.
+  If not, a `409 Conflict` should be returned.
+* The {user_defined_region_id} shall be urlencoded if the ID contains
+  characters not permitted in a URI.
+* Adding a region with a parent_region_id that does not exist
+  should fail with a `404 Not Found`
+* Adding a region with a parent_region_id that would form a
+  circular relationship should fail with a `409 Conflict`
+
+#### Update region: `PATCH /regions/{region_id}`
+
+Request:
+
+    {
+        "description": "...",
+        "parent_region_id": "--region-id-or-null--"
+    }
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "description": "--description--",
+        "id": "--region-id--",
+        "links": {
+            "self": "http://identity:35357/v3/regions/--region-id--",
+            "child_regions": "http://identity:35357/v3/regions?parent_region_id=--region-id--"
+        },
+        "parent_region_id": "--region-id-or-null--"
+    }
+
+* Updating a region with a parent_region_id that does not exist
+  should fail with a `404 Not Found`
+
+#### Delete region: `DELETE /regions/{region_id}`
+
+* Note: deleting a region when regions have this region as their parent
+  region should fail with a `409 Conflict`
+
+Response:
+
+    Status: 204 No Content
 
 #### List services: `GET /services`
 
