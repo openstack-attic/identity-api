@@ -82,6 +82,14 @@ Optional attributes:
   expiration. If the value represents a time in the past, the trust is
   deactivated.
 
+- `remaining_uses` (integer or null)
+
+  Specifies how many times the trust can be used to obtain a token. This value
+  is decreased each time a token is issued through the trust. Once it reaches
+  0, no further tokens will be issued through the trust. The default value is
+  null, meaning there is no limit on the number of tokens issued through the
+  trust.
+
 Example entity:
 
     {
@@ -89,6 +97,7 @@ Example entity:
             "id": "987fe7",
             "impersonation": true,
             "project_id": "0f1233",
+            "remaining_uses": null,
             "links": {
                 "self": "http://identity:35357/v3/trusts/987fe7"
             },
@@ -224,6 +233,7 @@ Response:
                 "self": "http://identity:35357/v3/OS-TRUST/trusts/1ff900"
             },
             "project_id": "ddef321",
+            "remaining_uses": null,
             "roles": [
                 {
                     "id": "ed7b78",
