@@ -9,7 +9,7 @@
     <artifactId>openstack-guide</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>OpenStack API Reference</name>
+    <name>OpenStack Identity Service API v3 Reference</name>
     <!-- ################################################ -->
     <!-- USE "mvn clean generate-sources" to run this POM -->
     <!-- ################################################ -->
