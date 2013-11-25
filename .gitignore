@@ -1,2 +1,5 @@
 *.swp
 openstack-identity-api/v3/identity-api-v3.xml
+
+# NetBeans user-specific build actions
+nbactions.xml
