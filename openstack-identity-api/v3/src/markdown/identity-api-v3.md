@@ -1316,13 +1316,6 @@ be issued without an explicit scope of authorization.
 *New in version 3.1* Additionally, if the user's default project is invalid, a
 token will be issued without an explicit scope of authorization.
 
-##### Catalog Opt-Out: 'POST /v3/auth/tokens?nocatalog'
-
-*New in version 3.1* If the caller specifies a `nocatalog` query parameter in
-the authentication request, then the authentication response will not contain
-the service catalog. The service catalog will otherwise be included in the response
-by default.
-
 ##### Authentication responses
 
 A response without an explicit authorization scope does not contain a
@@ -1473,6 +1466,227 @@ user's roles applicable to the `domain`. Example response:
                 },
                 "name": "Joe"
             }
+        }
+    }
+
+##### Service Catalog
+
+The service catalog is contained in the token and is a list of the services
+and endpoints that have been registered with the identity service.
+
+    {
+        "token": {
+            ...
+            "catalog" [
+                {
+                    "id": "--service-id--",
+                    "type": "--service-type--"",
+                    "endpoints": [
+                        {
+                            "id": "--endpoint-id--",
+                            "interface": "--interface-name--",
+                            "region": "--region-name--",
+                            "url": "--endpoint-url--"
+                        }
+                        ...
+                    ]
+                },
+                ...
+            ]
+        }
+    }
+
+##### Catalog Opt-Out: 'POST /v3/auth/tokens?nocatalog'
+
+*New in version 3.1* If the caller specifies a `nocatalog` query parameter in
+the authentication request, then the authentication response will not contain
+the service catalog. The service catalog will otherwise be included in the response
+by default.
+
+#####Full Token Response Example
+
+Token created with a username and password scoped to a project.
+
+    {
+        "token": {
+            "catalog": [
+                {
+                    "endpoints": [
+                        {
+                            "id": "39dc322ce86c4111b4f06c2eeae0841b",
+                            "interface": "public",
+                            "region": "RegionOne",
+                            "url": "http://localhost:5000/v2.0"
+                        },
+                        {
+                            "id": "ec642f27474842e78bf059f6c48f4e99",
+                            "interface": "internal",
+                            "region": "RegionOne",
+                            "url": "http://localhost:5000/v2.0"
+                        },
+                        {
+                            "id": "c609fc430175452290b62a4242e8a7e8",
+                            "interface": "admin",
+                            "region": "RegionOne",
+                            "url": "http://localhost:35357/v2.0"
+                        }
+                    ],
+                    "id": "4363ae44bdf34a3981fde3b823cb9aa2",
+                    "type": "identity"
+                },
+                {
+                    "endpoints": [
+                        {
+                            "id": "8b2f5813442847858d48e837107ff488",
+                            "interface": "public",
+                            "region": "RegionOne",
+                            "url": "http://localhost:8774/v1.1/0a4a5e6724b24d088acfb69079916e34"
+                        },
+                        {
+                            "id": "d2d1be9008814409be1c6b9563a54898",
+                            "interface": "internal",
+                            "region": "RegionOne",
+                            "url": "http://localhost:8774/v1.1/0a4a5e6724b24d088acfb69079916e34"
+                        },
+                        {
+                            "id": "2f30d2e0154041a59eecb7b1fd0e6b62",
+                            "interface": "admin",
+                            "region": "RegionOne",
+                            "url": "http://localhost:8774/v1.1/0a4a5e6724b24d088acfb69079916e34"
+                        }
+                    ],
+                    "id": "46558c73f60f458f826574b773b4e303",
+                    "type": "compute"
+                },
+                {
+                    "endpoints": [
+                        {
+                            "id": "781f0a5d4b204845a9507cc0312f059e",
+                            "interface": "public",
+                            "region": "RegionOne",
+                            "url": "http://localhost:8776/v1/0a4a5e6724b24d088acfb69079916e34"
+                        },
+                        {
+                            "id": "35dd3c976e914cf6bee38463420d0a6f",
+                            "interface": "internal",
+                            "region": "RegionOne",
+                            "url": "http://localhost:8776/v1/0a4a5e6724b24d088acfb69079916e34"
+                        },
+                        {
+                            "id": "6e053998fd7b4a4dad152a14ed17ed32",
+                            "interface": "admin",
+                            "region": "RegionOne",
+                            "url": "http://localhost:8776/v1/0a4a5e6724b24d088acfb69079916e34"
+                        }
+                    ],
+                    "id": "fe09c8069db8451a81504bfe8c62ebaa",
+                    "type": "volume"
+                },
+                {
+                    "endpoints": [
+                        {
+                            "id": "960ea645970142a78e18ef050ff64968",
+                            "interface": "public",
+                            "region": "RegionOne",
+                            "url": "http://localhost:9292"
+                        },
+                        {
+                            "id": "8076abd0cde54178a6781589330212f5",
+                            "interface": "internal",
+                            "region": "RegionOne",
+                            "url": "http://localhost:9292"
+                        },
+                        {
+                            "id": "5c67cf8f44dc4d8aa7e1042d5f0020c5",
+                            "interface": "admin",
+                            "region": "RegionOne",
+                            "url": "http://localhost:9292"
+                        }
+                    ],
+                    "id": "566bfbda6aa94deeb37bab51e303fbcc",
+                    "type": "image"
+                },
+                {
+                    "endpoints": [
+                        {
+                            "id": "927465b210684c6c915be7ced56dcea7",
+                            "interface": "public",
+                            "region": "RegionOne",
+                            "url": "http://localhost:8773/services/Cloud"
+                        },
+                        {
+                            "id": "4a494efa72fb4316803082c42427b497",
+                            "interface": "internal",
+                            "region": "RegionOne",
+                            "url": "http://localhost:8773/services/Cloud"},
+                        {
+                            "id": "c1d50f7bb4d74df893acfcab16b46f3b",
+                            "interface": "admin",
+                            "region": "RegionOne",
+                            "url": "http://localhost:8773/services/Admin"
+                        }
+                    ],
+                    "id": "f130f85f9163478292e1039d459559f2",
+                    "type": "ec2"
+                },
+                {
+                    "endpoints": [
+                        {
+                            "id": "4f1ee409d91a40c7bb635964f4771c11",
+                            "interface": "public",
+                            "region": "RegionOne",
+                            "url": "http://localhost:8888/v1/AUTH_0a4a5e6724b24d088acfb69079916e34"
+                        },
+                        {
+                            "id": "a80f5c98b5244582819d22e41d241f9e",
+                            "interface": "internal",
+                            "region": "RegionOne",
+                            "url": "http://localhost:8888/v1/AUTH_0a4a5e6724b24d088acfb69079916e34"
+                        },
+                        {
+                            "id": "6cd8f59565f54a598ea4e86d86467f72",
+                            "interface": "admin",
+                            "region": "RegionOne",
+                            "url": "http://localhost:8888/v1"
+                        }
+                    ],
+                    "id": "3630460d50794ab49e403f8d5a20dc7e",
+                    "type": "object-store"
+                }
+            ],
+            "expires_at": "2013-11-27T04:35:00.979436Z",
+            "extras": {},
+            "issued_at": "2013-11-26T04:35:00.979466Z",
+            "methods": ["password"],
+            "project":
+                {
+                    "domain": {
+                        "id": "default",
+                        "name": "Default"
+                    },
+                    "id": "0a4a5e6724b24d088acfb69079916e34",
+                    "name": "demo"
+                },
+            "roles": [
+                {
+                    "id": "9fe2ff9ee4384b1894a90878d3e92bab",
+                    "name": "_member_"
+                },
+                {
+                    "id": "7d62bdf7ef2f47dea25bbc234c914077",
+                    "name": "creator"
+                }
+            ],
+            "user":
+                {
+                    "domain":
+                        {
+                            "id": "default",
+                            "name": "Default"
+                        },
+                    "id": "a33df8f31a37452282e85fc0f2532751",
+                    "name": "username"
+                }
         }
     }
 
@@ -2845,7 +3059,7 @@ Response:
 
 #### List effective role assignments: `GET /role_assignments`
 
-query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id (all optional)  
+query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id (all optional)
 query_string: effective (optional, default false)
 
 Get a list of role assignments. This API is only available from v3.1 onwards.
