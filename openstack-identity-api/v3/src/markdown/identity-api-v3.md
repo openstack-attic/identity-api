@@ -925,11 +925,27 @@ Optional attributes:
 
   Includes the full resource description of a domain.
 
-- `catalog` (object)
+- `catalog` (list of object)
 
-  Specifies all endpoints available to/for the token.
+  Specifies all the services available to/for the token. It is represented as a
+  list of service dictionaries with the following format:
 
-  FIXME(dolph): revise with specific expectations.
+        [
+            {
+                "id": "--service-id--",
+                "type": "--service-type--"",
+                "endpoints": [
+                    {
+                        "id": "--endpoint-id--",
+                        "interface": "--interface-name--",
+                        "region": "--region-name--",
+                        "url": "--endpoint-url--"
+                    },
+                    ...
+                ]
+            },
+            ...
+        ]
 
 - `bind` (object) *New in version 3.1*
 
@@ -1368,7 +1384,32 @@ the user's roles applicable to the `project`. Example response:
 
     {
         "token": {
-            "catalog": "FIXME(dolph): need an example here",
+            "catalog": [
+                {
+                    "endpoints": [
+                        {
+                            "id": "39dc322ce86c4111b4f06c2eeae0841b",
+                            "interface": "public",
+                            "region": "RegionOne",
+                            "url": "http://localhost:5000"
+                        },
+                        {
+                            "id": "ec642f27474842e78bf059f6c48f4e99",
+                            "interface": "internal",
+                            "region": "RegionOne",
+                            "url": "http://localhost:5000"
+                        },
+                        {
+                            "id": "c609fc430175452290b62a4242e8a7e8",
+                            "interface": "admin",
+                            "region": "RegionOne",
+                            "url": "http://localhost:35357"
+                        }
+                    ],
+                    "id": "4363ae44bdf34a3981fde3b823cb9aa2",
+                    "type": "identity"
+                },
+            ],
             "expires_at": "2013-02-27T18:30:59.999999Z",
             "issued_at": "2013-02-27T16:30:59.999999Z",
             "methods": [
@@ -1430,7 +1471,32 @@ user's roles applicable to the `domain`. Example response:
 
     {
         "token": {
-            "catalog": "FIXME(dolph): need an example here",
+            "catalog": [
+                {
+                    "endpoints": [
+                        {
+                            "id": "39dc322ce86c4111b4f06c2eeae0841b",
+                            "interface": "public",
+                            "region": "RegionOne",
+                            "url": "http://localhost:5000"
+                        },
+                        {
+                            "id": "ec642f27474842e78bf059f6c48f4e99",
+                            "interface": "internal",
+                            "region": "RegionOne",
+                            "url": "http://localhost:5000"
+                        },
+                        {
+                            "id": "c609fc430175452290b62a4242e8a7e8",
+                            "interface": "admin",
+                            "region": "RegionOne",
+                            "url": "http://localhost:35357"
+                        }
+                    ],
+                    "id": "4363ae44bdf34a3981fde3b823cb9aa2",
+                    "type": "identity"
+                },
+            ],
             "expires_at": "2013-02-27T18:30:59.999999Z",
             "issued_at": "2013-02-27T16:30:59.999999Z",
             "methods": [
@@ -2845,7 +2911,7 @@ Response:
 
 #### List effective role assignments: `GET /role_assignments`
 
-query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id (all optional)  
+query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id (all optional)
 query_string: effective (optional, default false)
 
 Get a list of role assignments. This API is only available from v3.1 onwards.
