@@ -908,20 +908,27 @@ Optional attributes:
 
 - `project` (object)
 
-  Specifies a project authorization scope of the token. If this attribute is
-  not provided, then the token is not authorized to access any projects. This
-  attribute must not be included if a `domain` attribute is included.
+  Specifies the project authorization scope of the token. If this attribute is
+  not provided, then the token is not authorized to access any project
+  resources. The presence of this attribute conveys multi-tenancy to cloud
+  services such that they can achieve resource isolation based on the
+  authorized request context included in the token. This attribute must not be
+  included if a `domain` attribute is included. A token with project-level
+  authorization does not express any authorization on any domain-level
+  resource.
 
   Includes the full resource description of a project.
 
 - `domain` (object)
 
-  Specifies a domain authorization scope of the token. This is to provide
-  authorization appropriate to domain-wide APIs, for example user and group
+  Specifies the domain authorization scope of the token. This is to provide
+  authorization appropriate to domain-level APIs, for example user and group
   management within a domain. Domain authorization does not grant authorization
   to projects within the domain. If this attribute is not provided, then the
   token is not authorized to access any domain level resources. This attribute
-  must not be included if a `project` attribute is included.
+  must not be included if a `project` attribute is included. A token with
+  domain-level authorization does not express any authorization on any
+  project-level resource.
 
   Includes the full resource description of a domain.
 
