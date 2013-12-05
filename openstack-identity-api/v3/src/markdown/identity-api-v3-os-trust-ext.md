@@ -257,6 +257,7 @@ Response:
         "trusts": [
             {
                 "id": "1ff900",
+                "expires_at": "2013-02-27T18:30:59.999999Z",
                 "impersonation": true,
                 "links": {
                     "self": "http://identity:35357/v3/OS-TRUST/trusts/1ff900"
@@ -293,6 +294,7 @@ Response:
         "trusts": [
             {
                 "id": "1ff900",
+                "expires_at": "2013-02-27T18:30:59.999999Z",
                 "impersonation": false,
                 "links": {
                     "self": "http://identity:35357/v3/OS-TRUST/trusts/1ff900"
@@ -319,6 +321,7 @@ Response:
         "trusts": [
             {
                 "id": "1ff900",
+                "expires_at": "2013-02-27T18:30:59.999999Z",
                 "impersonation": true,
                 "links": {
                     "self": "http://identity:35357/v3/OS-TRUST/trusts/1ff900"
@@ -349,6 +352,7 @@ Response:
     {
         "trust": {
             "id": "987fe8",
+            "expires_at": "2013-02-27T18:30:59.999999Z",
             "impersonation": true,
             "links": {
                 "self": "http://identity:35357/v3/OS-TRUST/trusts/987fe8"
