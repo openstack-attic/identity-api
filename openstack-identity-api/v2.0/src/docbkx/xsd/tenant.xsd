@@ -70,7 +70,7 @@
                         xml:lang="EN"
                         xmlns="http://www.w3.org/1999/xhtml">
                         <p>
-                            An free text description of the tenant.
+                            A free text description of the tenant.
                         </p>
                     </xsd:documentation>
                 </annotation>
@@ -106,7 +106,7 @@
                         xml:lang="EN"
                         xmlns="http://www.w3.org/1999/xhtml">
                     <p>
-                        An boolean signifying if a tenant is enabled or not. A disabled tenant
+                        A boolean signifying if a tenant is enabled or not. A disabled tenant
                         cannot be authenticated against.
                     </p>
                 </xsd:documentation>
