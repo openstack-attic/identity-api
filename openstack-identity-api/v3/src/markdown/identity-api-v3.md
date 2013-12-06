@@ -48,8 +48,8 @@ These features are considered stable as of February 20, 2013.
 - Roles can be granted at either the domain or project level
 - User, group and project names only have to be unique within their owning
   domain
-- Retrieving your list of projects (previously `GET /tenants`) is now
-  explicitly based on your user ID: `GET /users/{user_id}/projects`
+- Retrieving your list of projects (previously `GET /v2.0/tenants`) is now
+  explicitly based on your user ID: `GET /v3/users/{user_id}/projects`
 - Tokens explicitly represent user+project or user+domain pairs
 - Partial updates are performed using the HTTP `PATCH` method
 - Token ID values no longer appear in URLs
@@ -450,7 +450,7 @@ attribute which conflicts with that of another entity in the same collection.
 Alternatively, a client should expect this status code when attempting to
 perform the same create operation twice in a row on a collection with a
 user-defined and unique attribute. For example, a User's `name` attribute is
-defined to be unique and user-defined, so making the same ``POST /users``
+defined to be unique and user-defined, so making the same ``POST /v3/users``
 request twice in a row will result in this status code.
 
 The client is assumed to be in error.
@@ -897,7 +897,7 @@ Example entity:
         }
     }
 
-### Tokens
+### Tokens: `/v3/auth/tokens`
 
 Tokens represent an authenticated user's identity and, potentially, explicit
 authorization on a specific project or domain.
@@ -1044,7 +1044,7 @@ Example entity:
         }
     }
 
-### Policy
+### Policy: `/v3/policies/`
 
 Policies represent arbitrarily serialized policy engine rule sets to be
 consumed by remote services.
@@ -1077,9 +1077,98 @@ Core API
 
 ### Versions
 
-#### List versions; `GET /`
+#### List versions: `/`
 
-(TBD: This needs additional definition to match the detail below)
+This API may be served by an endpoint providing multiple versions of the same
+interface. In that case, a discovery request to `GET /` should respond with a
+300 Multiple Choice response with links to one or more versioned endpoints. The
+structure and behavior of this response is out of scope for this document.
+
+#### Describe version: `/v3/`
+
+This API is typically served from a non-root path such as `/v3/`. In that case,
+a request such as `GET /v3/` should result in a description of the API
+endpoint, which may vary based on the minor version of the API being
+implemented and the various extensions provided by the API. The following
+attributes of the version description are required:
+
+- `id` (string)
+
+  Indicates the implemented API version.
+
+- `links` (list of objects)
+
+  Provides links to top-level resources provided by the API, including those
+  provided by extensions to the API.
+
+  Each object contains:
+
+  - `href` (string)
+
+    A fully qualified URL to an API resource.
+
+  - `rel` (string)
+
+    Identifies the relationship of the URL to the base endpoint of the API.
+
+    Extensions are namespaced by their extension prefix, followed by a colon,
+    followed a standard relationship, such as `OS-TRUST:trusts`.
+
+- `media-types` (list of objects)
+
+  Enumerates the media types supported by the API.
+
+  - `base` (string)
+
+    Indicates the base of an available media type.
+
+  - `type` (string)
+
+    Indicates the full template of the available media type.
+
+- `status`
+
+  The only well-known value is `stable`. All other values are
+  implementation-specific and may change without notice. A client expecting a
+  production-quality service should not accept any other value.
+
+- `updated` (string, ISO 8601 extended format date time with seconds)
+
+  Indicates the date which the API version was last updated.
+
+Example response (the list of links is truncated here for brevity):
+
+    {
+        "version": {
+            "id": "v3.0",
+            "links": [
+                {
+                    "href": "http://localhost:35357/v3/",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://localhost:35357/v3/services",
+                    "rel": "services"
+                },
+                {
+                    "href": "http://localhost:35357/v3/domains",
+                    "rel": "domains"
+                },
+                {
+                    "href": "http://localhost:35357/v3/OS-TRUST/trusts",
+                    "rel": "OS-TRUST:trusts"
+                }
+            ],
+            "media-types": [
+                {
+                    "base": "application/json",
+                    "type": "application/vnd.openstack.identity-v3+json"
+                }
+            ],
+            "status": "stable",
+            "updated": "2013-03-06T00:00:00Z"
+        }
+    }
 
 ### Tokens
 
@@ -1093,7 +1182,7 @@ Use cases:
   (change domain/project being represented with the user).
 - Given a valid token, force it's immediate revocation.
 
-#### Authenticate: `POST /auth/tokens`
+#### Authenticate: `POST /v3/auth/tokens`
 
 Each request to create a token contains an attribute with `identiy`
 information and, optionally, a `scope` describing the authorization scope being
@@ -1525,7 +1614,7 @@ For example:
         }
     }
 
-#### Validate token: `GET /auth/tokens`
+#### Validate token: `GET /v3/auth/tokens`
 
 To validate a token using the Identity API, pass your own token in the
 `X-Auth-Token` header, and the token to be validated in the `X-Subject-Token`
@@ -1538,28 +1627,28 @@ header. Example request:
 No request body is required.
 
 The Identity service will return the exact same response as when the subject
-token was issued by `POST /auth/tokens`.
+token was issued by `POST /v3/auth/tokens`.
 
-#### Validate token: `GET /auth/tokens?nocatalog`
+#### Validate token: `GET /v3/auth/tokens?nocatalog`
 
 *New in version 3.2* To validate a token using the Identity API without
-receiving a catalog in the response. The request has the same format as
-`GET /auth/tokens`.
+receiving a catalog in the response. The request has the same format as `GET
+/v3/auth/tokens`.
 
 The Identity service will return the exact same response as when the subject
-token was issued by `POST /auth/tokens?nocatalog`.
+token was issued by `POST /v3/auth/tokens?nocatalog`.
 
-#### Check token: `HEAD /auth/tokens`
+#### Check token: `HEAD /v3/auth/tokens`
 
-This call is identical to `GET /auth/tokens`, but no response body is provided,
-even if an error occurs or the token is invalid. A 204 response indicates that
-the `X-Subject-Token` is valid.
+This call is identical to `GET /v3/auth/tokens`, but no response body is
+provided, even if an error occurs or the token is invalid. A 204 response
+indicates that the `X-Subject-Token` is valid.
 
-#### Revoke token: `DELETE /auth/tokens`
+#### Revoke token: `DELETE /v3/auth/tokens`
 
-This call is identical to `HEAD /auth/tokens` except that the `X-Subject-Token`
-token is immediately invalidated, regardless of it's `expires_at` attribute. An
-additional `X-Auth-Token` is not required.
+This call is identical to `HEAD /v3/auth/tokens` except that the
+`X-Subject-Token` token is immediately invalidated, regardless of it's
+`expires_at` attribute. An additional `X-Auth-Token` is not required.
 
 ### Catalog
 
@@ -1568,7 +1657,7 @@ The key use cases we need to cover:
 - CRUD for regions, services and endpoints
 - Retrieving an endpoint URL by service, region, and interface
 
-#### List regions: `GET /regions`
+#### List regions: `GET /v3/regions`
 
 query filter for "parent_region_id" (optional)
 
@@ -1596,7 +1685,7 @@ Response:
         }
     }
 
-#### Get region: `GET /regions/{region_id}`
+#### Get region: `GET /v3/regions/{region_id}`
 
 Response:
 
@@ -1614,7 +1703,7 @@ Response:
         }
     }
 
-#### Create region: `POST /regions`
+#### Create region: `POST /v3/regions`
 
 Request:
 
@@ -1646,7 +1735,7 @@ Response:
 * Adding a region with a parent_region_id that would form a
   circular relationship should fail with a `409 Conflict`
 
-#### Create region with specific ID: `PUT /regions/{user_defined_region_id}`
+#### Create region with specific ID: `PUT /v3/regions/{user_defined_region_id}`
 
 Request:
 
@@ -1682,7 +1771,7 @@ Response:
 * Adding a region with a parent_region_id that would form a
   circular relationship should fail with a `409 Conflict`
 
-#### Update region: `PATCH /regions/{region_id}`
+#### Update region: `PATCH /v3/regions/{region_id}`
 
 Request:
 
@@ -1712,7 +1801,7 @@ Response:
 * Updating a region with a parent_region_id that does not exist
   should fail with a `404 Not Found`
 
-#### Delete region: `DELETE /regions/{region_id}`
+#### Delete region: `DELETE /v3/regions/{region_id}`
 
 * Note: deleting a region with child regions should return a `409 Conflict`
 
@@ -1720,7 +1809,7 @@ Response:
 
     Status: 204 No Content
 
-#### List services: `GET /services`
+#### List services: `GET /v3/services`
 
 query filter for "type" (optional)
 
@@ -1754,7 +1843,7 @@ Response:
         }
     }
 
-#### Get service: `GET /services/{service_id}`
+#### Get service: `GET /v3/services/{service_id}`
 
 Response:
 
@@ -1771,7 +1860,7 @@ Response:
         }
     }
 
-#### Create service: `POST /services`
+#### Create service: `POST /v3/services`
 
 Request:
 
@@ -1797,7 +1886,7 @@ Response:
         }
     }
 
-#### Update service: `PATCH /services/{service_id}`
+#### Update service: `PATCH /v3/services/{service_id}`
 
 The request block is the same as the one for create service, except that only the attributes
 that are being updated need to be included.
@@ -1817,7 +1906,7 @@ Response:
         }
     }
 
-#### Delete service: `DELETE /services/{service_id}`
+#### Delete service: `DELETE /v3/services/{service_id}`
 
 * Note: deleting a service when endpoints exist should either 1) delete all
   associated endpoints or 2) fail until endpoints are deleted
@@ -1828,7 +1917,7 @@ Response:
 
 ### Endpoints
 
-#### List endpoints: `GET /endpoints`
+#### List endpoints: `GET /v3/endpoints`
 
 query filter for "interface" and "service_id" (optional)
 
@@ -1866,7 +1955,7 @@ Response:
         }
     }
 
-#### Create endpoint: `POST /endpoints`
+#### Create endpoint: `POST /v3/endpoints`
 
 Request:
 
@@ -1896,7 +1985,7 @@ Response:
         }
     }
 
-#### Update endpoint: `PATCH /endpoints/{endpoint_id}`
+#### Update endpoint: `PATCH /v3/endpoints/{endpoint_id}`
 
 The request block is the same as the one for create endpoint, except that only the
 attributes that are being updated need to be included.
@@ -1919,7 +2008,7 @@ Response:
         }
     }
 
-#### Delete endpoint: `DELETE /endpoints/{endpoint_id}`
+#### Delete endpoint: `DELETE /v3/endpoints/{endpoint_id}`
 
 Response:
 
@@ -1936,7 +2025,7 @@ The key use cases we need to cover:
 
 ### Domains
 
-#### Create domain: `POST /domains`
+#### Create domain: `POST /v3/domains`
 
 Request:
 
@@ -1964,7 +2053,7 @@ Response:
         }
     }
 
-#### List domains: `GET /domains`
+#### List domains: `GET /v3/domains`
 
 query filter for "name" and "enabled" (optional)
 
@@ -2000,7 +2089,7 @@ Response:
         }
     }
 
-#### Get domain: `GET /domains/{domain_id}`
+#### Get domain: `GET /v3/domains/{domain_id}`
 
 Response:
 
@@ -2018,7 +2107,7 @@ Response:
         }
     }
 
-#### Update domain: `PATCH /domains/{domain_id}`
+#### Update domain: `PATCH /v3/domains/{domain_id}`
 
 The request block is the same as the one for create domain, except that only the attributes
 that are being updated need to be included.
@@ -2040,7 +2129,7 @@ Response:
         }
     }
 
-#### Delete domain: `DELETE /domains/{domain_id}`
+#### Delete domain: `DELETE /v3/domains/{domain_id}`
 
 Deleting a domain will delete all the entities owned by it (Users,
 Groups & Projects), as well as any Credentials and Role grants that
@@ -2058,7 +2147,7 @@ Response:
 
 ### Projects
 
-#### Create project: `POST /projects`
+#### Create project: `POST /v3/projects`
 
 Request:
 
@@ -2087,7 +2176,7 @@ Response:
         }
     }
 
-#### List projects: `GET /projects`
+#### List projects: `GET /v3/projects`
 
 query filter for "domain_id", "enabled", "name" (optional)
 
@@ -2123,7 +2212,7 @@ Response:
         }
     }
 
-#### Get project: `GET /projects/{project_id}`
+#### Get project: `GET /v3/projects/{project_id}`
 
 Response:
 
@@ -2141,7 +2230,7 @@ Response:
         }
     }
 
-#### Update project: `PATCH /projects/{project_id}`
+#### Update project: `PATCH /v3/projects/{project_id}`
 
 The request block is the same as the one for create project, except that only the attributes
 that are being updated need to be included.
@@ -2163,13 +2252,13 @@ Response:
         }
     }
 
-#### Delete project: `DELETE /projects/{project_id}`
+#### Delete project: `DELETE /v3/projects/{project_id}`
 
     Status: 204 No Content
 
 ### Users
 
-#### Create user: `POST /users`
+#### Create user: `POST /v3/users`
 
 Request:
 
@@ -2204,7 +2293,7 @@ Response:
         }
     }
 
-#### List users: `GET /users`
+#### List users: `GET /v3/users`
 
 query filter for "domain_id", "email", "enabled", "name" (optional)
 
@@ -2246,7 +2335,7 @@ Response:
         }
     }
 
-#### Get user: `GET /users/{user_id}`
+#### Get user: `GET /v3/users/{user_id}`
 
 Response:
 
@@ -2267,7 +2356,7 @@ Response:
         }
     }
 
-#### List user projects: `GET /users/{user_id}/projects`
+#### List user projects: `GET /v3/users/{user_id}/projects`
 
 query filter for "name", "enabled" on project resources (optional)
 
@@ -2303,7 +2392,7 @@ Response:
         }
     }
 
-#### List groups of which a user is a member: `GET /users/{user_id}/groups`
+#### List groups of which a user is a member: `GET /v3/users/{user_id}/groups`
 
 query filter for "name" (optional)
 
@@ -2339,7 +2428,7 @@ Response:
         }
     }
 
-#### Update user: `PATCH /users/{user_id}`
+#### Update user: `PATCH /v3/users/{user_id}`
 
 
 The request block is the same as the one for create user, except that only the attributes
@@ -2366,13 +2455,13 @@ Response:
         }
     }
 
-#### Delete user: `DELETE /users/{user_id}`
+#### Delete user: `DELETE /v3/users/{user_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Change user password: `POST /users/{user_id}/password`
+#### Change user password: `POST /v3/users/{user_id}/password`
 
 Request:
 
@@ -2389,7 +2478,7 @@ Response:
 
 ### Groups
 
-#### Create group: `POST /groups`
+#### Create group: `POST /v3/groups`
 
 Request:
 
@@ -2416,7 +2505,7 @@ Response:
         }
     }
 
-#### List groups: `GET /groups`
+#### List groups: `GET /v3/groups`
 
 query filter for "domain_id", "name" (optional)
 
@@ -2461,7 +2550,7 @@ Response:
         }
     }
 
-#### Get group: `GET /groups/{group_id}`
+#### Get group: `GET /v3/groups/{group_id}`
 
 Response:
 
@@ -2478,7 +2567,7 @@ Response:
         }
     }
 
-#### List users who are members of a group: `GET /groups/{group_id}/users`
+#### List users who are members of a group: `GET /v3/groups/{group_id}/users`
 
 query filter for "name", "enabled", "email" (optional)
 
@@ -2520,7 +2609,7 @@ Response:
         }
     }
 
-#### Update group: `PATCH /groups/{group_id}`
+#### Update group: `PATCH /v3/groups/{group_id}`
 
 The request block is the same as the one for create group, except that only the attributes
 that are being updated need to be included. This may return a HTTP 501 Not Implemented
@@ -2541,25 +2630,25 @@ Response:
         }
     }
 
-#### Delete group: `DELETE /groups/{group_id}`
+#### Delete group: `DELETE /v3/groups/{group_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Add user to group: `PUT /groups/{group_id}/users/{user_id}`
+#### Add user to group: `PUT /v3/groups/{group_id}/users/{user_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Remove user from group: `DELETE /groups/{group_id}/users/{user_id}`
+#### Remove user from group: `DELETE /v3/groups/{group_id}/users/{user_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Check if user is member of group: `HEAD /groups/{group_id}/users/{user_id}`
+#### Check if user is member of group: `HEAD /v3/groups/{group_id}/users/{user_id}`
 
 Response:
 
@@ -2571,7 +2660,7 @@ The key use cases we need to cover:
 
 - CRUD on a credential
 
-#### Create credential: `POST /credentials`
+#### Create credential: `POST /v3/credentials`
 
 This example shows creating an EC2 style credential where the credentials are a
 combination of access_key and secret. Other credentials (such as access_key)
@@ -2605,7 +2694,7 @@ Response:
         }
     }
 
-#### List credentials: `GET /credentials`
+#### List credentials: `GET /v3/credentials`
 
 Response:
 
@@ -2641,7 +2730,7 @@ Response:
         }
     }
 
-#### Get credential: `GET /credentials/{credential_id}`
+#### Get credential: `GET /v3/credentials/{credential_id}`
 
 Response:
 
@@ -2660,7 +2749,7 @@ Response:
         }
     }
 
-#### Update credential: `PATCH /credentials/{credential_id}`
+#### Update credential: `PATCH /v3/credentials/{credential_id}`
 
 The request block is the same as the one for create credential, except that only the
 attributes that are being updated need to be included.
@@ -2682,7 +2771,7 @@ Response:
         }
     }
 
-#### Delete credential: `DELETE /credentials/{credential_id}`
+#### Delete credential: `DELETE /v3/credentials/{credential_id}`
 
 Response:
 
@@ -2695,7 +2784,7 @@ The key use cases we need to cover:
 - CRUD on a role
 - Associating a role with a project or domain
 
-#### Create role: `POST /roles`
+#### Create role: `POST /v3/roles`
 
 Request:
 
@@ -2719,7 +2808,7 @@ Response:
         }
     }
 
-#### List roles: `GET /roles`
+#### List roles: `GET /v3/roles`
 
 query filter for "name" (optional)
 
@@ -2751,7 +2840,7 @@ Response:
         }
     }
 
-#### Get role: `GET /roles/{role_id}`
+#### Get role: `GET /v3/roles/{role_id}`
 
 Response:
 
@@ -2767,7 +2856,7 @@ Response:
         }
     }
 
-#### Update role: `PATCH /roles/{role_id}`
+#### Update role: `PATCH /v3/roles/{role_id}`
 
 The request block is the same as the one for create role, except that only the attributes
 that are being updated need to be included.
@@ -2786,25 +2875,25 @@ Response:
         }
     }
 
-#### Delete role: `DELETE /roles/{role_id}`
+#### Delete role: `DELETE /v3/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Grant role to user on domain: `PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}`
+#### Grant role to user on domain: `PUT /v3/domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Grant role to group on domain: `PUT /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
+#### Grant role to group on domain: `PUT /v3/domains/{domain_id}/groups/{group_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### List user's roles on domain: `GET /domains/{domain_id}/users/{user_id}/roles`
+#### List user's roles on domain: `GET /v3/domains/{domain_id}/users/{user_id}/roles`
 
 Response:
 
@@ -2834,7 +2923,7 @@ Response:
         }
     }
 
-#### List group's roles on domain: `GET /domains/{domain_id}/groups/{group_id}/roles`
+#### List group's roles on domain: `GET /v3/domains/{domain_id}/groups/{group_id}/roles`
 
 Response:
 
@@ -2864,43 +2953,43 @@ Response:
         }
     }
 
-#### Check if user has role on domain: `HEAD /domains/{domain_id}/users/{user_id}/roles/{role_id}`
+#### Check if user has role on domain: `HEAD /v3/domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Check if group has role on domain: `HEAD /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
+#### Check if group has role on domain: `HEAD /v3/domains/{domain_id}/groups/{group_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Revoke role from user on domain: `DELETE /domains/{domain_id}/users/{user_id}/roles/{role_id}`
+#### Revoke role from user on domain: `DELETE /v3/domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Revoke role from group on domain: `DELETE /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
+#### Revoke role from group on domain: `DELETE /v3/domains/{domain_id}/groups/{group_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Grant role to user on project: `PUT /projects/{project_id}/users/{user_id}/roles/{role_id}`
+#### Grant role to user on project: `PUT /v3/projects/{project_id}/users/{user_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Grant role to group on project: `PUT /projects/{project_id}/groups/{group_id}/roles/{role_id}`
+#### Grant role to group on project: `PUT /v3/projects/{project_id}/groups/{group_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### List user's roles on project: `GET /projects/{project_id}/users/{user_id}/roles`
+#### List user's roles on project: `GET /v3/projects/{project_id}/users/{user_id}/roles`
 
 Response:
 
@@ -2930,7 +3019,7 @@ Response:
         }
     }
 
-#### List group's roles on project: `GET /projects/{project_id}/groups/{group_id}/roles`
+#### List group's roles on project: `GET /v3/projects/{project_id}/groups/{group_id}/roles`
 
 Response:
 
@@ -2960,31 +3049,31 @@ Response:
         }
     }
 
-#### Check if user has role on project: `HEAD /projects/{project_id}/users/{user_id}/roles/{role_id}`
+#### Check if user has role on project: `HEAD /v3/projects/{project_id}/users/{user_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Check if group has role on project: `HEAD /projects/{project_id}/groups/{group_id}/roles/{role_id}`
+#### Check if group has role on project: `HEAD /v3/projects/{project_id}/groups/{group_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Revoke role from user on project: `DELETE /projects/{project_id}/users/{user_id}/roles/{role_id}`
+#### Revoke role from user on project: `DELETE /v3/projects/{project_id}/users/{user_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### Revoke role from group on project: `DELETE /projects/{project_id}/groups/{group_id}/roles/{role_id}`
+#### Revoke role from group on project: `DELETE /v3/projects/{project_id}/groups/{group_id}/roles/{role_id}`
 
 Response:
 
     Status: 204 No Content
 
-#### List effective role assignments: `GET /role_assignments`
+#### List effective role assignments: `GET /v3/role_assignments`
 
 query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id (all optional)
 query_string: effective (optional, default false)
@@ -3039,30 +3128,31 @@ Response:
         }
     }
 
-Since this list is likely to be very long, this API would typically always be used with
-one of more of the filter queries. Some typical examples are:
+Since this list is likely to be very long, this API would typically always be
+used with one of more of the filter queries. Some typical examples are:
 
-`GET /role_assignments?user.id={user_id}` would list all role assignments involving the
-specified user.
+`GET /v3/role_assignments?user.id={user_id}` would list all role assignments
+involving the specified user.
 
-`GET /role_assignments?scope.project.id={project_id}` would list all role assignments
-involving the specified project.
+`GET /v3/role_assignments?scope.project.id={project_id}` would list all role
+assignments involving the specified project.
 
-Each role assignment entity in the collection contains a link to the assignment that gave
-rise to this entity.
+Each role assignment entity in the collection contains a link to the assignment
+that gave rise to this entity.
 
-If the query_string `effective` is specified then, rather than simply returning a list of
-role assignments that have been made, the API returns a list of effective assignments at
-the user, project and domain level, having allowed for the effects of group membership.
-Since the effects of group membership have already been allowed for, the group role
-assignment entities themselves will not be returned in the collection. This represents the
-effective role assignments that would be included in a scoped token. The same set of query
+If the query_string `effective` is specified then, rather than simply returning
+a list of role assignments that have been made, the API returns a list of
+effective assignments at the user, project and domain level, having allowed for
+the effects of group membership. Since the effects of group membership have
+already been allowed for, the group role assignment entities themselves will
+not be returned in the collection. This represents the effective role
+assignments that would be included in a scoped token. The same set of query
 filters can also be used with the `effective` query string. For example:
 
-`GET /role_assignments?user.id={user_id}&effective` would, in other words, answer the
-question "what can this user actually do?".
+`GET /v3/role_assignments?user.id={user_id}&effective` would, in other words,
+answer the question "what can this user actually do?".
 
-`GET /role_assignments?user.id={user_id}&scope.project.id={project_id}&effective` would
+`GET /v3/role_assignments?user.id={user_id}&scope.project.id={project_id}&effective` would
 return the equivalent set of role assignments that would be included in the token response
 of a project scoped token.
 
@@ -3126,7 +3216,7 @@ The key use cases we need to cover:
 
 - CRUD on a policy
 
-#### Create policy: `POST /policies`
+#### Create policy: `POST /v3/policies`
 
 Request:
 
@@ -3150,7 +3240,7 @@ Response:
         }
     }
 
-#### List policies: `GET /policies`
+#### List policies: `GET /v3/policies`
 
 query filter for "type" (optional)
 
@@ -3184,7 +3274,7 @@ Response:
         }
     }
 
-#### Get policy: `GET /policies/{policy_id}`
+#### Get policy: `GET /v3/policies/{policy_id}`
 
 Response:
 
@@ -3201,7 +3291,7 @@ Response:
         }
     }
 
-#### Update policy: `PATCH /policies/{policy_id}`
+#### Update policy: `PATCH /v3/policies/{policy_id}`
 
 The request block is the same as the one for create policy, except that only the attributes
 that are being updated need to be included.
@@ -3221,7 +3311,7 @@ Response:
         }
     }
 
-#### Delete policy: `DELETE /policies/{policy_id}`
+#### Delete policy: `DELETE /v3/policies/{policy_id}`
 
 Response:
 
