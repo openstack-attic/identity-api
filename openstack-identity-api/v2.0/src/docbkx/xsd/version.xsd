@@ -139,9 +139,9 @@
                 <xs:annotation>
                     <xs:documentation>
                         <html:p>
-                            This is a new service the API. Thi API
+                            This is a new service to the API. The API
                             contract may be set, but the implementaiton
-                            may not be 100% complient with it. Developers
+                            may not be 100% compliant with it. Developers
                             are encouraged to begin testing aganst an
                             ALPHA version to provide feedback.
                         </html:p>
@@ -160,7 +160,7 @@
                             and begin the migration processes to a
                             BETA version. Note that a BETA version is
                             undergoing testing, it has not been
-                            officially released, and my not be stable.
+                            officially released, and may not be stable.
                         </html:p>
                     </xs:documentation>
                 </xs:annotation>
@@ -182,7 +182,7 @@
                 <xs:annotation>
                     <xs:documentation>
                         <html:p>
-                            A status of DEPRECATED indicates that a
+                            A status of DEPRECIATED indicates that a
                             newer version of the API is
                             available. Application developers are
                             discouraged from using this version and
@@ -273,7 +273,7 @@
                     <html:p>
                         A version choice's status describes the current operational state of
                         the given service version. The operational status is captured in a
-                        simple type enumeration called VersionStatus.
+                        simple type of enumeration called VersionStatus.
                     </html:p>
                 </xs:documentation>
             </xs:annotation>
