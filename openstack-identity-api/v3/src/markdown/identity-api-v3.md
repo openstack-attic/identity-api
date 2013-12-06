@@ -14,7 +14,6 @@ What's New in Version 3.2
 
 These features are not yet considered stable (expected January 2014).
 
-- Extension Discovery.
 - Introduced a mechanism to opt-out from catalog information during token
   validation.
 - Introduced a region resource for constructing a hierarchical container
@@ -1072,61 +1071,6 @@ Example entity:
             "type": "application/json"
         }
     }
-
-### Extensions `/v3/extensions`
-
-*New in version 3.2*
-
-Extensions provide a way of adding API functionality to keystone that is not
-part of the core API. This API provides a way of discovering what extensions
-are available on a server and the url entry point for each extension.
-
-Additional required attributes:
-
-- `url`
-
-  The fully qualified url with which to communicate with the extension.
-
-Optional attributes:
-
-- `name` (string)
-
-  A human readable name for the extension.
-
-- `description` (string)
-
-  A human readable description of the extension.
-
-- `version` (string)
-
-  A string indicating the version of the extension API that is provided.
-
-- `extra` (object)
-
-  Additional data that the extension wants to advertise. This information
-  will change between extensions and there is no set format to adhere to. It
-  is assumed that clients who know how to use this extension will also
-  understand the format of `extra` data. If there is no `extra` data it is
-  valid for the object to be empty or omitted.
-
-Example entity:
-
-    {
-        "extension": {
-            "id": "OS-MYEXT",
-            "name": "My Extension",
-            "description": "An Example Extension",
-            "version": "v1.0",
-            "url": "http://identity:35357/OS-MYEXT"
-            "links": {
-                "self": "http://identity:35357/v3/extensions/OS-MYEXT",
-            }
-            "extra": {
-                ...
-            }
-        }
-    }
-
 
 Core API
 --------
@@ -3042,7 +2986,7 @@ Response:
 
 #### List effective role assignments: `GET /role_assignments`
 
-query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id (all optional)  
+query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id (all optional)
 query_string: effective (optional, default false)
 
 Get a list of role assignments. This API is only available from v3.1 onwards.
@@ -3282,61 +3226,3 @@ Response:
 Response:
 
     Status: 204 No Content
-
-### Extensions
-
-The key use cases we need to cover:
-
-- CRUD on a extension
-
-#### List extensions: `GET /extensions`
-
-Response:
-
-    Status: 200 OK
-
-    {
-        "extensions": [
-            {
-                "id": "--extension-id--",
-                "name": "--extension-name--",
-                "url": "http://identity:35357/--extension-root--"
-                "links": {
-                    "self": "http://identity:35357/v3/extensions/--extension-id--",
-                },
-                "extra": {
-                    "features": ["feature1", "feature5"],
-                }
-            },
-            {
-                "id": "--extension-id--",
-                "version": "--extension-version--",
-                "url": "http://identity:35357/--extension-root--/--extension-version--"
-                "links": {
-                    "self": "http://identity:35357/v3/extensions/--extension-id--",
-                },
-            },
-        ],
-        "links": {
-            "self": "http://identity:35357/v3/extensions",
-            "previous": null,
-            "next": null
-        }
-    }
-
-#### Get extension: `GET /extensions/{extension_id}`
-
-Response:
-
-    Status: 200 OK
-
-    {
-        "extension": {
-            "id": "--extension-id--",
-            "name": "--extension-name--",
-            "url": "http://identity:35357/--extension-root--"
-            "links": {
-                "self": "http://identity:35357/v3/extensions/--extension-id--",
-            },
-        },
-    }
