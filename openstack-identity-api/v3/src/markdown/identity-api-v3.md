@@ -1077,9 +1077,98 @@ Core API
 
 ### Versions
 
-#### List versions; `GET /`
+#### List versions
 
-(TBD: This needs additional definition to match the detail below)
+This API may be served by an endpoint providing multiple versions of the same
+interface. In that case, a 300 Multiple Choice response is expected from the
+base endpoint with links to one or more versioned endpoints. The structure and
+behavior of this response is out of scope for this document.
+
+#### Describe version
+
+This API may be served from a non-root path such as `/v3/`. In that case, a
+request such as `GET /v3/` should result in a description of the API endpoint,
+which may vary based on the minor version of the API being implemented and the
+various extensions provided by the API. The following attributes of the version
+description are required:
+
+- `id` (string)
+
+  Indicates the implemented API version.
+
+- `links` (list of objects)
+
+  Provides links to top-level resources provided by the API, including those
+  provided by extensions to the API.
+
+  Each object contains:
+
+  - `href` (string)
+
+    A fully qualified URL to an API resource.
+
+  - `rel` (string)
+
+    Identifies the relationship of the URL to the base endpoint of the API.
+
+    Extensions are namespaced by their extension prefix, followed by a colon,
+    followed a standard relationship, such as `OS-TRUST:trusts`.
+
+- `media-types` (list of objects)
+
+  Enumerates the media types supported by the API.
+
+  - `base` (string)
+
+    Indicates the base of an available media type.
+
+  - `type` (string)
+
+    Indicates the full template of the available media type.
+
+- `status`
+
+  The only well-known value is `stable`. All other values are
+  implementation-specific and may change without notice. A client expecting a
+  production-quality service should not accept any other value.
+
+- `updated` (string, ISO 8601 extended format date time with seconds)
+
+  Indicates the date which the API version was last updated.
+
+Example response (the list of links is truncated here for brevity):
+
+    {
+        "version": {
+            "id": "v3.0",
+            "links": [
+                {
+                    "href": "http://localhost:35357/v3/",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://localhost:35357/v3/services",
+                    "rel": "services"
+                },
+                {
+                    "href": "http://localhost:35357/v3/domains",
+                    "rel": "domains"
+                },
+                {
+                    "href": "http://localhost:35357/v3/OS-TRUST/trusts",
+                    "rel": "OS-TRUST:trusts"
+                }
+            ],
+            "media-types": [
+                {
+                    "base": "application/json",
+                    "type": "application/vnd.openstack.identity-v3+json"
+                }
+            ],
+            "status": "stable",
+            "updated": "2013-03-06T00:00:00Z"
+        }
+    }
 
 ### Tokens
 
