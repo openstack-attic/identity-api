@@ -83,7 +83,7 @@
                         the intention is for it to support additional
                         protocols in the future. The intent is for it
                         to be an integration service foremost, and not
-                        a aspire to be a full-fledged identity store
+                        aspire to be a full-fledged identity store
                         and management solution. </para>
                 </td>
             </tr>
@@ -110,7 +110,7 @@
             <tr>
                 <td><para>Endpoint</para></td>
                 <td>
-                    <para>An network-accessible address, usually
+                    <para>A network-accessible address, usually
                         described by a URL, where a service may be
                         accessed. If using an extension for templates,
                         you can create an endpoint template, which
@@ -124,7 +124,7 @@
                 <td>
                     <para>A personality that a user assumes when
                         performing a specific set of operations. A
-                        role includes a set of right and privileges. A
+                        role includes a set of rights and privileges. A
                         user assuming that role inherits those rights
                         and privileges. </para>
                     <para>In OpenStack Identity Service, a token that
