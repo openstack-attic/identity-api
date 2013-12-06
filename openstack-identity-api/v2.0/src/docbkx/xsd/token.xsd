@@ -102,15 +102,14 @@
                 <p> The service catalog lists the services you have
                     access to </p>
                 <div class="design">
-                    <p> We optimized for future flexibility around the
-                        hierarchy. So we left the design as a flat
-                        list of endpoints with attributes and the
-                        consumer can categorize as they need. This
-                        results in potential duplication (such as with
-                        the version/@list) but we acceopt that
-                        normalization cost in order to not force an
-                        artificial hierarchy (suchas on region, which
-                        can be optional). </p>
+                    <p> We optimized around the hierarchy for future
+                        flexibility and in order not to force an artificial
+                        hierarchy (such as region, which is optional).
+                        This results in potential duplication, like the
+                        version/@list. We left the design as a flat
+                        list of endpoints with attributes that consumers 
+                        can categorize, according to their needs.
+                        </p>
                 </div>
             </xsd:documentation>
             <xsd:appinfo>
