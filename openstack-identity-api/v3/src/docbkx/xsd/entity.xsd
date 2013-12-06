@@ -35,7 +35,7 @@
                 xml:lang="EN"
                 xmlns="http://www.w3.org/1999/xhtml">
                 <p>
-                    Base type for a Identity entitity
+                    Base type for an Identity entity
                 </p>
             </xsd:documentation>
         </annotation>
