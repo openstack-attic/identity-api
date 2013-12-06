@@ -24,8 +24,8 @@ What's New in Version 3.1
 
 These features are considered stable as of July 18, 2013.
 
-- A token without an explicit scope of authorization is issued if the user
-  does not specify a project and does not have authorization on the project
+- A token without an explicit scope of authorization is issued if the user does
+  not specify a project and does not have authorization on the project
   specified by their default project attribute.
 - Introduced a generalized call for getting role assignments, with filtering
   for user, group, project, domain and role.
@@ -263,9 +263,9 @@ plural form of the resource name (identical to that found in the resource URL):
 ##### List Entities filtered by attribute
 
 Beyond each resource's canonically unique identifier (the `id` attribute), not
-all attributes are guaranteed unique on their own. To list resources which match
-a specified attribute value, we can perform a filter query using a query string
-with one or more attribute/value pairs:
+all attributes are guaranteed unique on their own. To list resources which
+match a specified attribute value, we can perform a filter query using a query
+string with one or more attribute/value pairs:
 
     GET /entities?name={entity_name}&enabled={entity_enabled}
 
@@ -682,10 +682,10 @@ Example entity:
 
 ### Domains: `/v3/domains`
 
-Domains represent collections of users, groups and projects. Each is owned
-by exactly one domain. Users, however, can be associated with multiple
-projects by granting roles to the user on a project (including projects owned
-by other domains).
+Domains represent collections of users, groups and projects. Each is owned by
+exactly one domain. Users, however, can be associated with multiple projects by
+granting roles to the user on a project (including projects owned by other
+domains).
 
 Each domain defines a namespace in which certain API-visible name attributes
 exist, which affects whether those names need to be globally unique or simply
@@ -718,8 +718,8 @@ Optional attributes:
   this domain or any projects owned by this domain, and prevents users owned by
   this domain from authenticating or receiving any other authorization.
   Additionally, all pre-existing tokens applicable to the above entities are
-  immediately invalidated. Re-enabling a domain does not re-enable
-  pre-existing tokens.
+  immediately invalidated. Re-enabling a domain does not re-enable pre-existing
+  tokens.
 
 Example entity:
 
@@ -797,8 +797,8 @@ Example entity:
 ### Services: `/v3/services`
 
 Service entities represent web services in the OpenStack deployment. A service
-may have zero or more endpoints associated with it, although a service with zero
-endpoints is essentially useless in an OpenStack configuration.
+may have zero or more endpoints associated with it, although a service with
+zero endpoints is essentially useless in an OpenStack configuration.
 
 Additional required attributes:
 
@@ -979,38 +979,37 @@ Optional attributes:
 
   Token binding refers to the practice of embedding information from external
   authentication providers (like a company's Kerberos server) inside the token
-  such that a client may validate that the token is used in conjunction with that
-  authentication mechanism. By coupling this authentication we can prevent re-use
-  of a stolen token as an attacker would not have access to the external
+  such that a client may validate that the token is used in conjunction with
+  that authentication mechanism. By coupling this authentication we can prevent
+  re-use of a stolen token as an attacker would not have access to the external
   authentication.
 
-  Specifies one or more external authorization mechanisms that can be used
-  in conjunction with the token for it to be validated by a bind enforcing
-  client. For example a token may only be used over a Kerberos authenticated
-  connection or with a specific client certificate.
+  Specifies one or more external authorization mechanisms that can be used in
+  conjunction with the token for it to be validated by a bind enforcing client.
+  For example a token may only be used over a Kerberos authenticated connection
+  or with a specific client certificate.
 
-  Includes one or more mechanism identifiers with protocol specific data.
-  The officially supported mechanisms are ``kerberos`` and ``x509`` where:
+  Includes one or more mechanism identifiers with protocol specific data. The
+  officially supported mechanisms are ``kerberos`` and ``x509`` where:
 
     - The ``kerberos`` bind payload is of the form:
 
-            "kerberos": {
-                "principal": "USER@REALM"
-            }
+          "kerberos": {
+              "principal": "USER@REALM"
+          }
 
       where the user's Kerberos principal is "USER@REALM".
 
     - The ``x509`` bind payload is of the form:
 
-            "x509": {
-                "fingerprint": "0123456789ABCDEF",
-                "algorithm": "sha1"
-            }
+          "x509": {
+              "fingerprint": "0123456789ABCDEF",
+              "algorithm": "sha1"
+          }
 
-      the ``fingerprint`` is the hash of the client certificate to be validated in
-      the specified algorithm. It should be the hex form without seperating spaces
-      or colons. The only supported ``algorithm`` is currently ``sha1``.
-
+      the ``fingerprint`` is the hash of the client certificate to be validated
+      in the specified algorithm. It should be the hex form without seperating
+      spaces or colons. The only supported ``algorithm`` is currently ``sha1``.
 
 Example entity:
 
@@ -1396,10 +1395,11 @@ token will be issued without an explicit scope of authorization.
 
 ##### Catalog Opt-Out: 'POST /v3/auth/tokens?nocatalog'
 
-*New in version 3.1* If the caller specifies a `nocatalog` query parameter in
-the authentication request, then the authentication response will not contain
-the service catalog. The service catalog will otherwise be included in the response
-by default.
+*New in version 3.1*
+
+If the caller specifies a `nocatalog` query parameter in the authentication
+request, then the authentication response will not contain the service catalog.
+The service catalog will otherwise be included in the response by default.
 
 ##### Authentication responses
 
@@ -1730,10 +1730,10 @@ Response:
         }
     }
 
-* Adding a region with a parent_region_id that does not exist
-  should fail with a `404 Not Found`
-* Adding a region with a parent_region_id that would form a
-  circular relationship should fail with a `409 Conflict`
+- Adding a region with a `parent_region_id` that does not exist should fail
+  with a `404 Not Found`
+- Adding a region with a `parent_region_id` that would form a circular
+  relationship should fail with a `409 Conflict`
 
 #### Create region with specific ID: `PUT /v3/regions/{user_defined_region_id}`
 
@@ -1762,14 +1762,14 @@ Response:
         }
     }
 
-* The {user_defined_region_id} must be unique to the OpenStack deployment.
+- The `{user_defined_region_id}` must be unique to the OpenStack deployment.
   If not, a `409 Conflict` should be returned.
-* The {user_defined_region_id} shall be urlencoded if the ID contains
+- The `{user_defined_region_id}` shall be URL encoded if the ID contains
   characters not permitted in a URI.
-* Adding a region with a parent_region_id that does not exist
-  should fail with a `404 Not Found`
-* Adding a region with a parent_region_id that would form a
-  circular relationship should fail with a `409 Conflict`
+- Adding a region with a `parent_region_id` that does not exist should fail
+  with a `404 Not Found`.
+- Adding a region with a `parent_region_id` that would form a circular
+  relationship should fail with a `409 Conflict`.
 
 #### Update region: `PATCH /v3/regions/{region_id}`
 
@@ -1798,12 +1798,12 @@ Response:
         }
     }
 
-* Updating a region with a parent_region_id that does not exist
-  should fail with a `404 Not Found`
+- Updating a region with a parent_region_id that does not exist should fail
+  with a `404 Not Found`.
 
 #### Delete region: `DELETE /v3/regions/{region_id}`
 
-* Note: deleting a region with child regions should return a `409 Conflict`
+Note: deleting a region with child regions should return a `409 Conflict`
 
 Response:
 
@@ -1888,8 +1888,8 @@ Response:
 
 #### Update service: `PATCH /v3/services/{service_id}`
 
-The request block is the same as the one for create service, except that only the attributes
-that are being updated need to be included.
+The request block is the same as the one for create service, except that only
+the attributes that are being updated need to be included.
 
 Response:
 
@@ -1908,8 +1908,8 @@ Response:
 
 #### Delete service: `DELETE /v3/services/{service_id}`
 
-* Note: deleting a service when endpoints exist should either 1) delete all
-  associated endpoints or 2) fail until endpoints are deleted
+Note: deleting a service when endpoints exist should either 1) delete all
+associated endpoints or 2) fail until endpoints are deleted
 
 Response:
 
@@ -1987,9 +1987,8 @@ Response:
 
 #### Update endpoint: `PATCH /v3/endpoints/{endpoint_id}`
 
-The request block is the same as the one for create endpoint, except that only the
-attributes that are being updated need to be included.
-
+The request block is the same as the one for create endpoint, except that only
+the attributes that are being updated need to be included.
 
 Response:
 
@@ -2109,9 +2108,8 @@ Response:
 
 #### Update domain: `PATCH /v3/domains/{domain_id}`
 
-The request block is the same as the one for create domain, except that only the attributes
-that are being updated need to be included.
-
+The request block is the same as the one for create domain, except that only
+the attributes that are being updated need to be included.
 
 Response:
 
@@ -2131,15 +2129,14 @@ Response:
 
 #### Delete domain: `DELETE /v3/domains/{domain_id}`
 
-Deleting a domain will delete all the entities owned by it (Users,
-Groups & Projects), as well as any Credentials and Role grants that
-relate to these entities.
+Deleting a domain will delete all the entities owned by it (Users, Groups &
+Projects), as well as any Credentials and Role grants that relate to these
+entities.
 
-In order to minimize the risk of an inadvertent deletion of a
-domain and its entities, a domain must first be disabled (using the
-update domain API) before a successful delete domain API call can
-be made. Attempting to delete an enabled domain will result in an
-HTTP 403 Forbidden response.
+In order to minimize the risk of an inadvertent deletion of a domain and its
+entities, a domain must first be disabled (using the update domain API) before
+a successful delete domain API call can be made. Attempting to delete an
+enabled domain will result in an HTTP 403 Forbidden response.
 
 Response:
 
@@ -2232,9 +2229,8 @@ Response:
 
 #### Update project: `PATCH /v3/projects/{project_id}`
 
-The request block is the same as the one for create project, except that only the attributes
-that are being updated need to be included.
-
+The request block is the same as the one for create project, except that only
+the attributes that are being updated need to be included.
 
 Response:
 
@@ -2430,11 +2426,10 @@ Response:
 
 #### Update user: `PATCH /v3/users/{user_id}`
 
-
-The request block is the same as the one for create user, except that only the attributes
-that are being updated need to be included. Use this method attempt to update user
-password or enable/disable the user. This may return a HTTP 501 Not Implemented if the
-back-end driver doesn't allow for the functionality.
+The request block is the same as the one for create user, except that only the
+attributes that are being updated need to be included. Use this method attempt
+to update user password or enable/disable the user. This may return a HTTP 501
+Not Implemented if the back-end driver doesn't allow for the functionality.
 
 Response:
 
@@ -2611,9 +2606,9 @@ Response:
 
 #### Update group: `PATCH /v3/groups/{group_id}`
 
-The request block is the same as the one for create group, except that only the attributes
-that are being updated need to be included. This may return a HTTP 501 Not Implemented
-if the back-end driver doesn't allow for the functionality.
+The request block is the same as the one for create group, except that only the
+attributes that are being updated need to be included. This may return a HTTP
+501 Not Implemented if the back-end driver doesn't allow for the functionality.
 
 Response:
 
@@ -2662,9 +2657,9 @@ The key use cases we need to cover:
 
 #### Create credential: `POST /v3/credentials`
 
-This example shows creating an EC2 style credential where the credentials are a
-combination of access_key and secret. Other credentials (such as access_key)
-may be supported by simply changing the content of the key data.
+This example shows creating an EC2-style credential where the credentials are a
+combination of `access_key` and `secret`. Other credentials (such as
+`access_key`) may be supported by simply changing the content of the key data.
 
 Request:
 
@@ -2751,8 +2746,8 @@ Response:
 
 #### Update credential: `PATCH /v3/credentials/{credential_id}`
 
-The request block is the same as the one for create credential, except that only the
-attributes that are being updated need to be included.
+The request block is the same as the one for create credential, except that
+only the attributes that are being updated need to be included.
 
 Response:
 
@@ -2858,8 +2853,8 @@ Response:
 
 #### Update role: `PATCH /v3/roles/{role_id}`
 
-The request block is the same as the one for create role, except that only the attributes
-that are being updated need to be included.
+The request block is the same as the one for create role, except that only the
+attributes that are being updated need to be included.
 
 Response:
 
@@ -3075,12 +3070,15 @@ Response:
 
 #### List effective role assignments: `GET /v3/role_assignments`
 
-query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id (all optional)
+query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id
+(all optional)
+
 query_string: effective (optional, default false)
 
 Get a list of role assignments. This API is only available from v3.1 onwards.
 
-If no query filters are specified, then this API will return a list of all role assignments.
+If no query filters are specified, then this API will return a list of all role
+assignments.
 
 Response:
 
@@ -3152,12 +3150,13 @@ filters can also be used with the `effective` query string. For example:
 `GET /v3/role_assignments?user.id={user_id}&effective` would, in other words,
 answer the question "what can this user actually do?".
 
-`GET /v3/role_assignments?user.id={user_id}&scope.project.id={project_id}&effective` would
-return the equivalent set of role assignments that would be included in the token response
-of a project scoped token.
+`GET
+/v3/role_assignments?user.id={user_id}&scope.project.id={project_id}&effective`
+would return the equivalent set of role assignments that would be included in
+the token response of a project scoped token.
 
-An example response for an API call with the query_string `effective` specified is
-given below:
+An example response for an API call with the query string `effective` specified
+is given below:
 
 Response:
 
@@ -3206,9 +3205,9 @@ Response:
         }
     }
 
-The entity `links` section of a response using the `effective` query string also contains,
-for entities that are included by virtue of group memebership, a url that can be used to
-access the membership of the group.
+The entity `links` section of a response using the `effective` query string
+also contains, for entities that are included by virtue of group membership, a
+URL that can be used to access the membership of the group.
 
 ### Policies
 
@@ -3293,8 +3292,8 @@ Response:
 
 #### Update policy: `PATCH /v3/policies/{policy_id}`
 
-The request block is the same as the one for create policy, except that only the attributes
-that are being updated need to be included.
+The request block is the same as the one for create policy, except that only
+the attributes that are being updated need to be included.
 
 Response:
 
