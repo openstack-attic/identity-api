@@ -818,7 +818,10 @@ Optional attributes:
 - `enabled` (boolean)
 
   Setting this value to `false` prevents the service and its endpoints from
-  appearing in the service catalog.
+  appearing in the service catalog, and prevents users from receiving
+  service-scoped tokens against this service. Additionally, all pre-existing
+  tokens authorized for the service are immediately invalidated. Re-enabling a
+  project does not re-enable pre-existing tokens.
 
 Example entity:
 
@@ -958,22 +961,34 @@ Optional attributes:
   services such that they can achieve resource isolation based on the
   authorized request context included in the token. This attribute must not be
   included if a `domain` attribute is included. A token with project-level
-  authorization does not express any authorization on any domain-level
-  resource.
+  authorization does not express any authorization on any domain-level or
+  service-level resources.
 
   Includes the full resource description of a project.
 
 - `domain` (object)
 
   Specifies the domain authorization scope of the token. This is to provide
-  authorization appropriate to domain-level APIs, for example user and group
+  authorization appropriate to domain-level APIs, such as user and group
   management within a domain. If this attribute is not provided, then the token
-  is not authorized to access any domain level resources. This attribute must
+  is not authorized to access any domain-level resources. This attribute must
   not be included if a `project` attribute is included. A token with
   domain-level authorization does not express any authorization on any
-  project-level resource.
+  project-level or service-level resources.
 
   Includes the full resource description of a domain.
+
+- `service` (object)
+
+  Specifies a service authorization scope of the token. This is to provide
+  authorization appropriate to service-level APIs, such as domain management.
+  If this attribute is not provided, then the token is not authorized to
+  operate on any service-level resources. A token with service-level
+  authorization does not express any authorization on any project-level or
+  domain-level resources.
+
+  Includes the `id`, `name` and `type` of a service, but does not include
+  endpoints of the service.
 
 - `catalog` (object)
 
@@ -1302,8 +1317,31 @@ Alternatively, a `domain` `name` may be used to uniquely identify the
         }
     }
 
-If neither a `project` nor a `domain` is provided for `scope`, and the
-authenticating `user` has a defined default project (the user's
+A `service` must be specified by `id`. Example request:
+
+    {
+        "auth": {
+            "identity": {
+                "methods": [
+                    "password"
+                ],
+                "password": {
+                    "user": {
+                        "id": "0ca8f6",
+                        "password": "secrete"
+                    }
+                }
+            },
+            "scope": {
+                "service": {
+                    "id": "361cae"
+                }
+            }
+        }
+    }
+
+If neither a `project`, `domain` nor a `service` is provided for `scope`, and
+the authenticating `user` has a defined default project (the user's
 `default_project_id` attribute), then this will be treated as the preferred
 authorization scope. If there is no default project defined, then a token will
 be issued without an explicit scope of authorization.
@@ -1453,6 +1491,56 @@ user's roles applicable to the `domain`. Example response:
                     },
                     "name": "member"
                 }
+            ],
+            "user": {
+                "domain": {
+                    "id": "1789d1",
+                    "links": {
+                        "self": "http://identity:35357/v3/domains/1789d1"
+                    },
+                    "name": "example.com"
+                },
+                "id": "0ca8f6",
+                "links": {
+                    "self": "http://identity:35357/v3/users/0ca8f6"
+                },
+                "name": "Joe"
+            }
+        }
+    }
+
+A token scoped to a `service` will have a service `catalog` limited to the
+relevant service and it's endpoints, along with the user's roles applicable to
+the `service`. Example response:
+
+    Headers: X-Subject-Token
+
+    X-Subject-Token: e80b74
+
+    {
+        "token": {
+            "catalog": "FIXME(dolph): need an example here containing only keystone",
+            "expires_at": "2013-02-27T18:30:59.999999Z",
+            "issued_at": "2013-02-27T16:30:59.999999Z",
+            "methods": [
+                "password"
+            ],
+            "service": {
+                "id": "361cae",
+                "links": {
+                    "self": "http://identity:35357/v3/services/361cae"
+                },
+                "name": "Keystone",
+                "type": "identity"
+            },
+            "roles": [
+                {
+                    "id": "31bbc1",
+                    "links": {
+                        "self": "http://identity:35357/v3/roles/31bbc1"
+                    },
+                    "name": "identity-admin"
+                },
             ],
             "user": {
                 "domain": {
@@ -2990,14 +3078,113 @@ Response:
 
     Status: 204 No Content
 
+#### Grant role to user on service: `PUT /v3/services/{service_id}/users/{user_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Grant role to group on service: `PUT /v3/services/{service_id}/groups/{group_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### List user's roles on service: `GET /v3/services/{service_id}/users/{user_id}/roles`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/services/--service_id--/users/--user_id--/roles",
+            "previous": null,
+            "next": null
+        }
+    }
+
+#### List group's roles on service: `GET /v3/services/{service_id}/groups/{group_id}/roles`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/services/--service_id--/groups/--group_id--/roles",
+            "previous": null,
+            "next": null
+        }
+    }
+
+#### Check if user has role on service: `HEAD /v3/services/{service_id}/users/{user_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Check if group has role on service: `HEAD /v3/services/{service_id}/groups/{group_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke role from user on service: `DELETE /v3/services/{service_id}/users/{user_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke role from group on service: `DELETE /v3/services/{service_id}/groups/{group_id}/roles/{role_id}`
+
+Response:
+
+    Status: 204 No Content
+
 #### List effective role assignments: `GET /role_assignments`
 
-query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id (all optional)
+*New in version 3.1*
+
+query_filter: group.id, role.id, scope.domain.id, scope.project.id, scope.service.id, user.id (all optional)
 query_string: effective (optional, default false)
 
-Get a list of role assignments. This API is only available from v3.1 onwards.
+Get a list of role assignments.
 
-If no query filters are specified, then this API will return a list of all role assignments.
+If no query filters are specified, then this API will return a list of all role
+assignments.
 
 Response:
 
@@ -3036,6 +3223,22 @@ Response:
                         "id": "--project-id--"
                     }
                 }
+            },
+            {
+                "group": {
+                    "id": "--group-id--"
+                },
+                "links": {
+                    "assignment": "http://identity:35357/v3/services/--service-id--/groups/--group-id--/roles/--role-id--"
+                },
+                "role": {
+                    "id": "--role-id--"
+                },
+                "scope": {
+                    "service": {
+                        "id": "--service-id--"
+                    }
+                }
             }
         ],
         "links": {
@@ -3054,12 +3257,15 @@ specified user.
 `GET /role_assignments?scope.project.id={project_id}` would list all role assignments
 involving the specified project.
 
+`GET /role_assignments?service.id={service_id}` would list all role assignments
+involving the specified service.
+
 Each role assignment entity in the collection contains a link to the assignment that gave
 rise to this entity.
 
 If the query_string `effective` is specified then, rather than simply returning a list of
 role assignments that have been made, the API returns a list of effective assignments at
-the user, project and domain level, having allowed for the effects of group membership.
+the user, project, domain and service level, having allowed for the effects of group membership.
 Since the effects of group membership have already been allowed for, the group role
 assignment entities themselves will not be returned in the collection. This represents the
 effective role assignments that would be included in a scoped token. The same set of query
