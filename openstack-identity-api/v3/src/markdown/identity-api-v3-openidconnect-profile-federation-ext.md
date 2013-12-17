@@ -32,10 +32,8 @@ The protocol name used by this module is "oidc".
 					"federated": {
 						"phase": "request",
 						"provider_id": "123456",
-						"protocol": "oidc",
-						"protocol_data": [
-							{"client_profile": "basic" | "implicit"}
-						]
+						"protocol": "oidc.basic | oidc.implicit",
+						"protocol_data": []
 					}
 				}
 			}
@@ -57,7 +55,7 @@ The protocol name used by this module is "oidc".
 					],
 					"federated": {
 						"provider_id": "123456",
-						"protocol": "oidc",
+						"protocol": "oidc.basic",
 						"protocol_data": [
 							{
 								"endpoint": "http://openid-provider.com/authorize",
@@ -81,7 +79,7 @@ The protocol name used by this module is "oidc".
 					],
 					"federated": {
 						"provider_id": "123456",
-						"protocol": "oidc",
+						"protocol": "oidc.implicit",
 						"protocol_data": [
 							{
 								"endpoint": "http://openid-provider.com/authorize",
@@ -109,7 +107,7 @@ The protocol name used by this module is "oidc".
 					"federated": {
 						"phase": "validate",
 						"provider_id": "123456",
-						"protocol": "oidc",
+						"protocol": "oidc.basic",
 						"protocol_data": 
 							[
 								{
@@ -133,21 +131,16 @@ The protocol name used by this module is "oidc".
 						"federated"
 					],
 					"federated": {
-						"phase": "negotiation",
+						"phase": "validate",
 						"provider_id": "123456",
-						"protocol": "oidc",
+						"protocol": "oidc.implicit",
 						"protocol_data": 
 							[
 								{
 									"state": "ABCD1234",
 									"access_token": "0011223344556677",
 									"token_type": "Bearer",
-									"id_token": "8899AABBCCDDEEFF",
-									"expires_in": "3599",
-									"authuser": "iss",
-									"hd": "cin.ufpe.br",
-									"session_state": "AA00BB11",
-									"prompt": "none"
+									"id_token": "8899AABBCCDDEEFF"
 								}
 							]
 					}
