@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Approved+1: ayoung <ayoung@redhat.com>
+Code-Review+2: ayoung <ayoung@redhat.com>
+Code-Review+1: Jamie Lennox <jamielennox@redhat.com>
+Submitted-by: Jenkins
+Submitted-at: Tue, 17 Dec 2013 02:23:32 +0000
+Reviewed-on: https://review.openstack.org/60303
+Project: openstack/identity-api
+Branch: refs/heads/master
