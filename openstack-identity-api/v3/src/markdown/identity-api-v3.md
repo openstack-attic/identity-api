@@ -281,11 +281,11 @@ plural form of the resource name (identical to that found in the resource URL):
 ##### List Entities filtered by attribute
 
 Beyond each resource's canonically unique identifier (the `id` attribute), not
-all attributes are guaranteed unique on their own. To list resources which match
-a specified attribute value, we can perform a filter query using a query string
-with one or more attribute/value pairs:
+all attributes are guaranteed unique on their own. To filter a list of
+resources based on a specific attribute, we can perform a filtered query using
+one or more query parameters:
 
-    GET /entities?name={entity_name}&enabled={entity_enabled}
+    GET /entities?name={entity_name}&enabled
 
 If multiple filters are specified in a query, then all filters must match for
 an entity to be included in the response. The values specified in a filter
@@ -1704,7 +1704,9 @@ The key use cases we need to cover:
 
 #### List regions: `GET /regions`
 
-query filter for "parent_region_id" (optional)
+Optional query parameters:
+
+- `parent_region_id` (string)
 
 Response:
 
@@ -1856,7 +1858,9 @@ Response:
 
 #### List services: `GET /services`
 
-query filter for "type" (optional)
+Optional query parameters:
+
+- `type` (string)
 
 Response:
 
@@ -1964,7 +1968,10 @@ Response:
 
 #### List endpoints: `GET /endpoints`
 
-query filter for "interface" and "service_id" (optional)
+Optional query parameters:
+
+- `interface` (string)
+- `service_id` (string)
 
 Response:
 
@@ -2101,7 +2108,10 @@ Response:
 
 #### List domains: `GET /domains`
 
-query filter for "name" and "enabled" (optional)
+Optional query parameters:
+
+- `enabled` (key-only, no value expected)
+- `name` (string)
 
 Response:
 
@@ -2224,7 +2234,11 @@ Response:
 
 #### List projects: `GET /projects`
 
-query filter for "domain_id", "enabled", "name" (optional)
+Optional query parameters:
+
+- `domain_id` (string)
+- `enabled` (key-only, no value expected)
+- `name` (string)
 
 Response:
 
@@ -2341,7 +2355,12 @@ Response:
 
 #### List users: `GET /users`
 
-query filter for "domain_id", "email", "enabled", "name" (optional)
+Optional query parameters:
+
+- `domain_id` (string)
+- `email` (string)
+- `enabled` (key-only, no value expected)
+- `name` (string)
 
 Response:
 
@@ -2404,7 +2423,10 @@ Response:
 
 #### List user projects: `GET /users/{user_id}/projects`
 
-query filter for "name", "enabled" on project resources (optional)
+Optional query parameters:
+
+- `enabled` (key-only, no value expected)
+- `name` (string)
 
 Response:
 
@@ -2440,7 +2462,9 @@ Response:
 
 #### List groups of which a user is a member: `GET /users/{user_id}/groups`
 
-query filter for "name" (optional)
+Optional query parameters:
+
+- `name` (string)
 
 Response:
 
@@ -2553,7 +2577,10 @@ Response:
 
 #### List groups: `GET /groups`
 
-query filter for "domain_id", "name" (optional)
+Optional query parameters:
+
+- `domain_id` (string)
+- `name` (string)
 
 Response:
 
@@ -2615,7 +2642,11 @@ Response:
 
 #### List users who are members of a group: `GET /groups/{group_id}/users`
 
-query filter for "name", "enabled", "email" (optional)
+Optional query parameters:
+
+- `email` (string)
+- `enabled` (key-only, no value expected)
+- `name` (string)
 
 Response:
 
@@ -2856,7 +2887,9 @@ Response:
 
 #### List roles: `GET /roles`
 
-query filter for "name" (optional)
+Optional query parameters:
+
+- `name` (string)
 
 Response:
 
@@ -3121,12 +3154,21 @@ Response:
 
 #### List effective role assignments: `GET /role_assignments`
 
-query_filter: group.id, role.id, scope.domain.id, scope.project.id, user.id (all optional)
-query_string: effective (optional, default false)
+*New in version 3.1*
 
-Get a list of role assignments. This API is only available from v3.1 onwards.
+Optional query parameters:
 
-If no query filters are specified, then this API will return a list of all role assignments.
+- `group.id` (string)
+- `role.id` (string)
+- `scope.domain.id` (string)
+- `scope.project.id` (string)
+- `user.id` (string)
+- `effective` (key only, no value expected)
+
+Get a list of role assignments.
+
+If no query parameters are specified, then this API will return a list of all
+role assignments.
 
 Response:
 
@@ -3186,13 +3228,13 @@ involving the specified project.
 Each role assignment entity in the collection contains a link to the assignment that gave
 rise to this entity.
 
-If the query_string `effective` is specified then, rather than simply returning a list of
+If the query parameter `effective` is specified, rather than simply returning a list of
 role assignments that have been made, the API returns a list of effective assignments at
 the user, project and domain level, having allowed for the effects of group membership.
 Since the effects of group membership have already been allowed for, the group role
 assignment entities themselves will not be returned in the collection. This represents the
 effective role assignments that would be included in a scoped token. The same set of query
-filters can also be used with the `effective` query string. For example:
+parameters can also be used in combination with the `effective` parameter. For example:
 
 `GET /role_assignments?user.id={user_id}&effective` would, in other words, answer the
 question "what can this user actually do?".
@@ -3201,7 +3243,7 @@ question "what can this user actually do?".
 return the equivalent set of role assignments that would be included in the token response
 of a project scoped token.
 
-An example response for an API call with the query_string `effective` specified is
+An example response for an API call with the query parameter `effective` specified is
 given below:
 
 Response:
@@ -3251,7 +3293,7 @@ Response:
         }
     }
 
-The entity `links` section of a response using the `effective` query string also contains,
+The entity `links` section of a response using the `effective` query parameter also contains,
 for entities that are included by virtue of group memebership, a url that can be used to
 access the membership of the group.
 
@@ -3287,7 +3329,9 @@ Response:
 
 #### List policies: `GET /policies`
 
-query filter for "type" (optional)
+Optional query parameters:
+
+- `type` (string)
 
 Response:
 
