@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Approved+1: guang-yee <guang.yee@hp.com>
+Code-Review+2: guang-yee <guang.yee@hp.com>
+Code-Review+2: ayoung <ayoung@redhat.com>
+Submitted-by: Jenkins
+Submitted-at: Wed, 18 Dec 2013 18:39:26 +0000
+Reviewed-on: https://review.openstack.org/60727
+Project: openstack/identity-api
+Branch: refs/heads/master
