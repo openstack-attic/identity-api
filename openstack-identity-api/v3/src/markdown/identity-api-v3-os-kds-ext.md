@@ -357,7 +357,7 @@ The request body is empty.
     Status: 204 No Content
 
 
-#### Retrieve Group Key: `POST /v1/groups`
+#### Retrieve Group Key: `POST /v1/tickets`
 
 When a ticket is requested where the destination is a group, a group key is
 generated that is valid for a predetermined amount of time.  Any member of the
