@@ -1,0 +1,95 @@
+OpenStack Identity API v3 Keystone Profile for Federation
+=========================================================
+
+The federated authentication plugin delegates all the protocol dependent
+functionality to protocol specific modules. Each federation protocol needs a
+profile to describe the required request and response messages. Note that this
+is independent of the actual implementation. This document describes the
+profile for a remote Keystone identity provider.
+
+The protocol name used by this module is "keystone".
+
+### The `keystone` authentication profile
+
+1. No protocol specific request parameters are required for the Keystone
+   profile to handle the issuing of an authentication request. The request
+   message should conform to the structure laid out in the federation extension
+   document, viz:
+
+   Request:
+
+        {
+            "auth": {
+                "identity": {
+                    "federated": {
+                        "phase": "request",
+                        "protocol": "keystone",
+                        "protocol_data": [],
+                        "provider_id": "123456"
+                    },
+                    "methods": [
+                        "federated"
+                    ]
+                }
+            }
+        }
+
+    The response for the Keystone profile must contain the endpoint of the
+    remote Keystone identity provider within the protocol_data field.
+
+    Response:
+
+        {
+            "error": {
+                "code": 401,
+                "identity": {
+                    "federated": {
+                        "protocol": "keystone",
+                        "protocol_data": [
+                            {
+                                "endpoint": "https://keystoneZ.com:5000/v3/auth"
+                            }
+                        ],
+                        "provider_id": "123456"
+                    },
+                    "methods": [
+                        "federated"
+                    ]
+                },
+                "message": "Additional authentication steps required.",
+                "title": "Unauthorized"
+            }
+        }
+
+2. The Keystone profile expects that the `protocol_data` provided during the
+   validation phase contains a Keystone token either in PKI format or as a
+   UUID. If a PKI token is returned, then the implementation will need to have
+   access to the CA certificate and public key certificate of the Keystone IDP.
+   If a UUID token is returned, then the implementation will need the login
+   details of an admin user for the Keystone IDP.
+
+   Request:
+
+        {
+            "auth": {
+                "identity": {
+                    "federated": {
+                        "phase": "validate",
+                        "protocol": "keystone",
+                        "protocol_data": [
+                            {
+                                "data": "<keystone token>"
+                            }
+                        ],
+                        "provider_id": "123456"
+                    },
+                    "methods": [
+                        "federated"
+                    ]
+                }
+            }
+        }
+
+    The response for the Keystone profile validation is the same as the
+    standard response described in Add Support for Federated Authentication (Pt
+    3) document.
