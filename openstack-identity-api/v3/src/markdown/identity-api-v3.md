@@ -1947,7 +1947,8 @@ Request:
             "interface": "[admin|public|internal]",
             "name": "name",
             "region": "--optional--",
-            "url": "..."
+            "url": "...",
+            "service_id": "--service-id--"
         }
     }
 
