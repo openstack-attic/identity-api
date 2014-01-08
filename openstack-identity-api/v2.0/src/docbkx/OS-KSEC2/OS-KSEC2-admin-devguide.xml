@@ -74,7 +74,7 @@ format="SVG" scale="60"/>
             <para>
                 This document is intended for client developers interested
                 in using the OpenStack EC2 Authentication Service Extension along with the
-              OpenStack Identity Service 
+              OpenStack Identity Service
                 <abbrev>API</abbrev> v2.0.
             </para>
         </abstract>

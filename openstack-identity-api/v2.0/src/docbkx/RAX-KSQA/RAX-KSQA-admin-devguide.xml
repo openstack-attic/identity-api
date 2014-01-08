@@ -68,9 +68,9 @@
             </annotation>
         </legalnotice>
         <abstract>
-            <para> This document is intended for client developers
+            <para>This document is intended for client developers
                 interested in using the Rackspace API Secret Question
-                and Answer Extension. </para>
+                and Answer Extension.</para>
         </abstract>
         <othercredit>
             <personname>
@@ -97,7 +97,7 @@
                 <revdescription>
                     <itemizedlist spacing="compact">
                         <listitem>
-                            <para> Initial release. </para>
+                            <para>Initial release.</para>
                         </listitem>
                     </itemizedlist>
                 </revdescription>
@@ -106,9 +106,9 @@
     </info>
     <chapter xml:id="chapter-0001">
         <title>Summary of Changes</title>
-        <para> The Rackspace API Secret Question and Answer Extension
+        <para>The Rackspace API Secret Question and Answer Extension
             allows the management of a User's Secret Question and
-            Answer. </para>
+            Answer.</para>
         <section xml:id="NewHeaders-0001">
             <title>New Headers</title>
             <para>None.</para>
@@ -129,9 +129,9 @@
             <title>New Element</title>
             <section xml:id="RackExt-0001">
                 <title>secretQA</title>
-                <para> A <parameter>secretQA</parameter> element is
+                <para>A <parameter>secretQA</parameter> element is
                     added that allows the management of a user's
-                    secret question and answer. </para>
+                    secret question and answer.</para>
                 <example>
                     <title>secretQA XML</title>
                     <programlisting language="xml"><xi:include href="&SECRETQAREQUESTXML;" parse="text"/></programlisting>

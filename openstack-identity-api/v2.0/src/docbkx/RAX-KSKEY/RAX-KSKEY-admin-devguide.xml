@@ -89,7 +89,7 @@
             />
         </extension>
         <abstract>
-            <para> This document is intended for service developers
+            <para>This document is intended for service developers
                 interested in using the Rackspace API Key
                 Authentication Admin Extension along with the
                 OpenStack Identity Service (<abbrev>API</abbrev>).
@@ -101,7 +101,7 @@
                 <revdescription>
                     <itemizedlist spacing="compact">
                         <listitem>
-                            <para> Initial release. </para>
+                            <para>Initial release.</para>
                         </listitem>
                     </itemizedlist>
                 </revdescription>
@@ -111,9 +111,9 @@
 
     <chapter xml:id="chapter-0001">
         <title>Summary of Changes</title>
-        <para> The Rackspace API Key Authentication Admin Extension
+        <para>The Rackspace API Key Authentication Admin Extension
             allows crud/listing operations on
-                <parameter>apikeyCredentials</parameter>. </para>
+                <parameter>apikeyCredentials</parameter>.</para>
         <section xml:id="NewHeaders-0001">
             <title>New Headers</title>
             <para>None.</para>

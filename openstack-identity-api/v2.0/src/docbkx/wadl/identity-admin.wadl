@@ -19,9 +19,9 @@
     xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
     xmlns:wadl="http://wadl.dev.java.net/2009/02"
     xsi:schemaLocation="http://docs.openstack.org/identity/api/v2.0 ../xsd/api.xsd
-		http://docs.openstack.org/common/api/v1.0 ../xsd/api-common.xsd
-		http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd
-		">
+                http://docs.openstack.org/common/api/v1.0 ../xsd/api-common.xsd
+                http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd
+                ">
     <grammars>
         <include href="../xsd/api.xsd"/>
         <include href="../xsd/api-common.xsd"/>
@@ -278,7 +278,7 @@
         <wadl:doc xml:lang="EN" title="Authenticate for Admin API"
             xmlns="http://docbook.org/ns/docbook">
             <para role="shortdesc">Authenticates and generates a
-                token. </para>
+                token.</para>
             <para>Client authentication is provided through a ReST
                 interface by using the POST method with v2.0/tokens
                 supplied as the path. Include a payload of credentials
@@ -286,7 +286,7 @@
             <para>The Identity Service is a ReSTful web service. It is
                 the entry point to all service APIs. To access the
                 Identity Service, you must know the URL of the
-                Identity Service. </para>
+                Identity Service.</para>
             <para>Each ReST request against the Identity Service
                 requires the X-Auth-Token header. Clients obtain this
                 token, along with the URL to other service APIs, by
@@ -368,13 +368,13 @@
         <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Validate Token">
             <para role="shortdesc">
                 Validates a token and confirms that it belongs to a
-                specified tenant. </para>
+                specified tenant.</para>
             <para>Returns the
                 permissions relevant to a particular client. Valid
                 tokens are in the <code>/tokens/{tokenId}</code> path.
                 A user should expect an itemNotFound
                 (<code>404</code>) fault for an token that is not
-                valid. </para>
+                valid.</para>
         </wadl:doc>
         <response status="200 203">
             <representation mediaType="application/json">
@@ -400,13 +400,13 @@
         <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Check Token">
             <para role="shortdesc">
                 Validates a token and confirms that it belongs to a
-                specified tenant, for performance. </para>
+                specified tenant, for performance.</para>
         </wadl:doc>
         <response status="200 203"/> &commonFaults; &getFaults; </method>
     <method name="GET" id="listEndpointsForToken">
         <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List Endoints for Token">
             <para role="shortdesc">Lists the
-                endpoints associated with a specified token. </para>
+                endpoints associated with a specified token.</para>
         </wadl:doc>
         <response status="200 203">
             <representation mediaType="application/json">
@@ -433,7 +433,7 @@
     <method name="GET" id="getUserByName">
         <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Get User Information by Name">
             <para role="shortdesc">Gets detailed
-                information about a specified user by user name. </para>
+                information about a specified user by user name.</para>
         </wadl:doc>
         <!-- <request>
             <param name="name" style="query" type="xsd:string"
@@ -455,7 +455,7 @@
     <method name="GET" id="getUserById">
         <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Get User Information by ID">
             <para role="shortdesc">Gets detailed
-                information about a specified user by user ID. </para>
+                information about a specified user by user ID.</para>
         </wadl:doc>
         <response status="200 203">
             <representation mediaType="application/xml"
@@ -474,7 +474,7 @@
         <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List User Global Roles">
             <para role="shortdesc">
                 Lists global roles for a specified user. Excludes
-                tenant roles. </para>
+                tenant roles.</para>
         </wadl:doc>
         <response status="200 203">
             <representation mediaType="application/json">
@@ -534,7 +534,7 @@
         <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Get Tenant Information by Name">
             <para role="shortdesc">
                 Gets detailed information about a specified tenant by
-                name. </para>
+                name.</para>
         </wadl:doc>
         <request>
             <param name="name" style="query" type="xsd:string"
@@ -565,7 +565,7 @@
         <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Get Tenant Information by ID">
             <para role="shortdesc">
                 Gets detailed information about a specified tenant by
-                ID. </para>
+                ID.</para>
         </wadl:doc>
         <response status="200 203">
             <representation mediaType="application/json">
@@ -590,7 +590,7 @@
         <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List Roles for User">
             <para role="shortdesc"
                 >Lists roles for a specified user on a specified
-                tenant. Excludes global roles. </para>
+                tenant. Excludes global roles.</para>
         </wadl:doc>
         <response status="200 203">
             <representation mediaType="application/json">

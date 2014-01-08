@@ -8,7 +8,7 @@
     <title>API Operations</title>
     <para>These operations enable service developers to get and
         validate access tokens and manage users, tenants, roles, and
-        service endpoints. </para>
+        service endpoints.</para>
     <para>Most calls on the Admin API require authentication. The only
         calls available without authentication are the calls to
         discover the service (getting version info, WADL contract, dev
@@ -17,9 +17,9 @@
     <para>You perform authentication by passing a valid token in the
             <code>X-Auth-Token</code> header on the request from the
         client. The Identity Service verifies the token belongs to a user with the
-            <code>Admin</code> role. </para>
+            <code>Admin</code> role.</para>
     <para>For how to bootstrap the Identity Service and create your first
-        administrator, see the readme file and administrator guides. </para>
+        administrator, see the readme file and administrator guides.</para>
     <table rules="all">
         <caption>Authentication Header</caption>
         <thead>

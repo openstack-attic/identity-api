@@ -39,7 +39,7 @@
                 that use the OpenStack Identity Service API v2.0 for
                 authentication. This document also describes how to
                 integrate services with the OpenStack Identity Service
-                API v2.0. </para>
+                API v2.0.</para>
         </abstract>
         <revhistory>
             <revision>

@@ -93,10 +93,10 @@
             />
         </extension>
         <abstract>
-            <para> This document is intended for client developers
+            <para>This document is intended for client developers
                 interested in using the OS-KSVALIDATE Extension
                 (Service) along with the OpenStack Identity Service
-                    (<abbrev>API</abbrev>). </para>
+                    (<abbrev>API</abbrev>).</para>
         </abstract>
         <revhistory>
             <revision>
@@ -104,7 +104,7 @@
                 <revdescription>
                     <itemizedlist spacing="compact">
                         <listitem>
-                            <para> Initial release. </para>
+                            <para>Initial release.</para>
                         </listitem>
                     </itemizedlist>
                 </revdescription>
@@ -113,9 +113,9 @@
     </info>
     <chapter xml:id="chapter-0001">
         <title>Summary of Changes</title>
-        <para> OS-KSVALIDATE extension allows a Token to be optionally
+        <para>OS-KSVALIDATE extension allows a Token to be optionally
             encrypted and passed in the 'X-Subject-Token' header for
-            validation, rather than in the URI. </para>
+            validation, rather than in the URI.</para>
         <section xml:id="NewHeaders-0001">
             <title>New Headers</title>
             <para>None.</para>
@@ -139,9 +139,9 @@
                     v2.0 API</title>
                 <section xml:id="New-Elements-details-0002">
                     <title>New Elements</title>
-                    <para> This extension allows token validation and
+                    <para>This extension allows token validation and
                         endpoint retrieval without sending tokens in
-                        the URI. </para>
+                        the URI.</para>
                 </section>
                 <section xmlns="http://docbook.org/ns/docbook"
                     xmlns:xi="http://www.w3.org/2001/XInclude"

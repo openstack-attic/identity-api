@@ -5,7 +5,7 @@
     xml:id="Identity-Service-Concepts-e1362">
     <title>Identity Service Concepts</title>
     <para>The OpenStack Identity Service has the following key
-        concepts: </para>
+        concepts:</para>
     <table rules="all">
         <caption>Identity Service Concepts</caption>
         <thead>
@@ -21,7 +21,7 @@
                         uses OpenStack cloud services. OpenStack
                         Identity authentication services validate that
                         an incoming request is being made by the user
-                        who claims to be making the call. </para>
+                        who claims to be making the call.</para>
                     <para>Users have a login and may be assigned
                         tokens to access resources. Users may be
                         directly assigned to a particular tenant and
@@ -33,7 +33,7 @@
                 <td>
                     <para>Data that belongs to, is owned by, and
                         generally only known by a user that the user
-                        can present to prove their identity. </para>
+                        can present to prove their identity.</para>
                     <para>Examples include: <itemizedlist>
                             <listitem>
                                 <para>A matching username and
@@ -59,7 +59,7 @@
                         Identity Service confirms that an incoming
                         request is being made by the user who claims
                         to be making the call by validating a set of
-                        claims that the user is making. </para>
+                        claims that the user is making.</para>
                     <para>These claims are initially in the form of a
                         set of credentials (username &amp; password,
                         or username and API key). After initial
@@ -67,7 +67,7 @@
                         issues the user a token, which the user can
                         then provide to demonstrate that their
                         identity has been authenticated when making
-                        subsequent requests. </para>
+                        subsequent requests.</para>
                 </td>
             </tr>
             <tr>
@@ -77,14 +77,14 @@
                         access resources. Each token has a scope that
                         describes which resources are accessible with
                         it. A token may be revoked at anytime and is
-                        valid for a finite duration. </para>
+                        valid for a finite duration.</para>
                     <para>While OpenStack Identity Service supports
                         token-based authentication in this release,
                         the intention is for it to support additional
                         protocols in the future. The intent is for it
                         to be an integration service foremost, and not
                         aspire to be a full-fledged identity store
-                        and management solution. </para>
+                        and management solution.</para>
                 </td>
             </tr>
             <tr>
@@ -104,7 +104,7 @@
                         (Nova), Object Storage (Swift), or Image
                         Service (Glance). A service provides one or
                         more endpoints through which users can access
-                        resources and perform operations. </para>
+                        resources and perform operations.</para>
                 </td>
             </tr>
             <tr>
@@ -116,7 +116,7 @@
                         you can create an endpoint template, which
                         represents the templates of all the consumable
                         services that are available across the
-                        regions. </para>
+                        regions.</para>
                 </td>
             </tr>
             <tr>
@@ -126,14 +126,14 @@
                         performing a specific set of operations. A
                         role includes a set of rights and privileges. A
                         user assuming that role inherits those rights
-                        and privileges. </para>
+                        and privileges.</para>
                     <para>In OpenStack Identity Service, a token that
                         is issued to a user includes the list of roles
                         that user can assume. Services that are being
                         called by that user determine how they
                         interpret the set of roles a user has and to
                         which operations or resources each role grants
-                        access. </para>
+                        access.</para>
                     <para>It is up to individual services such as the Compute service and Image
                         service to assign meaning to these roles. As far as the Identity service is
                         concerned, a role is an arbitrary name assigned by the user.</para>

@@ -20,7 +20,7 @@
     <title>Administrative API Operations</title>
     <para>The OpenStack Identity Service administrative API operations
         enable service developers to get and validate access tokens,
-        manage users, tenants, roles, and service endpoints. </para>
+        manage users, tenants, roles, and service endpoints.</para>
     <para>Most administrative API calls require authentication. The
         only calls available without authentication are the calls to
         discover the service &ndash; getting version info, WADL
@@ -29,10 +29,10 @@
     <para>Authentication is performed by passing in a valid token in
         the <code>X-Auth-Token</code> header on the request from the
         client. The Identity Service will verify the token has (or
-        belongs to a user that has) the <code>Admin</code> role. </para>
+        belongs to a user that has) the <code>Admin</code> role.</para>
     <para>See the README file or administrator guides for how to
         bootstrap the Identity Service and create your first
-        administrator. </para>
+        administrator.</para>
     <table rules="all">
         <caption>Authentication Header</caption>
         <thead>

@@ -95,10 +95,10 @@
             />
         </extension>
         <abstract>
-            <para> This document is intended for client developers
+            <para>This document is intended for client developers
                 interested in using the OS-KSS3 Extension (Admin)
                 along with the OpenStack Identity Service
-                    (<abbrev>API</abbrev>). </para>
+                    (<abbrev>API</abbrev>).</para>
         </abstract>
         <revhistory>
             <revision>
@@ -106,7 +106,7 @@
                 <revdescription>
                     <itemizedlist spacing="compact">
                         <listitem>
-                            <para> Initial release. </para>
+                            <para>Initial release.</para>
                         </listitem>
                     </itemizedlist>
                 </revdescription>
@@ -115,8 +115,8 @@
     </info>
     <chapter xml:id="chapter-0001">
         <title>Summary of Changes</title>
-        <para> The OS-KSS3 Extension allows crud/listing operations on
-                <parameter>s3Credentials</parameter>. </para>
+        <para>The OS-KSS3 Extension allows crud/listing operations on
+                <parameter>s3Credentials</parameter>.</para>
         <section xml:id="NewHeaders-0001">
             <title>New Headers</title>
             <para>None.</para>
@@ -143,7 +143,7 @@
                     are additional type of credentials defined to
                     support Amazon's S3 style Authentication. Examples
                     of <parameter>s3Credentials</parameter> are
-                    illustrated below. </para>
+                    illustrated below.</para>
                 <example>
                     <title>s3Credentials XML</title>
                     <programlisting language="xml"><xi:include href="&S3CREDENTIALSREQUESTXML;" parse="text"/></programlisting>
@@ -158,9 +158,9 @@
             <title>OS-KSS3 Admin Extension</title>
             <section xml:id="New-Elements-details-0002">
                 <title>New Elements</title>
-                <para> This extension allows token validation and
+                <para>This extension allows token validation and
                     endpoint retrieval without sending tokens in the
-                    URI. </para>
+                    URI.</para>
             </section>
             <section xmlns="http://docbook.org/ns/docbook"
                 xmlns:xi="http://www.w3.org/2001/XInclude"

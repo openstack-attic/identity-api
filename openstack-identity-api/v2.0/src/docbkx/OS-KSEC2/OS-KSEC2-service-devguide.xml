@@ -74,10 +74,10 @@
             </annotation>
         </legalnotice>
         <abstract>
-            <para> This document is intended for client developers
+            <para>This document is intended for client developers
                 interested in using the OpenStack EC2 Authentication
                 Service Extension along with the Keystone - OpenStack
-                Identity (<abbrev>API</abbrev>). </para>
+                Identity (<abbrev>API</abbrev>).</para>
         </abstract>
         <extension xmlns="http://docs.openstack.org/common/api/v1.0"
             xmlns:atom="http://www.w3.org/2005/Atom"
@@ -101,7 +101,7 @@
                 <revdescription>
                     <itemizedlist spacing="compact">
                         <listitem>
-                            <para> Initial release. </para>
+                            <para>Initial release.</para>
                         </listitem>
                     </itemizedlist>
                 </revdescription>
@@ -110,8 +110,8 @@
     </info>
     <chapter xml:id="chapter-0001">
         <title>Summary of Changes</title>
-        <para> The OpenStack EC2 authentication Service Extension
-            allows authenticate call using ec2Credentials. </para>
+        <para>The OpenStack EC2 authentication Service Extension
+            allows authenticate call using ec2Credentials.</para>
         <section xml:id="NewHeaders-0001">
             <title>New Headers</title>
             <para>None.</para>
@@ -160,15 +160,15 @@
                         authenticating against the Identity Service
                         and supplying valid credentials. This
                         extension provides support for Rackspace style
-                        API key credentials. </para>
-                    <para> Client authentication is provided via a
+                        API key credentials.</para>
+                    <para>Client authentication is provided via a
                         ReST interface using the POST method, with
                         v2.0/tokens supplied as the path. A payload of
-                        credentials must be included in the body. </para>
-                    <para> The Identity Service is a ReSTful web
+                        credentials must be included in the body.</para>
+                    <para>The Identity Service is a ReSTful web
                         service. It is the entry point to all service
                         APIs. To access the Identity Service, you must
-                        know the URL of the Identity Service. </para>
+                        know the URL of the Identity Service.</para>
                     <example>
                         <title>XML Auth Request using
                             EC2CREDENTIALS</title>

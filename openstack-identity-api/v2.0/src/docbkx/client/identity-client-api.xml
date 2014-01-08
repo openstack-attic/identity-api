@@ -5,7 +5,7 @@
     <para>These operations enable clients to get API version and
         extension information, get authentication tokens, and list
         tenants.</para>
-    <wadl:resources 
+    <wadl:resources
         xmlns:wadl="http://wadl.dev.java.net/2009/02">
         <wadl:resource href="../wadl/identity.wadl#extensions"
             xmlns:wadl="http://wadl.dev.java.net/2009/02"/>

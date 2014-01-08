@@ -103,10 +103,10 @@
             />
         </extension>
         <abstract>
-            <para> This document is intended for client developers
+            <para>This document is intended for client developers
                 interested in using the Rackspace Identity Service
                 Group Extension (Service) along with the OpenStack
-                Identity Service (<abbrev>API</abbrev>). </para>
+                Identity Service (<abbrev>API</abbrev>).</para>
         </abstract>
         <revhistory>
             <revision>
@@ -114,7 +114,7 @@
                 <revdescription>
                     <itemizedlist spacing="compact">
                         <listitem>
-                            <para> Initial release. </para>
+                            <para>Initial release.</para>
                         </listitem>
                     </itemizedlist>
                 </revdescription>
@@ -123,9 +123,9 @@
     </info>
     <chapter xml:id="chapter-0001">
         <title>Summary of Changes</title>
-        <para> Rackspace extensions to Identity Service v2.0 API
+        <para>Rackspace extensions to Identity Service v2.0 API
             allows authenticate call to also return information about
-            group memberships of the user. </para>
+            group memberships of the user.</para>
         <section xml:id="NewHeaders-0001">
             <title>New Headers</title>
             <para>None.</para>
@@ -149,11 +149,11 @@
                     API enabling groups.</title>
                 <section xml:id="New-Elements-details-0002">
                     <title>New Elements</title>
-                    <para> This extension starts returning groups as a
+                    <para>This extension starts returning groups as a
                         part of response when an authenticate call is
                         made. The samples of new elements that are
                         defined as a part of this extension are listed
-                        below. </para>
+                        below.</para>
                     <example>
                         <title>Groups Sample XML</title>
                         <programlisting language="xml"><xi:include href="&GROUPSXML;" parse="text"/></programlisting>

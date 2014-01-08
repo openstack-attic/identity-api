@@ -72,7 +72,7 @@
             </annotation>
         </legalnotice>
         <abstract>
-            <para> This document is intended for client developers
+            <para>This document is intended for client developers
                 interested in using the Rackspace API Key
                 Authentication Service Extension along with the
                 OpenStack Identity Service (<abbrev>API</abbrev>).
@@ -103,7 +103,7 @@
                 <revdescription>
                     <itemizedlist spacing="compact">
                         <listitem>
-                            <para> Initial release. </para>
+                            <para>Initial release.</para>
                         </listitem>
                     </itemizedlist>
                 </revdescription>
@@ -114,7 +114,7 @@
         <title>Summary of Changes</title>
         <para>The Rackspace API Key Authentication Service Extension
             allows authenticate call to happen using
-            apikeyCredentials. </para>
+            apikeyCredentials.</para>
         <section xml:id="NewHeaders-0001">
             <title>New Headers</title>
             <para>None.</para>
@@ -170,15 +170,15 @@
                         authenticating against the OpenStack Identity Service
                         and supplying valid credentials. This
                         extension provides support for Rackspace style
-                        API Key credentials. </para>
+                        API Key credentials.</para>
                     <para>Client authentication is provided through a
                         ReST interface using the POST method, with
                         v2.0/tokens supplied as the path. A payload of
-                        credentials must be included in the body. See <xref linkend="Service_API_Client_Operations"/>. </para>
-                    <para> The Identity Service is a ReSTful web
+                        credentials must be included in the body. See <xref linkend="Service_API_Client_Operations"/>.</para>
+                    <para>The Identity Service is a ReSTful web
                         service. It is the entry point to all service
                         APIs. To access the Identity Service, you must
-                        know the URL of the Identity Service. </para>
+                        know the URL of the Identity Service.</para>
                     <example>
                         <title>Auth with apikeyCredentials: JSON Request</title>
                         <programlisting language="json"><xi:include href="&APIKEYCREDENTIALSREQUESTJSON;" parse="text"/></programlisting>

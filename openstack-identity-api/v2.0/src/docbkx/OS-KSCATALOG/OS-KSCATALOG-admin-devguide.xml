@@ -87,7 +87,7 @@ format="SVG" scale="60"/>
                                 href="https://github.com/openstack/keystone/raw/master/keystone/content/admin/OS-KSCATALOG-admin.wadl"/>
         </extension>
         <abstract>
-            <para>This document includes details on various operations supported by the OS-KSCATALOG extensions on top of core OpenStack Identity Service operations. </para>
+            <para>This document includes details on various operations supported by the OS-KSCATALOG extensions on top of core OpenStack Identity Service operations.</para>
         </abstract>
         <revhistory>
             <revision>

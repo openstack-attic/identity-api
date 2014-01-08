@@ -44,7 +44,7 @@ This operation does not require a request body.</para>'>
     xml:id="Overview-Identity-Service-API-d1e62">
 
     <title>General API Information</title>
-    
+
     <para>The OpenStack Identity Service API is implemented using a
         RESTful web service interface. All requests to authenticate
         and operate against the OpenStack Identity Service API should
@@ -137,7 +137,7 @@ This operation does not require a request body.</para>'>
     </section>
     <section xml:id="Paginated_Collections-d1e325">
         <title>Paginated Collections</title>
-        <para> To reduce load on the service, list operations will
+        <para>To reduce load on the service, list operations will
             return a maximum number of items at a time. The maximum
             number of items returned is determined by the Identity
             provider. To navigate the collection, the parameters
@@ -156,12 +156,12 @@ This operation does not require a request body.</para>'>
             marker with an invalid ID will return an itemNotFound
                 (<errorcode>404</errorcode>) fault.</para>
         <note>
-            <para> Paginated collections never return itemNotFound
+            <para>Paginated collections never return itemNotFound
                     (<errorcode>404</errorcode>) faults when the
                 collection is empty &mdash; clients should expect an
                 empty collection.</para>
         </note>
-        <para> For convenience, collections contain atom "next" and
+        <para>For convenience, collections contain atom "next" and
             "previous" links. The first page in the list will not
             contain a "previous" link, the last page in the list will
             not contain a "next" link. The following examples
@@ -198,7 +198,7 @@ This operation does not require a request body.</para>'>
             <title>Tenant Collection, Last Page: JSON</title>
             <programlisting language="json"><xi:include href="../samples/tenants-3.json" parse="text"/></programlisting>
         </example>
-        <para> In the JSON representation, paginated collections
+        <para>In the JSON representation, paginated collections
             contain a <property>values</property> property that
             contains the items in the collections. Links are accessed
             via the <property>links</property> property. The approach
@@ -219,7 +219,7 @@ This operation does not require a request body.</para>'>
     </section>
     <section xml:id="Versions-d1e472">
         <title>Versions</title>
-        <para> The OpenStack Identity API uses both a URI and a MIME
+        <para>The OpenStack Identity API uses both a URI and a MIME
             type versioning scheme. In the URI scheme, the first
             element of the path contains the target version identifier
             (for example, https://identity.api.openstack.org/ v2.0/&hellip;).
@@ -251,13 +251,13 @@ X-Auth-Token: eaaafd18-0fed-4b3a-81b4-663c99ec1cbb
             </literallayout>
         </example>
         <note>
-            <para> The MIME type versioning approach allows for the
+            <para>The MIME type versioning approach allows for the
                 creating of permanent links, because the version
                 scheme is not specified in the URI path:
                 https://api.identity.openstack.org/tenants/12234.
            </para>
         </note>
-        <para> If a request is made without a version specified in the
+        <para>If a request is made without a version specified in the
             URI or via HTTP headers, then a multiple-choices response
                 (<returnvalue>300</returnvalue>) will follow providing
             links and MIME types to available versions.</para>
@@ -269,7 +269,7 @@ X-Auth-Token: eaaafd18-0fed-4b3a-81b4-663c99ec1cbb
             <title>Multiple Choices Response: JSON</title>
             <programlisting language="json"><xi:include href="../samples/choices.json" parse="text"/></programlisting>
         </example>
-        <para> New features and functionality that do not break
+        <para>New features and functionality that do not break
             API-compatibility will be introduced in the current
             version of the API as extensions (see below) and the URI
             and MIME types will remain unchanged. Features or
@@ -281,7 +281,7 @@ X-Auth-Token: eaaafd18-0fed-4b3a-81b4-663c99ec1cbb
             Providers should work with developers and partners to
             ensure there is adequate time to migrate to the new
             version before deprecated versions are discontinued.</para>
-        <para> Your application can programmatically determine
+        <para>Your application can programmatically determine
             available API versions by performing a &GET; on the root
             URL (such as, with the version and everything to the right
             of it truncated) returned from the authentication system.
@@ -316,7 +316,7 @@ Host: identity.api.openstack.org
             <title>Versions List Response: JSON</title>
             <programlisting language="json"><xi:include href="../samples/versions.json" parse="text"/></programlisting>
         </example>
-        <para> You can also obtain additional information about a
+        <para>You can also obtain additional information about a
             specific version by performing a &GET; on the base version
             URL (for example, https://identity.api.openstack.org/v1.1/).
             Version request URLs should always end with a trailing
@@ -352,7 +352,7 @@ Host: identity.api.openstack.org/v1.1/
             <title>Version Details Response: JSON</title>
             <programlisting language="json"><xi:include href="../samples/version.json" parse="text"/></programlisting>
         </example>
-        <para> The detailed version response contains pointers to both
+        <para>The detailed version response contains pointers to both
             a human-readable and a machine-processable description of
             the API service. The machine-processable description is
             written in the Web Application Description Language
@@ -366,7 +366,7 @@ Host: identity.api.openstack.org/v1.1/
     </section>
     <section xml:id="Extensions-d1e688">
         <title>Extensions</title>
-        <para> The OpenStack Identity API is extensible. Extensions
+        <para>The OpenStack Identity API is extensible. Extensions
             serve two purposes: They allow the introduction of new
             features in the API without requiring a version change and
             they allow the introduction of vendor specific niche
@@ -398,7 +398,7 @@ Host: identity.api.openstack.org/v1.1/
             (<errorcode>400</errorcode>), identityFault
                 (<errorcode>500</errorcode>),
                 serviceUnavailable(<errorcode>503</errorcode>)</simpara>
-        &NO_REQUEST; <para> Each extension is identified by two unique
+        &NO_REQUEST; <para>Each extension is identified by two unique
             identifiers, a <property>namespace</property> and an
                 <property>alias</property>. Additionally an extension
             contains documentation links in various formats.</para>
@@ -410,7 +410,7 @@ Host: identity.api.openstack.org/v1.1/
             <title>Extensions Response: JSON</title>
             <programlisting language="json"><xi:include href="../samples/extensions.json" parse="text"/></programlisting>
         </example>
-        <para> Extensions may also be queried individually by their
+        <para>Extensions may also be queried individually by their
             unique alias. This provides the simplest method of
             checking if an extension is available as an unavailable
             extension will issue an itemNotFound
@@ -506,7 +506,7 @@ Host: identity.api.openstack.org/v1.1/
             <title>JSON Not Found Fault</title>
             <programlisting language="json"><xi:include href="../samples/item_not_found.json" parse="text"/></programlisting>
         </example>
-        <para> The following list shows the possible fault types 
+        <para>The following list shows the possible fault types
             with associated error codes.</para>
         <table rules="all">
             <caption>Fault Types</caption>
