@@ -1030,7 +1030,7 @@ Optional attributes:
             }
 
       the ``fingerprint`` is the hash of the client certificate to be validated in
-      the specified algorithm. It should be the hex form without seperating spaces
+      the specified algorithm. It should be the hex form without separating spaces
       or colons. The only supported ``algorithm`` is currently ``sha1``.
 
 
