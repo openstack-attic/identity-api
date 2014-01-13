@@ -21,9 +21,9 @@
 
 
     <complexType name="LinksType" >
-	<sequence>
-	      <element ref="atom:link" minOccurs="0" maxOccurs="unbounded"  />
-	</sequence>
+        <sequence>
+              <element ref="atom:link" minOccurs="0" maxOccurs="unbounded"  />
+        </sequence>
     </complexType>
 
     <element  name="links"  type="identity:LinksType" />
