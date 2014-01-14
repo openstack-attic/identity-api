@@ -34,7 +34,7 @@ Delegated Authentication via OAuth is done in five steps:
 2. The Consumer [obtains an unauthorized Request
    Token](#create-request-token-post-os-oauth1request_token).
 3. The User [authorizes the Request
-   Token](#authorize-request-token-put-os-oauth1authorizerequest_token_key).
+   Token](#authorize-request-token-put-os-oauth1authorizerequest_token_id).
 4. The Consumer [exchanges the Request Token for an Access
    Token](#create-access-token-post-os-oauth1access_token).
 5. The Consumer [uses the Access Token to request a Identity API service
