@@ -103,7 +103,7 @@
                     access to </p>
                 <div class="design">
                     <p> We left the design as a flat list of endpoints
-                    with attributes that consumers can categorize, 
+                    with attributes that consumers can categorize,
                     according to their needs.</p>
                 </div>
             </xsd:documentation>
