@@ -1,0 +1,10 @@
+Verified+2: Jenkins
+Code-Review+1: Brad Topol <btopol@us.ibm.com>
+Approved+1: Steve Martinelli <stevemar@ca.ibm.com>
+Code-Review+2: Steve Martinelli <stevemar@ca.ibm.com>
+Code-Review+2: David Stanek <dstanek@dstanek.com>
+Submitted-by: Jenkins
+Submitted-at: Wed, 15 Jan 2014 16:27:35 +0000
+Reviewed-on: https://review.openstack.org/59546
+Project: openstack/identity-api
+Branch: refs/heads/master
