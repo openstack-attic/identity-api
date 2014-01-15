@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Approved+1: Dolph Mathews <dolph.mathews@gmail.com>
+Code-Review+2: Dolph Mathews <dolph.mathews@gmail.com>
+Code-Review+2: guang-yee <guang.yee@hp.com>
+Submitted-by: Jenkins
+Submitted-at: Wed, 15 Jan 2014 14:08:31 +0000
+Reviewed-on: https://review.openstack.org/66721
+Project: openstack/identity-api
+Branch: refs/heads/master
