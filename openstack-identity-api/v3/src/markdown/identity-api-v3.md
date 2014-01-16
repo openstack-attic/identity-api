@@ -19,6 +19,9 @@ These features are not yet considered stable (expected January 2014).
 - Introduced a region resource for constructing a hierarchical container
   of groups of service endpoints
 - Inexact filtering is supported on string attributes
+- Listing collections may indicate only a subset of the data has been provided
+  if a particular deployment has limited the number of entries a query may
+  return
 
 What's New in Version 3.1
 -------------------------
@@ -448,6 +451,15 @@ operations.
 #### 201 Created
 
 This status code is returned in response to successful `POST` operations.
+
+#### 203 Subset
+
+This status code is returned in response to a `GET` operation used in listing
+collections to indicte that the number of rows in the response represents only
+a subset of the total number, due to the number of entries returned being
+limited by a given deployment. The most likely action a caller would take upon
+receiving this status code would be to re-issue the operation with a more
+restrictive filter to reduce the number of entries matching the query.
 
 #### 204 No Content
 
