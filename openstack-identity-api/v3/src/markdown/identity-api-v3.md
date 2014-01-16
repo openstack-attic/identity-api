@@ -19,6 +19,9 @@ These features are not yet considered stable (expected January 2014).
 - Introduced a region resource for constructing a hierarchical container
   of groups of service endpoints
 - Inexact filtering is supported on string attributes
+- Listing collections may indicate only a subset of the data has been provided
+  if a particular deployment has limited the number of entries a query may
+  return
 
 What's New in Version 3.1
 -------------------------
@@ -176,6 +179,20 @@ For members:
 
     A self-relational link provided as an absolute URL. This attribute is
     provided by the identity service implementation.
+
+### Optional Attributes
+
+For collections:
+
+  - `truncated` (boolean)
+
+    In the case where a particular implementation has restricted the
+    number of entries that can be returned in a collection and not all
+    entries could be included, the list call will return a status code of
+    200 (OK), with `truncated` set to `true`. If this attribute is not present
+    (or is set to `false`) then the list represents the complete collection,
+    unless either the `next` or `previous` links are not `null`, in which case
+    the list represents a page within the complete collection.
 
 ### CRUD Operations
 
