@@ -1,5 +1,5 @@
-Identiy Service API
-+++++++++++++++++++
+Identity Service API
+++++++++++++++++++++
 
 This repository contains the RESTful API information for the OpenStack
 Identity Service, also known as the Keystone project. The Keystone
