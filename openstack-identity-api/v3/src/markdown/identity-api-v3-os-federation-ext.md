@@ -28,11 +28,10 @@ An Identity Provider is a third party service that is trusted by the Identity
 Service to authenticate identities. For OpenStack, the ID of the identity
 provider is the key.
 
-Attributes:
+Optional attributes:
 
 - `description` (string)
 - `enabled` (boolean)
-- `name` (string)
 
 ### Protocols: `/OS-FEDERATION/identity_providers/{idp_id}/protocols`
 
@@ -40,7 +39,7 @@ A protocol entry contains information that dictates which mapping rules
 to use for a given incoming request. An IdP may have multiple supported
 protocols.
 
-Attributes:
+Required attributes:
 
 - `mapping_id` (string)
 
@@ -128,18 +127,16 @@ Attributes:
 Identity Provider API
 ---------------------
 
-### Register an Identity Provider: `POST /OS-FEDERATION/identity_providers`
+### Register an Identity Provider: `PUT /OS-FEDERATION/identity_providers/{idp_id}`
 
 Request:
 
     {
         "identity_provider": {
             "description": "Stores ACME identities.",
-            "enabled": true,
-            "name": "acme_idp"
+            "enabled": true
         }
     }
-
 
 Response:
 
@@ -149,12 +146,11 @@ Response:
         "identity_provider": {
             "description": "Stores ACME identities",
             "enabled": true,
-            "id": "7fea2d",
+            "id": "ACME",
             "links": {
-                "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d/protocols",
-                "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d"
-            },
-            "name": "acme_idp"
+                "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME/protocols",
+                "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME"
+            }
         }
     }
 
@@ -169,22 +165,20 @@ Response:
             {
                 "description": "Stores ACME identities",
                 "enabled": true,
-                "id": "0c2a74",
+                "id": "ACME",
                 "links": {
-                    "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/0c2a74/protocols",
-                    "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/0c2a74"
-                },
-                "name": "acme_idp"
+                    "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME/protocols",
+                    "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME"
+                }
             },
             {
                 "description": "Stores contractor identities",
                 "enabled": false,
-                "id": "7fea2d",
+                "id": "ACME-contractors",
                 "links": {
-                    "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d/protocols",
-                    "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d"
-                },
-                "name": "beta_idp"
+                    "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME-contractors/protocols",
+                    "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME-contractors"
+                }
             }
         ],
         "links": {
@@ -204,12 +198,11 @@ Response:
         "identity_provider": {
             "description": "Stores ACME identities",
             "enabled": false,
-            "id": "7fea2d",
+            "id": "ACME",
             "links": {
-                "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d/protocols",
-                "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d"
-            },
-            "name": "beta_idp"
+                "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME/protocols",
+                "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME"
+            }
         }
     }
 
@@ -240,12 +233,11 @@ Response:
         "identity_provider": {
             "description": "Beta dev idp",
             "enabled": true,
-            "id": "7fea2d",
+            "id": "ACME",
             "links": {
-                "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d/protocols",
-                "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d"
-            },
-            "name": "beta_idp"
+                "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME/protocols",
+                "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME"
+            }
         }
     }
 
@@ -271,8 +263,8 @@ Response:
             "id": "saml2",
             "mapping_id": "xyz234",
             "links": {
-                "identity_provider": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d",
-                "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d/protocols/saml2"
+                "identity_provider": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME",
+                "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME/protocols/saml2"
             }
         }
     }
@@ -287,14 +279,14 @@ Response:
         "links": {
             "next": null,
             "previous": null,
-            "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d/protocols"
+            "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME/protocols"
         },
         "protocols": [
             {
                 "id": "saml2",
                 "links": {
-                    "identity_provider": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d",
-                    "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d/protocols/saml2"
+                    "identity_provider": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME",
+                    "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME/protocols/saml2"
                 },
                 "mapping_id": "xyz234"
             }
@@ -312,8 +304,8 @@ Response:
             "id": "saml2",
             "mapping_id": "xyz234",
             "links": {
-                "identity_provider": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d",
-                "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d/protocols/saml2"
+                "identity_provider": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME",
+                "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME/protocols/saml2"
             }
         }
     }
@@ -337,8 +329,8 @@ Response:
             "id": "saml2",
             "mapping_id": "xyz234",
             "links": {
-                "identity_provider": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d",
-                "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/7fea2d/protocols/saml2"
+                "identity_provider": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME",
+                "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME/protocols/saml2"
             }
         }
     }
@@ -386,10 +378,10 @@ Response:
 
     {
         "links": {
-            "self": "http://identity:35357/v3/OS-FEDERATION/mappings/7fea2d"
+            "self": "http://identity:35357/v3/OS-FEDERATION/mappings/ACME"
         },
         "mapping": {
-            "id": "7fea2d",
+            "id": "ACME",
             "name": "ACME's SAML v2 mapping",
             "rules": [
                 {
@@ -420,10 +412,10 @@ Response:
 
     {
         "links": {
-            "self": "http://identity:35357/v3/OS-FEDERATION/mappings/7fea2d"
+            "self": "http://identity:35357/v3/OS-FEDERATION/mappings/ACME"
         },
         "mapping": {
-            "id": "7fea2d",
+            "id": "ACME",
             "name": "ACME's SAML v2 mapping",
             "rules": [
                 {
@@ -480,10 +472,10 @@ Response:
 
     {
         "links": {
-            "self": "http://identity:35357/v3/OS-FEDERATION/mappings/7fea2d"
+            "self": "http://identity:35357/v3/OS-FEDERATION/mappings/ACME"
         },
         "mapping": {
-            "id": "7fea2d",
+            "id": "ACME",
             "name": "ACME's SAML v2 mapping",
             "rules": [
                 {
@@ -520,7 +512,7 @@ Response:
         },
         "mappings": [
             {
-                "id": "7fea2d",
+                "id": "ACME",
                 "name": "ACME's SAML v2 mapping",
                 "rules": [
                     {
