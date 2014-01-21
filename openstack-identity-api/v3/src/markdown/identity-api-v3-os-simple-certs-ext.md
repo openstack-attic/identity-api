@@ -150,3 +150,22 @@ certificates.
     /0O4YANlKZhFqNpio75mv1loLFA93jbpdYrTaaJ0PIDB/s9TT0Yo/vmwqWrbKjCa
     57XAzAvWObhr7g==
     -----END CERTIFICATE-----
+
+
+### HTTP Status Codes
+
+The following codes are used to indicate success of failure conditions.
+
+#### 200 OK
+
+Certificates are successfully found and returned.
+
+#### 204 No Content
+
+There are no certificates to be returned.
+This will typically indicate that keystone is using UUID tokens and therefore there are no certificates available.
+
+#### 500 Internal Server Error
+
+An Error was produced on the server.
+A typical example is that the server is configured to use PKI tokens but is misconfigured and the certificates were unable to be found.
