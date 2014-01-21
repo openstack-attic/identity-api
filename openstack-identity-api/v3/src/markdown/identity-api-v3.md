@@ -9,15 +9,22 @@ The Identity API also provides endpoint discovery through a service catalog,
 identity management, project management, and a centralized repository for
 policy engine rule sets.
 
+What's New in Version 3.3
+-------------------------
+
+These features are not yet considered stable (expected July 2014).
+
+- (none, yet)
+
 What's New in Version 3.2
 -------------------------
 
-These features are not yet considered stable (expected January 2014).
+These features are considered stable as of January 23, 2014.
 
 - Introduced a mechanism to opt-out from catalog information during token
-  validation.
-- Introduced a region resource for constructing a hierarchical container
-  of groups of service endpoints
+  validation
+- Introduced a region resource for constructing a hierarchical container of
+  groups of service endpoints
 - Inexact filtering is supported on string attributes
 
 What's New in Version 3.1
@@ -27,12 +34,12 @@ These features are considered stable as of July 18, 2013.
 
 - A token without an explicit scope of authorization is issued if the user
   does not specify a project and does not have authorization on the project
-  specified by their default project attribute.
+  specified by their default project attribute
 - Introduced a generalized call for getting role assignments, with filtering
-  for user, group, project, domain and role.
+  for user, group, project, domain and role
 - Introduced a mechanism to opt-out from catalog information during token
   creation
-- Added optional bind information to token structure.
+- Added optional bind information to token structure
 
 What's New in Version 3.0
 -------------------------
