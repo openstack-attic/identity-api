@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Code-Review+2: Dolph Mathews <dolph.mathews@gmail.com>
+Approved+1: Brant Knudson <bknudson@us.ibm.com>
+Code-Review+2: Brant Knudson <bknudson@us.ibm.com>
+Submitted-by: Jenkins
+Submitted-at: Wed, 22 Jan 2014 15:13:08 +0000
+Reviewed-on: https://review.openstack.org/67256
+Project: openstack/identity-api
+Branch: refs/heads/master
