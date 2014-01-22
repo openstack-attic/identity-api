@@ -60,8 +60,8 @@ Required attributes:
 ### Mappings: `/OS-FEDERATION/mappings`
 
 A `mapping` is a set of rules to map federation protocol attributes to Identity
-API objects. An Identity Provider can have a single `mapping` specified. A
-mapping has a `name` and a list of `rules`. The only Identity API objects
+API objects. An Identity Provider can have a single `mapping` specified per
+protocol. A mapping is simply a list of `rules`. The only Identity API objects
 that will support mapping are: `group`.
 
 Required attributes::
