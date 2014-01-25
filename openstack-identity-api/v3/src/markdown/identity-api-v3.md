@@ -285,6 +285,47 @@ plural form of the resource name (identical to that found in the resource URL):
         }
     }
 
+#### Filter discovery on list APIs
+
+Keystone list APIs supports additional path parameter called `filters`, request
+with this parameter should return JSON response with list of supported filters:
+
+    GET /entities/filters
+
+The response will provide all support filters with meta-data about the filter:
+
+    {
+       "filters": [
+          {
+             "name": string,
+             "possible_values": [
+                "value1",
+                "value2"
+             ],
+             "type": "pick-list"
+          }
+       ],
+        "links": {
+                "self": "http://identity:35357/v3/entities/filters"
+            }
+    }
+
+Following are the explanation of response collection
+
+- `name`
+
+    Name of the filter.
+
+- `type`
+
+    It represents the data type for the filter value. Supported options 
+    are `string, integer, boolean or pick-list`.
+
+- `possible_values`
+
+   Used in conjunction when `type` is `pick-list`, to display a fixed
+   set of variables that can be used to filter.
+
 ##### List Entities filtered by attribute
 
 Beyond each resource's canonically unique identifier (the `id` attribute), not
@@ -2199,7 +2240,7 @@ Groups & Projects), as well as any Credentials and Role grants that
 relate to these entities.
 
 In order to minimize the risk of an inadvertent deletion of a
-domain and its entities, a domain must first be disabled (using the
+    domain and its entities, a domain must first be disabled (using the
 update domain API) before a successful delete domain API call can
 be made. Attempting to delete an enabled domain will result in an
 HTTP 403 Forbidden response.
