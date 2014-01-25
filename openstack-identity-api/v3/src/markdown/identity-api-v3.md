@@ -14,7 +14,8 @@ What's New in Version 3.3
 
 These features are not yet considered stable (expected July 2014).
 
-- (none, yet)
+- Introduced a mechanism for querying filters on list APIs, which will help
+  `Identity` API clients to easily discover supported filters.
 
 What's New in Version 3.2
 -------------------------
@@ -284,6 +285,52 @@ plural form of the resource name (identical to that found in the resource URL):
             "previous": url
         }
     }
+
+#### List supported Filters
+
+*New in version 3.3*
+
+Request the supported filters on list APIs:
+
+    GET /entities/filters
+
+The response will provide all supported filters on a list API:
+
+    200 OK
+
+    {
+       "filters": [
+          {
+             "name": string,
+             "possible_values": [
+                "value1",
+                "value2"
+             ],
+             "type": "pick-list"
+          }
+       ],
+        "links": {
+                "self": "http://identity:35357/v3/entities/filters",
+                "previous": null,
+                "next": null
+            }
+    }
+
+Explanation of response collection is given below:
+
+- `name`
+
+    Name of the filter key.
+
+- `type`
+
+    It represents the data type for the filter value. Supported options
+    are `string`, `integer`, `boolean` or `pick-list`.
+
+- `possible_values`
+
+   Used in conjunction when `type` is `pick-list`, to display a fixed
+   set of variables that can be used to filter.
 
 ##### List Entities filtered by attribute
 
@@ -2199,7 +2246,7 @@ Groups & Projects), as well as any Credentials and Role grants that
 relate to these entities.
 
 In order to minimize the risk of an inadvertent deletion of a
-domain and its entities, a domain must first be disabled (using the
+    domain and its entities, a domain must first be disabled (using the
 update domain API) before a successful delete domain API call can
 be made. Attempting to delete an enabled domain will result in an
 HTTP 403 Forbidden response.
