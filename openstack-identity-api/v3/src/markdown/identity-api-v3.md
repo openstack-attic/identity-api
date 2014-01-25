@@ -278,6 +278,48 @@ plural form of the resource name (identical to that found in the resource URL):
         }
     }
 
+#### Filter discovery on list APIs
+
+Keystone list APIs supports additional path parameter called `filters`, request
+with this parameter should return JSON response with list of supported filters:
+
+    GET /entities/filters
+
+The response will provide all support filters with meta-data about the filter:
+
+    {
+       "filters": [
+          {
+             "name": string,
+             "type": "pick-list",
+             "isExclusive": boolean,
+             "possibleValues": [
+                "value1",
+                "value2"
+             ],
+             "description": string
+          },
+          {
+             "name": string,
+             "type": "integer",
+             "isExclusive": boolean,
+             "description": string
+          },
+          {
+             "name": string,
+             "type": "string",
+             "isExclusive": boolean,
+             "description": string
+          },
+          {
+             "name": string,
+             "type": "boolean",
+             "isExclusive": boolean,
+             "description": string
+          }
+       ]
+    }
+
 ##### List Entities filtered by attribute
 
 Beyond each resource's canonically unique identifier (the `id` attribute), not
