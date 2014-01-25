@@ -14,7 +14,8 @@ What's New in Version 3.3
 
 These features are not yet considered stable (expected July 2014).
 
-- (none, yet)
+- Mechanism for querying filters on list APIs. This will help Identity API
+ clients more easily discover supported filters.
 
 What's New in Version 3.2
 -------------------------
@@ -284,6 +285,52 @@ plural form of the resource name (identical to that found in the resource URL):
             "previous": url
         }
     }
+
+#### List supported Filters
+
+*New in version 3.3*
+
+Request the supported filters on list APIs:
+
+    GET /entities/filters
+
+The response will provide all supported filters on a list API:
+
+    200 OK
+
+    {
+       "filters": [
+          {
+             "name": string,
+             "possible_values": [
+                "value1",
+                "value2"
+             ],
+             "type": "pick-list"
+          }
+       ],
+        "links": {
+                "self": "http://identity:35357/v3/entities/filters",
+                "previous": null,
+                "next": null
+            }
+    }
+
+Explanation of response collection is given below:
+
+- `name`
+
+    Name of the filter key.
+
+- `type`
+
+    It represents the data type for the filter value. Supported options
+    are `string`, `integer`, `boolean` or `pick-list`.
+
+- `possible_values`
+
+   Used in conjunction when `type` is `pick-list`, to display a fixed
+   set of variables that can be used to filter.
 
 ##### List Entities filtered by attribute
 
