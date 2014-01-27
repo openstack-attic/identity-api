@@ -1304,10 +1304,10 @@ combination with request to change authorization scope.
 
 ##### Scope: `scope`
 
-An authorization scope, including either a project or domain, can be optionally
-specified as part of the request. If both a domain and a project are specified,
-an HTTP 400 Bad Request will be returned, as a token cannot be simultaneously
-scoped to both a project and domain.
+An authorization scope, including either a `project` or `domain`, can be
+optionally specified as part of the request. If both a `domain` and a `project`
+are specified, an HTTP 400 Bad Request will be returned, as a token cannot be
+simultaneously scoped to both a `project` and `domain`.
 
 A `project` may be specified by either `id` or `name`. An `id` is sufficient to
 uniquely identify a `project`. Example request:
@@ -1382,6 +1382,53 @@ Alternatively, a `domain` `name` may be used to uniquely identify the
                         "name": "example.com"
                     },
                     "name": "project-x"
+                }
+            }
+        }
+    }
+
+A `domain` scope may be specified by either the domain's `id` or `name` with
+equivalent results. Example request specifying a domain by `id`:
+
+    {
+        "auth": {
+            "identity": {
+                "methods": [
+                    "password"
+                ],
+                "password": {
+                    "user": {
+                        "id": "0ca8f6",
+                        "password": "secrete"
+                    }
+                }
+            },
+            "scope": {
+                "domain": {
+                    "id": "1789d1"
+                }
+            }
+        }
+    }
+
+Example request specifying a domain by `name`:
+
+    {
+        "auth": {
+            "identity": {
+                "methods": [
+                    "password"
+                ],
+                "password": {
+                    "user": {
+                        "id": "0ca8f6",
+                        "password": "secrete"
+                    }
+                }
+            },
+            "scope": {
+                "domain": {
+                    "name": "example.com"
                 }
             }
         }
