@@ -1,0 +1,8 @@
+Verified+2: Jenkins
+Approved+1: henry-nash <henryn@linux.vnet.ibm.com>
+Code-Review+2: Steve Martinelli <stevemar@ca.ibm.com>
+Submitted-by: Jenkins
+Submitted-at: Mon, 27 Jan 2014 16:08:23 +0000
+Reviewed-on: https://review.openstack.org/68098
+Project: openstack/identity-api
+Branch: refs/heads/master
