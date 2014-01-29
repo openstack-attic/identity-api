@@ -6,10 +6,7 @@
                 "type": "compute",
                 "publicURL": "https://compute.north.public.com/v1",
                 "internalURL": "https://compute.north.internal.com/v1",
-                "adminURL": "https://compute.north.internal.com/v1",
-                "versionId": "1",
-                "versionInfo": "https://compute.north.public.com/v1/",
-                "versionList": "https://compute.north.public.com/"
+                "adminURL": "https://compute.north.internal.com/v1"
             },
             {
                 "id": 2,
@@ -18,10 +15,7 @@
                 "type": "compute",
                 "publicURL": "https://compute.north.public.com/v1",
                 "internalURL": "https://compute.north.internal.com/v1",
-                "adminURL": "https://compute.north.internal.com/v1",
-                "versionId": "1",
-                "versionInfo": "https://compute.north.public.com/v1/",
-                "versionList": "https://compute.north.public.com/"
+                "adminURL": "https://compute.north.internal.com/v1"
             },
             {
                 "id": 3,
@@ -30,10 +24,7 @@
                 "type": "compute",
                 "publicURL": "https://compute.north.public.com/v1",
                 "internalURL": "https://compute.north.internal.com/v1",
-                "adminURL": "https://compute.north.internal.com/v1",
-                "versionId": "1",
-                "versionInfo": "https://compute.north.public.com/v1/",
-                "versionList": "https://compute.north.public.com/"
+                "adminURL": "https://compute.north.internal.com/v1"
             },
             {
                 "id": 4,
@@ -42,10 +33,7 @@
                 "type": "compute",
                 "publicURL": "https://compute.north.public.com/v1",
                 "internalURL": "https://compute.north.internal.com/v1",
-                "adminURL": "https://compute.north.internal.com/v1",
-                "versionId": "1",
-                "versionInfo": "https://compute.north.public.com/v1/",
-                "versionList": "https://compute.north.public.com/"
+                "adminURL": "https://compute.north.internal.com/v1"
             },
             {
                 "id": 5,
@@ -54,10 +42,7 @@
                 "type": "compute",
                 "publicURL": "https://compute.north.public.com/v1",
                 "internalURL": "https://compute.north.internal.com/v1",
-                "adminURL": "https://compute.north.internal.com/v1",
-                "versionId": "1",
-                "versionInfo": "https://compute.north.public.com/v1/",
-                "versionList": "https://compute.north.public.com/"
+                "adminURL": "https://compute.north.internal.com/v1"
             }
         ],
     "endpoints_links":[]
