@@ -26,7 +26,7 @@
     <!--             All Resources                             -->
     <!--*******************************************************-->
     <!-- We should use SSL in production -->
-    <resources base="http://localhost:35357">
+    <resources base="http://localhost:35357" xml:id="HP_IDM_admin">
         <resource id="version" path="v2.0">
             <resource id="tokens" path="tokens">
                 <resource id="tokenById" path="{tokenId}">

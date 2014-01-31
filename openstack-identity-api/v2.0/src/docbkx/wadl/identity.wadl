@@ -33,7 +33,7 @@
     <!--             All Resources                             -->
     <!--*******************************************************-->
 
-    <resources base="http://localhost:5000">
+    <resources base="http://localhost:5000" xml:id="identity">
         <resource id="version" type="#VersionDetails" path="v2.0/">
             <resource id="extensions" type="#ExtensionList"
                 path="extensions">
