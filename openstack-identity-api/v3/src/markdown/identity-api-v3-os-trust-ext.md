@@ -52,6 +52,8 @@ Additional required attributes:
 
   Represents the user who is capable of consuming the trust.
 
+Optional attributes:
+
 - `impersonation`: (boolean)
 
   If `impersonation` is set to `true`, then the `user` attribute of tokens
@@ -59,8 +61,6 @@ Additional required attributes:
   rather than the trustee, thus allowing the trustee to impersonate the
   trustor. If `impersonation` is set to `false`, then the token's `user`
   attribute will represent that of the trustee.
-
-Optional attributes:
 
 - `project_id` (string)
 
