@@ -44,6 +44,11 @@
                     xml:lang="EN"><para>A valid authentication token
                         for an administrative user.</para></wadl:doc>
             </param>
+            <param name="Content-Type" style="header"
+                type="xsd:string" required="true">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN"><para>"application/json" or "application/xml"</para></wadl:doc>
+            </param>
             <resource id="users" path="users">
                 <method href="#listUsers"/>
                 <method href="#addUser"/>
@@ -406,6 +411,17 @@
         <wadl:doc xml:lang="EN" title="Add User"
             xmlns="http://docbook.org/ns/docbook">
             <para role="shortdesc">Adds a user.</para>
+            <para>This call is available only to users who hold the admin role (accessing
+                API through port 35357, where non admin user use port 5000 instead).
+                Using the admin role, you can create a user who holds the user role.
+                The created user should have access to both APIs and the Cloud Control
+                Panel after the user is associated with a proper tenantId which defines
+                the ownership of resources.
+                To add a user, specify the user's username value and initial password.
+                A successful response echoes the requested values (except password) and
+                adds a value for id.
+                See the examples shown below.
+            </para>
             <table rules="all">
                 <caption>Add User Request Attributes</caption>
                 <thead>
@@ -417,43 +433,51 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>user</td>
+                        <td>name</td>
                         <td>string</td>
-                        <td>Required. The user name.</td></tr>
+                        <td>Required. The user name (must be unique).</td>
+                    </tr>
+                    <tr>
+                        <td>password</td>
+                        <td>string</td>
+                        <td>Optional. Both "password" and "OS-KSADM:password" will work.</td>
+                    </tr>
+                    <tr>
+                        <td>enabled</td>
+                        <td>boolean</td>
+                        <td>Optional. Initial user enabled status (default true).</td>
+                    </tr>
+                    <tr>
+                        <td>tenantId</td>
+                        <td>string</td>
+                        <td>Optional. If this is not specified for a new user, attempting to
+                            login to the Cloud Control Panel will return error
+                            "You are not authorized for any projects".
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>email</td>
+                        <td>string</td>
+                        <td>Optional. New user email address.</td>
+                    </tr>
+                    <tr>
+                        <td>$customized_field</td>
+                        <td>string/boolean/number</td>
+                        <td>Optional. Can be anything, like the email field.</td>
+                    </tr>
                 </tbody></table>
         </wadl:doc>
         <request>
-            <representation mediaType="application/xml"
-                element="identity:user">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code
-                        href="../OS-KSADM/samples/userwithoutid.xml"/>
-                </wadl:doc>
-                <param name="user" style="plain" path="/identity:user"
-                    type="OS-KSADM:UserForCreate">
-                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                        xml:lang="EN">The name for the
-                        user.</wadl:doc>
-                </param>
-            </representation>
             <representation mediaType="application/json">
                 <wadl:doc xmlns="http://docbook.org/ns/docbook"
                     xml:lang="EN">
                     <xsdxt:code
-                        href="../OS-KSADM/samples/userwithoutid.json"
+                        href="../OS-KSADM/samples/create_user_request.json"
                     />
                 </wadl:doc>
             </representation>
         </request>
         <response status="201">
-            <representation mediaType="application/xml"
-                element="identity:user">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code href="../OS-KSADM/samples/user.xml"/>
-                </wadl:doc>
-            </representation>
             <representation mediaType="application/json">
                 <wadl:doc xmlns="http://docbook.org/ns/docbook"
                     xml:lang="EN">
