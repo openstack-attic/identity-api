@@ -1,8 +1,9 @@
 {
   "user": {
-    "id": "u1000",
-    "username": "jqsmith",
-    "email": "john.smith@example.org",
-    "enabled": true
+    "name": "jqsmith",
+    "id": "84cdc81d5ba5448f885f857c3e7ae7dd", 
+    "enabled": true,
+    "email": "john.smith@example.org", 
+    "tenantId": "af615b6af60b497e860392ad5e9f8dab"
   }
 }
