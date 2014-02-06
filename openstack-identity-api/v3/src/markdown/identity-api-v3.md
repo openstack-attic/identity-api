@@ -15,6 +15,7 @@ What's New in Version 3.3
 These features are not yet considered stable (expected July 2014).
 
 - (none, yet)
+- Introduced a mechanism to validate generic signature requests.
 
 What's New in Version 3.2
 -------------------------
@@ -1748,6 +1749,32 @@ the `X-Subject-Token` is valid.
 This call is identical to `HEAD /auth/tokens` except that the `X-Subject-Token`
 token is immediately invalidated, regardless of it's `expires_at` attribute. An
 additional `X-Auth-Token` is not required.
+
+### Signature Validation
+
+*New in version 3.3* To validate a signature using the Identity API without
+receiving a token in the response.
+
+#### Validate Signature: `POST /v3/auth/signature`
+
+Each request to validate a signature containing an attribute with `identity`
+information of type signature, optionally, a `scope` describing the
+authorization scope being requested. Example request structure:
+
+    {
+        "auth": {
+            "identity": {
+                "methods": ["signature"],
+                "signature": { ... }
+            },
+            "scope": { ... }
+        }
+    }
+
+##### Identity Validation responses
+
+The validation response does not provide a body. A 201 response indicates a
+valid signature, whilst a 401 indicates that is invalid.
 
 ### Catalog
 
