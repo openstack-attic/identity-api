@@ -23,25 +23,11 @@ Required attributes:
 - `issued_before` (string, ISO 8601 extended format date time with
   microseconds)
 
-  This attribute is mutually exclusive with `expires_at`.
-
   Tokens issued before this time are considered revoked.
 
   This attribute can be used to determine how long the expiration event is
   valid. It can also be used in queries to filter events, so that only a subset
   that have occurred since the last request are returned.
-
-- `expires_at` (string, ISO 8601 extended format date time with microseconds)
-
-  This attribute is mutually exclusive with `issued_before`.
-
-  Specifies the exact expiration time of one or more tokens to be revoked.
-
-  This attribute is useful for revoking chains of tokens, such as those produced when
-  re-scoping an existing token. When a token is issued based on initial
-  authentication, it is given an `expires_at` value. When a token is used to
-  get another token, the new token will have the same `expires_at` value as the
-  original.
 
 Optional attributes:
 
@@ -70,6 +56,18 @@ Optional attributes:
 
   Revoke tokens issued to a specific OAuth consumer, as part of the OS-OAUTH1
   API extension.
+
+- `expires_at` (string, ISO 8601 extended format date time with microseconds)
+
+  This attribute is mutually exclusive with `issued_before`.
+
+  Specifies the exact expiration time of one or more tokens to be revoked.
+
+  This attribute is useful for revoking chains of tokens, such as those produced when
+  re-scoping an existing token. When a token is issued based on initial
+  authentication, it is given an `expires_at` value. When a token is used to
+  get another token, the new token will have the same `expires_at` value as the
+  original.
 
 There properties are additive: Only a token that meets all of the specified
 criteria is considered revoked.
