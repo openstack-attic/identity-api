@@ -1,7 +1,10 @@
+.DS_Store
+
 # Build results
 target/
 openstack-identity-api/v3/identity-api-v3.xml
 publish-docs/
+/build-*.log.gz
 
 # NetBeans user-specific build actions
 nbactions.xml
