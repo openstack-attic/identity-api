@@ -1,0 +1,8 @@
+Verified+2: Jenkins
+Approved+1: Andreas Jaeger <jaegerandi@gmail.com>
+Code-Review+2: Andreas Jaeger <jaegerandi@gmail.com>
+Submitted-by: Jenkins
+Submitted-at: Sat, 08 Feb 2014 21:26:46 +0000
+Reviewed-on: https://review.openstack.org/72118
+Project: openstack/identity-api
+Branch: refs/heads/master
