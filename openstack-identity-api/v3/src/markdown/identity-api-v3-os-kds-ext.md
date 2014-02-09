@@ -150,6 +150,64 @@ would leverage the Identity API for these purposes.
 Resources and Operations
 ------------------------
 
+#### List available KDS versions: `GET /`
+
+Discover the KDS API versions that are supported by this server.
+
+##### Response
+
+The response contains a list of version objects.
+A version object must contain at least:
+
+  - `id` - A string identifier of the version number.
+  - `status` - The status of this version of the API.
+    This will be `CURRENT` for a stable API version.
+  - `links` - A list of links associated with this version.
+
+A link object must contain:
+
+  - `rel` - The relationship of the link with the version.
+  - `href` - The URL for this link.
+
+Each version response must contain at least one link with a `rel` of `self`
+which indicates the link from which the API can be accessed.
+
+    Status: 300 Multiple Choices
+
+    {
+        "versions": [{
+            "status": "CURRENT",
+            "id": "v1.0",
+            "links": [{
+                "href": "http://localhost:9109/v1/",
+                "rel": "self"
+            }],
+        }]
+    }
+
+#### Show Version 1 Information: `GET /v1/`
+
+Retrieve details about this specific version of the API.
+
+##### Response
+
+Contains one entry of a version object.
+For details on the structure of a version object see the List available
+versions section.
+
+    Status: 200 OK
+
+    {
+        "version": {
+            "status": "CURRENT",
+            "id": "v1.0",
+            "links": [{
+                "href": "http://localhost:9109/v1/",
+                "rel": "self"
+            }],
+        }
+    }
+
 #### Create Key: `PUT /v1/keys/{name}`
 
 Create a long term key in the KDS.
