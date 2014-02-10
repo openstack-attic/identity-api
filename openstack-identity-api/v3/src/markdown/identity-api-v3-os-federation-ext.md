@@ -547,6 +547,53 @@ Response:
 
     Status: 204 No Content
 
+Token API
+---------
+
+### Token issuance: `POST /OS-FEDERATION/identity_providers/{idp_id}/protocols/{protocol_id}`
+
+When a federated authentication request reaches an endpoint identifying both
+the remote identity provider and the protocol in use (thus identifying the
+specific mapping to apply to the federated attributes), a standard token is
+issued identifying the ephemeral `user` and the available authorization
+attributes (using `groups`).
+
+In addition, tokens produced as a result of `OS-FEDERATION` do not have the
+conventional `self` link on the `user` object, as the identity service itself
+is not identity provider. Instead, the identity provider of the ephemeral
+`user` is indicated by a link to the `protocol` employed by the
+`identity_provider`.
+
+- `OS-FEDERATION:groups` (list of objects)
+
+  - `id` (string)
+
+    Identifies a `group` by `id` to which the ephemeral `user` is a member.
+
+- `links`
+
+  - `OS-FEDERATION:protocol` (url)
+
+    Identifies the `identity_provider` and `protocol` used to produce the
+    ephemeral `user`.
+
+Example `user` object in a "federated" token:
+
+    {
+        "token": {
+            "user": {
+                "OS-FEDERATION:groups": [
+                    {
+                        "id": "b31044"
+                    }
+                ],
+                "links": {
+                    "OS-FEDERATION:protocol": "http://localhost:35357/v3/OS-FEDERATION/identity_providers/CERN/protocols/saml2"
+                }
+            }
+        }
+    }
+
 Example Mapping Rules
 ---------------------
 
