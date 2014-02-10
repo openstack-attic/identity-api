@@ -1,0 +1,9 @@
+Code-Review+1: Monty Taylor <mordred@inaugust.com>
+Verified+2: Jenkins
+Approved+1: Andreas Jaeger <jaegerandi@gmail.com>
+Code-Review+2: Andreas Jaeger <jaegerandi@gmail.com>
+Submitted-by: Jenkins
+Submitted-at: Mon, 10 Feb 2014 06:53:50 +0000
+Reviewed-on: https://review.openstack.org/72213
+Project: openstack/identity-api
+Branch: refs/heads/master
