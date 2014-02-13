@@ -78,11 +78,11 @@ format="SVG" scale="60"/>
         </othercredit>
         <extension  xmlns="http://docs.openstack.org/common/api/v1.0"
                     xmlns:atom="http://www.w3.org/2005/Atom"
-                    name="Openstack Identity Service Admin" namespace="http://docs.openstack.org/identity/api/ext/OS-KSADM/v1.0"
+                    name="OpenStack Identity Service Admin" namespace="http://docs.openstack.org/identity/api/ext/OS-KSADM/v1.0"
                     alias="OS-KSADM"
                     updated="2011-08-14T13:25:27-06:00">
                     <description>
-                                Openstack extensions to Identity Service API v2.0, which
+                                OpenStack extensions to Identity Service API v2.0, which
                                  enable administrative API operations.
                     </description>
                     <atom:link rel="describedby" type="application/pdf"
