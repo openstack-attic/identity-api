@@ -57,7 +57,7 @@ Immutable attributes provided by the Identity service:
 
   A consumer's `secret` is only returned once, during consumer creation.
 
-The Consumer is given it's key and secret, out-of-band. For Openstack, the ID
+The Consumer is given it's key and secret, out-of-band. For OpenStack, the ID
 of the Consumer is the Key.
 
 Consumers API
