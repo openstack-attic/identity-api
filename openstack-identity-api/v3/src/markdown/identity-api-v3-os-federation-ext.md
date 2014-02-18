@@ -547,6 +547,74 @@ Response:
 
     Status: 204 No Content
 
+Listing projects and domains
+----------------------------
+
+### List projects a federated user can access: `GET /OS-FEDERATION/projects`
+
+Returns a collection of projects to which the federated user has authorization
+to access. The user can then select a project and request a scoped token.
+
+Response:
+
+    Status: 200 OK
+
+   {
+        "projects": [
+            {
+                "domain_id": "37ef61",
+                "enabled": true,
+                "id": "37ef61",
+                "links": {
+                    "self": "http://identity:35357/v3/projects/37ef61"
+                },
+                "name": "a project name"
+            },
+            {
+                "domain_id": "37ef61",
+                "enabled": true,
+                "id": "37ef61",
+                "links": {
+                    "self": "http://identity:35357/v3/projects/37ef61"
+                },
+                "name": "another project"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/OS-FEDERATION/projects",
+            "previous": null,
+            "next": null
+        }
+    }
+
+### List domains a federated user can access: `GET /OS-FEDERATION/domains`
+
+Returns a collection of domains to which the federated user has authorization
+to access. The user can then select a domain and request a scoped token.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "domains": [
+            {
+                "description": "desc of domain",
+                "enabled": true,
+                "id": "37ef61",
+                "links": {
+                    "self": "http://identity:35357/v3/domains/37ef61"
+                },
+                "name": "my domain"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/OS-FEDERATION/domains",
+            "previous": null,
+            "next": null
+        }
+    }
+
 Example Mapping Rules
 ---------------------
 
