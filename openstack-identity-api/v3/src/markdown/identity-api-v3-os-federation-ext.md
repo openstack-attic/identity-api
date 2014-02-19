@@ -642,3 +642,78 @@ This is an example that is similar to the previous, but displays how multiple
             }
         ]
     }
+
+Authenticating
+--------------
+
+### Request an Unscoped Federation Token: `POST /auth/tokens`
+
+A federated user may request an unscoped token.
+
+Request Parameters:
+
+To authenticate with the OS-FEDERATION extension, `saml2` must be specified as an
+authentication method.
+
+Example request:
+
+    {
+        "auth": {
+            "identity": {
+                "methods": [
+                    "saml2"
+                ],
+                "saml2": {
+                    "identity_provider": "0ca8f6",
+                    "protocol": "7fea2d"
+                }
+            }
+        }
+    }
+
+The returned token is unscoped, but will contain information about the groups
+that the federated user belongs.
+
+Example OpenStack token response: [Various OpenStack token responses](https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3.md#authentication-responses)
+
+Example Federation specific object in an unscoped token:
+
+    {
+        "OS-FEDERATION": {
+            "user": {
+                "id": "bob%40example.com",
+                "name": "bob@example.com",
+                "group_ids": [
+                    "7fea2d"
+                ]
+            }
+        }
+    }
+
+### Request a scoped Federation Token: `POST /auth/tokens`
+
+A federated user may request a scoped token by using an unscoped token.
+
+    {
+        "auth": {
+            "identity": {
+                "methods": [
+                    "saml2"
+                ],
+                "saml2": {
+                    "identity_provider": "0ca8f6",
+                    "protocol": "7fea2d"
+                }
+            },
+            "scope": {
+                "project": {
+                    "id": "263fd9"
+                }
+            }
+        }
+    }
+
+The returned token will have a Federation specific object in the token. The token
+will also have the requested project id in the body of the token.
+
+Example OpenStack token response: [Various OpenStack token responses](https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3.md#authentication-responses)
