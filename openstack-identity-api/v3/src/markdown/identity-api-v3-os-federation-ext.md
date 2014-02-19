@@ -642,3 +642,57 @@ This is an example that is similar to the previous, but displays how multiple
             }
         ]
     }
+
+Authenticating
+--------------
+
+### Request an OS-FEDERATION token: `POST /auth/tokens`
+
+A federated `user` may request an unscoped `token`, which can be used to get
+a scoped `token`.
+
+Request Parameters:
+
+To authenticate with the OS-FEDERATION extension, `saml2` must be specified as an
+authentication method.
+
+Example request:
+
+    {
+        "auth": {
+            "identity": {
+                "methods": [
+                    "saml2"
+                ],
+                "saml2": {
+                    "identity_provider": "0ca8f6",
+                    "protocol": "7fea2d"
+                }
+            }
+        }
+    }
+
+The returned `token` will contain information about the `groups` to which the federated
+`user` belongs.
+
+Example OpenStack token response: [Various OpenStack token responses](https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3.md#authentication-responses)
+
+Example of an OS-FEDERATION token:
+
+    {
+        "token": {
+            "user": {
+                "id": "username%40example.com",
+                "name": "username@example.com",
+                "OS-FEDERATION": {
+                    "identity_provider": "0ca8f6",
+                    "protocol": "7fea2d"
+                    "groups": [
+                        {"id": "abc123"},
+                        {"id": "bcd234:"}
+                    ]
+                }
+            },
+            [...]
+        }
+    }
