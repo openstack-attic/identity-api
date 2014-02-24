@@ -1,0 +1,10 @@
+Verified+2: Jenkins
+Approved+1: Dolph Mathews <dolph.mathews@gmail.com>
+Code-Review+2: Dolph Mathews <dolph.mathews@gmail.com>
+Code-Review+2: Andreas Jaeger <jaegerandi@gmail.com>
+Code-Review+1: Lana Brindley <openstack@lanabrindley.com>
+Submitted-by: Jenkins
+Submitted-at: Mon, 24 Feb 2014 12:39:46 +0000
+Reviewed-on: https://review.openstack.org/75322
+Project: openstack/identity-api
+Branch: refs/heads/master
