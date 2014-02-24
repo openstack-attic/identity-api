@@ -252,7 +252,7 @@ X-Auth-Token: eaaafd18-0fed-4b3a-81b4-663c99ec1cbb
         </example>
         <note>
             <para>The MIME type versioning approach allows for the
-                creating of permanent links, because the version
+                creation of permanent links, because the version
                 scheme is not specified in the URI path:
                 https://api.identity.openstack.org/tenants/12234.
            </para>
