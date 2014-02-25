@@ -2033,24 +2033,22 @@ Response:
     {
         "endpoints": [
             {
-                "id": "--endpoint-id--",
+                "id": "6fedc0",
                 "interface": "public",
                 "links": {
-                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                    "self": "http://identity:35357/v3/endpoints/6fedc0"
                 },
-                "name": "the public volume endpoint",
-                "region": "--region--",
-                "service_id": "--service-id--"
+                "region_id": "us-east-1",
+                "service_id": "ee057c"
             },
             {
-                "id": "--endpoint-id--",
+                "id": "d12b15",
                 "interface": "internal",
                 "links": {
-                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                    "self": "http://identity:35357/v3/endpoints/d12b15"
                 },
-                "name": "the internal volume endpoint",
-                "region": "--region--",
-                "service_id": "--service-id--"
+                "region_id": "us-east-2",
+                "service_id": "8ef7de"
             }
         ],
         "links": {
@@ -2067,10 +2065,9 @@ Request:
     {
         "endpoint": {
             "interface": "[admin|public|internal]",
-            "name": "name",
-            "region": "--optional--",
-            "url": "...",
-            "service_id": "--service-id--"
+            "region_id": "us-east-2",
+            "url": "https://service.example.com/",
+            "service_id": "ee057c"
         }
     }
 
@@ -2080,14 +2077,13 @@ Response:
 
     {
         "endpoint": {
-            "id": "--endpoint-id--",
+            "id": "6fedc0",
             "interface": "internal",
             "links": {
-                "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                "self": "http://identity:35357/v3/endpoints/6fedc0"
             },
-            "name": "the internal volume endpoint",
-            "region": "--region--",
-            "service_id": "--service-id--"
+            "region_id": "us-east-2",
+            "service_id": "ee057c"
         }
     }
 
@@ -2103,14 +2099,13 @@ Response:
 
     {
         "endpoint": {
-            "id": "--endpoint-id--",
-            "interface": "internal",
+            "id": "6fedc0",
+            "interface": "public",
             "links": {
-                "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                "self": "http://identity:35357/v3/endpoints/6fedc0"
             },
-            "name": "the internal volume endpoint",
-            "region": "--region--",
-            "service_id": "--service-id--"
+            "region_id": "us-east-1",
+            "service_id": "ee057c"
         }
     }
 
