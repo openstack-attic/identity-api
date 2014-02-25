@@ -2033,30 +2033,52 @@ Response:
     {
         "endpoints": [
             {
-                "id": "--endpoint-id--",
+                "enabled": true,
+                "id": "6fedc0",
                 "interface": "public",
                 "links": {
-                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                    "self": "https://identity:35357/v3/endpoints/6fedc0"
                 },
-                "name": "the public volume endpoint",
-                "region": "--region--",
-                "service_id": "--service-id--"
+                "region_id": "us-east-1",
+                "service_id": "ee057c",
+                "url": "https://service.example.com:5000/"
             },
             {
-                "id": "--endpoint-id--",
-                "interface": "internal",
+                "enabled": true,
+                "id": "d12b15",
+                "interface": "admin",
                 "links": {
-                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                    "self": "https://identity:35357/v3/endpoints/d12b15"
                 },
-                "name": "the internal volume endpoint",
-                "region": "--region--",
-                "service_id": "--service-id--"
+                "region_id": "us-east-2",
+                "service_id": "8ef7de",
+                "url": "https://service.example.com:35357/"
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/endpoints",
+            "self": "https://identity:35357/v3/endpoints",
             "previous": null,
             "next": null
+        }
+    }
+
+#### Get endpoint: `GET /endpoints/{endpoint_id}`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "endpoint": {
+            "enabled": true,
+            "id": "6fedc0",
+            "interface": "public",
+            "links": {
+                "self": "https://identity:35357/v3/endpoints/6fedc0"
+            },
+            "region_id": "us-east-2",
+            "service_id": "ee057c",
+            "url": "https://service.example.com:5000/"
         }
     }
 
@@ -2067,10 +2089,9 @@ Request:
     {
         "endpoint": {
             "interface": "[admin|public|internal]",
-            "name": "name",
-            "region": "--optional--",
-            "url": "...",
-            "service_id": "--service-id--"
+            "region_id": "us-east-2",
+            "url": "https://service.example.com/",
+            "service_id": "ee057c"
         }
     }
 
@@ -2080,14 +2101,15 @@ Response:
 
     {
         "endpoint": {
-            "id": "--endpoint-id--",
-            "interface": "internal",
+            "enabled": true,
+            "id": "6fedc0",
+            "interface": "admin",
             "links": {
-                "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                "self": "https://identity:35357/v3/endpoints/6fedc0"
             },
-            "name": "the internal volume endpoint",
-            "region": "--region--",
-            "service_id": "--service-id--"
+            "region_id": "us-east-2",
+            "service_id": "ee057c",
+            "url": "https://service.example.com:35357/"
         }
     }
 
@@ -2103,14 +2125,15 @@ Response:
 
     {
         "endpoint": {
-            "id": "--endpoint-id--",
-            "interface": "internal",
+            "enabled": true,
+            "id": "6fedc0",
+            "interface": "public",
             "links": {
-                "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                "self": "https://identity:35357/v3/endpoints/6fedc0"
             },
-            "name": "the internal volume endpoint",
-            "region": "--region--",
-            "service_id": "--service-id--"
+            "region_id": "us-east-1",
+            "service_id": "ee057c",
+            "url": "https://service.example.com:5000/"
         }
     }
 
