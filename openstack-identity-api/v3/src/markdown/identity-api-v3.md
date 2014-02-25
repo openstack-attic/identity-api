@@ -1922,24 +1922,26 @@ Response:
     {
         "services": [
             {
-                "id": "--service-id--",
+                "id": "ee057c",
                 "links": {
-                    "self": "http://identity:35357/v3/services/--service-id--"
+                    "self": "https://identity:35357/v3/services/ee057c"
                 },
-                "name": "--service-name",
-                "type": "volume"
+                "name": "Cinder",
+                "type": "volume",
+                "description": "OpenStack Volume Service"
             },
             {
-                "id": "--service-id--",
+                "id": "5e70df",
                 "links": {
-                    "self": "http://identity:35357/v3/services/--service-id--"
+                    "self": "https://identity:35357/v3/services/5e70df"
                 },
-                "name": "--service-name",
-                "type": "identity"
+                "name": "Keystone",
+                "type": "identity",
+                "description": "OpenStack Identity Service"
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/services",
+            "self": "https://identity:35357/v3/services",
             "previous": null,
             "next": null
         }
@@ -1953,12 +1955,13 @@ Response:
 
     {
         "service": {
-            "id": "--service-id--",
+            "id": "ee057c",
             "links": {
-                "self": "http://identity:35357/v3/services/--service-id--"
+                "self": "https://identity:35357/v3/services/ee057c"
             },
-            "name": "--service-name",
-            "type": "volume"
+            "name": "Cinder",
+            "type": "volume",
+            "description": "OpenStack Volume Service"
         }
     }
 
@@ -1968,8 +1971,9 @@ Request:
 
     {
         "service": {
-            "name": "--optional--",
-            "type": "..."
+            "name": "Nova",
+            "type": "compute",
+            "description": "OpenStack Compute Service"
         }
     }
 
@@ -1979,12 +1983,13 @@ Response:
 
     {
         "service": {
-            "id": "--service-id--",
+            "id": "520ec2",
             "links": {
-                "self": "http://identity:35357/v3/services/--service-id--"
+                "self": "https://identity:35357/v3/services/520ec2"
             },
-            "name": "--service-name--",
-            "type": "volume"
+            "name": "Nova",
+            "type": "compute",
+            "description": "OpenStack Compute Service"
         }
     }
 
@@ -1999,12 +2004,13 @@ Response:
 
     {
         "service": {
-            "id": "--service-id--",
+            "id": "520ec2",
             "links": {
-                "self": "http://identity:35357/v3/services/--service-id--"
+                "self": "https://identity:35357/v3/services/520ec2"
             },
-            "name": "--service-name",
-            "type": "volume"
+            "name": "Glance",
+            "type": "image",
+            "description": "OpenStack Image Service"
         }
     }
 
