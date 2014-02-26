@@ -880,14 +880,18 @@ Additional required attributes:
 
 Optional attributes:
 
-- `name` (string)
+- `description` (string)
 
-  User-facing name of the service.
+  User-facing description of the service.
 
 - `enabled` (boolean)
 
   Setting this value to `false` prevents the service and its endpoints from
   appearing in the service catalog.
+
+- `name` (string)
+
+  User-facing name of the service.
 
 Example entity:
 
@@ -1923,24 +1927,26 @@ Response:
     {
         "services": [
             {
-                "id": "--service-id--",
+                "description": "OpenStack Volume Service",
+                "id": "ee057c",
                 "links": {
-                    "self": "http://identity:35357/v3/services/--service-id--"
+                    "self": "https://identity:35357/v3/services/ee057c"
                 },
-                "name": "--service-name",
+                "name": "Cinder",
                 "type": "volume"
             },
             {
-                "id": "--service-id--",
+                "description": "OpenStack Identity Service",
+                "id": "5e70df",
                 "links": {
-                    "self": "http://identity:35357/v3/services/--service-id--"
+                    "self": "https://identity:35357/v3/services/5e70df"
                 },
-                "name": "--service-name",
+                "name": "Keystone",
                 "type": "identity"
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/services",
+            "self": "https://identity:35357/v3/services",
             "previous": null,
             "next": null
         }
@@ -1954,11 +1960,12 @@ Response:
 
     {
         "service": {
-            "id": "--service-id--",
+            "description": "OpenStack Volume Service",
+            "id": "ee057c",
             "links": {
-                "self": "http://identity:35357/v3/services/--service-id--"
+                "self": "https://identity:35357/v3/services/ee057c"
             },
-            "name": "--service-name",
+            "name": "Cinder",
             "type": "volume"
         }
     }
@@ -1969,8 +1976,9 @@ Request:
 
     {
         "service": {
-            "name": "--optional--",
-            "type": "..."
+            "description": "OpenStack Compute Service",
+            "name": "Nova",
+            "type": "compute"
         }
     }
 
@@ -1980,12 +1988,13 @@ Response:
 
     {
         "service": {
-            "id": "--service-id--",
+            "description": "OpenStack Compute Service",
+            "id": "520ec2",
             "links": {
-                "self": "http://identity:35357/v3/services/--service-id--"
+                "self": "https://identity:35357/v3/services/520ec2"
             },
-            "name": "--service-name--",
-            "type": "volume"
+            "name": "Nova",
+            "type": "compute"
         }
     }
 
@@ -2000,12 +2009,13 @@ Response:
 
     {
         "service": {
-            "id": "--service-id--",
+            "description": "OpenStack Image Service",
+            "id": "520ec2",
             "links": {
-                "self": "http://identity:35357/v3/services/--service-id--"
+                "self": "https://identity:35357/v3/services/520ec2"
             },
-            "name": "--service-name",
-            "type": "volume"
+            "name": "Glance",
+            "type": "image"
         }
     }
 
