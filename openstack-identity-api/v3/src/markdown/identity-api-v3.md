@@ -1,4 +1,6 @@
-% OpenStack Identity API v3
+<!-- % OpenStack Identity API v3 -->
+OpenStack Identity API v3
+=========================
 
 The Identity API primarily fulfills authentication and authorization needs
 within OpenStack, and is intended to provide a programmatic facade in front of
