@@ -72,7 +72,7 @@ Required attributes::
   A rule contains a `remote` attribute description and the destination `local`
   attribute.
 
-  - `local` (object)
+  - `local` (list of objects)
 
     References a local Identity API resource, such as a `group` or `user` to
     which the remote attributes will be mapped.
@@ -83,7 +83,9 @@ Required attributes::
     local resource type and attribute:
 
         {
-            "user": "name"
+            "user": {
+                "name": "{0}"
+            }
         }
 
     This assigns identity attributes to ephemeral users.
@@ -362,11 +364,13 @@ Request:
         "mapping": {
             "rules": [
                 {
-                    "local": {
-                        "group": {
-                            "id": "0cd5e9"
+                    "local": [
+                        {
+                            "group": {
+                                "id": "0cd5e9"
+                            }
                         }
-                    },
+                    ],
                     "remote": [
                         {
                             "type": "orgPersonType",
@@ -393,11 +397,13 @@ Response:
             "id": "ACME",
             "rules": [
                 {
-                    "local": {
-                        "group": {
-                            "id": "0cd5e9"
+                    "local": [
+                        {
+                            "group": {
+                                "id": "0cd5e9"
+                            }
                         }
-                    },
+                    ],
                     "remote": [
                         {
                             "type": "orgPersonType",
@@ -426,11 +432,13 @@ Response:
             "id": "ACME",
             "rules": [
                 {
-                    "local": {
-                        "group": {
-                            "id": "0cd5e9"
+                    "local": [
+                        {
+                            "group": {
+                                "id": "0cd5e9"
+                            }
                         }
-                    },
+                    ],
                     "remote": [
                         {
                             "type": "orgPersonType",
@@ -454,11 +462,13 @@ Request:
             "id": "ACME",
             "rules": [
                 {
-                    "local": {
-                        "group": {
-                            "id": "0cd5e9"
+                    "local": [
+                        {
+                            "group": {
+                                "id": "0cd5e9"
+                            }
                         }
-                    },
+                    ],
                     "remote": [
                         {
                             "type": "orgPersonType",
@@ -485,11 +495,13 @@ Response:
             "id": "ACME",
             "rules": [
                 {
-                    "local": {
-                        "group": {
-                            "id": "0cd5e9"
+                    "local": [
+                        {
+                            "group": {
+                                "id": "0cd5e9"
+                            }
                         }
-                    },
+                    ]
                     "remote": [
                         {
                             "type": "orgPersonType",
@@ -521,11 +533,13 @@ Response:
                 "id": "ACME",
                 "rules": [
                     {
-                        "local": {
-                            "group": {
-                                "id": "0cd5e9"
+                        "local": [
+                            {
+                                "group": {
+                                    "id": "0cd5e9"
+                                }
                             }
-                        },
+                        ],
                         "remote": [
                             {
                                 "type": "orgPersonType",
@@ -558,11 +572,13 @@ mapped into a Identity API property.
     {
         "rules": [
             {
-                "local": {
-                    "user": {
-                        "name": "{0}"
+                "local":[
+                    {
+                        "user": {
+                            "name": "{0}"
+                        }
                     }
-                },
+                ],
                 "remote": [
                     {
                         "type": "UserName"
@@ -580,11 +596,13 @@ type and value are mapped into a Identity API property and value.
     {
         "rules": [
             {
-                "local": {
-                    "group": {
-                        "id": "0cd5e9"
+                "local": [
+                    {
+                        "group": {
+                            "id": "0cd5e9"
+                        }
                     }
-                },
+                ],
                 "remote": [
                     {
                         "type": "orgPersonType",
@@ -596,11 +614,13 @@ type and value are mapped into a Identity API property and value.
                 ]
             },
             {
-                "local": {
-                    "group": {
-                        "id": "85a868"
+                "local": [
+                    {
+                        "group": {
+                            "id": "85a868"
+                        }
                     }
-                },
+                ],
                 "remote": [
                     {
                         "type": "orgPersonType",
@@ -622,11 +642,13 @@ This is an example that is similar to the previous, but displays how multiple
     {
         "rules": [
             {
-                "local": {
-                    "group": {
-                        "id": "85a868"
+                "local": [
+                    {
+                        "group": {
+                            "id": "85a868"
+                        }
                     }
-                },
+                ],
                 "remote": [
                     {
                         "type": "orgPersonType",
