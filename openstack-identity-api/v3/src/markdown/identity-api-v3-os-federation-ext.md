@@ -559,7 +559,9 @@ mapped into a Identity API property.
         "rules": [
             {
                 "local": {
-                    "user": "name"
+                    "user": {
+                        "name": "{0}"
+                    }
                 },
                 "remote": [
                     {
