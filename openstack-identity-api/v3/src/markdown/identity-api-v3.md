@@ -2382,41 +2382,6 @@ Response:
 
 ### Users
 
-#### Create user: `POST /users`
-
-Request:
-
-    {
-        "user": {
-            "default_project_id": "...",
-            "description": "...",
-            "domain_id": "--optional--",
-            "email": "...",
-            "enabled": true,
-            "name": "...",
-            "password": "--optional--"
-        }
-    }
-
-Response:
-
-    Status: 201 Created
-
-    {
-        "user": {
-            "default_project_id": "--default-project-id--",
-            "description": "a user",
-            "domain_id": "1789d1",
-            "email": "...",
-            "enabled": true,
-            "id": "--user-id--",
-            "links": {
-                "self": "http://identity:35357/v3/users/--user-id--"
-            },
-            "name": "admin"
-        }
-    }
-
 #### List users: `GET /users`
 
 Optional query parameters:
@@ -2433,28 +2398,28 @@ Response:
     {
         "users": [
             {
-                "default_project_id": "--default-project-id--",
-                "description": "a user",
+                "default_project_id": "263fd9",
+                "description": "Admin user",
                 "domain_id": "1789d1",
-                "email": "...",
+                "email": "admin@example.com",
                 "enabled": true,
-                "id": "--user-id--",
+                "id": "0ca8f6",
                 "links": {
-                    "self": "http://identity:35357/v3/users/--user-id--"
+                    "self": "https://identity:35357/v3/users/0ca8f6"
                 },
                 "name": "admin"
             },
             {
-                "default_project_id": "--default-project-id--",
-                "description": "another user",
+                "default_project_id": "263fd9",
+                "description": "John Smith's user",
                 "domain_id": "1789d1",
-                "email": "...",
+                "email": "jsmith@example.com",
                 "enabled": true,
-                "id": "--user-id--",
+                "id": "9fe1d3",
                 "links": {
-                    "self": "http://identity:35357/v3/users/--user-id--"
+                    "self": "https://identity:35357/v3/users/9fe1d3"
                 },
-                "name": "someone"
+                "name": "jsmith"
             }
         ],
         "links": {
@@ -2472,16 +2437,16 @@ Response:
 
     {
         "user": {
-            "default_project_id": "--default-project-id--",
-            "description": "a user",
+            "default_project_id": "263fd9",
+            "description": "John Smith's user",
             "domain_id": "1789d1",
-            "email": "...",
+            "email": "jsmith@example.com",
             "enabled": true,
-            "id": "--user-id--",
+            "id": "9fe1d3",
             "links": {
-                "self": "http://identity:35357/v3/users/--user-id--"
+                "self": "https://identity:35357/v3/users/9fe1d3"
             },
-            "name": "admin"
+            "name": "jsmith"
         }
     }
 
@@ -2499,26 +2464,26 @@ Response:
     {
         "projects": [
             {
-                "domain_id": "--domain-id--",
+                "domain_id": "1789d1",
                 "enabled": true,
-                "id": "--project-id--",
+                "id": "263fd9",
                 "links": {
-                    "self": "http://identity:35357/v3/projects/--project-id--"
+                    "self": "https://identity:35357/v3/projects/263fd9"
                 },
-                "name": "a project name"
+                "name": "Test Group"
             },
             {
-                "domain_id": "--domain-id--",
+                "domain_id": "1789d1",
                 "enabled": true,
-                "id": "--project-id--",
+                "id": "50ef01",
                 "links": {
-                    "self": "http://identity:35357/v3/projects/--project-id--"
+                    "self": "https://identity:35357/v3/projects/50ef01"
                 },
-                "name": "another domain"
+                "name": "Build Group"
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/users/--user-id--/projects",
+            "self": "https://identity:35357/v3/users/9fe1d3/projects",
             "previous": null,
             "next": null
         }
@@ -2538,37 +2503,71 @@ Response:
         "groups": [
             {
                 "description": "Developers cleared for work on all general projects"
-                "domain_id": "--domain-id--",
-                "id": "--group-id--",
+                "domain_id": "1789d1",
+                "id": "ea167b",
                 "links": {
-                    "self": "http://identity:35357/v3/groups/--group-id--"
+                    "self": "https://identity:35357/v3/groups/ea167b"
                 },
                 "name": "Developers"
             },
             {
                 "description": "Developers cleared for work on secret projects"
-                "domain_id": "--domain-id--",
-                "id": "--group-id--",
+                "domain_id": "1789d1",
+                "id": "a62db1",
                 "links": {
-                    "self": "http://identity:35357/v3/groups/--group-id--"
+                    "self": "https://identity:35357/v3/groups/a62db1"
                 },
                 "name": "Secure Developers"
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/users/--user-id--/groups",
+            "self": "http://identity:35357/v3/users/9fe1d3/groups",
             "previous": null,
             "next": null
         }
     }
 
-#### Update user: `PATCH /users/{user_id}`
+#### Create user: `POST /users`
 
+Request:
+
+    {
+        "user": {
+            "default_project_id": "263fd9",
+            "description": "Jim Doe's user",
+            "domain_id": "1789d1",
+            "email": "jdoe@example.com",
+            "enabled": true,
+            "name": "James Doe",
+            "password": "chang3me"
+        }
+    }
+
+Response:
+
+    Status: 201 Created
+
+    {
+        "user": {
+            "default_project_id": "263fd9",
+            "description": "Jim Doe's user",
+            "domain_id": "1789d1",
+            "email": "jdoe@example.com",
+            "enabled": true,
+            "id": "ff4e51",
+            "links": {
+                "self": "https://identity:35357/v3/users/ff4e51"
+            },
+            "name": "jdoe"
+        }
+    }
+
+#### Update user: `PATCH /users/{user_id}`
 
 The request block is the same as the one for create user, except that only the attributes
 that are being updated need to be included. Use this method attempt to update user
 password or enable/disable the user. This may return a HTTP 501 Not Implemented if the
-back-end driver doesn't allow for the functionality.
+back-end driver does not allow for the functionality.
 
 Response:
 
@@ -2576,16 +2575,16 @@ Response:
 
     {
         "user": {
-            "default_project_id": "--default-project-id--",
-            "description": "a user",
+            "default_project_id": "263fd9",
+            "description": "James Doe's user",
             "domain_id": "1789d1",
-            "email": "...",
+            "email": "jamesdoe@example.com",
             "enabled": true,
-            "id": "--user-id--",
+            "id": "ff4e51",
             "links": {
-                "self": "http://identity:35357/v3/users/--user-id--"
+                "self": "https://identity:35357/v3/users/ff4e51"
             },
-            "name": "admin"
+            "name": "jamesdoe"
         }
     }
 
@@ -2601,8 +2600,8 @@ Request:
 
     {
         "user": {
-            "password": "...",
-            "original_password": "..."
+            "password": "chang3me",
+            "original_password": "secrete"
         }
     }
 
