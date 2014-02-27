@@ -2165,34 +2165,6 @@ The key use cases we need to cover:
 
 ### Domains
 
-#### Create domain: `POST /domains`
-
-Request:
-
-    {
-        "domain": {
-            "description": "--optional--",
-            "enabled": true,
-            "name": "..."
-        }
-    }
-
-Response:
-
-    Status: 201 Created
-
-    {
-        "domain": {
-            "description": "desc of domain",
-            "enabled": true,
-            "id": "--domain-id--",
-            "links": {
-                "self": "http://identity:35357/v3/domains/--domain-id--"
-            },
-            "name": "my domain"
-        }
-    }
-
 #### List domains: `GET /domains`
 
 Optional query parameters:
@@ -2207,26 +2179,26 @@ Response:
     {
         "domains": [
             {
-                "description": "desc of domain",
+                "description": "my domain description",
                 "enabled": true,
-                "id": "--domain-id--",
+                "id": "1789d1",
                 "links": {
-                    "self": "http://identity:35357/v3/domains/--domain-id--"
+                    "self": "https://identity:35357/v3/domains/1789d1"
                 },
                 "name": "my domain"
             },
             {
-                "description": "desc of another domain",
+                "description": "description of my other domain",
                 "enabled": true,
-                "id": "--domain-id--",
+                "id": "43e8da",
                 "links": {
-                    "self": "http://identity:35357/v3/domains/--domain-id--"
+                    "self": "https://identity:35357/v3/domains/43e8da"
                 },
                 "name": "another domain"
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/domains",
+            "self": "https://identity:35357/v3/domains",
             "previous": null,
             "next": null
         }
@@ -2240,13 +2212,41 @@ Response:
 
     {
         "domain": {
-            "description": "desc of domain",
+            "description": "my domain description",
             "enabled": true,
-            "id": "--domain-id--",
+            "id": "1789d1",
             "links": {
-                "self": "http://identity:35357/v3/domains/--domain-id--"
+                "self": "https://identity:35357/v3/domains/1789d1"
             },
             "name": "my domain"
+        }
+    }
+
+#### Create domain: `POST /domains`
+
+Request:
+
+    {
+        "domain": {
+            "description": "my new domain for users",
+            "enabled": true,
+            "name": "my new domain"
+        }
+    }
+
+Response:
+
+    Status: 201 Created
+
+    {
+        "domain": {
+            "description": "my new domain for users",
+            "enabled": true,
+            "id": "89b3e2",
+            "links": {
+                "self": "https://identity:35357/v3/domains/89b3e2"
+            },
+            "name": "my new domain"
         }
     }
 
@@ -2255,6 +2255,13 @@ Response:
 The request block is the same as the one for create domain, except that only the attributes
 that are being updated need to be included.
 
+Request:
+
+    {
+        "domain": {
+            "description": "my new domain for users and tenants"
+        }
+    }
 
 Response:
 
@@ -2262,13 +2269,13 @@ Response:
 
     {
         "domain": {
-            "description": "desc of domain",
+            "description": "my new domain for users and tenants",
             "enabled": true,
-            "id": "--domain-id--",
+            "id": "89b3e2",
             "links": {
-                "self": "http://identity:35357/v3/domains/--domain-id--"
+                "self": "https://identity:35357/v3/domains/89b3e2"
             },
-            "name": "my domain"
+            "name": "my new domain"
         }
     }
 
