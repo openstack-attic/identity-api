@@ -2266,35 +2266,6 @@ Response:
 
 ### Projects
 
-#### Create project: `POST /projects`
-
-Request:
-
-    {
-        "project": {
-            "description": "...",
-            "domain_id": "...",
-            "enabled": true,
-            "name": "..."
-        }
-    }
-
-Response:
-
-    Status: 201 Created
-
-    {
-        "project": {
-            "domain_id": "--domain-id--",
-            "enabled": true,
-            "id": "--project-id--",
-            "links": {
-                "self": "http://identity:35357/v3/projects/--project-id--"
-            },
-            "name": "a project name"
-        }
-    }
-
 #### List projects: `GET /projects`
 
 Optional query parameters:
@@ -2310,26 +2281,26 @@ Response:
     {
         "projects": [
             {
-                "domain_id": "--domain-id--",
+                "domain_id": "1789d1",
                 "enabled": true,
-                "id": "--project-id--",
+                "id": "263fd9",
                 "links": {
-                    "self": "http://identity:35357/v3/projects/--project-id--"
+                    "self": "https://identity:35357/v3/projects/263fd9"
                 },
-                "name": "a project name"
+                "name": "Dev Group A"
             },
             {
-                "domain_id": "--domain-id--",
+                "domain_id": "1789d1",
                 "enabled": true,
-                "id": "--project-id--",
+                "id": "e56ad3",
                 "links": {
-                    "self": "http://identity:35357/v3/projects/--project-id--"
+                    "self": "https://identity:35357/v3/projects/e56ad3"
                 },
-                "name": "another project"
+                "name": "Dev Group B"
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/projects",
+            "self": "https://identity:35357/v3/projects",
             "previous": null,
             "next": null
         }
@@ -2343,13 +2314,43 @@ Response:
 
     {
         "project": {
-            "domain_id": "--domain-id--",
+            "domain_id": "1789d1",
             "enabled": true,
-            "id": "--project-id--",
+            "id": "263fd9",
             "links": {
-                "self": "http://identity:35357/v3/projects/--project-id--"
+                "self": "https://identity:35357/v3/projects/263fd9"
             },
-            "name": "a project name"
+            "name": "Dev Group A"
+        }
+    }
+
+#### Create project: `POST /projects`
+
+Request:
+
+    {
+        "project": {
+            "description": "Project space for Test Group",
+            "domain_id": "1789d1",
+            "enabled": true,
+            "name": "Test Group"
+        }
+    }
+
+Response:
+
+    Status: 201 Created
+
+    {
+        "project": {
+            "description": "Project space for Test Group",
+            "domain_id": "1789d1",
+            "enabled": true,
+            "id": "d52e32",
+            "links": {
+                "self": "https://identity:35357/v3/projects/d52e32"
+            },
+            "name": "Test Group"
         }
     }
 
@@ -2358,20 +2359,20 @@ Response:
 The request block is the same as the one for create project, except that only the attributes
 that are being updated need to be included.
 
-
 Response:
 
     Status: 200 OK
 
     {
         "project": {
-            "domain_id": "--domain-id--",
+            "description": "Project space for Build Group",
+            "domain_id": "1789d1",
             "enabled": true,
-            "id": "--project-id--",
+            "id": "d52e32",
             "links": {
-                "self": "http://identity:35357/v3/projects/--project-id--"
+                "self": "https://identity:35357/v3/projects/d52e32"
             },
-            "name": "a project name"
+            "name": "Build Group"
         }
     }
 
