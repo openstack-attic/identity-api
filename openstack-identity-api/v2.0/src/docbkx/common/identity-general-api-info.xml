@@ -70,10 +70,10 @@ This operation does not require a request body.</para>'>
             <caption>Response Types</caption>
             <thead>
                 <tr>
-                    <td>Format</td>
-                    <td>Accept Header</td>
-                    <td>Query Extension</td>
-                    <td>Default</td>
+                    <th>Format</th>
+                    <th>Accept Header</th>
+                    <th>Query Extension</th>
+                    <th>Default</th>
                 </tr>
             </thead>
             <tbody>
@@ -116,9 +116,9 @@ This operation does not require a request body.</para>'>
             <caption>Compression Headers</caption>
             <thead>
                 <tr>
-                    <td>Header Type</td>
-                    <td>Name</td>
-                    <td>Value</td>
+                    <th>Header Type</th>
+                    <th>Name</th>
+                    <th>Value</th>
                 </tr>
             </thead>
             <tbody>
@@ -378,9 +378,9 @@ Host: identity.api.openstack.org/v1.1/
         <informaltable rules="all">
             <thead>
                 <tr>
-                    <td colspan="1">Verb</td>
-                    <td colspan="2">URI</td>
-                    <td colspan="3">Description</td>
+                    <th colspan="1">Verb</th>
+                    <th colspan="2">URI</th>
+                    <th colspan="3">Description</th>
                 </tr>
             </thead>
             <tbody>
@@ -418,9 +418,9 @@ Host: identity.api.openstack.org/v1.1/
         <informaltable rules="all">
             <thead>
                 <tr>
-                    <td colspan="1">Verb</td>
-                    <td colspan="2">URI</td>
-                    <td colspan="3">Description</td>
+                    <th colspan="1">Verb</th>
+                    <th colspan="2">URI</th>
+                    <th colspan="3">Description</th>
                 </tr>
             </thead>
             <tbody>
@@ -512,9 +512,9 @@ Host: identity.api.openstack.org/v1.1/
             <caption>Fault Types</caption>
             <thead>
                 <tr>
-                    <td>Fault Element</td>
-                    <td>Associated Error Code</td>
-                    <td>Expected in All Requests</td>
+                    <th>Fault Element</th>
+                    <th>Associated Error Code</th>
+                    <th>Expected in All Requests</th>
                 </tr>
             </thead>
             <tbody>

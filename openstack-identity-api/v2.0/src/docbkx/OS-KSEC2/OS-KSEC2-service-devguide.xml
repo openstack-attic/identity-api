@@ -28,9 +28,9 @@
         <!ENTITY URI_REFHEAD '
         <thead xmlns="http://docbook.org/ns/docbook">
         <tr>
-        <td colspan="1">Verb</td>
-        <td colspan="1">URI</td>
-        <td colspan="4">Description</td>
+        <th colspan="1">Verb</th>
+        <th colspan="1">URI</th>
+        <th colspan="4">Description</th>
         </tr>
         </thead>'>
         <!ENTITY EC2CREDENTIALSREQUESTXML "../OS-KSEC2/samples/auth_credentials-OS-KSEC2.xml">
