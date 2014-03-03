@@ -89,31 +89,6 @@
                             </resource>
                         </resource>
                     </resource>
-                    <resource id="user-OS-KSADM" path="OS-KSADM">
-                        <resource id="enabled" path="enabled">
-                            <method href="#setUserEnabled"/>
-                        </resource>
-                        <resource id="userCredentials"
-                            path="credentials">
-                            <method href="#ksadm-addUserCredential"/>
-                            <method href="#listCredentials"/>
-                            <resource id="userCredentialsByType"
-                                path="{credential-type}">
-                                <param name="credentialType"
-                                   style="template"
-                                   type="OS-KSADM:extensibleCredentialsType"
-                                   required="true">
-                                   <wadl:doc
-                                   xmlns="http://docbook.org/ns/docbook"
-                                   xml:lang="EN"><para>The credential
-                                   type.</para></wadl:doc>
-                                </param>
-                                <method href="#updateUserCredential"/>
-                                <method href="#deleteUserCredential"/>
-                                <method href="#getUserCredential"/>
-                            </resource>
-                        </resource>
-                    </resource>
                 </resource>
             </resource>
             <resource id="tenants" path="tenants">
@@ -607,7 +582,7 @@
         </response> &commonFaults; &getFaults; </method>
     <method name="PUT" id="addUserRole">
         <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"
-            title="Add Global Role to User">
+            title="Add Global Role to User">
             <para role="shortdesc">Adds a specific global role to a
                 user.</para>
         </wadl:doc>
@@ -621,149 +596,6 @@
                 a user.</para>
         </wadl:doc>
         <response status="204"/> &commonFaults; &getFaults; </method>
-    <!-- User Credentials -->
-    <method name="POST" id="ksadm-addUserCredential">
-        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"
-            title="Add User Credentials">
-            <para role="shortdesc">Adds a credential to a user.</para>
-        </wadl:doc>
-        <request>
-            <representation mediaType="application/xml"
-                element="identity:credential">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.xml"
-                    />
-                </wadl:doc>
-            </representation>
-            <representation mediaType="application/json">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.json"
-                    />
-                </wadl:doc>
-            </representation>
-        </request>
-        <response status="201">
-            <representation mediaType="application/xml"
-                element="identity:credential">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.xml"
-                    />
-                </wadl:doc>
-            </representation>
-            <representation mediaType="application/json">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.json"
-                    />
-                </wadl:doc>
-            </representation>
-        </response> &commonFaults; &postPutFaults; &getFaults; </method>
-    <method name="GET" id="listCredentials">
-        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"
-            title="List Credentials">
-            <para role="shortdesc">Lists credentials.</para>
-        </wadl:doc>
-        <response status="200 203">
-            <representation mediaType="application/xml"
-                element="identity:credentials">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code
-                        href="../OS-KSADM/samples/credentials.xml"/>
-                </wadl:doc>
-            </representation>
-            <representation mediaType="application/json">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code
-                        href="../OS-KSADM/samples/credentials.json"/>
-                </wadl:doc>
-            </representation>
-        </response> &commonFaults; &getFaults; </method>
-    <method name="POST" id="updateUserCredential">
-        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"
-            title="Update User Credentials">
-            <para role="shortdesc">Updates credentials for a specified
-                user.</para>
-        </wadl:doc>
-        <request>
-            <representation mediaType="application/xml"
-                element="identity:credential">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.xml"
-                    />
-                </wadl:doc>
-            </representation>
-            <representation mediaType="application/json">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.json"
-                    />
-                </wadl:doc>
-            </representation>
-        </request>
-        <response status="200">
-            <representation mediaType="application/xml"
-                element="identity:credential">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.xml"
-                    />
-                </wadl:doc>
-            </representation>
-            <representation mediaType="application/json">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.json"
-                    />
-                </wadl:doc>
-            </representation>
-        </response> &commonFaults; &postPutFaults; &getFaults; </method>
-    <method name="DELETE" id="deleteUserCredential">
-        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"
-            title="Delete User Credentials">
-            <para role="shortdesc">Deletes credentials for a specified
-                user.</para>
-        </wadl:doc>
-        <response status="204"/> &commonFaults; &postPutFaults;
-        &getFaults; </method>
-    <method name="GET" id="getUserCredential">
-        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"
-            title="Get User Credentials">
-            <para role="shortdesc">Gets user credentials.</para>
-        </wadl:doc>
-        <response status="200 203">
-            <representation mediaType="application/xml"
-                element="identity:credential">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.xml"
-                    />
-                </wadl:doc>
-            </representation>
-            <representation mediaType="application/json">
-                <wadl:doc xmlns="http://docbook.org/ns/docbook"
-                    xml:lang="EN">
-                    <xsdxt:code
-                        href="../OS-KSADM/samples/passwordcredentials.json"
-                    />
-                </wadl:doc>
-            </representation>
-        </response> &commonFaults; &getFaults; </method>
-
     <!-- Roles -->
     <method name="GET" id="listRoles">
         <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"
