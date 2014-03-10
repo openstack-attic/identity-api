@@ -761,8 +761,8 @@ Example request:
                     "saml2"
                 ],
                 "saml2": {
-                    "identity_provider": {"id": "ACME"},
-                    "protocol": {"id": "SAML"}
+                    "identity_provider": "ACME",
+                    "protocol": "SAML"
                 }
             }
         }
@@ -784,8 +784,8 @@ Example of an OS-FEDERATION token:
                 "id": "username%40example.com",
                 "name": "username@example.com",
                 "OS-FEDERATION": {
-                    "identity_provider": {"id": "ACME"},
-                    "protocol": {"id": "SAML"}
+                    "identity_provider": "ACME",
+                    "protocol": "SAML"
                 },
                 "OS-FEDERATION:groups": [
                     {"id": "abc123"},
