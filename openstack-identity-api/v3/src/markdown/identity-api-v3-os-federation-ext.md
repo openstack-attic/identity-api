@@ -761,8 +761,8 @@ Example request:
                     "saml2"
                 ],
                 "saml2": {
-                    "identity_provider": {"id": "ACME"},
-                    "protocol": {"id": "SAML"}
+                    "identity_provider": "ACME",
+                    "protocol": "SAML"
                 }
             }
         }
