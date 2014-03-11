@@ -1,0 +1,10 @@
+Verified+2: Jenkins
+Code-Review+2: Brant Knudson <bknudson@us.ibm.com>
+Approved+1: Andreas Jaeger <jaegerandi@gmail.com>
+Code-Review+2: Andreas Jaeger <jaegerandi@gmail.com>
+Code-Review+2: Lana Brindley <openstack@lanabrindley.com>
+Submitted-by: Jenkins
+Submitted-at: Tue, 11 Mar 2014 08:20:39 +0000
+Reviewed-on: https://review.openstack.org/73179
+Project: openstack/identity-api
+Branch: refs/heads/master
