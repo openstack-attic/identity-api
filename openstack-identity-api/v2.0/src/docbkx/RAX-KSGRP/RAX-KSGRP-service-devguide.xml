@@ -93,7 +93,7 @@
             name="Rackspace Identity Service Group Extensions"
             namespace="http://docs.rackspace.com/identity/api/ext/RAX-KSGRP/v1.0"
             alias="RAX-KSGRP" updated="2011-08-14T13:25:27-06:00">
-            <description>Rackspace extensions to Identity Service v2.0
+            <description>Rackspace extensions to Identity v2.0
                 API enabling groups.</description>
             <atom:link rel="describedby" type="application/pdf"
                 href="httaw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/RAX-KSGRP/RAX-KSGRP-devguide.pdf"/>
@@ -105,8 +105,8 @@
         <abstract>
             <para>This document is intended for client developers
                 interested in using the Rackspace Identity Service
-                Group Extension (Service) along with the OpenStack
-                Identity Service (<abbrev>API</abbrev>).</para>
+                Group Extension (Service) along with OpenStack
+                Identity (<abbrev>API</abbrev>).</para>
         </abstract>
         <revhistory>
             <revision>
@@ -123,7 +123,7 @@
     </info>
     <chapter xml:id="chapter-0001">
         <title>Summary of Changes</title>
-        <para>Rackspace extensions to Identity Service v2.0 API
+        <para>Rackspace extensions to Identity v2.0 API
             allows authenticate call to also return information about
             group memberships of the user.</para>
         <section xml:id="NewHeaders-0001">
@@ -145,7 +145,7 @@
         <section xml:id="NewElement0001">
             <title>New Elements</title>
             <section xml:id="RackExt-0001">
-                <title>Rackspace extensions to Identity Service v2.0
+                <title>Rackspace extensions to the Identity v2.0
                     API enabling groups.</title>
                 <section xml:id="New-Elements-details-0002">
                     <title>New Elements</title>

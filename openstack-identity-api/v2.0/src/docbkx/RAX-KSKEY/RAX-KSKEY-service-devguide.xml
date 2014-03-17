@@ -74,8 +74,8 @@
         <abstract>
             <para>This document is intended for client developers
                 interested in using the Rackspace API Key
-                Authentication Service Extension along with the
-                OpenStack Identity Service (<abbrev>API</abbrev>).
+                Authentication Service Extension along with
+                OpenStack Identity (<abbrev>API</abbrev>).
             </para>
         </abstract>
         <othercredit>
@@ -90,7 +90,7 @@
             name="Rackspace API Key authentication"
             namespace="http://docs.rackspace.com/identity/api/ext/RAX-KSKEY/v1.0"
             alias="RAX-KSKEY" updated="2011-08-14T13:25:27-06:00">
-            <description> Rackspace extensions to Identity Service v2.0 API
+            <description> Rackspace extensions to Identity v2.0 API
                 enabling API Key authentication. </description>
             <atom:link rel="describedby" type="application/pdf"
                 href="http://docs.rackspacecloud.com/auth/api/v2.0/RAX-KSKEY/RAX-KSKEY-service-devguide.pdf"/>
@@ -134,7 +134,7 @@
         <section xml:id="NewElement0001">
             <title>New Element</title>
             <section xml:id="RackExt-0001">
-                <title>Rackspace Extensions to Identity Service v2.0 API</title>
+                <title>Rackspace Extensions to Identity v2.0 API</title>
                 <section xml:id="Authenticate-d1e1166">
                     <title>RAX-KSKEY apikeyCredentials Extended Attribute</title>
                     <para>The
@@ -167,7 +167,7 @@
                     <para>This call returns a token if
                         successful. Clients obtain this token, along
                         with the URL to other service APIs, by first
-                        authenticating against the OpenStack Identity Service
+                        authenticating against OpenStack Identity
                         and supplying valid credentials. This
                         extension provides support for Rackspace style
                         API Key credentials.</para>
@@ -175,10 +175,10 @@
                         ReST interface using the POST method, with
                         v2.0/tokens supplied as the path. A payload of
                         credentials must be included in the body. See <xref linkend="Service_API_Client_Operations"/>.</para>
-                    <para>The Identity Service is a ReSTful web
+                    <para>The Identity API is a ReSTful web
                         service. It is the entry point to all service
-                        APIs. To access the Identity Service, you must
-                        know the URL of the Identity Service.</para>
+                        APIs. To access the Identity API, you must
+                        know its URL.</para>
                     <example>
                         <title>Auth with apikeyCredentials: JSON Request</title>
                         <programlisting language="json"><xi:include href="&APIKEYCREDENTIALSREQUESTJSON;" parse="text"/></programlisting>

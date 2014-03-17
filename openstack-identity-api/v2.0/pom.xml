@@ -8,7 +8,7 @@
     <artifactId>docs</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>OpenStack Identity Service API v2.0 Reference</name>
+    <name>OpenStack Identity API v2.0 Reference</name>
     <build>
         <sourceDirectory>src</sourceDirectory>
         <plugins>

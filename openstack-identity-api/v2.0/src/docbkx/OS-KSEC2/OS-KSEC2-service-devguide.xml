@@ -135,8 +135,9 @@
                 <section xml:id="Authenticate-d1e1166">
                     <title>Authenticate</title>
                     <para>This extension enables the
-                            <parameter>ec2Credentials</parameter> parameter, which supports the EC2 style of authentication.
-                       </para>
+                            <parameter>ec2Credentials</parameter>
+                        parameter, which supports the EC2 style of
+                        authentication. </para>
                     <informaltable rules="all"> &URI_REFHEAD; <tbody>
                             <tr>
                                 <td colspan="1"> &POST; </td>
@@ -154,21 +155,22 @@
                             (<errorcode>400</errorcode>),
                         identityFault (<errorcode>500</errorcode>),
                             serviceUnavailable(<errorcode>503</errorcode>)</simpara>
-                    <para>This call returns a token if
-                        successful. Clients obtain this token, along
-                        with the URL to other service APIs, by first
-                        authenticating against the Identity Service
-                        and supplying valid credentials. This
-                        extension provides support for Rackspace style
-                        API key credentials.</para>
-                    <para>Client authentication is provided via a
-                        ReST interface using the POST method, with
+                    <para>This call returns a token if successful.
+                        Clients obtain this token, along with the URL
+                        to other service APIs, by first authenticating
+                        against Identity and supplying valid
+                        credentials. This extension provides support
+                        for Rackspace style API key
+                        credentials.</para>
+                    <para>Client authentication is provided via a ReST
+                        interface using the POST method, with
                         v2.0/tokens supplied as the path. A payload of
-                        credentials must be included in the body.</para>
-                    <para>The Identity Service is a ReSTful web
-                        service. It is the entry point to all service
-                        APIs. To access the Identity Service, you must
-                        know the URL of the Identity Service.</para>
+                        credentials must be included in the
+                        body.</para>
+                    <para>The Identity API is a ReSTful web service.
+                        It is the entry point to all service APIs. To
+                        access the Identity API, you must know its
+                        URL.</para>
                     <example>
                         <title>XML Auth Request using
                             EC2CREDENTIALS</title>
