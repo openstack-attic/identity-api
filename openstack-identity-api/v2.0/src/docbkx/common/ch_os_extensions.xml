@@ -3,7 +3,7 @@
     xml:id="openstack_identity_extensions" version="5.0"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     role="api-reference">
-    <title>OpenStack Identity Service Extensions</title>
+    <title>OpenStack Identity Extensions</title>
     <xi:include href="../OS-KSADM/OS-KSADM-admin-devguide.xml"
         xpointer="element(Admin_API_Service_Developer_Operations-d1e1357)"/>
     <xi:include href="../OS-KSCATALOG/OS-KSCATALOG-admin-devguide.xml"

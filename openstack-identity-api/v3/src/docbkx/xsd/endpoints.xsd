@@ -125,7 +125,7 @@
                     xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
                 <p>
-                    A list of Endpoints.
+                    A list of dndpoints.
                 </p>
             </xsd:documentation>
         </annotation>

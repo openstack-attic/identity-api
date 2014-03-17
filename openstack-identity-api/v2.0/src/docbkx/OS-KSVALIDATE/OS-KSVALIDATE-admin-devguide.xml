@@ -84,7 +84,7 @@
             name="OS-KSVALIDATE Extensions"
             namespace="http://docs.rackspace.com/identity/api/ext/OS-KSVALIDATE/v1.0"
             alias="OS-KSVALIDATE" updated="2011-08-14T13:25:27-06:00">
-            <description> Identity Service v2.0 API extension. </description>
+            <description> Identity v2.0 API extension. </description>
             <atom:link rel="describedby" type="application/pdf"
                 href="httaw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/OS-KSVALIDATE/OS-KSVALIDATE-service-devguide.pdf"/>
             <atom:link rel="describedby"
@@ -95,7 +95,7 @@
         <abstract>
             <para>This document is intended for client developers
                 interested in using the OS-KSVALIDATE Extension
-                (Service) along with the OpenStack Identity Service
+                (Service) along with the OpenStack Identity
                     (<abbrev>API</abbrev>).</para>
         </abstract>
         <revhistory>
@@ -135,7 +135,7 @@
         <section xml:id="NewElement0001">
             <title>New Elements</title>
             <section xml:id="RackExt-0001">
-                <title>OS-KSVALIDATE extension to Identity Service
+                <title>OS-KSVALIDATE extension to Identity
                     v2.0 API</title>
                 <section xml:id="New-Elements-details-0002">
                     <title>New Elements</title>

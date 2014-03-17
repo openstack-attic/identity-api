@@ -39,10 +39,12 @@ format="SVG" scale="60"/>
 <!ENTITY EXTENSIONXSD "http://docs.openstack.org/api/openstack-identity/extensions/OS-KSADM/xsd/OS-KSADM.xsd">
 ]>
 
-<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-    xmlns:html="http://www.w3.org/1999/xhtml" version="5.0" status="draft"
-    xml:id="Identity-Service-Developer-Guide-OS-KSADM">
+<book xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:html="http://www.w3.org/1999/xhtml" version="5.0"
+    status="draft" xml:id="Identity-Developer-Guide-OS-KSADM">
     <?rax subtitle.font.size="20px"?>
     <title>OpenStack Identity OS-KSADM (Admin Operations)</title>
     <titleabbrev>OS-KSADM (Admin)</titleabbrev>
@@ -66,7 +68,8 @@ format="SVG" scale="60"/>
         <pubdate>2011-08-29</pubdate>
         <legalnotice role="apache2">
             <annotation>
-                <remark>Copyright details are filled in by the template.</remark>
+                <remark>Copyright details are filled in by the
+                    template.</remark>
             </annotation>
         </legalnotice>
         <othercredit>
@@ -76,22 +79,23 @@ format="SVG" scale="60"/>
             </personname>
             <email>joe.savak@RACKSPACE.COM</email>
         </othercredit>
-        <extension  xmlns="http://docs.openstack.org/common/api/v1.0"
-                    xmlns:atom="http://www.w3.org/2005/Atom"
-                    name="OpenStack Identity Service Admin" namespace="http://docs.openstack.org/identity/api/ext/OS-KSADM/v1.0"
-                    alias="OS-KSADM"
-                    updated="2011-08-14T13:25:27-06:00">
-                    <description>
-                                OpenStack extensions to Identity Service API v2.0, which
-                                 enable administrative API operations.
-                    </description>
-                    <atom:link rel="describedby" type="application/pdf"
-                                href="https://raw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/OS-KSADM/OS-KSADM-admin-devguide.pdf"/>
-                    <atom:link rel="describedby" type="application/pdf"
-                                href="https://raw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/OS-KSADM/OS-KSADM-admin.wadl"/>
+        <extension xmlns="http://docs.openstack.org/common/api/v1.0"
+            xmlns:atom="http://www.w3.org/2005/Atom"
+            name="OpenStack Identity Admin"
+            namespace="http://docs.openstack.org/identity/api/ext/OS-KSADM/v1.0"
+            alias="OS-KSADM" updated="2011-08-14T13:25:27-06:00">
+            <description> OpenStack extensions to Identity API v2.0,
+                which enable administrative API operations. </description>
+            <atom:link rel="describedby" type="application/pdf"
+                href="https://raw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/OS-KSADM/OS-KSADM-admin-devguide.pdf"/>
+            <atom:link rel="describedby" type="application/pdf"
+                href="https://raw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/OS-KSADM/OS-KSADM-admin.wadl"
+            />
         </extension>
         <abstract>
-            <para>This document includes details on various operations supported by the OS-KSADM extensions on top of core OpenStack Identity Service operations.</para>
+            <para>This document includes details on various operations
+                supported by the OS-KSADM extensions on top of core
+                OpenStack Identity operations.</para>
         </abstract>
         <revhistory>
             <revision>
@@ -99,9 +103,7 @@ format="SVG" scale="60"/>
                 <revdescription>
                     <itemizedlist spacing="compact">
                         <listitem>
-                            <para>
-                                Initial release.
-                            </para>
+                            <para>Initial release.</para>
                         </listitem>
                     </itemizedlist>
                 </revdescription>
@@ -110,9 +112,11 @@ format="SVG" scale="60"/>
     </info>
     <chapter xml:id="api_operations" role="api-reference">
         <title>Extension Operations</title>
-        <section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+        <section xmlns="http://docbook.org/ns/docbook"
+            xmlns:xi="http://www.w3.org/2001/XInclude"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            xml:id="Admin_API_Service_Developer_Operations-d1e1357" version="5.0" role="api-reference">
+            xml:id="Admin_API_Service_Developer_Operations-d1e1357"
+            version="5.0" role="api-reference">
             <title>OS-KSADM Admin Extension</title>
             <para>Extension operations.</para>
             <table rules="all">
@@ -133,33 +137,42 @@ format="SVG" scale="60"/>
                 </tbody>
             </table>
             <?hard-pagebreak?>
-            <para>The following calls are supported by OS-KSADM-admin Extension:</para>
+            <para>The following calls are supported by OS-KSADM-admin
+                Extension:</para>
             <section xml:id="User_Operations_OS-KSADM">
                 <title>User Operations</title>
-                <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#users">
+                <wadl:resources
+                    xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#users">
                         <wadl:method href="listUsers"/>
                         <wadl:method href="addUser"/>
                     </wadl:resource>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#userById">
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#userById">
                         <wadl:method href="updateUser"/>
                         <wadl:method href="deleteUser"/>
                     </wadl:resource>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#enabled">
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#enabled">
                         <wadl:method href="setUserEnabled"/>
                     </wadl:resource>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#userRoles">
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#userRoles">
                         <wadl:method href="listUserRoles"/>
                     </wadl:resource>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#userRoleById">
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#userRoleById">
                         <wadl:method href="addUserRole"/>
                         <wadl:method href="deleteUserRole"/>
                     </wadl:resource>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#userCredentials">
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#userCredentials">
                         <wadl:method href="ksadm-addUserCredential"/>
                         <wadl:method href="listCredentials"/>
                     </wadl:resource>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#userCredentialsByType">
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#userCredentialsByType">
                         <wadl:method href="updateUserCredential"/>
                         <wadl:method href="deleteUserCredential"/>
                         <wadl:method href="getUserCredential"/>
@@ -169,37 +182,49 @@ format="SVG" scale="60"/>
             <?hard-pagebreak?>
             <section xml:id="Tenant_Operations_OS-KSADM">
                 <title>Tenant Operations</title>
-                <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#tenants">
+                <wadl:resources
+                    xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#tenants">
                         <wadl:method href="addTenant"/>
                     </wadl:resource>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#tenantById">
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#tenantById">
                         <wadl:method href="updateTenant"/>
                         <wadl:method href="deleteTenant"/>
                     </wadl:resource>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#usersForTenant">
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#usersForTenant">
                         <wadl:method href="listUsersForTenant"/>
                     </wadl:resource>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#userSpecificRoleForTenant">
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#userSpecificRoleForTenant">
                         <wadl:method href="addRolesToUserOnTenant"/>
-                        <wadl:method href="deleteRoleFromUserOnTenant"/>
+                        <wadl:method href="deleteRoleFromUserOnTenant"
+                        />
                     </wadl:resource>
                 </wadl:resources>
             </section>
             <?hard-pagebreak?>
             <section xml:id="Role_Operations_OS-KSADM">
                 <title>Role Operations</title>
-                <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#roles"/>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#roleId"/>
+                <wadl:resources
+                    xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#roles"/>
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#roleId"/>
                 </wadl:resources>
             </section>
             <?hard-pagebreak?>
             <section xml:id="Service_Operations_OS-KSADM">
                 <title>Service Operations</title>
-                <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#services"/>
-                    <wadl:resource href="../wadl/OS-KSADM-admin.wadl#serviceId"/>
+                <wadl:resources
+                    xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#services"/>
+                    <wadl:resource
+                        href="../wadl/OS-KSADM-admin.wadl#serviceId"/>
                 </wadl:resources>
             </section>
         </section>

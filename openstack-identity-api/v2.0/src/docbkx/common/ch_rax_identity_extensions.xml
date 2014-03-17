@@ -3,7 +3,7 @@
     xml:id="rax_identity_extensions" version="5.0"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     role="api-reference">
-    <title>Identity Service API Extensions - Rackspace</title>
+    <title>Identity API Extensions - Rackspace</title>
     <xi:include href="../HP-IDM/HP-IDM.xml"
         xpointer="element(hp-idm-validate-tokens)"/>
 </chapter>

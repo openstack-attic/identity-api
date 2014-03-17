@@ -41,19 +41,19 @@ This operation does not require a request body.</para>'>
 <chapter xmlns="http://docbook.org/ns/docbook"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
-    xml:id="Overview-Identity-Service-API-d1e62">
+    xml:id="Overview-Identity-API-d1e62">
 
     <title>General API Information</title>
 
-    <para>The OpenStack Identity Service API is implemented using a
+    <para>The OpenStack Identity API is implemented using a
         RESTful web service interface. All requests to authenticate
-        and operate against the OpenStack Identity Service API should
+        and operate against the OpenStack Identity API should
         be performed using SSL over HTTP (HTTPS) on TCP port
         443.</para>
     <xi:include href="identity-concepts.xml"/>
     <section xml:id="Request_Response_Types-d1e149">
         <title>Request/Response Types</title>
-        <para>The OpenStack Identity Service API supports both the
+        <para>The OpenStack Identity API supports both the
             JSON and XML data serialization formats. The request
             format is specified using the <code>Content-Type</code>
             header and is required for operations that have a request
