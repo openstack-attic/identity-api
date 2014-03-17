@@ -60,7 +60,7 @@ that the destination party uses to derive the shared signing and encryption
 keys.  When an individual destination party needs to decrypt the payload that it
 receives from the source party as a part of a group message, it makes an
 authenticated request to KDS to obtain the short-lived group key.  If the
-requestor is a member of the target group, KDS provides the short-lived group
+requester is a member of the target group, KDS provides the short-lived group
 key encrypted with the long term shared key associated with the individual
 destination party.  The group key can then be decrypted by the individual
 destination party, allowing it to decrypt the payload and derive the shared
@@ -218,7 +218,7 @@ A base64 encoded JSON object containing the following key/value pairs:
 
  - `source` - The identity requesting a ticket.
  - `destination` - The target for which the ticket will be valid.
- - `timestamp` - Current timestamp from the requestor.
+ - `timestamp` - Current timestamp from the requester.
  - `nonce` - Random single use data.
 
 A timestamp and a nonce are necessary to avoid replay attacks.
@@ -236,7 +236,7 @@ A base64 encoded HMAC Signature over the base64 encoded request metadata object.
 
     Base64encode(HMAC(SigningKey, RequestMetadata))
 
-The key used for the signature is the requestor's long term key.  The KDS
+The key used for the signature is the requester's long term key.  The KDS
 should verify the signature upon receipt of the request.  This requires that the
 KDS access the `source` from the request metadata in order to lookup the
 associated long term key that can be used to verify the signature.  The KDS
@@ -261,7 +261,7 @@ Metadata:
 
 A base64 encoded JSON object containing the following key/value pairs:
 
- - `source` - The identity of the requestor.
+ - `source` - The identity of the requester.
  - `destination` - The target for which the ticket is valid.
  - `expiration` - Timestamp of when the ticket expires.
 
@@ -313,10 +313,10 @@ response metadata object and base64 encoded ticket object.
 
     Base64encode(HMAC(SigningKey, ResponseMetadata + Ticket))
 
-The key used for the signature is the requestor's long term key.  The requestor
+The key used for the signature is the requester's long term key.  The requester
 should verify the signature upon receipt of the response before accessing any
 data contained in the response metadata or the ticket.  Failure to verify the
-signature leaves the requestor open to using metadata that was not actually
+signature leaves the requester open to using metadata that was not actually
 issued by the KDS.
 
 
@@ -387,7 +387,7 @@ Metadata:
 
 A base64 encoded JSON object containing the following key/value pairs:
 
- - `source` - The identity of the requestor.
+ - `source` - The identity of the requester.
  - `destination` - The target for which the ticket is valid.
  - `expiration` - Timestamp of when the ticket expires.
 
@@ -399,7 +399,7 @@ A base64 encoded JSON object containing the following key/value pairs:
 
 Group key:
 
-The group key is encrypted with the requestor's long term key.
+The group key is encrypted with the requester's long term key.
 
 Signature:
 
@@ -408,10 +408,10 @@ response metadata object and the group key.
 
     Base64encode(HMAC(SigningKey, ResponseMetadata + GroupKey))
 
-The key used for the signature is the requestor's long term key.  The requestor
+The key used for the signature is the requester's long term key.  The requester
 should verify the signature upon receipt of the response before accessing any
 data contained in the response metadata or the group key.  Failure to verify the
-signature leaves the requestor open to using data that was not actually issued
+signature leaves the requester open to using data that was not actually issued
 by the KDS.
 
 

@@ -8,10 +8,10 @@ attributes. This extension requires v3.0+ of the Identity API.
 Definitions
 -----------
 
-- *Trusted Identity Provider*: An identity provider setup within the Identity
-  Service API that is trusted to provide authenticated user information.
+- *Trusted Identity Provider*: An identity provider set up within the Identity
+   API that is trusted to provide authenticated user information.
 - *Service Provider*: A system entity that provides services to principals or
-  other system entities, in this case, the OpenStack Identity Service API is
+  other system entities, in this case, the OpenStack Identity API is
   the Service Provider.
 - *Attribute Mapping*: The user information passed by a federation protocol for
   an already authenticated identity are called `attributes`. Those `attributes`
@@ -25,7 +25,7 @@ API Resources
 ### Identity Providers: `/OS-FEDERATION/identity_providers`
 
 An Identity Provider is a third party service that is trusted by the Identity
-Service to authenticate identities.
+API to authenticate identities.
 
 Optional attributes:
 

@@ -2,7 +2,7 @@
 <chapter xmlns="http://docbook.org/ns/docbook"
     xml:id="rax_identity_extensions" version="5.0"
     xmlns:xi="http://www.w3.org/2001/XInclude">
-    <title>Rackspace Identity Service Extensions</title>
+    <title>Rackspace Extensions to OpenStack Identity</title>
     <xi:include href="../RAX-GRPADM/RAX-GRPADM-devguide.xml"
         xpointer="element(Admin_API_Service_Developer_Operations-RAX-GRPADM)"/>
     <xi:include href="../RAX-KSGRP/RAX-KSGRP-service-devguide.xml"

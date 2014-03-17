@@ -208,9 +208,9 @@ Response:
 
 Response Parameters:
 
-  - `oauth_token`: The Request Token key that the Identity Service returns.
+  - `oauth_token`: The Request Token key that the Identity API returns.
   - `oauth_token_secret`: The secret associated with the Request Token.
-  - `oauth_expires_at` (optional): The ISO 8601 datetime at which a Request Token will expire.
+  - `oauth_expires_at` (optional): The ISO 8601 date time at which a Request Token will expire.
 
 ### Authorize Request Token: `PUT /OS-OAUTH1/authorize/{request_token_id}`
 
@@ -261,9 +261,9 @@ Response:
 
 Response Parameters:
 
-- `oauth_token`: The Access Token key that the Identity Service returns.
+- `oauth_token`: The Access Token key that the Identity API returns.
 - `oauth_token_secret`: The secret associated with the Access Token.
-- `oauth_expires_at` (optional): The ISO 8601 datetime at which an Access Token will expire.
+- `oauth_expires_at` (optional): The ISO 8601 date time when an Access Token expires.
 
 ### Request an Identity API Token: `POST /auth/tokens`
 

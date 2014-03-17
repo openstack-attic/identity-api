@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../xslt/schema.xslt"?>
 
-<!-- (C) 2011-2013 OpenStack Foundation, All Rights Reserved -->
+<!-- (C) 2011-2014 OpenStack Foundation, All Rights Reserved -->
 
 <xsd:schema elementFormDefault="qualified"
     attributeFormDefault="unqualified"
@@ -21,8 +21,8 @@
         </xsd:appinfo>
         <xsd:documentation xml:lang="EN"
             xmlns="http://www.w3.org/1999/xhtml">
-            <p> This schema file defines types related to API
-                extensions. </p>
+            <p>This schema file defines types related to API
+                extensions.</p>
         </xsd:documentation>
     </xsd:annotation>
 
@@ -35,7 +35,7 @@
         <xsd:annotation>
             <xsd:documentation xml:lang="EN"
                 xmlns="http://www.w3.org/1999/xhtml">
-                <p> A list of supported extensions. </p>
+                <p>A list of supported extensions.</p>
             </xsd:documentation>
             <xsd:appinfo>
                 <xsdxt:samples>
@@ -55,7 +55,7 @@
         <xsd:annotation>
             <xsd:documentation xml:lang="EN"
                 xmlns="http://www.w3.org/1999/xhtml">
-                <p> Details about a specific extension. </p>
+                <p>Details about a specific extension.</p>
             </xsd:documentation>
             <xsd:appinfo>
                 <xsdxt:samples>
@@ -76,7 +76,7 @@
         <xsd:annotation>
             <xsd:documentation xml:lang="EN"
                 xmlns="http://www.w3.org/1999/xhtml">
-                <p> A list of extensions. </p>
+                <p>A list of extensions.</p>
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
@@ -94,7 +94,7 @@
         <xsd:annotation>
             <xsd:documentation xml:lang="EN"
                 xmlns="http://www.w3.org/1999/xhtml">
-                <p> Details about a specific extension. </p>
+                <p>Details about a specific extension.</p>
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
@@ -103,8 +103,8 @@
                 <xsd:annotation>
                     <xsd:documentation xml:lang="EN"
                         xmlns="http://www.w3.org/1999/xhtml">
-                        <p> A short description of what the extension
-                            does. </p>
+                        <p>A short description of what the extension
+                            does.</p>
                     </xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
@@ -117,7 +117,7 @@
             <xsd:annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> A human readable extension name. </p>
+                    <p>A human readable extension name.</p>
                 </xsd:documentation>
             </xsd:annotation>
         </xsd:attribute>
@@ -126,8 +126,8 @@
             <xsd:annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> Extension namespace used for XML
-                        representations. </p>
+                    <p>Extension namespace used for XML
+                        representations.</p>
                 </xsd:documentation>
             </xsd:annotation>
         </xsd:attribute>
@@ -135,8 +135,8 @@
             <xsd:annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> A vendor prefix alias used for non-XML
-                        representations. </p>
+                    <p>A vendor prefix alias used for non-XML
+                        representations.</p>
                 </xsd:documentation>
             </xsd:annotation>
         </xsd:attribute>
@@ -145,8 +145,8 @@
             <xsd:annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> The time that the extension was added or
-                        modified. </p>
+                    <p>The time that the extension was added or
+                        modified.</p>
                 </xsd:documentation>
             </xsd:annotation>
         </xsd:attribute>
@@ -156,9 +156,9 @@
             <xsd:annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> There should be at least one atom link with a
+                    <p>There should be at least one atom link with a
                         describedby relation. This relation provides
-                        developer info for the extension. </p>
+                        developer info for the extension.</p>
                 </xsd:documentation>
             </xsd:annotation>
         </xsd:assert>
@@ -168,12 +168,12 @@
         <xsd:annotation>
             <xsd:documentation xml:lang="EN"
                 xmlns="http://www.w3.org/1999/xhtml">
-                <p> Vendor aliases are used to differentiate
-                    extensions in non-XML representations as well as
-                    in HTTP headers and in the URL path. An alias is
-                    made of a vendor prefix, followed be a dash (-)
-                    followed be a short extension ID. For example:
-                        <code>RAX-PIE</code>. </p>
+                <p>Vendor aliases are used to differentiate extensions
+                    in non-XML representations as well as in HTTP
+                    headers and in the URL path. An alias is made of a
+                    vendor prefix, followed be a dash (-), and followed by
+                    a short extension ID. For example:
+                        <code>RAX-PIE</code>.</p>
             </xsd:documentation>
         </xsd:annotation>
         <xsd:restriction base="xsd:string">

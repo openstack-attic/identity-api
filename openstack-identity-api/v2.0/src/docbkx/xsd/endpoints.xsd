@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../xslt/schema.xslt"?>
-<!-- (C) 2011-2013 OpenStack Foundation, All Rights Reserved -->
+<!-- (C) 2011-2014 OpenStack Foundation, All Rights Reserved -->
 <schema elementFormDefault="qualified"
     attributeFormDefault="unqualified"
     xmlns="http://www.w3.org/2001/XMLSchema"
@@ -20,7 +20,7 @@
         <annotation>
             <xsd:documentation xml:lang="EN"
                 xmlns="http://www.w3.org/1999/xhtml">
-                <p> An Endpoint. </p>
+                <p> An Endpoint.</p>
             </xsd:documentation>
         </annotation>
     </element>
@@ -28,7 +28,7 @@
         <annotation>
             <xsd:documentation xml:lang="EN"
                 xmlns="http://www.w3.org/1999/xhtml">
-                <p>A list of endpoints. </p>
+                <p>A list of endpoints.</p>
             </xsd:documentation>
         </annotation>
     </element>
@@ -40,7 +40,7 @@
                 <annotation>
                     <xsd:documentation xml:lang="EN"
                         xmlns="http://www.w3.org/1999/xhtml">
-                        <p>Version details. </p>
+                        <p>Version details.</p>
                     </xsd:documentation>
                 </annotation>
             </element>
@@ -53,7 +53,7 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p>An ID uniquely identifying the Endpoint. </p>
+                    <p>An ID uniquely identifying the Endpoint.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -62,8 +62,8 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p>The OpenStack-registered type (such as, 'compute',
-                        'object-store', and so on). </p>
+                    <p>The OpenStack-registered type, such as,
+                        compute, object-store, and so on.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -71,8 +71,8 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> The commercial service name (such as, 'My Nova
-                        Cloud Servers'). </p>
+                    <p>The commercial service name, such as, My Nova
+                        Cloud Servers.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -80,7 +80,7 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p>The region of endpoint template. </p>
+                    <p>The region of endpoint template.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -88,8 +88,8 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p>The public URL to access represented service.
-                    </p>
+                    <p>The public URL to access represented
+                        service.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -97,7 +97,7 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p>The internal version of the public URL. </p>
+                    <p>The internal version of the public URL.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -105,7 +105,7 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p>The admin URL. </p>
+                    <p>The admin URL.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -113,7 +113,7 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p>Tenant ID to which the endpoints belong. </p>
+                    <p>Tenant ID to which the endpoints belong.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>

@@ -121,7 +121,7 @@
                 a token that is not valid.</para>
             <para>This extension
                 might decrypt 'X-Subject-Token' header and internally
-                call the normal validation for the Identity Service,
+                call the normal validation for OpenStack Identity,
                 passing in all headers and query parameters. It should
                 therefore support all existing calls on
                     <code>/tokens/{tokenId}</code>, including
@@ -160,7 +160,7 @@
                 a token that is not valid.</para>
             <para>This extension
                 might decrypt 'X-Subject-Token' header and internally
-                call the normal validation for the Identity Service,
+                call the normal validation for OpenStack Identity,
                 passing in all headers and query parameters. It should
                 therefore support all existing calls on
                     <code>/tokens/{tokenId}</code>, including

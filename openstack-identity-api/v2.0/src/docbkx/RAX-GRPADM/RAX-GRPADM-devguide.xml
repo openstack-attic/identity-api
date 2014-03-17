@@ -96,7 +96,7 @@
             name="OpenStack Identity Rackspace Group Admin"
             namespace="http://docs.rackspace.com/identity/api/ext/RAX-KSGRP/v1.0"
             alias="RAX-GRPADM" updated="2011-08-14T13:25:27-06:00">
-            <description> Rackspace extensions to Identity Service
+            <description> Rackspace extensions to Identity
                 v2.0 API enabling Group Admin. </description>
             <atom:link rel="describedby" type="application/pdf"
                 href="https://raw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/RAX-GRPADM/RAX-GRPADM-devguide.pdf"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../xslt/schema.xslt"?>
 
-<!-- (C) 2011-2013 OpenStack Foundation, All Rights Reserved -->
+<!-- (C) 2011-2014 OpenStack Foundation, All Rights Reserved -->
 
 <schema elementFormDefault="qualified"
     attributeFormDefault="unqualified"
@@ -29,17 +29,17 @@
         <annotation>
             <xsd:documentation xml:lang="EN"
                 xmlns="http://www.w3.org/1999/xhtml">
-                <p> A token is an arbitrary bit of text that is used
+                <p>A token is an arbitrary bit of text that is used
                     to access resources. Each token has a scope which
                     describes which resources are accessible with it.
                     A token may be revoked at anytime and is valid for
-                    a finite duration. </p>
-                <p> While the Identity Service supports token-based
+                    a finite duration.</p>
+                <p>While the Identity API supports token-based
                     authentication in this release, the intention is
                     for it to support additional protocols in the
                     future. The desire is for it to be an integration
                     service, and not a full-fledged identity store and
-                    management solution. </p>
+                    management solution.</p>
             </xsd:documentation>
             <xsd:appinfo>
                 <xsdxt:samples>
@@ -99,10 +99,10 @@
         <annotation>
             <xsd:documentation xml:lang="EN"
                 xmlns="http://www.w3.org/1999/xhtml">
-                <p> The service catalog lists the services you have
-                    access to </p>
+                <p>The service catalog lists the services you have
+                    access to</p>
                 <div class="design">
-                    <p> We left the design as a flat list of endpoints
+                    <p>We left the design as a flat list of endpoints
                     with attributes that consumers can categorize,
                     according to their needs.</p>
                 </div>
@@ -123,7 +123,7 @@
                 <annotation>
                     <xsd:documentation xml:lang="EN"
                         xmlns="http://www.w3.org/1999/xhtml">
-                        <p> A list of services. </p>
+                        <p>A list of services.</p>
                     </xsd:documentation>
                 </annotation>
             </element>
@@ -143,7 +143,7 @@
                 <annotation>
                     <xsd:documentation xml:lang="EN"
                         xmlns="http://www.w3.org/1999/xhtml">
-                        <p> A list of endpoints. </p>
+                        <p>A list of endpoints.</p>
                     </xsd:documentation>
                 </annotation>
             </element>
@@ -157,8 +157,8 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> The OpenStack-registered type (e.g. 'compute',
-                        'object-store', etc). </p>
+                    <p>The OpenStack-registered type, such as compute,
+                        object-store, and so on.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -166,8 +166,8 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> The commercial service name (e.g. 'My Nova
-                        Cloud Servers'). </p>
+                    <p>The commercial service name, such as My Nova
+                        Cloud Servers.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -182,7 +182,7 @@
                 <annotation>
                     <xsd:documentation xml:lang="EN"
                         xmlns="http://www.w3.org/1999/xhtml">
-                        <p> Version details. </p>
+                        <p>Version details.</p>
                     </xsd:documentation>
                 </annotation>
             </element>
@@ -195,9 +195,9 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> The name of the region where the endpoint
-                        lives. Example: airport codes; LHR (UK), STL
-                        (Saint Louis) </p>
+                    <p>The name of the region where the endpoint
+                        lives. Example: airport codes; LHR (UK) or STL
+                        (Saint Louis).</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -205,7 +205,7 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> Tenant id to which the endpoints belong. </p>
+                    <p>Tenant ID to which the endpoints belong.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -213,7 +213,7 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> Public accessible service URL. </p>
+                    <p>Public accessible service URL.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -221,9 +221,9 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> A service URL, accessible only locally within
+                    <p>A service URL, accessible only locally within
                         that cloud (generally over a high bandwidth,
-                        low latency, free of charge link). </p>
+                        low latency, free of charge link).</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -231,10 +231,10 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> An Admin URL (used for administration using
+                    <p>An Admin URL (used for administration using
                         privileged calls). This may expose additional
                         functionality not found in the public and
-                        internal URL. </p>
+                        internal URL.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -247,7 +247,7 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> Id of the version. </p>
+                    <p>ID of the version.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -255,8 +255,8 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> URI to get the information specific to this
-                        version. </p>
+                    <p>URI to get the information specific to this
+                        version.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
@@ -264,8 +264,7 @@
             <annotation>
                 <xsd:documentation xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                    <p> URI to get the information about all versions.
-                    </p>
+                    <p>URI to get the information about all versions.</p>
                 </xsd:documentation>
             </annotation>
         </attribute>
