@@ -785,12 +785,12 @@ Example of an OS-FEDERATION token:
                 "name": "username@example.com",
                 "OS-FEDERATION": {
                     "identity_provider": {"id": "ACME"},
-                    "protocol": {"id": "SAML"}
-                },
-                "OS-FEDERATION:groups": [
-                    {"id": "abc123"},
-                    {"id": "bcd234"}
-                ]
+                    "protocol": {"id": "SAML"},
+                    "groups": [
+                        {"id": "abc123"},
+                        {"id": "bcd234"}
+                    ]
+                }
             }
         }
     }
