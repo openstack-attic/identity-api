@@ -14,7 +14,7 @@ What's New in Version 3.3
 
 These features are not yet considered stable (expected July 2014).
 
-- (none, yet)
+- Operations on the current user can be performed at /v3/user.
 
 What's New in Version 3.2
 -------------------------
@@ -616,6 +616,20 @@ Example entity:
             "name": "Joe"
         }
     }
+
+#### Current User: `/v3/user`
+
+*New in version 3.3*
+
+Actions involving the user that has been authenticated can be performed without
+having to know the user's entity id.  A request for `/user` is treated exactly
+the same as a request to `/users/{userid}` where `{userid}` is the entity id of
+the current user as identified by the authentication data from the token. This
+includes handling of paths that are based on the user object.
+
+For example the `List user projects` URL is typically found at `GET
+/users/{user_id}/projects` however a user wishing to list there own projects
+can retrieve the exact same response at `GET /user/projects`.
 
 ### Groups: `/v3/groups`
 
