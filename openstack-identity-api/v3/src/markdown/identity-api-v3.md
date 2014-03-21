@@ -14,7 +14,7 @@ What's New in Version 3.3
 
 These features are not yet considered stable (expected July 2014).
 
-- (none, yet)
+- Allow scoping endpoints to a project or domain.
 
 What's New in Version 3.2
 -------------------------
@@ -911,6 +911,15 @@ Example entity:
 
 Endpoint entities represent URL endpoints for OpenStack web services.
 
+*New in version 3.3*
+
+Endpoints may optionally be scoped to either a project or a domain. This does
+not impact the security of the endpoint it simply limits the inclusion of that
+endpoint in the service catalog to tokens that are also scoped to that domain
+or project. Like tokens an endpoint may only be scoped to a project OR a
+domain. Not scoping an endpoint will result in the endpoint being included in
+all service catalogs.
+
 Additional required attributes:
 
 - `service_id` (string)
@@ -953,6 +962,20 @@ Optional attributes:
 
   Setting this value to `false` prevents the endpoint from appearing in the
   service catalog.
+
+- `project_id` (string) *New in version 3.3*
+
+  Scope the endpoint to a particular project. If set this endpoint should only
+  be listed in the service catalog of tokens scoped to this `project_id`.
+
+  *This attribute is mutually exclusive with `domain_id`*
+
+- `domain_id` (string) *New in version 3.3*
+
+  Scope the endpoint to a particular domain. If set this endpoint should only
+  be listed in the service catalog of tokens scoped to this `domain_id`.
+
+  *This attribute is mutually exclusive with `project_id`*
 
 Example entity:
 
