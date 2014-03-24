@@ -2,12 +2,11 @@
 <section xmlns="http://docbook.org/ns/docbook"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
-    xml:id="Identity-Service-Concepts-e1362">
-    <title>Identity Service Concepts</title>
-    <para>The OpenStack Identity Service has the following key
-        concepts:</para>
+    xml:id="Identity-Concepts-e1362">
+    <title>Identity Concepts</title>
+    <para>OpenStack Identity has the following key concepts:</para>
     <table rules="all">
-        <caption>Identity Service Concepts</caption>
+        <caption>Identity Concepts</caption>
         <thead>
             <tr>
                 <th>Concept</th>
@@ -17,11 +16,12 @@
         <tbody>
             <tr>
                 <td><para>User</para></td>
-                <td><para>A digital representation of a person, system, or service that
-                        uses OpenStack cloud services. OpenStack
-                        Identity authentication services validate that
-                        an incoming request is being made by the user
-                        who claims to be making the call.</para>
+                <td><para>A digital representation of a person,
+                        system, or service that uses OpenStack cloud
+                        services. OpenStack Identity authentication
+                        services validate that an incoming request is
+                        being made by the user who claims to be making
+                        the call.</para>
                     <para>Users have a login and may be assigned
                         tokens to access resources. Users may be
                         directly assigned to a particular tenant and
@@ -53,21 +53,21 @@
             <tr>
                 <td><para>Authentication</para></td>
                 <td>
-                    <para>In the context of OpenStack Identity
-                        Service, the act of confirming the identity of
-                        a user or the truth of a claim. OpenStack
-                        Identity Service confirms that an incoming
-                        request is being made by the user who claims
-                        to be making the call by validating a set of
-                        claims that the user is making.</para>
+                    <para>In the context OpenStack Identity, the act
+                        of confirming the identity of a user or the
+                        truth of a claim. OpenStack Identity confirms
+                        that an incoming request is being made by the
+                        user who claims to be making the call by
+                        validating a set of claims that the user is
+                        making.</para>
                     <para>These claims are initially in the form of a
                         set of credentials (username &amp; password,
                         or username and API key). After initial
-                        confirmation, OpenStack Identity Service
-                        issues the user a token, which the user can
-                        then provide to demonstrate that their
-                        identity has been authenticated when making
-                        subsequent requests.</para>
+                        confirmation, OpenStack Identity issues the
+                        user a token, which the user can then provide
+                        to demonstrate that their identity has been
+                        authenticated when making subsequent
+                        requests.</para>
                 </td>
             </tr>
             <tr>
@@ -78,13 +78,13 @@
                         describes which resources are accessible with
                         it. A token may be revoked at anytime and is
                         valid for a finite duration.</para>
-                    <para>While OpenStack Identity Service supports
+                    <para>While OpenStack Identity supports
                         token-based authentication in this release,
                         the intention is for it to support additional
                         protocols in the future. The intent is for it
                         to be an integration service foremost, and not
-                        aspire to be a full-fledged identity store
-                        and management solution.</para>
+                        aspire to be a full-fledged identity store and
+                        management solution.</para>
                 </td>
             </tr>
             <tr>
@@ -124,19 +124,21 @@
                 <td>
                     <para>A personality that a user assumes when
                         performing a specific set of operations. A
-                        role includes a set of rights and privileges. A
-                        user assuming that role inherits those rights
-                        and privileges.</para>
-                    <para>In OpenStack Identity Service, a token that
-                        is issued to a user includes the list of roles
+                        role includes a set of rights and privileges.
+                        A user assuming that role inherits those
+                        rights and privileges.</para>
+                    <para>In OpenStack Identity, a token that is
+                        issued to a user includes the list of roles
                         that user can assume. Services that are being
                         called by that user determine how they
                         interpret the set of roles a user has and to
                         which operations or resources each role grants
                         access.</para>
-                    <para>It is up to individual services such as the Compute service and Image
-                        service to assign meaning to these roles. As far as the Identity service is
-                        concerned, a role is an arbitrary name assigned by the user.</para>
+                    <para>It is up to individual services such as the
+                        Compute service and Image service to assign
+                        meaning to these roles. As far as the Identity
+                        service is concerned, a role is an arbitrary
+                        name assigned by the user.</para>
                 </td>
             </tr>
         </tbody>

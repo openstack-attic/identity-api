@@ -185,7 +185,7 @@
     <method name="GET" id="getVersionInfo">
         <doc xml:lang="EN" title="Get Version Details">
             <p xmlns="http://www.w3.org/1999/xhtml">Gets detailed
-                information about a specified version of the Identity Service API.</p>
+                information about a specified version of the Identity API.</p>
         </doc>
         <response status="200 203">
             <!-- <param name="location" style="plain" type="xsd:anyURI"
@@ -283,11 +283,10 @@
                 interface by using the POST method with v2.0/tokens
                 supplied as the path. Include a payload of credentials
                 in the body.</para>
-            <para>The Identity Service is a ReSTful web service. It is
+            <para>The Identity API is a ReSTful web service. It is
                 the entry point to all service APIs. To access the
-                Identity Service, you must know the URL of the
-                Identity Service.</para>
-            <para>Each ReST request against the Identity Service
+                Identity API, you must know its URL.</para>
+            <para>Each ReST request against the Identity API
                 requires the X-Auth-Token header. Clients obtain this
                 token, along with the URL to other service APIs, by
                 first authenticating against the Identity Service with
@@ -297,7 +296,7 @@
                 returned.</para>
             <para>If the subject token has expired, this call returns
                 a <errorcode>404</errorcode> response code.</para>
-            <para>The Identity Service treats expired tokens as
+            <para>The Identity API treats expired tokens as
                 invalid tokens.</para>
             <para>The deployment determines how long expired tokens
                 are stored.</para>

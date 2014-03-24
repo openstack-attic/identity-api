@@ -86,7 +86,7 @@
             name="OS-KSS3 Extensions"
             namespace="http://docs.rackspace.com/identity/api/ext/OS-KSS3/v1.0"
             alias="OS-KSS3" updated="2011-08-14T13:25:27-06:00">
-            <description> Identity Service v2.0 API extension. </description>
+            <description> Identity v2.0 API extension. </description>
             <atom:link rel="describedby" type="application/pdf"
                 href="httaw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/OS-KSS3/OS-KSS3-admin-devguide.pdf"/>
             <atom:link rel="describedby"
@@ -97,7 +97,7 @@
         <abstract>
             <para>This document is intended for client developers
                 interested in using the OS-KSS3 Extension (Admin)
-                along with the OpenStack Identity Service
+                along with the OpenStack Identity
                     (<abbrev>API</abbrev>).</para>
         </abstract>
         <revhistory>

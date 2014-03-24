@@ -16,9 +16,9 @@
         token.</para>
     <para>You perform authentication by passing a valid token in the
             <code>X-Auth-Token</code> header on the request from the
-        client. The Identity Service verifies the token belongs to a user with the
+        client. OpenStack Identity verifies the token belongs to a user with the
             <code>Admin</code> role.</para>
-    <para>For how to bootstrap the Identity Service and create your first
+    <para>For how to bootstrap OpenStack Identity and create your first
         administrator, see the readme file and administrator guides.</para>
     <table rules="all">
         <caption>Authentication Header</caption>
@@ -37,7 +37,7 @@
             </tr>
         </tbody>
     </table>
-    <para>The following calls are core for the Identity Service Admin 2.0
+    <para>The following calls are core for the Identity Admin 2.0
         APIs:</para>
     <section xml:id="Token_Operations">
         <title>Token Operations</title>

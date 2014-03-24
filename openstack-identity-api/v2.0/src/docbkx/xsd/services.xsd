@@ -23,12 +23,12 @@
         <annotation>
             <xsd:documentation xml:lang="EN"
                 xmlns="http://www.w3.org/1999/xhtml">
-                <p> An extensible service type allows all of the
+                <p>An extensible service type allows all of the
                     strings defined in <a href="#type_ServiceType"
                         title="See definition of
                         ServiceType"
                         >ServiceType</a> or an alias prefixed status.
-                </p>
+</p>
             </xsd:documentation>
         </annotation>
         <union
@@ -42,8 +42,8 @@
                 <annotation>
                     <xsd:documentation xml:lang="EN"
                         xmlns="http://www.w3.org/1999/xhtml">
-                        <p> The type for an OpenStack Compute API 1.1
-                            compatible service. </p>
+                        <p>The type for an OpenStack Compute API 1.1
+                            compatible service.</p>
                     </xsd:documentation>
                 </annotation>
             </enumeration>
@@ -51,8 +51,7 @@
                 <annotation>
                     <xsd:documentation xml:lang="EN"
                         xmlns="http://www.w3.org/1999/xhtml">
-                        <p> The type for a Swift-compatible service.
-                        </p>
+                        <p>The type for a Swift-compatible service.</p>
                     </xsd:documentation>
                 </annotation>
             </enumeration>
@@ -60,8 +59,7 @@
                 <annotation>
                     <xsd:documentation xml:lang="EN"
                         xmlns="http://www.w3.org/1999/xhtml">
-                        <p> The type for a Glance-compatible service
-                        </p>
+                        <p>The type for a Glance-compatible service.</p>
                     </xsd:documentation>
                 </annotation>
             </enumeration>
@@ -69,8 +67,7 @@
                 <annotation>
                     <xsd:documentation xml:lang="EN"
                         xmlns="http://www.w3.org/1999/xhtml">
-                        <p> The type for an Identity
-                            Service-compatible service. </p>
+                        <p>The type for an Identity-compatible service.</p>
                     </xsd:documentation>
                 </annotation>
             </enumeration>
@@ -78,8 +75,8 @@
                 <annotation>
                     <xsd:documentation xml:lang="EN"
                         xmlns="http://www.w3.org/1999/xhtml">
-                        <p> The type for a Block-Storage-compatible
-                            service. </p>
+                        <p>The type for a Block-Storage-compatible
+                            service.</p>
                     </xsd:documentation>
                 </annotation>
             </enumeration>
@@ -87,8 +84,8 @@
                 <annotation>
                     <xsd:documentation xml:lang="EN"
                         xmlns="http://www.w3.org/1999/xhtml">
-                        <p> The type for an Amazon EC2-compatible
-                            service. </p>
+                        <p>The type for an Amazon EC2-compatible
+                            service.</p>
                     </xsd:documentation>
                 </annotation>
             </enumeration>
@@ -99,8 +96,8 @@
         <annotation>
             <xsd:documentation xml:lang="EN"
                 xmlns="http://www.w3.org/1999/xhtml">
-                <p> A non-core service type, which must contain an
-                    extension prefix. </p>
+                <p>A non-core service type, which must contain an
+                    extension prefix.</p>
             </xsd:documentation>
         </annotation>
         <restriction base="xsd:string">

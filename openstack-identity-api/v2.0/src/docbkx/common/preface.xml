@@ -7,12 +7,12 @@
     xml:id="preface">
     <title>Preface</title>
 <?dbhtml stop-chunking?>
-    <para>The OpenStack Identity Service allows clients to obtain
+    <para>OpenStack Identity allows clients to obtain
         tokens that can be used to access OpenStack cloud services.</para>
     <section xml:id="audience">
         <title>Intended Audience</title>
         <para>This reference is for software developers who develop
-            applications that use the Identity Service API for
+            applications that use the Identity API for
             authentication.</para>
         <para>This reference assumes that the reader is familiar with
             RESTful web services, HTTP/1.1, and JSON and/or XML

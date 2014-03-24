@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../xslt/schema.xslt"?>
 
-<!-- (C) 2011 OpenStack LLC., All Rights Reserved -->
+<!-- (C) 2011-2014 OpenStack Foundation, All Rights Reserved -->
 
 <schema
     elementFormDefault="qualified"
@@ -25,9 +25,7 @@
             <xsd:documentation
                     xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                <p>
-                    A list of roles.
-                </p>
+                <p> A list of roles.</p>
             </xsd:documentation>
         </annotation>
     </element>
@@ -37,9 +35,7 @@
             <xsd:documentation
                     xml:lang="EN"
                     xmlns="http://www.w3.org/1999/xhtml">
-                <p>
-                    A role.
-                </p>
+                <p>A role.</p>
             </xsd:documentation>
         </annotation>
     </element>
