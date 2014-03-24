@@ -742,34 +742,21 @@ This is an example that is similar to the previous, but displays how multiple
 Authenticating
 --------------
 
-### Request an unscoped OS-FEDERATION token: `POST /auth/tokens`
+### Request an unscoped OS-FEDERATION token: `GET/POST /OS-FEDERATION/identity_providers/{identity_provider}/protocols/{protocol}/auth`
 
 A federated user may request an unscoped token, which can be used to get
 a scoped token.
 
-Request Parameters:
+Due to the fact that this part of authentication is strictly connected with
+the SAML2 authentication workflow, a client should not send any data, as the
+content may be lost when a client is being redirected between Service Provider
+and Identity Provider. Both HTTP methods - GET and POST should be allowed as
+Web Single Sign-On (WebSSO) and Enhanced Client Proxy (ECP) mechanisms have
+different authentication workflows and use different HTTP methods while
+accessing protected endpoints.
 
-To authenticate with the OS-FEDERATION extension, `saml2` must be specified as an
-authentication method.
-
-Example request:
-
-    {
-        "auth": {
-            "identity": {
-                "methods": [
-                    "saml2"
-                ],
-                "saml2": {
-                    "identity_provider": {"id": "ACME"},
-                    "protocol": {"id": "SAML"}
-                }
-            }
-        }
-    }
-
-The returned token will contain information about the groups to which the federated
-user belongs.
+The returned token will contain information about the groups to which the
+federated user belongs.
 
 Example Identity API token response: [Various OpenStack token responses](identity-api-v3.md#authentication-responses)
 
