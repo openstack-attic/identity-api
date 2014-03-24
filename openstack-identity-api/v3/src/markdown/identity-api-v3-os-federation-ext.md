@@ -742,15 +742,17 @@ This is an example that is similar to the previous, but displays how multiple
 Authenticating
 --------------
 
-### Request an unscoped OS-FEDERATION token: `POST /auth/tokens`
+### Request an unscoped OS-FEDERATION token
+
+#### Request method 1: `POST /auth/tokens`
 
 A federated user may request an unscoped token, which can be used to get
 a scoped token.
 
 Request Parameters:
 
-To authenticate with the OS-FEDERATION extension, `saml2` must be specified as an
-authentication method.
+To authenticate with the OS-FEDERATION extension, `saml2` must be specified as
+an authentication method.
 
 Example request:
 
@@ -768,10 +770,24 @@ Example request:
         }
     }
 
-The returned token will contain information about the groups to which the federated
-user belongs.
+#### Request method 2: `POST /OS-FEDERATION/identity_providers/{idp_id}/protocols/{protocol_id}/auth`
 
-Example Identity API token response: [Various OpenStack token responses](identity-api-v3.md#authentication-responses)
+Similar to method 1 above, except the identity provider and protocol are
+specified in the resource path, rather than in a request body.
+
+No request body is expected.
+
+#### Request method 3: `GET /OS-FEDERATION/identity_providers/{idp_id}/protocols/{protocol_id}/auth`
+
+Similar to method 2 above, except using the HTTP `GET` method.
+
+#### Response
+
+The returned token will contain information about the groups to which the
+federated user belongs.
+
+Example Identity API token response: [Various OpenStack token
+responses](identity-api-v3.md#authentication-responses)
 
 Example of an OS-FEDERATION token:
 
@@ -797,14 +813,14 @@ Example of an OS-FEDERATION token:
 
 ### Request a scoped OS-FEDERATION token: `POST /auth/tokens`
 
-A federated user may request a scoped token, by using the unscoped token.
-A project or domain may be specified by either id or name. An id is sufficient to
+A federated user may request a scoped token, by using the unscoped token. A
+project or domain may be specified by either id or name. An id is sufficient to
 uniquely identify a project or domain.
 
 Request Parameters:
 
-To authenticate with the OS-FEDERATION extension, `saml2` must be specified as an
-authentication method, and the unscoped token specified in the id field.
+To authenticate with the OS-FEDERATION extension, `saml2` must be specified as
+an authentication method, and the unscoped token specified in the id field.
 
 Example request:
 
