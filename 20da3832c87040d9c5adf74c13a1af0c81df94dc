@@ -1,0 +1,8 @@
+Verified+2: Jenkins
+Approved+1: Anne Gentle <anne@openstack.org>
+Code-Review+2: Anne Gentle <anne@openstack.org>
+Submitted-by: Jenkins
+Submitted-at: Mon, 24 Mar 2014 15:52:18 +0000
+Reviewed-on: https://review.openstack.org/82196
+Project: openstack/identity-api
+Branch: refs/heads/master
