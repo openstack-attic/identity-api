@@ -14,7 +14,8 @@ What's New in Version 3.3
 
 These features are not yet considered stable (expected July 2014).
 
-- (none, yet)
+- Addition of `name` optional variable to be included from service definition
+  into the service catalog.
 
 What's New in Version 3.2
 -------------------------
@@ -1057,6 +1058,7 @@ Optional attributes:
             {
                 "id": "--service-id--",
                 "type": "--service-type--",
+                "name": "--service-name--",
                 "endpoints": [
                     {
                         "id": "--endpoint-id--",
@@ -1069,6 +1071,25 @@ Optional attributes:
             },
             ...
         ]
+
+  Required attributes for the service object are:
+
+  - `id`: the service entity id.
+  - `type`: Describes the API implemented by the service.
+
+  Optional attributes for the service object are:
+
+  - `name`: User-facing name of the service. *New in version 3.3*
+
+  Required attributes for the endpoint object are:
+
+  - `id`: The endpoint entity id.
+  - `interface`: The visibility of the endpoint. Should be one of `public`, `internal` or `admin`.
+  - `url`: Fully qualified URL of the service endpoint.
+
+  Optional attributes for the endpoint object are:
+
+  - `region`: The geographic location of the service endpoint.
 
 - `bind` (object) *New in version 3.1*
 
@@ -1522,7 +1543,8 @@ the user's roles applicable to the `project`. Example response:
                         }
                     ],
                     "id": "4363ae44bdf34a3981fde3b823cb9aa2",
-                    "type": "identity"
+                    "type": "identity",
+                    "name": "keystone"
                 }
             ],
             "expires_at": "2013-02-27T18:30:59.999999Z",
@@ -1609,7 +1631,8 @@ user's roles applicable to the `domain`. Example response:
                         }
                     ],
                     "id": "4363ae44bdf34a3981fde3b823cb9aa2",
-                    "type": "identity"
+                    "type": "identity",
+                    "name": "keystone"
                 }
             ],
             "expires_at": "2013-02-27T18:30:59.999999Z",
