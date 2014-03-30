@@ -717,7 +717,7 @@ Required attributes:
 
 - `name` (string)
 
-  Unique user name, within the owning domain.
+  Unique project name, within the owning domain.
 
 Optional attributes:
 
