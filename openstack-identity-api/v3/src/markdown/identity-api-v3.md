@@ -568,7 +568,7 @@ Additional required attributes:
 
 - `name` (string)
 
-  Either globally or domain unique username, depending on owning domain.
+  Unique user name, within the owning domain.
 
 Optional attributes:
 
@@ -717,7 +717,7 @@ Required attributes:
 
 - `name` (string)
 
-  Either globally or domain unique project name, depending on owning domain.
+  Unique user name, within the owning domain.
 
 Optional attributes:
 
@@ -760,7 +760,7 @@ by other domains).
 Each domain defines a namespace in which certain API-visible name attributes
 exist, which affects whether those names need to be globally unique or simply
 unique within that domain. Within the Identity API, there are five such name
-attributes, whose uniqueness are affected by the domain:
+attributes:
 
 - *Domain Name*: This is always globally unique across all domains.
 
