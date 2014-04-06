@@ -575,7 +575,7 @@ Response:
 
     Status: 200 OK
 
-   {
+    {
         "projects": [
             {
                 "domain_id": "37ef61",
