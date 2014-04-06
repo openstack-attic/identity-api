@@ -22,7 +22,7 @@ The v3 docs require an extra proprocessing to convert the Markdown source into t
 
 Installing conversion tools on Ubuntu::
 
-    apt-get install pandoc xslt-proc docbook5-xml
+    apt-get install pandoc xsltproc docbook5-xml
 
 To build the docs:
 
