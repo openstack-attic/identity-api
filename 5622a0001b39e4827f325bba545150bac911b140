@@ -1,0 +1,10 @@
+Verified+2: Jenkins
+Approved+1: Emilien Macchi <emilien.macchi@enovance.com>
+Code-Review+2: Emilien Macchi <emilien.macchi@enovance.com>
+Code-Review+2: Steve Martinelli <stevemar@ca.ibm.com>
+Code-Review+1: Marek Denis <marek.denis@cern.ch>
+Submitted-by: Jenkins
+Submitted-at: Tue, 08 Apr 2014 13:05:56 +0000
+Reviewed-on: https://review.openstack.org/79491
+Project: openstack/identity-api
+Branch: refs/heads/master
