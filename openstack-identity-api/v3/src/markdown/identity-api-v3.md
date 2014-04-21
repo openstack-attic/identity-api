@@ -1193,9 +1193,26 @@ Core API
 
 ### Versions
 
-#### List versions; `GET /`
+#### List versions: `GET /`
 
-(TBD: This needs additional definition to match the detail below)
+Response:
+
+    Status: 200 OK
+
+    {
+        "version": {
+            "id": "v3.0",
+            "links": [
+                {
+                    "href": "http://identity:35357/v3/",
+                    "rel": "self"
+                }
+            ],
+            "status": "stable",
+            "updated": "2013-03-06T00:00:00Z"
+        }
+    }
+
 
 ### Tokens
 
