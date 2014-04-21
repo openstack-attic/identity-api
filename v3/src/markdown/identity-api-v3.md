@@ -1193,9 +1193,34 @@ Core API
 
 ### Versions
 
-#### List versions; `GET /`
+#### Describe API version: `GET /v3/`
 
-(TBD: This needs additional definition to match the detail below)
+The fields in the `version` object are as follows:
+
+- `id`: A string with the current version. For V3, it's "v3.0".
+- `status`: A string with the current maturity level of the specification.
+  This may be one of `stable`, or `deprecated`.
+- `updated`: A string with the time when the specification status last
+  changed in ISO8601 format. For example, "2013-03-06T00:00:00Z".
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "version": {
+            "id": "v3.0",
+            "links": [
+                {
+                    "href": "http://identity:35357/v3/",
+                    "rel": "self"
+                }
+            ],
+            "status": "stable",
+            "updated": "2013-03-06T00:00:00Z"
+        }
+    }
+
 
 ### Tokens
 
