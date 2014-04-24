@@ -79,7 +79,7 @@ Required attributes::
     References a local Identity API resource, such as a `group` or `user` to
     which the remote attributes will be mapped.
 
-    The object itself contains one of two structures, described below.
+    Each object has one of two structures, as follows.
 
     To map a remote attribute value directly to a local attribute, identify the
     local resource type and attribute:
@@ -90,9 +90,11 @@ Required attributes::
             }
         }
 
-    This assigns identity attributes to ephemeral users.
+    Note that at least one rule must have a `user` attribute. If the `user`
+    attribute is missing when processing an assertion, the action will return
+    in an HTTP 401 Unauthorized error.
 
-    Alternatively, for attribute type and value mapping, identify the local
+    For attribute type and value mapping, identify the local
     resource type, attribute, and value:
 
         {
@@ -390,12 +392,20 @@ Request:
                 {
                     "local": [
                         {
+                            "user": {
+                                "name": "{0}"
+                            }
+                        },
+                        {
                             "group": {
                                 "id": "0cd5e9"
                             }
                         }
                     ],
                     "remote": [
+                        {
+                            "type": "UserName"
+                        },
                         {
                             "type": "orgPersonType",
                             "not_any_of": [
@@ -423,12 +433,20 @@ Response:
                 {
                     "local": [
                         {
+                            "user": {
+                                "name": "{0}"
+                            }
+                        },
+                        {
                             "group": {
                                 "id": "0cd5e9"
                             }
                         }
                     ],
                     "remote": [
+                        {
+                            "type": "UserName"
+                        },
                         {
                             "type": "orgPersonType",
                             "not_any_of": [
@@ -458,12 +476,20 @@ Response:
                 {
                     "local": [
                         {
+                            "user": {
+                                "name": "{0}"
+                            }
+                        },
+                        {
                             "group": {
                                 "id": "0cd5e9"
                             }
                         }
                     ],
                     "remote": [
+                        {
+                            "type": "UserName"
+                        },
                         {
                             "type": "orgPersonType",
                             "not_any_of": [
@@ -487,12 +513,20 @@ Request:
                 {
                     "local": [
                         {
+                            "user": {
+                                "name": "{0}"
+                            }
+                        },
+                        {
                             "group": {
                                 "id": "0cd5e9"
                             }
                         }
                     ],
                     "remote": [
+                        {
+                            "type": "UserName"
+                        },
                         {
                             "type": "orgPersonType",
                             "any_one_of": [
@@ -520,12 +554,20 @@ Response:
                 {
                     "local": [
                         {
+                            "user": {
+                                "name": "{0}"
+                            }
+                        },
+                        {
                             "group": {
                                 "id": "0cd5e9"
                             }
                         }
                     ],
                     "remote": [
+                        {
+                            "type": "UserName"
+                        },
                         {
                             "type": "orgPersonType",
                             "any_one_of": [
@@ -558,12 +600,20 @@ Response:
                     {
                         "local": [
                             {
+                                "user": {
+                                    "name": "{0}"
+                                }
+                            },
+                            {
                                 "group": {
                                     "id": "0cd5e9"
                                 }
                             }
                         ],
                         "remote": [
+                            {
+                                "type": "UserName"
+                            },
                             {
                                 "type": "orgPersonType",
                                 "any_one_of": [
@@ -785,15 +835,15 @@ Response:
 Example Mapping Rules
 ---------------------
 
-### Mapping any user name
+### Map identities to their own groups
 
-This is an example of *Attribute type mappings*, where an attribute type is
-mapped into a Identity API property.
+This is an example of *Attribute type and value mappings*, where an attribute
+type and value are mapped into a Identity API property and value.
 
     {
         "rules": [
             {
-                "local":[
+                "local": [
                     {
                         "user": {
                             "name": "{0}"
@@ -805,17 +855,7 @@ mapped into a Identity API property.
                         "type": "UserName"
                     }
                 ]
-            }
-        ]
-    }
-
-### Map identities to their own groups
-
-This is an example of *Attribute type and value mappings*, where an attribute
-type and value are mapped into a Identity API property and value.
-
-    {
-        "rules": [
+            },
             {
                 "local": [
                     {
@@ -865,12 +905,20 @@ This is an example that is similar to the previous, but displays how multiple
             {
                 "local": [
                     {
+                        "user": {
+                            "name": "{0}"
+                        }
+                    },
+                    {
                         "group": {
                             "id": "85a868"
                         }
                     }
                 ],
                 "remote": [
+                    {
+                        "type": "UserName"
+                    },
                     {
                         "type": "orgPersonType",
                         "any_one_of": [
