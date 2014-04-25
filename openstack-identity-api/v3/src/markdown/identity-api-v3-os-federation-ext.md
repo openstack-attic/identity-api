@@ -459,7 +459,6 @@ Request:
 
     {
         "mapping": {
-            "id": "ACME",
             "rules": [
                 {
                     "local": [
@@ -501,7 +500,7 @@ Response:
                                 "id": "0cd5e9"
                             }
                         }
-                    ]
+                    ],
                     "remote": [
                         {
                             "type": "orgPersonType",
