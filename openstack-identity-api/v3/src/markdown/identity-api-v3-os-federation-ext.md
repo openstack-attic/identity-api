@@ -322,7 +322,7 @@ Response:
         }
     }
 
-### Update the attribute mapping for an identity provers and protocol combination: `PATCH /OS-FEDERATION/identity_providers/{idp_id}/protocols/{protocol_id}`
+### Update the attribute mapping for an identity providers and protocol combination: `PATCH /OS-FEDERATION/identity_providers/{idp_id}/protocols/{protocol_id}`
 
 Request:
 
