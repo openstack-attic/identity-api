@@ -403,7 +403,7 @@
         </wadl:doc>
         <response status="200 203"/> &commonFaults; &getFaults; </method>
     <method name="GET" id="listEndpointsForToken">
-        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List Endoints for Token">
+        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List Endpoints for Token">
             <para role="shortdesc">Lists the
                 endpoints associated with a specified token.</para>
         </wadl:doc>
