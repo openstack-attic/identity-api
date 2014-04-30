@@ -607,7 +607,7 @@
         </response> &commonFaults; &getFaults; </method>
     <method name="PUT" id="addUserRole">
         <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"
-            title="Add Global Role to User">
+            title="Add Global Role to User">
             <para role="shortdesc">Adds a specific global role to a
                 user.</para>
         </wadl:doc>
