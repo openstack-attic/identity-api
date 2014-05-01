@@ -1728,7 +1728,7 @@ For example:
             "code": 401,
             "identity": {
                 "challenge-response": {
-                    "challenge": "What was the zip code of your birth place?",
+                    "challenge": "What was the zip code of your birthplace?",
                     "session_id": "123456"
                 },
                 "methods": [
@@ -1773,7 +1773,7 @@ the `X-Subject-Token` is valid.
 #### Revoke token: `DELETE /auth/tokens`
 
 This call is identical to `HEAD /auth/tokens` except that the `X-Subject-Token`
-token is immediately invalidated, regardless of it's `expires_at` attribute. An
+token is immediately invalidated, regardless of its `expires_at` attribute. An
 additional `X-Auth-Token` is not required.
 
 ### Catalog
