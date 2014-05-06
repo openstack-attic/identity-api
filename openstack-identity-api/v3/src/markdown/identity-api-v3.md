@@ -2450,7 +2450,6 @@ Response:
 Optional query parameters:
 
 - `domain_id` (string)
-- `email` (string)
 - `enabled` (key-only, no value expected)
 - `name` (string)
 
@@ -2770,7 +2769,6 @@ Response:
 
 Optional query parameters:
 
-- `email` (string)
 - `enabled` (key-only, no value expected)
 - `name` (string)
 
