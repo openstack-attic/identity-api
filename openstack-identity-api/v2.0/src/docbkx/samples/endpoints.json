@@ -1,14 +1,14 @@
 {
-  "endpoints": [
-    {
-      "name": "Nova",
-      "adminURL": "http://admin.openstack/nova",
-      "region": "north",
-      "internalURL": "http://internal.openstack/nova",
-      "type": "compute",
-      "id": "8c3426bd730c48f5b59527df3a51b901",
-      "publicURL": "http://public.openstack/nova"
-    }
-  ],
-  "endpoints_links": []
+    "endpoints": [
+        {
+            "name": "Nova",
+            "adminURL": "http://admin.openstack/nova",
+            "region": "north",
+            "internalURL": "http://internal.openstack/nova",
+            "type": "compute",
+            "id": "8c3426bd730c48f5b59527df3a51b901",
+            "publicURL": "http://public.openstack/nova"
+        }
+    ],
+    "endpoints_links": []
 }

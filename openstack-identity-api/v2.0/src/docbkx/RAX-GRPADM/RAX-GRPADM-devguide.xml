@@ -198,17 +198,17 @@
                 <wadl:resources
                     xmlns:wadl="http://wadl.dev.java.net/2009/02">
                     <wadl:resource
-                        href="../wadl/RAX-GRPADM.wadl#groups">
+                        href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-GRPADM.wadl#groups">
                         <wadl:method href="addGroup"/>
                     </wadl:resource>
                     <wadl:resource
-                        href="../wadl/RAX-GRPADM.wadl#group">
+                        href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-GRPADM.wadl#group">
                         <wadl:method href="getGroup"/>
                         <wadl:method href="updateGroup"/>
                         <wadl:method href="getUsersForGroup"/>
                         <wadl:method href="deleteGroup"/>
                     </wadl:resource>
-                    <wadl:resource href="../wadl/RAX-GRPADM.wadl#user">
+                    <wadl:resource href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-GRPADM.wadl#user">
                         <wadl:method href="addUserToGroup"/>
                         <wadl:method href="removeUserFromGroup"/>
                     </wadl:resource>

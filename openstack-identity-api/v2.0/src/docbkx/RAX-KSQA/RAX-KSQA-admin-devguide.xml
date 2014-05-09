@@ -173,7 +173,7 @@
                 <wadl:resources
                     xmlns:wadl="http://wadl.dev.java.net/2009/02">
                     <wadl:resource
-                        href="../wadl/RAX-KSQA-admin.wadl#secretqa"/>
+                        href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-KSQA-admin.wadl#secretqa"/>
                 </wadl:resources>
             </section>
         </section>

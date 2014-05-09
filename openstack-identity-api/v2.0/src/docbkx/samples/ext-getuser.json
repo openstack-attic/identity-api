@@ -1,14 +1,14 @@
 {
-  "user": {
-    "id": "1000",
-    "username": "jqsmith",
-    "email": "john.smith@example.org",
-    "enabled": true,
-    "RS-META:metadata": {
-      "values": {
-        "MetaKey1": "MetaValue1",
-        "MetaKey2": "MetaValue2"
-      }
+    "user": {
+        "id": "1000",
+        "username": "jqsmith",
+        "email": "john.smith@example.org",
+        "enabled": true,
+        "RS-META:metadata": {
+            "values": {
+                "MetaKey1": "MetaValue1",
+                "MetaKey2": "MetaValue2"
+            }
+        }
     }
-  }
 }
