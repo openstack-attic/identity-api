@@ -191,9 +191,9 @@
                     <section xml:id="User_Operations_RAX_KSGRP">
                         <title>Group Operations</title>
                         <wadl:resources
-                            xmlns:wadl="http://wadl.dev.java.net/2009/02" href="../wadl/RAX-KSGRP-admin.wadl">
+                            xmlns:wadl="http://wadl.dev.java.net/2009/02" href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-KSGRP-admin.wadl">
                            <!-- <wadl:resource
-                                href="../wadl/RAX-KSGRP-admin.wadl#user-groups-RAX-KSGRP">
+                                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-KSGRP-admin.wadl#user-groups-RAX-KSGRP">
                                 <wadl:method href="listUserGroups"/>
                             </wadl:resource>-->
                         </wadl:resources>
