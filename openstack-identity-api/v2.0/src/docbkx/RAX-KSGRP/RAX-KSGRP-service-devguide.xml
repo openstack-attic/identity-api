@@ -36,15 +36,15 @@
         <!ENTITY NAMESPACE "http://docs.rackspace.com/identity/api/ext/RAX-KSGRP/v1.0">
         <!ENTITY CURRENTGUIDE "http://docs.rackspace.com/api">
         <!ENTITY EXTENSIONXSD "xsd/RAX-KSGRP-groups.xsd">
-        <!ENTITY GROUPSXML "samples/RAX-KSGRP-groups.xml">
-        <!ENTITY GROUPSJSON "samples/RAX-KSGRP-groups.json">
-        <!ENTITY GROUPXML "samples/RAX-KSGRP-group.xml">
-        <!ENTITY GROUPJSON "samples/RAX-KSGRP-group.json">
+        <!ENTITY GROUPSXML "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-KSGRP/samples/RAX-KSGRP-groups.xml">
+        <!ENTITY GROUPSJSON "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-KSGRP/samples/RAX-KSGRP-groups.json">
+        <!ENTITY GROUPXML "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-KSGRP/samples/RAX-KSGRP-group.xml">
+        <!ENTITY GROUPJSON "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-KSGRP/samples/RAX-KSGRP-group.json">
 
-        <!ENTITY GROUPREQUESTXML "../../common/samples/auth_credentials.xml">
-        <!ENTITY GROUPREQUESTJSON "../../common/samples/auth_credentials.json">
-        <!ENTITY GROUPRESPONSEXML "../../common/samples/authwithgroups.xml">
-        <!ENTITY GROUPRESPONSEJSON "../../common/samples/authwithgroups.json">
+        <!ENTITY GROUPREQUESTXML "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-KSGRP/samples/auth_credentials.xml">
+        <!ENTITY GROUPREQUESTJSON "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-KSGRP/samples/auth_credentials.json">
+        <!ENTITY GROUPRESPONSEXML "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-KSGRP/samples/authwithgroups.xml">
+        <!ENTITY GROUPRESPONSEJSON "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-KSGRP/samples/authwithgroups.json">
 
 ]>
 <book xmlns="http://docbook.org/ns/docbook"
@@ -93,8 +93,8 @@
             name="Rackspace Identity Service Group Extensions"
             namespace="http://docs.rackspace.com/identity/api/ext/RAX-KSGRP/v1.0"
             alias="RAX-KSGRP" updated="2011-08-14T13:25:27-06:00">
-            <description>Rackspace extensions to Identity v2.0
-                API enabling groups.</description>
+            <description>Rackspace extensions to Identity v2.0 API
+                enabling groups.</description>
             <atom:link rel="describedby" type="application/pdf"
                 href="httaw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/RAX-KSGRP/RAX-KSGRP-devguide.pdf"/>
             <atom:link rel="describedby"
@@ -123,9 +123,9 @@
     </info>
     <chapter xml:id="chapter-0001">
         <title>Summary of Changes</title>
-        <para>Rackspace extensions to Identity v2.0 API
-            allows authenticate call to also return information about
-            group memberships of the user.</para>
+        <para>Rackspace extensions to Identity v2.0 API allows
+            authenticate call to also return information about group
+            memberships of the user.</para>
         <section xml:id="NewHeaders-0001">
             <title>New Headers</title>
             <para>None.</para>
@@ -145,8 +145,8 @@
         <section xml:id="NewElement0001">
             <title>New Elements</title>
             <section xml:id="RackExt-0001">
-                <title>Rackspace extensions to the Identity v2.0
-                    API enabling groups.</title>
+                <title>Rackspace extensions to the Identity v2.0 API
+                    enabling groups.</title>
                 <section xml:id="New-Elements-details-0002">
                     <title>New Elements</title>
                     <para>This extension starts returning groups as a
@@ -186,14 +186,15 @@
                             </tr>
                         </tbody>
                     </table>
-                    <para>The
-                        Rackspace API Groups Service Extension adds the following calls:</para>
+                    <para>The Rackspace API Groups Service Extension
+                        adds the following calls:</para>
                     <section xml:id="User_Operations_RAX_KSGRP">
                         <title>Group Operations</title>
                         <wadl:resources
-                            xmlns:wadl="http://wadl.dev.java.net/2009/02" href="../wadl/RAX-KSGRP-admin.wadl">
-                           <!-- <wadl:resource
-                                href="../wadl/RAX-KSGRP-admin.wadl#user-groups-RAX-KSGRP">
+                            xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                            href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-KSGRP-admin.wadl">
+                            <!-- <wadl:resource
+                                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-KSGRP-admin.wadl#user-groups-RAX-KSGRP">
                                 <wadl:method href="listUserGroups"/>
                             </wadl:resource>-->
                         </wadl:resources>

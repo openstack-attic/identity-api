@@ -31,8 +31,8 @@
         <td colspan="4">Description</td>
         </tr>
         </thead>'>
-        <!ENTITY SECRETQAREQUESTXML "samples/RAX-KSQA-secretQA.xml">
-        <!ENTITY SECRETQAREQUESTJSON "samples/RAX-KSQA-secretQA.json">
+        <!ENTITY SECRETQAREQUESTXML "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-KSQA/samples/RAX-KSQA-secretQA.xml">
+        <!ENTITY SECRETQAREQUESTJSON "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-KSQA/samples/RAX-KSQA-secretQA.json">
 ]>
 <book xmlns="http://docbook.org/ns/docbook"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -173,7 +173,8 @@
                 <wadl:resources
                     xmlns:wadl="http://wadl.dev.java.net/2009/02">
                     <wadl:resource
-                        href="../wadl/RAX-KSQA-admin.wadl#secretqa"/>
+                        href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-KSQA-admin.wadl#secretqa"
+                    />
                 </wadl:resources>
             </section>
         </section>

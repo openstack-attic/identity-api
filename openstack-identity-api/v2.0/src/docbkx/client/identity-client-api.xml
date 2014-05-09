@@ -7,9 +7,9 @@
         tenants.</para>
     <wadl:resources
         xmlns:wadl="http://wadl.dev.java.net/2009/02">
-        <wadl:resource href="../wadl/identity.wadl#extensions"
+        <wadl:resource href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity.wadl#extensions"
             xmlns:wadl="http://wadl.dev.java.net/2009/02"/>
-        <wadl:resource href="../wadl/identity.wadl#tokens"
+        <wadl:resource href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity.wadl#tokens"
                 xmlns:wadl="http://wadl.dev.java.net/2009/02"/>
 </wadl:resources>
 </chapter>

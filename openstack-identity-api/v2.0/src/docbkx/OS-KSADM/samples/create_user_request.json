@@ -1,9 +1,0 @@
-{
-  "user": {
-    "name": "jqsmith",
-    "OS-KSADM:password": "secrete",
-    "enabled": true,
-    "tenantId": "af615b6af60b497e860392ad5e9f8dab",
-    "email": "john.smith@example.org"
-  }
-}
