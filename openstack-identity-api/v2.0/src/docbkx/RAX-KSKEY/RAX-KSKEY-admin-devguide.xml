@@ -31,8 +31,8 @@
         <td colspan="4">Description</td>
         </tr>
         </thead>'>
-        <!ENTITY APIKEYCREDENTIALSREQUESTXML "samples/apiKeyCredentials.xml">
-        <!ENTITY APIKEYCREDENTIALSREQUESTJSON "samples/apiKeyCredentials.json">
+        <!ENTITY APIKEYCREDENTIALSREQUESTXML "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-KSKEY/samples/apiKeyCredentials.xml">
+        <!ENTITY APIKEYCREDENTIALSREQUESTJSON "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-KSKEY/samples/apiKeyCredentials.json">
 ]>
 <book xmlns="http://docbook.org/ns/docbook"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -79,8 +79,8 @@
             name="Rackspace API Key authentication"
             namespace="http://docs.rackspace.com/identity/api/ext/RAX-KSKEY/v1.0"
             alias="RAX-KSKEY" updated="2011-08-14T13:25:27-06:00">
-            <description> Rackspace extensions to Identity
-                v2.0 API enabling API Key authentication. </description>
+            <description> Rackspace extensions to Identity v2.0 API
+                enabling API Key authentication. </description>
             <atom:link rel="describedby" type="application/pdf"
                 href="https://raw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/RAX-KSKEY/RAX-KSKEY-admin-devguide.pdf"/>
             <atom:link rel="describedby"
@@ -91,9 +91,8 @@
         <abstract>
             <para>This document is intended for service developers
                 interested in using the Rackspace API Key
-                Authentication Admin Extension along with
-                OpenStack Identity (<abbrev>API</abbrev>).
-            </para>
+                Authentication Admin Extension along with OpenStack
+                Identity (<abbrev>API</abbrev>). </para>
         </abstract>
         <revhistory>
             <revision>
@@ -136,9 +135,9 @@
                 <title>RAX-KSKEY Admin Extension</title>
                 <para>This extension enables authentication calls to
                     accept the
-                        <parameter>apikeyCredentials</parameter> parameter.
-                    These credentials support Rackspace-style authentication.
-                   </para>
+                        <parameter>apikeyCredentials</parameter>
+                    parameter. These credentials support
+                    Rackspace-style authentication. </para>
                 <example>
                     <title>apikeyCredentials XML</title>
                     <programlisting language="xml"><xi:include href="&APIKEYCREDENTIALSREQUESTXML;" parse="text"/></programlisting>
@@ -172,16 +171,17 @@
                     </tr>
                 </tbody>
             </table>
-            <para>The Rackspace API Key
-                Authentication Extension adds the following calls:</para>
+            <para>The Rackspace API Key Authentication Extension adds
+                the following calls:</para>
             <section xml:id="User_Operations_RAX_KSKEY">
                 <title>User Operations</title>
                 <wadl:resources
                     xmlns:wadl="http://wadl.dev.java.net/2009/02"
-href="../wadl/RAX-KSKEY-admin.wadl">
-<wadl:resource
-href="../wadl/RAX-KSKEY-admin.wadl#users">
-</wadl:resource> </wadl:resources>
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-KSKEY-admin.wadl">
+                    <wadl:resource
+                        href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-KSKEY-admin.wadl#users"
+                    > </wadl:resource>
+                </wadl:resources>
             </section>
         </section>
     </chapter>

@@ -135,8 +135,8 @@
         <section xml:id="NewElement0001">
             <title>New Elements</title>
             <section xml:id="RackExt-0001">
-                <title>OS-KSVALIDATE extension to Identity
-                    v2.0 API</title>
+                <title>OS-KSVALIDATE extension to Identity v2.0
+                    API</title>
                 <section xml:id="New-Elements-details-0002">
                     <title>New Elements</title>
                     <para>This extension allows token validation and
@@ -166,21 +166,21 @@
                             </tr>
                         </tbody>
                     </table>
-                        <wadl:resources
-                            xmlns:wadl="http://wadl.dev.java.net/2009/02">
-                            <wadl:resource
-                                href="../wadl/OS-KSVALIDATE-admin.wadl#validate">
-                                <wadl:method href="validateToken"/>
-                                <wadl:method href="checkToken"/>
-                            </wadl:resource>
-                            <wadl:resource
-                                href="../wadl/OS-KSVALIDATE-admin.wadl#endpointsForToken">
-                                <wadl:method
-                                   href="listEndpointsForToken"/>
-                            </wadl:resource>
-                        </wadl:resources>
-                    </section>
+                    <wadl:resources
+                        xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                        <wadl:resource
+                            href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSVALIDATE-admin.wadl#validate">
+                            <wadl:method href="validateToken"/>
+                            <wadl:method href="checkToken"/>
+                        </wadl:resource>
+                        <wadl:resource
+                            href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSVALIDATE-admin.wadl#endpointsForToken">
+                            <wadl:method href="listEndpointsForToken"
+                            />
+                        </wadl:resource>
+                    </wadl:resources>
                 </section>
             </section>
+        </section>
     </chapter>
 </book>

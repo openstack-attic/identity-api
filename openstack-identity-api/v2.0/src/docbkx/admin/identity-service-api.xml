@@ -55,35 +55,35 @@
     <section xml:id="Token_Operations">
         <title>Token Operations</title>
         <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-            <wadl:resource href="../wadl/identity-admin.wadl#tokens"/>
+            <wadl:resource href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl#tokens"/>
             <wadl:resource
-                href="../wadl/identity-admin.wadl#tokenById"/>
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl#tokenById"/>
             <wadl:resource
-                href="../wadl/identity-admin.wadl#endpointsForToken"/>
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl#endpointsForToken"/>
         </wadl:resources>
     </section>
     <section xml:id="User_Operations">
         <title>User Operations</title>
         <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-            <wadl:resource href="../wadl/identity-admin.wadl#users"/>
-            <wadl:resource href="../wadl/identity-admin.wadl#name"/>
-            <wadl:resource href="../wadl/identity-admin.wadl#userid"/>
+            <wadl:resource href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl#users"/>
+            <wadl:resource href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl#name"/>
+            <wadl:resource href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl#userid"/>
             <wadl:resource
-                href="../wadl/identity-admin.wadl#userRoles"/>
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl#userRoles"/>
         </wadl:resources>
     </section>
     <section xml:id="Tenant_Operations">
         <title>Tenant Operations</title>
         <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
-            <wadl:resource href="../wadl/identity-admin.wadl#tenants"/>
+            <wadl:resource href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl#tenants"/>
             <wadl:resource
-                href="../wadl/identity-admin.wadl#tenantById"/>
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl#tenantById"/>
             <wadl:resource
-                href="../wadl/identity-admin.wadl#usersForTenant"/>
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl#usersForTenant"/>
             <wadl:resource
-                href="../wadl/identity-admin.wadl#getTenantUser"/>
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl#getTenantUser"/>
             <wadl:resource
-                href="../wadl/identity-admin.wadl#userRolesForTenant"
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl#userRolesForTenant"
             />
         </wadl:resources>
     </section>
