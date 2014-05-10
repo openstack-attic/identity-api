@@ -32,14 +32,14 @@
         </tr>
         </thead>'>
 
-        <!ENTITY GROUPSREQUESTXML  "../RAX-GRPADM/samples/groups.xml">
-        <!ENTITY GROUPSREQUESTJSON "../RAX-GRPADM/samples/groups.json">
+        <!ENTITY GROUPSREQUESTXML  "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-GRPADM/samples/groups.xml">
+        <!ENTITY GROUPSREQUESTJSON "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-GRPADM/samples/groups.json">
 
-        <!ENTITY GROUPREQUESTXML  "../RAX-GRPADM/samples/group.xml">
-        <!ENTITY GROUPREQUESTJSON "../RAX-GRPADM/samples/group.json">
+        <!ENTITY GROUPREQUESTXML  "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-GRPADM/samples/group.xml">
+        <!ENTITY GROUPREQUESTJSON "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-GRPADM/samples/group.json">
 
-        <!ENTITY UPDATEDGROUPREQUESTXML  "../RAX-GRPADM/samples/group-updated.xml">
-        <!ENTITY UPDATEDGROUPREQUESTJSON "../RAX-GRPADM/samples/group-updated.json">
+        <!ENTITY UPDATEDGROUPREQUESTXML  "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-GRPADM/samples/group-updated.xml">
+        <!ENTITY UPDATEDGROUPREQUESTJSON "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/RAX-GRPADM/samples/group-updated.json">
 
         <!-- Information about the extension -->
         <!ENTITY PUB_DATE "2011-01-23">
@@ -96,8 +96,8 @@
             name="OpenStack Identity Rackspace Group Admin"
             namespace="http://docs.rackspace.com/identity/api/ext/RAX-KSGRP/v1.0"
             alias="RAX-GRPADM" updated="2011-08-14T13:25:27-06:00">
-            <description> Rackspace extensions to Identity
-                v2.0 API enabling Group Admin. </description>
+            <description> Rackspace extensions to Identity v2.0 API
+                enabling Group Admin. </description>
             <atom:link rel="describedby" type="application/pdf"
                 href="https://raw.github.com/openstack/identity-api/master/openstack-identity-api/src/docbkx/extensions/RAX-GRPADM/RAX-GRPADM-devguide.pdf"/>
             <atom:link rel="describedby"
@@ -106,9 +106,9 @@
             />
         </extension>
         <abstract>
-            <para>This document is for software developers
-                who want to use the Group Admin Extension to the
-                OpenStack Identity Application Programming Interface
+            <para>This document is for software developers who want to
+                use the Group Admin Extension to the OpenStack
+                Identity Application Programming Interface
                     (<abbrev>API</abbrev>).</para>
         </abstract>
         <revhistory>
@@ -191,24 +191,25 @@
                     </tr>
                 </tbody>
             </table>
-            <para>A new resource is created at <literal>/RAX-GRPADM/groups</literal> that
-                enables the management of groups.</para>
+            <para>A new resource is created at
+                    <literal>/RAX-GRPADM/groups</literal> that enables
+                the management of groups.</para>
             <section xml:id="Group_Operations_RAX_KSGRPADM">
                 <title>Group Operations</title>
                 <wadl:resources
                     xmlns:wadl="http://wadl.dev.java.net/2009/02">
                     <wadl:resource
-                        href="../wadl/RAX-GRPADM.wadl#groups">
+                        href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-GRPADM.wadl#groups">
                         <wadl:method href="addGroup"/>
                     </wadl:resource>
                     <wadl:resource
-                        href="../wadl/RAX-GRPADM.wadl#group">
+                        href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-GRPADM.wadl#group">
                         <wadl:method href="getGroup"/>
                         <wadl:method href="updateGroup"/>
-                        <wadl:method href="getUsersForGroup"/>
                         <wadl:method href="deleteGroup"/>
                     </wadl:resource>
-                    <wadl:resource href="../wadl/RAX-GRPADM.wadl#user">
+                    <wadl:resource
+                        href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-GRPADM.wadl#user">
                         <wadl:method href="addUserToGroup"/>
                         <wadl:method href="removeUserFromGroup"/>
                     </wadl:resource>

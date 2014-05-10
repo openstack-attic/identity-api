@@ -36,8 +36,8 @@
         <!ENTITY NAMESPACE "http://docs.rackspace.com/identity/api/ext/OS-KSS3/v1.0">
         <!ENTITY CURRENTGUIDE "http://docs.openstack.org">
 
-        <!ENTITY S3CREDENTIALSREQUESTXML "samples/s3Credentials.xml">
-        <!ENTITY S3CREDENTIALSREQUESTJSON "samples/s3Credentials.json">
+        <!ENTITY S3CREDENTIALSREQUESTXML "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/OS-KSS3/samples/s3Credentials.xml">
+        <!ENTITY S3CREDENTIALSREQUESTJSON "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/OS-KSS3/samples/s3Credentials.json">
 
 ]>
 <book xmlns="http://docbook.org/ns/docbook"
@@ -186,21 +186,21 @@
                         </tr>
                     </tbody>
                 </table>
-                    <wadl:resources
-                        xmlns:wadl="http://wadl.dev.java.net/2009/02">
-                        <wadl:resource
-                            href="../wadl/OS-KSS3-admin.wadl#userCredentials">
-                            <wadl:method href="listCredentials"/>
-                            <wadl:method href="addUserCredential"/>
-                        </wadl:resource>
-                        <wadl:resource
-                            href="../wadl/OS-KSS3-admin.wadl#userCredentialsByType">
-                            <wadl:method href="getUserCredential"/>
-                            <wadl:method href="updateUserCredential"/>
-                            <wadl:method href="deleteUserCredential"/>
-                        </wadl:resource>
-                    </wadl:resources>
-                </section>
+                <wadl:resources
+                    xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                    <wadl:resource
+                        href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSS3-admin.wadl#userCredentials">
+                        <wadl:method href="listCredentials"/>
+                        <wadl:method href="addUserCredential"/>
+                    </wadl:resource>
+                    <wadl:resource
+                        href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSS3-admin.wadl#userCredentialsByType">
+                        <wadl:method href="getUserCredential"/>
+                        <wadl:method href="updateUserCredential"/>
+                        <wadl:method href="deleteUserCredential"/>
+                    </wadl:resource>
+                </wadl:resources>
             </section>
+        </section>
     </chapter>
 </book>

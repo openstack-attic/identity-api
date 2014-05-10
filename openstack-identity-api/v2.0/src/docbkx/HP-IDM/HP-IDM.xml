@@ -158,7 +158,7 @@
                   Use the HP-IDM extension to perform the following operations on templates:
               </para>
               <wadl:resources>
-                  <wadl:resource href="../wadl/HP-IDM-admin.wadl#tokenById"/>
+                  <wadl:resource href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/HP-IDM-admin.wadl#tokenById"/>
               </wadl:resources>
           </section>
       </section>
