@@ -1,3 +1,6 @@
+* auto-gen TOC:
+{:toc}
+
 OpenStack Identity API v3
 =========================
 
