@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chapter xmlns="http://docbook.org/ns/docbook"
+    xml:id="openstack_identity_extensions" version="5.0"
+    xmlns:xi="http://www.w3.org/2001/XInclude" role="api-reference">
+    <title>OpenStack extensions to OpenStack Identity</title>
+    <section xml:id="os-ksadm-admin-ext">
+        <title>OS-KSADM extension</title>
+        <section xml:id="ksadm-users">
+            <title>Users</title>
+            <wadl:resources
+                xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#users-v2.0">
+                    <wadl:method href="#listUsers"/>
+                    <wadl:method href="#addUser"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#userById-v2.0">
+                    <wadl:method href="#updateUser"/>
+                    <wadl:method href="#deleteUser"/>
+                </wadl:resource>
+            </wadl:resources>
+        </section>
+        <section xml:id="ksadm-roles">
+            <title>Roles</title>
+            <wadl:resources
+                xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#userRoles-v2.0">
+                    <wadl:method href="#listUserRoles"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#userRoleById-v2.0">
+                    <wadl:method href="#addUserRole"/>
+                    <wadl:method href="#deleteUserRole"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#roles-v2.0">
+                    <wadl:method href="#getRoleByName"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#roles_list-v2.0">
+                    <wadl:method href="#listRoles"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#roles-v2.0">
+                    <wadl:method href="#addRole"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#roleId-v2.0">
+                    <wadl:method href="#getRole"/>
+                    <wadl:method href="#deleteRole"/>
+                </wadl:resource>
+            </wadl:resources>
+        </section>
+        <section xml:id="ksadm-tenants">
+            <title>Tenants</title>
+            <wadl:resources
+                xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#tenants-v2.0">
+                    <wadl:method href="#addTenant"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#tenantById-v2.0">
+                    <wadl:method href="#updateTenant"/>
+                    <wadl:method href="#deleteTenant"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#usersForTenant-v2.0">
+                    <wadl:method href="#listUsersForTenant"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#userSpecificRoleForTenant-v2.0">
+                    <wadl:method href="#addRolesToUserOnTenant"/>
+                    <wadl:method href="#deleteRoleFromUserOnTenant"/>
+                </wadl:resource>
+            </wadl:resources>
+        </section>
+        <section xml:id="ksadm-services">
+            <title>Services</title>
+            <wadl:resources
+                xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#services-v2.0">
+                    <wadl:method href="#listServices"/>
+                    <wadl:method href="#addService"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#serviceName-v2.0">
+                    <wadl:method href="#getServiceByName"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSADM-admin.wadl#serviceId-v2.0">
+                    <wadl:method href="#getService"/>
+                    <wadl:method href="#deleteService"/>
+                </wadl:resource>
+            </wadl:resources>
+        </section>
+    </section>
+    <section
+        xml:id="Admin_API_Service_Developer_Operations-OS-KSCATALOG">
+        <title>OS-KSCATALOG extension</title>
+        <section xml:id="Endpoint_Template_Operations_OS-KSCATALOG">
+            <title>Endpoint templates</title>
+            <wadl:resources
+                xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSCATALOG-admin.wadl#endpoints">
+                    <wadl:method href="#listEndpoints"/>
+                    <wadl:method href="#addEndpoint"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSCATALOG-admin.wadl#endpoint">
+                    <wadl:method href="#getEndpoint"/>
+                    <wadl:method href="#deleteEndpoint"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSCATALOG-admin.wadl#endpointTemplates">
+                    <wadl:method href="listEndpointTemplates"/>
+                    <wadl:method href="addEndpointTemplate"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSCATALOG-admin.wadl#endpointTemplateId">
+                    <wadl:method href="getEndpointTemplate"/>
+                    <wadl:method href="#updateEndpointTemplate"/>
+                    <wadl:method href="deleteEndpointTemplate"/>
+                </wadl:resource>
+            </wadl:resources>
+        </section>
+        <section xml:id="Tenant_Operations_OS-KSCATALOG">
+            <title>Endpoints</title>
+            <wadl:resources
+                xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSCATALOG-admin.wadl#endpoints">
+                    <wadl:method href="listEndpoints"/>
+                    <wadl:method href="addEndpoint"/>
+                </wadl:resource>
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSCATALOG-admin.wadl#endpoint">
+                    <wadl:method href="getEndpoint"/>
+                    <wadl:method href="deleteEndpoint"/>
+                </wadl:resource>
+            </wadl:resources>
+        </section>
+    </section>
+    <section xml:id="Admin_API_Service_Developer_Operations-OS-KSEC2">
+        <title>OS-KSEC2 extension</title>
+        <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
+            <wadl:resource
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSEC2-admin.wadl#userCredentials">
+                <wadl:method href="#listCredentials"/>
+                <wadl:method href="#addUserCredential"/>
+            </wadl:resource>
+            <wadl:resource
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSEC2-admin.wadl#userCredentialsByType">
+                <wadl:method href="#getUserCredential"/>
+                <wadl:method href="#updateUserCredential"/>
+                <wadl:method href="#deleteUserCredential"/>
+            </wadl:resource>
+            <wadl:resource
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSEC2-admin.wadl#type">
+                <wadl:method href="#listCredentialsByType"/>
+            </wadl:resource>
+        </wadl:resources>
+    </section>
+    <section xml:id="RackExt-0001">
+        <title>OS-KSS3 extension</title>
+        <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
+            <wadl:resource
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSS3-admin.wadl#userCredentials">
+                <wadl:method href="#listCredentials"/>
+                <wadl:method href="#addUserCredential"/>
+            </wadl:resource>
+            <wadl:resource
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSS3-admin.wadl#userCredentialsByType">
+                <wadl:method href="#getUserCredential"/>
+                <wadl:method href="#updateUserCredential"/>
+                <wadl:method href="#deleteUserCredential"/>
+            </wadl:resource>
+            <wadl:resource
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSS3-admin.wadl#type">
+                <wadl:method href="#listCredentialsByType"/>
+            </wadl:resource>
+        </wadl:resources>
+    </section>
+    <section xml:id="KSVALIDATE_OPERATIONS-token" version="5.0">
+        <title>OS-KSVALIDATE extension</title>
+        <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
+            <wadl:resource
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSVALIDATE-admin.wadl#validate">
+                <wadl:method href="validateToken"/>
+                <wadl:method href="checkToken"/>
+            </wadl:resource>
+            <wadl:resource
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/OS-KSVALIDATE-admin.wadl#endpointsForToken">
+                <wadl:method href="listEndpointsForToken"/>
+            </wadl:resource>
+        </wadl:resources>
+    </section>
+</chapter>
