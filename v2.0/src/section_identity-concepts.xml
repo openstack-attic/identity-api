@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
+    xml:id="Identity-Concepts-e1362">
+    <title>Identity concepts</title>
+    <para>To use OpenStack Identity, you must be familiar with these
+        key concepts:</para>
+    <variablelist wordsize="10">
+        <varlistentry>
+            <term><emphasis role="bold">User</emphasis></term>
+            <listitem>
+                <para>A digital representation of a person, system, or
+                    service that uses OpenStack cloud services.
+                    OpenStack Identity authentication services
+                    validate that an incoming request is being made by
+                    the user who claims to be making the call.</para>
+                <para>Users have a login and may be assigned tokens to
+                    access resources. Users may be directly assigned
+                    to a particular tenant and behave as if they are
+                    contained in that tenant.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><emphasis role="bold">Credentials</emphasis></term>
+            <listitem>
+                <para>Data that belongs to, is owned by, and generally
+                    only known by a user that the user can present to
+                    prove their identity.</para>
+                <para>Examples include:</para>
+                <itemizedlist>
+                    <listitem>
+                        <para>A matching username and password</para>
+                    </listitem>
+                    <listitem>
+                        <para>A matching username and API key</para>
+                    </listitem>
+                    <listitem>
+                        <para>A token that was issued to you</para>
+                    </listitem>
+                </itemizedlist>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><emphasis role="bold"
+                >Authentication</emphasis></term>
+            <listitem>
+                <para>In the context OpenStack Identity, the act of
+                    confirming the identity of a user or the truth of
+                    a claim. OpenStack Identity confirms that an
+                    incoming request is being made by the user who
+                    claims to be making the call by validating a set
+                    of claims that the user is making.</para>
+                <para>These claims are initially in the form of a set
+                    of credentials (username &amp; password, or
+                    username and API key). After initial confirmation,
+                    OpenStack Identity issues the user a token, which
+                    the user can then provide to demonstrate that
+                    their identity has been authenticated when making
+                    subsequent requests.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><emphasis role="bold">Token</emphasis></term>
+            <listitem>
+                <para>An arbitrary bit of text that is used to access
+                    resources. Each token has a scope that describes
+                    which resources are accessible with it. A token
+                    may be revoked at anytime and is valid for a
+                    finite duration.</para>
+                <para>While OpenStack Identity supports token-based
+                    authentication in this release, the intention is
+                    for it to support additional protocols in the
+                    future. The intent is for it to be an integration
+                    service foremost, and not aspire to be a
+                    full-fledged identity store and management
+                    solution.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><emphasis role="bold">Tenant</emphasis></term>
+            <listitem>
+                <para>A container used to group or isolate resources
+                    and/or identity objects. Depending on the service
+                    operator, a tenant can map to a customer, account,
+                    organization, or project.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><emphasis role="bold">Service</emphasis></term>
+            <listitem>
+                <para>An OpenStack service, such as Compute (Nova),
+                    Object Storage (Swift), or Image Service (Glance).
+                    A service provides one or more endpoints through
+                    which users can access resources and perform
+                    operations.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><emphasis role="bold">Endpoint</emphasis></term>
+            <listitem>
+                <para>A network-accessible address, usually described
+                    by a URL, where a service may be accessed. If
+                    using an extension for templates, you can create
+                    an endpoint template, which represents the
+                    templates of all the consumable services that are
+                    available across the regions.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><emphasis role="bold">Role</emphasis></term>
+            <listitem>
+                <para>A personality that a user assumes when
+                    performing a specific set of operations. A role
+                    includes a set of rights and privileges. A user
+                    assuming that role inherits those rights and
+                    privileges.</para>
+                <para>In OpenStack Identity, a token that is issued to
+                    a user includes the list of roles that user can
+                    assume. Services that are being called by that
+                    user determine how they interpret the set of roles
+                    a user has and to which operations or resources
+                    each role grants access.</para>
+                <para>It is up to individual services such as the
+                    Compute service and Image service to assign
+                    meaning to these roles. As far as the Identity
+                    service is concerned, a role is an arbitrary name
+                    assigned by the user.</para>
+            </listitem>
+        </varlistentry>
+    </variablelist>
+</section>
