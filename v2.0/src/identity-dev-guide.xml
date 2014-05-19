@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<book xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:html="http://www.w3.org/1999/xhtml" version="5.0"
+    xml:id="Identity-Developer-Guide">
+    <title>OpenStack Identity API v2.0 Reference</title>
+    <?rax title.font.size="26px" subtitle.font.size="26px"?>
+    <titleabbrev>Identity API Reference</titleabbrev>
+    <info>
+        <author>
+            <personname>
+                <firstname/>
+                <surname/>
+            </personname>
+            <affiliation>
+                <orgname>OpenStack Foundation</orgname>
+            </affiliation>
+        </author>
+        <copyright>
+            <year>2010</year>
+            <year>2011</year>
+            <year>2012</year>
+            <year>2013</year>
+            <year>2014</year>
+            <holder>OpenStack Foundation</holder>
+        </copyright>
+        <releaseinfo>API v2.0</releaseinfo>
+        <productname>OpenStack Identity</productname>
+        <pubdate/>
+        <legalnotice role="apache2">
+            <annotation>
+                <remark>Copyright details are filled in by the
+                    template.</remark>
+            </annotation>
+        </legalnotice>
+        <abstract>
+            <para>This document describes how to develop applications
+                that use the OpenStack Identity API v2.0 for
+                authentication. This document also describes how to
+                integrate services with the OpenStack Identity
+                API v2.0.</para>
+        </abstract>
+        <revhistory>
+            <revision>
+                <date>2013-07-13</date>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Added missing code samples and
+                                request parameter descriptions.</para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+            <revision>
+                <date>2013-05-30</date>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Added back missing client operations
+                                and extensions.</para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+            <revision>
+                <date>2011-09-13</date>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Initial release.</para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </info>
+    <!-- Chapters are referred from the book file through these include statements. You can add additional chapters using these types of statements. -->
+    <xi:include href="preface.xml"/>
+    <xi:include href="identity-general-api-info.xml"/>
+    <xi:include href="identity-client-api.xml"/>
+    <xi:include href="identity-service-api.xml"/>
+    <xi:include href="ch_os_extensions.xml"/>
+    <xi:include href="ch_hp_extensions.xml"/>
+    <xi:include href="ch_rax_extensions.xml"/>
+</book>
