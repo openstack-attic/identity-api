@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chapter xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:m="http://www.w3.org/1998/Math/MathML"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:acme="http://docs.acme.org/servers/api/ext/template/v1.0"
+    xmlns:wadl="http://wadl.dev.java.net/2009/02"
+    xmlns:osapi="http://docs.openstack.org/compute/api/v1.1"
+    version="5.0" xml:id="hp-idm" role="api-reference">
+    <title>HP extensions to OpenStack Identity</title>
+    <para>Use the HP-IDM extension to perform operations on
+        templates.</para>
+    <wadl:resources>
+        <wadl:resource
+            href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/HP-IDM-admin.wadl#tokenById">
+            <wadl:method href="#validateToken"/>
+            <wadl:method href="#checkToken"/>
+        </wadl:resource>
+    </wadl:resources>
+</chapter>

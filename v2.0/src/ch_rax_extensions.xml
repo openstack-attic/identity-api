@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE chapter [
+<!-- Useful for describing APIs -->
+<!ENTITY GET    '<command xmlns="http://docbook.org/ns/docbook">GET</command>'>
+<!ENTITY PUT    '<command xmlns="http://docbook.org/ns/docbook">PUT</command>'>
+<!ENTITY POST   '<command xmlns="http://docbook.org/ns/docbook">POST</command>'>
+<!ENTITY DELETE '<command xmlns="http://docbook.org/ns/docbook">DELETE</command>'>
+<!ENTITY CODES       'Normal response codes:'>
+<!ENTITY ERROR_CODES 'Error response codes:'>
+<!-- Information about the extension -->
+<!ENTITY APIKEYCREDENTIALSREQUESTXML "samples/apiKeyCredentials.xml">
+<!ENTITY APIKEYCREDENTIALSREQUESTJSON "samples/apiKeyCredentials.json">
+<!ENTITY APIKEYCREDENTIALSRESPONSEXML "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/auth.xml">
+<!ENTITY APIKEYCREDENTIALSRESPONSEJSON "http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/auth.json">
+]>
+<chapter xmlns="http://docbook.org/ns/docbook"
+    xml:id="rax_identity_extensions" version="5.0"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Rackspace extensions to OpenStack Identity</title>
+    <para>The following Rackspace extensions enable administrators to
+        complete these tasks:</para>
+    <itemizedlist>
+        <listitem>
+            <para>Rackspace group administration (RAX-GRPADM)
+                extension. Manage groups.</para>
+        </listitem>
+        <listitem>
+            <para>Rackspace groups service (RAX-KSGRP) extension. List
+                groups for a user.</para>
+        </listitem>
+        <listitem>
+            <para>Rackspace key authentication (RAX-KSKEY) extension.
+                Manage user credentials. Also, adds the
+                    <parameter>apikeyCredentials</parameter> extended
+                attribute, which supports Rackspace-style
+                authentication.</para>
+        </listitem>
+        <listitem>
+            <para>Rackspace secret question and answer (RAX-KSQA)
+                extension. Get and update a secret question and answer
+                for a specified user.</para>
+        </listitem>
+    </itemizedlist>
+    <table rules="all">
+        <caption>Authentication header</caption>
+        <thead>
+            <tr>
+                <td>Header Type</td>
+                <td>Name</td>
+                <td>Value</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>HTTP/1.1 Request</td>
+                <td>X-Auth-Token</td>
+                <td>txfa8426a08eaf</td>
+            </tr>
+        </tbody>
+    </table>
+    <section xmlns="http://docbook.org/ns/docbook"
+        xmlns:xi="http://www.w3.org/2001/XInclude"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xml:id="Admin_API_Service_Developer_Operations-RAX-GRPADM"
+        version="5.0" role="api-reference">
+        <title>Rackspace group administration (RAX-GRPADM)
+            extension</title>
+        <para>The Rackspace group administration (RAX-GRPADM)
+            extension adds the <literal>/RAX-GRPADM/groups</literal>
+            resource that enables administrators to manage
+            groups.</para>
+        <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
+            <wadl:resource
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-GRPADM.wadl#groups">
+                <wadl:method href="addGroup"/>
+            </wadl:resource>
+            <wadl:resource
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-GRPADM.wadl#group">
+                <wadl:method href="getGroup"/>
+                <wadl:method href="updateGroup"/>
+                <wadl:method href="deleteGroup"/>
+            </wadl:resource>
+            <wadl:resource
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-GRPADM.wadl#user">
+                <wadl:method href="addUserToGroup"/>
+                <wadl:method href="removeUserFromGroup"/>
+            </wadl:resource>
+        </wadl:resources>
+    </section>
+    <section xmlns="http://docbook.org/ns/docbook"
+        xmlns:xi="http://www.w3.org/2001/XInclude"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xml:id="Admin_API_Service_Developer_Operations-RAX-KSGRP"
+        version="5.0" role="api-reference">
+        <title>Rackspace groups service (RAX-KSGRP) extension</title>
+        <para>The Rackspace groups service (RAX-KSGRP) extension
+            enables administrators to list groups for a user.</para>
+        <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02"
+            href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-KSGRP-admin.wadl"
+        > </wadl:resources>
+    </section>
+    <section xmlns="http://docbook.org/ns/docbook"
+        xmlns:xi="http://www.w3.org/2001/XInclude"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xml:id="Admin_API_Service_Developer_Operations-RAX-KSKEY-admin"
+        version="5.0" role="api-reference">
+        <title>Rackspace key authentication (RAX-KSKEY)
+            extension</title>
+        <para>The Rackspace key authentication (RAX-KSKEY) extension
+            enables administrators to manage user credentials. Also,
+            adds the <parameter>apikeyCredentials</parameter> extended
+            attribute, which supports Rackspace-style
+            authentication.</para>
+        <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02"
+            href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-KSKEY-admin.wadl">
+            <wadl:resource
+                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-KSKEY-admin.wadl#users"
+            > </wadl:resource>
+        </wadl:resources>
+        <section xml:id="apikeycredentials">
+            <title>RAX-KSKEY apikeyCredentials extended
+                attribute</title>
+            <para>The Rackspace key authentication (RAX-KSKEY)
+                extension adds the
+                    <parameter>apikeyCredentials</parameter> extended
+                attribute, which supports Rackspace-style
+                authentication.</para>
+            <informaltable rules="all">
+                <thead xmlns="http://docbook.org/ns/docbook">
+                    <tr>
+                        <th>Verb</th>
+                        <th>URI</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>&POST;</td>
+                        <td>/tokens</td>
+                        <td>Authenticates and generates a token.</td>
+                    </tr>
+                </tbody>
+            </informaltable>
+            <simpara>&CODES;<returnvalue>200</returnvalue>,
+                    <returnvalue>203</returnvalue></simpara>
+            <simpara>&ERROR_CODES; unauthorized
+                    (<errorcode>401</errorcode>), userDisabled
+                    (<errorcode>403</errorcode>), badrequest
+                    (<errorcode>400</errorcode>), identityFault
+                    (<errorcode>500</errorcode>),
+                    serviceUnavailable(<errorcode>503</errorcode>)</simpara>
+            <para>This call returns a token if successful. Clients
+                obtain this token, along with the URL to other service
+                APIs, by first authenticating against OpenStack
+                Identity and supplying valid credentials. This
+                extension provides support for Rackspace style API Key
+                credentials.</para>
+            <para>Client authentication is provided through a ReST
+                interface using the POST method, with v2.0/tokens
+                supplied as the path. A payload of credentials must be
+                included in the body.</para>
+            <para>The Identity API is a ReSTful web service. It is the
+                entry point to all service APIs. To access the
+                Identity API, you must know its URL.</para>
+            <example>
+                <title>Authentication with apikeyCredentials: JSON
+                    request</title>
+                <programlisting language="json"><xi:include href="&APIKEYCREDENTIALSREQUESTJSON;" parse="text"/></programlisting>
+            </example>
+            <example>
+                <title>Authentication with apikeyCredentials: XML
+                    request</title>
+                <programlisting language="xml"><xi:include href="&APIKEYCREDENTIALSREQUESTXML;" parse="text"/></programlisting>
+            </example>
+            <example>
+                <title>Authentication with apikeyCredentials: JSON
+                    response</title>
+                <programlisting language="json"><xi:include href="&APIKEYCREDENTIALSRESPONSEJSON;" parse="text"/></programlisting>
+            </example>
+            <example>
+                <title>Authentication with apikeyCredentials: XML
+                    response</title>
+                <programlisting language="xml"><xi:include href="&APIKEYCREDENTIALSRESPONSEXML;" parse="text"/></programlisting>
+            </example>
+        </section>
+        <section xmlns="http://docbook.org/ns/docbook"
+            xmlns:xi="http://www.w3.org/2001/XInclude"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xml:id="Admin_API_Service_Developer_Operations-RAX-KSQA"
+            version="5.0" role="api-reference">
+            <title>Rackspace secret question and answer (RAX-KSQA)
+                extension</title>
+            <para>The Rackspace secret question and answer (RAX-KSQA)
+                extension enables administrators to get and update a
+                secret question and answer for a specified
+                user.</para>
+            <wadl:resources
+                xmlns:wadl="http://wadl.dev.java.net/2009/02">
+                <wadl:resource
+                    href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/RAX-KSQA-admin.wadl#secretqa"
+                />
+            </wadl:resources>
+        </section>
+    </section>
+</chapter>
