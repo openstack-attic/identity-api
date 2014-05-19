@@ -18,6 +18,8 @@ Definitions
   may not align 1:1 with the Identity API concepts. To help overcome such
   mismatches, a mapping can be done either on the sending side (third party
   identity provider), on the consuming side (Identity API service), or both.
+- *Trusted Attribute*: An attribute trusted to be issued by a Trusted Identity
+  Provider.
 
 API Resources
 -------------
@@ -135,6 +137,19 @@ Required attributes::
       If `true`, then each string will be evaluated as a [regular
       expression](http://docs.python.org/2/library/re.html) search against the
       remote attribute `type`.
+
+### Trusted Attribute:`/OS-FEDERATION/identity_providers/{idp-id}/trusted_attributes`
+
+      A trusted attributes policy defines which attributes an identity provider is
+      trusted to issue.
+
+      Attributes:
+
+    - `attributes` (list)
+
+      This is the list of trusted attributes. Each attribute is specified as a
+      type and an optional set of values. An list of zero values denotes that
+      any value should be accepted.
 
 Identity Provider API
 ---------------------
@@ -559,6 +574,139 @@ Response:
 Response:
 
     Status: 204 No Content
+
+Trusted Attribute API
+---------------------
+
+### List an Identity Provider's set of trusted attributes: `GET /OS-FEDERATED/identity_providers/{idp-id}/trusted_attributes`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "trusted_attributes": {
+            "attributes": [
+                {
+                    "type": "email",
+                    "values": []
+                },
+                {
+                    "type": "orgPersonType",
+                    "values": ["staff", "contractor", "guest"]
+                },
+                {
+                    "type": "uid",
+                    "values": []
+                }
+            ]
+            "links": {
+                "self": "http://identity:35357/v3/OS-FEDERATED/identity_providers/7e23a6/trusted_attributes"
+            }
+        }
+    }
+
+### Create an Identity Provider's Trusted Attributes Policy: `POST /OS-FEDERATED/identity_providers/{idp-id}/trusted_attributes`
+
+Request:
+    {
+        "trusted_attributes": {
+            "attributes": [
+                {
+                    "type": "email",
+                    "values": []
+                },
+                {
+                    "type": "orgPersonType",
+                    "values": ["staff", "contractor", "guest"]
+                },
+                {
+                    "type": "uid",
+                    "values": []
+                }
+            ]
+        }
+    }
+
+Response:
+
+    Status: 201 Created
+
+    {
+        "trusted_attributes": {
+            "attributes": [
+                {
+                    "type": "email",
+                    "values": []
+                },
+                {
+                    "type": "orgPersonType",
+                    "values": ["staff", "contractor", "guest"]
+                },
+                {
+                    "type": "uid",
+                    "values": []
+                }
+            ]
+            "links": {
+                "self": "http://identity:35357/v3/OS-FEDERATED/identity_providers/7e23a6/trusted_attributes"
+            }
+        }
+    }
+
+### Update an Identity Provider's Trusted Attributes Policy: `PATCH /OS-FEDERATED/identity_providers/{idp-id}/trusted_attributes`
+
+Request:
+    {
+        "trusted_attributes": {
+            "attributes": [
+                {
+                    "type": "email",
+                    "values": []
+                },
+                {
+                    "type": "orgPersonType",
+                    "values": ["contractor", "guest"]
+                },
+                {
+                    "type": "uid",
+                    "values": []
+                }
+            ]
+        }
+    }
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "trusted_attributes": {
+            "attributes": [
+                {
+                    "type": "email",
+                    "values": []
+                },
+                {
+                    "type": "orgPersonType",
+                    "values": ["contractor", "guest"]
+                },
+                {
+                    "type": "uid",
+                    "values": []
+                }
+            ]
+            "links": {
+                "self": "http://identity:35357/v3/OS-FEDERATED/identity_providers/7e23a6/trusted_attributes"
+            }
+        }
+    }
+
+### Delete from an Identity Provider's Trusted Attributes Policy: `DELETE /OS-FEDERATED/identity_providers/{idp-id}/trusted_attributes`
+
+Response:
+
+    Status: 204 Deleted
 
 Listing projects and domains
 ----------------------------
