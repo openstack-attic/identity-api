@@ -1,0 +1,8 @@
+Verified+2: Jenkins
+Code-Review+2: Diane Fleming <diane.fleming@rackspace.com>
+Workflow+1: Diane Fleming <diane.fleming@rackspace.com>
+Submitted-by: Jenkins
+Submitted-at: Tue, 20 May 2014 19:16:26 +0000
+Reviewed-on: https://review.openstack.org/94441
+Project: openstack/identity-api
+Branch: refs/heads/master
