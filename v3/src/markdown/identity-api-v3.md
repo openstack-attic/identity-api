@@ -2896,10 +2896,10 @@ Request:
 
     {
         "credential": {
-            "blob": "--JSON serialized object containing 'access' and 'secret'--",
-            "project_id": "--optional--",
+            "blob": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+            "project_id": "0211d7",
             "type": "ec2",
-            "user_id": "--user--id--"
+            "user_id": "f293ba"
         }
     }
 
@@ -2909,14 +2909,14 @@ Response:
 
     {
         "credential": {
-            "blob": "--JSON serialized object containing 'access' and 'secret'--",
-            "id": "--credential-id--",
+            "blob": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+            "id": "46322a",
             "links": {
-                "self": "http://identity:35357/v3/credentials/--credential-id--"
+                "self": "https://identity:35357/v3/credentials/46322a"
             },
-            "project_id": "--project-id--",
+            "project_id": "0211d7",
             "type": "ec2",
-            "user_id": "--user--id--"
+            "user_id": "f293ba"
         }
     }
 
@@ -2929,24 +2929,24 @@ Response:
     {
         "credentials": [
             {
-                "blob": "--JSON serialized object containing 'access' and 'secret'--",
-                "id": "--credential-id--",
+                "blob": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+                "id": "10b182",
                 "links": {
-                    "self": "http://identity:35357/v3/credentials/--credential-id--"
+                    "self": "https://identity:35357/v3/credentials/10b182"
                 },
-                "project_id": "--project-id--",
+                "project_id": "82cc2f",
                 "type": "ec2",
-                "user_id": "--user--id--"
+                "user_id": "27a19b"
             },
             {
-                "blob": "--JSON serialized object containing 'access' and 'secret'--",
-                "id": "--credential-id--",
+                "blob": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+                "id": "85d995",
                 "links": {
-                    "self": "http://identity:35357/v3/credentials/--credential-id--"
+                    "self": "https://identity:35357/v3/credentials/85d995"
                 },
-                "project_id": "--project-id--",
+                "project_id": "82cc2f",
                 "type": "ec2",
-                "user_id": "--user--id--"
+                "user_id": "88770a"
             }
         ],
         "links": {
@@ -2964,14 +2964,14 @@ Response:
 
     {
         "credential": {
-            "blob": "--JSON serialized object containing 'access' and 'secret'--",
-            "id": "--credential-id--",
+            "blob": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+            "id": "85d995",
             "links": {
-                "self": "http://identity:35357/v3/credentials/--credential-id--"
+                "self": "https://identity:35357/v3/credentials/85d995"
             },
-            "project_id": "--project-id--",
+            "project_id": "82cc2f",
             "type": "ec2",
-            "user_id": "--user--id--"
+            "user_id": "88770a"
         }
     }
 
@@ -2986,14 +2986,14 @@ Response:
 
     {
         "credential": {
-            "blob": "--JSON serialized object containing 'access' and 'secret'--",
-            "id": "--credential-id--",
+            "blob": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+            "id": "85d995",
             "links": {
-                "self": "http://identity:35357/v3/credentials/--credential-id--"
+                "self": "https://identity:35357/v3/credentials/85d995"
             },
-            "project_id": "--project-id--",
+            "project_id": "6f20ed",
             "type": "ec2",
-            "user_id": "--user--id--"
+            "user_id": "2a64f5"
         }
     }
 
