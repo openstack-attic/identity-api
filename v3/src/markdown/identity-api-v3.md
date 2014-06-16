@@ -858,7 +858,7 @@ Example entity:
             "description": "2nd sub-region inside the US East region.",
             "id": "us-east-2",
             "links": {
-              "self": "http://identity:35357/v3/regions/us-east-2"
+              "self": "https://identity:35357/v3/regions/us-east-2"
             },
             "parent_region_id": "us-east"
         }
@@ -1821,18 +1821,18 @@ Response:
     {
         "regions": [
             {
-                "description": "--description--",
-                "id": "--region-id--",
+                "description": "US East Region",
+                "id": "us-east",
                 "links": {
-                    "self": "http://identity:35357/v3/regions/--region-id--",
-                    "child_regions": "http://identity:35357/v3/regions?parent_region_id=--region-id--"
+                    "self": "https://identity:35357/v3/regions/us-east",
+                    "child_regions": "https://identity:35357/v3/regions?parent_region_id=us-east"
                 },
-                "parent_region_id": "--parent-region-id--"
+                "parent_region_id": "us-east-coast"
             },
             ...
         ],
         "links": {
-            "self": "http://identity:35357/v3/regions",
+            "self": "https://identity:35357/v3/regions",
             "previous": null,
             "next": null
         }
@@ -1846,13 +1846,13 @@ Response:
 
     {
         "region": {
-            "description": "--description--",
-            "id": "--region-id--",
+            "description": "US Southwest Region",
+            "id": "us-southwest",
             "links": {
-                "self": "http://identity:35357/v3/regions/--region-id--",
-                "child_regions": "http://identity:35357/v3/regions?parent_region_id=--region-id--"
+                "self": "https://identity:35357/v3/regions/us-southwest",
+                "child_regions": "http://identity:35357/v3/regions?parent_region_id=us-southwest"
             },
-            "parent_region_id": "--parent-region-id--"
+            "parent_region_id": "us-west-coast"
         }
     }
 
@@ -1862,8 +1862,8 @@ Request:
 
     {
         "region": {
-            "description": "--region-description--",
-            "parent_region_id": "--parent-region-id--"
+            "description": "US West Subregion 1",
+            "parent_region_id": "829551"
         }
     }
 
@@ -1873,13 +1873,13 @@ Response:
 
     {
         "region": {
-            "description": "--description--",
-            "id": "--region-id--",
+            "description": "US West Subregion 1",
+            "id": "8ebd7f",
             "links": {
-                "self": "http://identity:35357/v3/regions/--region-id--",
-                "child_regions": "http://identity:35357/v3/regions?parent_region_id=--region-id--"
+                "self": "https://identity:35357/v3/regions/8ebd7f",
+                "child_regions": "https://identity:35357/v3/regions?parent_region_id=8ebd7f"
             },
-            "parent_region_id": "--parent-region-id--"
+            "parent_region_id": "829551"
         }
     }
 
@@ -1894,8 +1894,8 @@ Request:
 
     {
         "region": {
-            "description": "--region-description--",
-            "parent_region_id": "--parent-region-id--"
+            "description": "US Southwest Subregion 1",
+            "parent_region_id": "us-south"
         }
     }
 
@@ -1905,13 +1905,13 @@ Response:
 
     {
         "region": {
-            "description": "--description--",
-            "id": "--region-id--",
+            "description": "US Southwest Subregion 1",
+            "id": "us-southwest-1",
             "links": {
-                "self": "http://identity:35357/v3/regions/--region-id--",
-                "child_regions": "http://identity:35357/v3/regions?parent_region_id=--region-id--"
+                "self": "https://identity:35357/v3/regions/us-southwest-1",
+                "child_regions": "https://identity:35357/v3/regions?parent_region_id=us-southwest-1"
             },
-            "parent_region_id": "--parent-region-id--"
+            "parent_region_id": "us-south"
         }
     }
 
@@ -1930,8 +1930,8 @@ Request:
 
     {
         "region": {
-            "description": "...",
-            "parent_region_id": "--parent-region-id--"
+            "description": "US Southwest Subregion",
+            "parent_region_id": "us-southwest"
         }
     }
 
@@ -1941,13 +1941,13 @@ Response:
 
     {
         "region": {
-            "description": "--description--",
-            "id": "--region-id--",
+            "description": "US Southwest Subregion",
+            "id": "us-southwest-1",
             "links": {
-                "self": "http://identity:35357/v3/regions/--region-id--",
-                "child_regions": "http://identity:35357/v3/regions?parent_region_id=--region-id--"
+                "self": "https://identity:35357/v3/regions/us-southwest-1",
+                "child_regions": "https://identity:35357/v3/regions?parent_region_id=us-southwest-1"
             },
-            "parent_region_id": "--parent-region-id--"
+            "parent_region_id": "us-southwest"
         }
     }
 
