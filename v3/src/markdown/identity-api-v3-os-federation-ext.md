@@ -46,6 +46,28 @@ Optional attributes:
   If a value is not specified by the client, the service may default this to
   either `true` or `false`.
 
+### Service Providers: ``/OS-FEDERATION/service_providers``
+
+A service provider is a service that is trusted by an identity service to not
+abuse the privacy of the identity attributes that are given to it.
+
+Optional attributes:
+
+* ``description`` (string)
+
+  Describes the service provider.
+
+  If a value is not specified by the client, the service may default this value
+  to either an empty string or ``null``.
+
+* ``enabled`` (boolean)
+
+  Indicates whether the Identity Service should assert federation
+  identities to this service provider.
+
+  If a value is not specified by the client, the service may default this to
+  either `true` or `false`.
+
 ### Protocols: `/OS-FEDERATION/identity_providers/{idp_id}/protocols`
 
 A protocol entry contains information that dictates which mapping rules
@@ -376,6 +398,123 @@ Response:
 Response:
 
     Status: 204 No Content
+
+Service Provider API
+--------------------
+
+### Register a service provider: ``PUT /OS-FEDERATION/service_providers/{sp_id}``
+
+Request:
+
+    {
+        "service_provider": {
+            "description": "CSP1 service provider",
+            "enabled": true
+        }
+    }
+
+Response:
+
+    Status: 201 Created
+
+    {
+        "service_provider": {
+            "description": "CSP1 service provider",
+            "enabled": true,
+            "id": "BETA-CSP",
+            "links": {
+                "self": "http://identity:35357/v3/OS-FEDERATION/service_providers/BETA-CSP"
+            }
+        }
+    }
+
+### List service providers: ``GET /OS-FEDERATION/service_providers``
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "service_providers": [
+            {
+                "description": "CSP1 service provider",
+                "enabled": true,
+                "id": "BETA-CSP",
+                "links": {
+                    "self": "http://identity:35357/v3/OS-FEDERATION/service_providers/BETA-CSP"
+                }
+            },
+            {
+                "description": "GAMMA service provider",
+                "enabled": false,
+                "id": "GAMMA-CSP",
+                "links": {
+                    "self": "http://identity:35357/v3/OS-FEDERATION/service_providers/GAMMA-CSP"
+                }
+            }
+        ],
+        "links": {
+            "next": null,
+            "previous": null,
+            "self": "http://identity:35357/v3/OS-FEDERATION/service_providers"
+        }
+    }
+
+### Get service provider: ``GET /OS-FEDERATION/service_providers/{sp_id}``
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "service_provider": {
+            "description": "CSP1 service provider",
+            "enabled": true,
+            "id": "BETA-CSP",
+            "links": {
+                "self": "http://identity:35357/v3/OS-FEDERATION/service_providers/BETA-CSP"
+            }
+        }
+    }
+
+### Delete service provider: ``DELETE /OS-FEDERATION/service_providers/{sp_id}``
+
+When a service provider is deleted, the list of active assertions are
+available to the service providers so that adequate token revocation can be
+performed.
+
+Response:
+
+    Status: 204 No Content
+
+### Update a service provider: ``PATCH /OS-FEDERATION/service_providers/{sp_id}``
+
+Request:
+
+    {
+        "service_provider": {
+            "enabled": true
+        }
+    }
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "service_provider": {
+            "description": "CSP1 service provider",
+            "enabled": true,
+            "id": "BETA-CSP",
+            "links": {
+                "self": "http://identity:35357/v3/OS-FEDERATION/service_providers/BETA-CSP"
+            }
+        }
+    }
+
+When a service provider is disabled, the list of active assertions are
+available to the service providers so that adequate token revocation can be
+performed.
 
 Mapping API
 -----------
