@@ -414,10 +414,10 @@ Response:
     Status: 201 Created
 
     {
-        "links": {
-            "self": "http://identity:35357/v3/OS-FEDERATION/mappings/ACME"
-        },
         "mapping": {
+            "links": {
+                "self": "http://identity:35357/v3/OS-FEDERATION/mappings/ACME"
+            },
             "id": "ACME",
             "rules": [
                 {
@@ -449,11 +449,11 @@ Response:
     Status: 200 OK
 
     {
-        "links": {
-            "self": "http://identity:35357/v3/OS-FEDERATION/mappings/ACME"
-        },
         "mapping": {
             "id": "ACME",
+            "links": {
+                "self": "http://identity:35357/v3/OS-FEDERATION/mappings/ACME"
+            },
             "rules": [
                 {
                     "local": [
@@ -511,11 +511,11 @@ Response:
     Status: 200 OK
 
     {
-        "links": {
-            "self": "http://identity:35357/v3/OS-FEDERATION/mappings/ACME"
-        },
         "mapping": {
             "id": "ACME",
+            "links": {
+                "self": "http://identity:35357/v3/OS-FEDERATION/mappings/ACME"
+            },
             "rules": [
                 {
                     "local": [
@@ -554,6 +554,9 @@ Response:
         "mappings": [
             {
                 "id": "ACME",
+                "links": {
+                    "self": "http://identity:35357/v3/OS-FEDERATION/mappings/ACME"
+                },
                 "rules": [
                     {
                         "local": [
