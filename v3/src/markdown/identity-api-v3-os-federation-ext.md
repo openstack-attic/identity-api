@@ -46,6 +46,17 @@ Optional attributes:
   If a value is not specified by the client, the service may default this to
   either `true` or `false`.
 
+### Identity Providers public key: `/OS-FEDERATION/identity_providers/{idp_id}/public_key`
+
+A public key required for validation assertions issued by trusted Keystones
+acting as Identity provider.
+
+Required attributes:
+
+- `public_key` (string)
+
+  Contains public key issued by a trusted Keystone Identity provider.
+
 ### Protocols: `/OS-FEDERATION/identity_providers/{idp_id}/protocols`
 
 A protocol entry contains information that dictates which mapping rules
@@ -375,6 +386,79 @@ Response:
 
 Response:
 
+    Status: 204 No Content
+
+
+### Add public key issued by a trusted Keystone Identity provider:
+`PUT /OS-FEDERATION/identity_providers/{idp_id}/public_key`
+
+Request:
+
+    {
+        "public_key": {
+            "key": "--key-id--"
+        }
+    }
+
+
+Response:
+    Status: 201 Created
+
+    {
+        "public_key": {
+            "key": "--key_id--"
+            "links": {
+                "identity_provider": "http:/identity:35357/v3/OS-IDP/identity_providers/ACME",
+                "self": "http:/identity:35357/v3/OS-IDP/identity_providers/ACME/public_key"
+            }
+        }
+    }
+
+
+### Get public key issued by a trusted Keystone Identity provider:
+`GET /OS-FEDERATION/identity_providers/{idp_id}/public_key`
+
+Response:
+    Status: 200 OK
+
+    {
+        "public_key": {
+            "key": "--key_id--"
+            "links": {
+                "identity_provider": "http:/identity:35357/v3/OS-IDP/identity_providers/ACME",
+                "self": "http:/identity:35357/v3/OS-IDP/identity_providers/ACME/public_key"
+            }
+        }
+    }
+
+### Update existing public key issued by a trusted Keystone Identity provider:
+`PATCH /OS-FEDERATION/identity_providers/{idp_id}/public_key`
+
+Request:
+
+    {
+        "public_key": {
+            "key": "--key-id--"
+        }
+    }
+
+Response:
+    Status: 200 OK
+
+    {
+        "public_key": {
+            "key": "--key_id--"
+            "links": {
+                "identity_provider": "http:/identity:35357/v3/OS-IDP/identity_providers/ACME",
+                "self": "http:/identity:35357/v3/OS-IDP/identity_providers/ACME/public_key"
+            }
+        }
+    }
+
+### Delete public key issued by a trusted Keystone Identity provider:
+`DELETE /OS-FEDERATION/identity_providers/{idp_id}/public_key`
+
+Response:
     Status: 204 No Content
 
 Mapping API
