@@ -46,6 +46,14 @@ Optional attributes:
   If a value is not specified by the client, the service may default this to
   either `true` or `false`.
 
+- `public_key` (string)
+
+  Public key issued by a Keystone Identity Provider used for checking
+  token signature.
+
+  If a value is not specified by the client, the service may default this value
+  to either an empty string or `null`.
+
 ### Protocols: `/OS-FEDERATION/identity_providers/{idp_id}/protocols`
 
 A protocol entry contains information that dictates which mapping rules
@@ -165,7 +173,8 @@ Request:
     {
         "identity_provider": {
             "description": "Stores ACME identities.",
-            "enabled": true
+            "enabled": true,
+            "public_key": "--key--"
         }
     }
 
@@ -178,6 +187,7 @@ Response:
             "description": "Stores ACME identities",
             "enabled": true,
             "id": "ACME",
+            "public_key": "--key--",
             "links": {
                 "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME/protocols",
                 "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME",
@@ -198,6 +208,7 @@ Response:
                 "description": "Stores ACME identities",
                 "enabled": true,
                 "id": "ACME",
+                "public_key": "--key--",
                 "links": {
                     "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME/protocols",
                     "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME",
@@ -208,6 +219,7 @@ Response:
                 "description": "Stores contractor identities",
                 "enabled": false,
                 "id": "ACME-contractors",
+                "public_key": "--key--",
                 "links": {
                     "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME-contractors/protocols",
                     "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME-contractors",
@@ -233,6 +245,7 @@ Response:
             "description": "Stores ACME identities",
             "enabled": false,
             "id": "ACME",
+            "public_key": "--key--",
             "links": {
                 "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME/protocols",
                 "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME",
@@ -256,7 +269,8 @@ Request:
 
     {
         "identity_provider": {
-            "enabled": true
+            "enabled": true,
+            "public_key": "--key--"
         }
     }
 
@@ -269,6 +283,7 @@ Response:
             "description": "Beta dev idp",
             "enabled": true,
             "id": "ACME",
+            "public_key": "--key--",
             "links": {
                 "protocols": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME/protocols",
                 "self": "http://identity:35357/v3/OS-FEDERATION/identity_providers/ACME",
