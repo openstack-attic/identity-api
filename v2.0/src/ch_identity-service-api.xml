@@ -68,7 +68,7 @@
         <title>Extensions</title>
         <wadl:resources xmlns:wadl="http://wadl.dev.java.net/2009/02">
             <wadl:resource
-                href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl#extensions">
+                href="../../../api-site/api-ref/src/wadls/identity-api/src/v2.0/wadl/identity-admin.wadl">
                 <wadl:method href="#listExtensions"/>
             </wadl:resource>
             <wadl:resource
