@@ -1236,7 +1236,7 @@ Use cases:
 
 #### Authenticate: `POST /auth/tokens`
 
-Each request to create a token contains an attribute with `identiy`
+Each request to create a token contains an attribute with `identity`
 information and, optionally, a `scope` describing the authorization scope being
 requested. Example request structure:
 
@@ -1765,11 +1765,12 @@ For example:
         }
     }
 
-#### Validate token: `GET /auth/tokens`
+#### Validate token and get service catalog: `GET /auth/tokens`
 
 To validate a token using the Identity API, pass your own token in the
 `X-Auth-Token` header, and the token to be validated in the `X-Subject-Token`
-header. Example request:
+header. The Identity service returns a service catalog in the response.
+Example request:
 
     Headers:
         X-Auth-Token: 1dd7e3
@@ -1782,9 +1783,10 @@ token was issued by `POST /auth/tokens`.
 
 #### Validate token: `GET /auth/tokens?nocatalog`
 
-*New in version 3.2* To validate a token using the Identity API without
-receiving a catalog in the response. The request has the same format as
-`GET /auth/tokens`.
+*New in version 3.2*
+
+To validate a token using the Identity API without returning a service catalog in the
+response. The request has the same format as `GET /auth/tokens`.
 
 The Identity service will return the exact same response as when the subject
 token was issued by `POST /auth/tokens?nocatalog`.
@@ -3443,7 +3445,7 @@ Response:
     }
 
 The entity `links` section of a response using the `effective` query parameter also contains,
-for entities that are included by virtue of group memebership, a url that can be used to
+for entities that are included by virtue of group membership, a url that can be used to
 access the membership of the group.
 
 ### Policies
