@@ -178,7 +178,7 @@ This operation does not require a request body.</para>'>
         <example>
             <title>Tenant collection, first page: JSON
                 response</title>
-            <programlisting language="json"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/tenants-1.xml" parse="text"/></programlisting>
+            <programlisting language="json"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/tenants-1.json" parse="text"/></programlisting>
         </example>
         <example>
             <title>Tenant collection, second page: XML
