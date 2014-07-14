@@ -1493,7 +1493,7 @@ be issued without an explicit scope of authorization.
 *New in version 3.1* Additionally, if the user's default project is invalid, a
 token will be issued without an explicit scope of authorization.
 
-##### Catalog Opt-Out: 'POST /v3/auth/tokens?nocatalog'
+##### Catalog Opt-Out: `POST /v3/auth/tokens?nocatalog`
 
 *New in version 3.1* If the caller specifies a `nocatalog` query parameter in
 the authentication request, then the authentication response will not contain
