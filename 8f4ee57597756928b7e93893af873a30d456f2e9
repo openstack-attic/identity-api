@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Code-Review+2: henry-nash <henryn@linux.vnet.ibm.com>
+Workflow+1: henry-nash <henryn@linux.vnet.ibm.com>
+Code-Review+2: Steve Martinelli <stevemar@ca.ibm.com>
+Submitted-by: Jenkins
+Submitted-at: Mon, 14 Jul 2014 20:20:30 +0000
+Reviewed-on: https://review.openstack.org/106849
+Project: openstack/identity-api
+Branch: refs/heads/master
