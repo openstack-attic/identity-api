@@ -16,6 +16,7 @@ These features are not yet considered stable (expected July 2014).
 
 - Addition of `name` optional variable to be included from service definition
   into the service catalog.
+- Introduced a stand alone call to retrieve a service catalog.
 
 What's New in Version 3.2
 -------------------------
@@ -1809,6 +1810,56 @@ The key use cases we need to cover:
 
 - CRUD for regions, services and endpoints
 - Retrieving an endpoint URL by service, region, and interface
+
+#### Get service catalog: `GET /catalog`
+
+*New in version 3.3*
+
+This call returns a service catalog for the `X-Auth-Token` provided in the
+request, even if the token does not contain a catalog itself (for example, if
+it was generated using `?nocatalog`).
+
+The structure of the `catalog` object is identical to that contained in a
+`token`.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "catalog": [
+            {
+                "endpoints": [
+                    {
+                        "id": "39dc322ce86c4111b4f06c2eeae0841b",
+                        "interface": "public",
+                        "region": "RegionOne",
+                        "url": "http://localhost:5000"
+                    },
+                    {
+                        "id": "ec642f27474842e78bf059f6c48f4e99",
+                        "interface": "internal",
+                        "region": "RegionOne",
+                        "url": "http://localhost:5000"
+                    },
+                    {
+                        "id": "c609fc430175452290b62a4242e8a7e8",
+                        "interface": "admin",
+                        "region": "RegionOne",
+                        "url": "http://localhost:35357"
+                    }
+                ],
+                "id": "4363ae44bdf34a3981fde3b823cb9aa2",
+                "type": "identity",
+                "name": "keystone"
+            }
+        ],
+        "links": {
+            "self": "https://identity:35357/v3/catalog",
+            "previous": null,
+            "next": null
+        }
+    }
 
 #### List regions: `GET /regions`
 
