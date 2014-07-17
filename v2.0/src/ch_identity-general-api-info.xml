@@ -101,7 +101,7 @@ This operation does not require a request body.</para>'>
     </section>
     <section xml:id="Content_Compression-d1e262">
         <title>Content compression</title>
-        <para>Request and response body data my be encoded with gzip
+        <para>Request and response body data may be encoded with gzip
             compression in order to accelerate interactive performance
             of API calls and responses. This is controlled using the
                 <code>Accept-Encoding</code> header on the request
