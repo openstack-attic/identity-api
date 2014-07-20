@@ -2,18 +2,11 @@
 <!DOCTYPE chapter [
 <!-- Some useful entities borrowed from HTML -->
 <!ENTITY ndash  "&#x2013;">
-<!ENTITY mdash  "&#x2014;">
-<!ENTITY hellip "&#x2026;">
-<!ENTITY plusmn "&#xB1;">
 ]>
-<chapter xmlns="http://docbook.org/ns/docbook"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:svg="http://www.w3.org/2000/svg"
-    xmlns:wadl="http://wadl.dev.java.net/2009/02"
-    xmlns:html="http://www.w3.org/1999/xhtml"
-    xml:id="Service_API_Admin_Operations" version="5.0"
-    role="api-reference">
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:wadl="http://wadl.dev.java.net/2009/02" xmlns:html="http://www.w3.org/1999/xhtml"
+    xml:id="Service_API_Admin_Operations" version="5.0" role="api-reference">
     <title>Administrative operations</title>
     <para>The OpenStack Identity API administrative operations enable
         service developers to get and validate access tokens, manage
