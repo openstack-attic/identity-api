@@ -44,6 +44,16 @@
         </abstract>
         <revhistory>
             <revision>
+                <date>2014-07-20</date>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Added missing user calls.</para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+            <revision>
                 <date>2013-07-13</date>
                 <revdescription>
                     <itemizedlist>
