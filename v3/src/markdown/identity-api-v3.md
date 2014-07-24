@@ -12,7 +12,7 @@ policy engine rule sets.
 What's New in Version 3.3
 -------------------------
 
-These features are not yet considered stable (expected July 2014).
+These features are not yet considered stable (expected September 4th, 2014).
 
 - Addition of `name` optional variable to be included from service definition
   into the service catalog.
