@@ -17,6 +17,7 @@ These features are not yet considered stable (expected September 4th, 2014).
 - Addition of `name` optional variable to be included from service definition
   into the service catalog.
 - Introduced a stand alone call to retrieve a service catalog.
+- JSON Home support
 
 What's New in Version 3.2
 -------------------------
@@ -1222,6 +1223,32 @@ Response:
         }
     }
 
+*New in 3.3*: `GET /v3/` will return a JSON Home response if the `Accept`
+header indicates that the client wants an `application/json-home`
+response. Note that the client must check the `Content-Type` in the response
+because older servers will return a normal JSON response rather than the JSON
+Home response. See http://tools.ietf.org/html/draft-nottingham-json-home-03 for
+a description of the JSON Home document format.
+
+The JSON Home document returned includes all the core components and also the
+resources for the enabled extensions. Resources for disabled extensions aren't
+included.
+
+Request:
+
+    GET /v3
+    Accept: application/json-home
+
+Response:
+
+    {
+        "resources": {
+            "http://docs.openstack.org/identity/rel/v3/auth_tokens": {
+                "href": "/auth/tokens"
+            },
+            ... One for each resource ...
+        }
+    }
 
 ### Tokens
 
@@ -1236,6 +1263,8 @@ Use cases:
 - Given a valid token, force it's immediate revocation.
 
 #### Authenticate: `POST /auth/tokens`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/auth_tokens`
 
 Each request to create a token contains an attribute with `identity`
 information and, optionally, a `scope` describing the authorization scope being
@@ -1800,6 +1829,8 @@ the `X-Subject-Token` is valid.
 
 #### Revoke token: `DELETE /auth/tokens`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/auth_tokens`
+
 This call is identical to `HEAD /auth/tokens` except that the `X-Subject-Token`
 token is immediately invalidated, regardless of its `expires_at` attribute. An
 additional `X-Auth-Token` is not required.
@@ -1812,6 +1843,8 @@ The key use cases we need to cover:
 - Retrieving an endpoint URL by service, region, and interface
 
 #### Get service catalog: `GET /catalog`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/catalog`
 
 *New in version 3.3*
 
@@ -1863,6 +1896,8 @@ Response:
 
 #### List regions: `GET /regions`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/regions`
+
 Optional query parameters:
 
 - `parent_region_id` (string)
@@ -1893,6 +1928,8 @@ Response:
 
 #### Get region: `GET /regions/{region_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/region`
+
 Response:
 
     Status: 200 OK
@@ -1910,6 +1947,8 @@ Response:
     }
 
 #### Create region: `POST /regions`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/regions`
 
 Request:
 
@@ -1942,6 +1981,8 @@ Response:
   circular relationship should fail with a `409 Conflict`
 
 #### Create region with specific ID: `PUT /regions/{user_defined_region_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/region`
 
 Request:
 
@@ -1979,6 +2020,8 @@ Response:
 
 #### Update region: `PATCH /regions/{region_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/region`
+
 Request:
 
     {
@@ -2009,6 +2052,8 @@ Response:
 
 #### Delete region: `DELETE /regions/{region_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/region`
+
 * Note: deleting a region with child regions should return a `409 Conflict`
 
 Response:
@@ -2016,6 +2061,8 @@ Response:
     Status: 204 No Content
 
 #### List services: `GET /services`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/services`
 
 Optional query parameters:
 
@@ -2055,6 +2102,8 @@ Response:
 
 #### Get service: `GET /services/{service_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/service`
+
 Response:
 
     Status: 200 OK
@@ -2072,6 +2121,8 @@ Response:
     }
 
 #### Create service: `POST /services`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/services`
 
 Request:
 
@@ -2101,6 +2152,8 @@ Response:
 
 #### Update service: `PATCH /services/{service_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/service`
+
 The request block is the same as the one for create service, except that only the attributes
 that are being updated need to be included.
 
@@ -2122,6 +2175,8 @@ Response:
 
 #### Delete service: `DELETE /services/{service_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/service`
+
 * Note: deleting a service when endpoints exist should either 1) delete all
   associated endpoints or 2) fail until endpoints are deleted
 
@@ -2132,6 +2187,8 @@ Response:
 ### Endpoints
 
 #### List endpoints: `GET /endpoints`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/endpoints`
 
 Optional query parameters:
 
@@ -2176,6 +2233,8 @@ Response:
 
 #### Get endpoint: `GET /endpoints/{endpoint_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/endpoint`
+
 Response:
 
     Status: 200 OK
@@ -2195,6 +2254,8 @@ Response:
     }
 
 #### Create endpoint: `POST /endpoints`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/endpoints`
 
 Request:
 
@@ -2227,6 +2288,8 @@ Response:
 
 #### Update endpoint: `PATCH /endpoints/{endpoint_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/endpoint`
+
 The request block is the same as the one for create endpoint, except that only the
 attributes that are being updated need to be included.
 
@@ -2251,6 +2314,8 @@ Response:
 
 #### Delete endpoint: `DELETE /endpoints/{endpoint_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/endpoint`
+
 Response:
 
     Status: 204 No Content
@@ -2267,6 +2332,8 @@ The key use cases we need to cover:
 ### Domains
 
 #### List domains: `GET /domains`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/domains`
 
 Optional query parameters:
 
@@ -2307,6 +2374,8 @@ Response:
 
 #### Get domain: `GET /domains/{domain_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/domain`
+
 Response:
 
     Status: 200 OK
@@ -2324,6 +2393,8 @@ Response:
     }
 
 #### Create domain: `POST /domains`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/domains`
 
 Request:
 
@@ -2352,6 +2423,8 @@ Response:
     }
 
 #### Update domain: `PATCH /domains/{domain_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/domain`
 
 The request block is the same as the one for create domain, except that only the attributes
 that are being updated need to be included.
@@ -2382,6 +2455,8 @@ Response:
 
 #### Delete domain: `DELETE /domains/{domain_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/domain`
+
 Deleting a domain will delete all the entities owned by it (Users,
 Groups & Projects), as well as any Credentials and Role grants that
 relate to these entities.
@@ -2399,6 +2474,8 @@ Response:
 ### Projects
 
 #### List projects: `GET /projects`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/projects`
 
 Optional query parameters:
 
@@ -2440,6 +2517,8 @@ Response:
 
 #### Get project: `GET /projects/{project_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/project`
+
 Response:
 
     Status: 200 OK
@@ -2457,6 +2536,8 @@ Response:
     }
 
 #### Create project: `POST /projects`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/projects`
 
 Request:
 
@@ -2487,6 +2568,8 @@ Response:
     }
 
 #### Update project: `PATCH /projects/{project_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/project`
 
 The request block is the same as the one for create project, except that only the attributes
 that are being updated need to be included.
@@ -2519,11 +2602,15 @@ Response:
 
 #### Delete project: `DELETE /projects/{project_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/project`
+
     Status: 204 No Content
 
 ### Users
 
 #### List users: `GET /users`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/users`
 
 Optional query parameters:
 
@@ -2571,6 +2658,8 @@ Response:
 
 #### Get user: `GET /users/{user_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/user`
+
 Response:
 
     Status: 200 OK
@@ -2591,6 +2680,8 @@ Response:
     }
 
 #### List user projects: `GET /users/{user_id}/projects`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/user_projects`
 
 Optional query parameters:
 
@@ -2631,6 +2722,8 @@ Response:
 
 #### List groups of which a user is a member: `GET /users/{user_id}/groups`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/user_groups`
+
 Optional query parameters:
 
 - `name` (string)
@@ -2669,6 +2762,8 @@ Response:
 
 #### Create user: `POST /users`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/users`
+
 Request:
 
     {
@@ -2704,6 +2799,8 @@ Response:
 
 #### Update user: `PATCH /users/{user_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/user`
+
 The request block is the same as the one for create user, except that only the attributes
 that are being updated need to be included. Use this method attempt to update user
 password or enable/disable the user. This may return a HTTP 501 Not Implemented if the
@@ -2730,11 +2827,15 @@ Response:
 
 #### Delete user: `DELETE /users/{user_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/user`
+
 Response:
 
     Status: 204 No Content
 
 #### Change user password: `POST /users/{user_id}/password`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/user_change_password`
 
 Request:
 
@@ -2752,6 +2853,8 @@ Response:
 ### Groups
 
 #### Create group: `POST /groups`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/groups`
 
 Request:
 
@@ -2779,6 +2882,8 @@ Response:
     }
 
 #### List groups: `GET /groups`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/groups`
 
 Optional query parameters:
 
@@ -2828,6 +2933,8 @@ Response:
 
 #### Get group: `GET /groups/{group_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/group`
+
 Response:
 
     Status: 200 OK
@@ -2844,6 +2951,8 @@ Response:
     }
 
 #### List users who are members of a group: `GET /groups/{group_id}/users`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/group_users`
 
 Optional query parameters:
 
@@ -2890,6 +2999,8 @@ Response:
 
 #### Update group: `PATCH /groups/{group_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/group`
+
 The request block is the same as the one for create group, except that only the attributes
 that are being updated need to be included. This may return a HTTP 501 Not Implemented
 if the back-end driver doesn't allow for the functionality.
@@ -2911,11 +3022,15 @@ Response:
 
 #### Delete group: `DELETE /groups/{group_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/group`
+
 Response:
 
     Status: 204 No Content
 
 #### Add user to group: `PUT /groups/{group_id}/users/{user_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/group_user`
 
 Response:
 
@@ -2923,11 +3038,15 @@ Response:
 
 #### Remove user from group: `DELETE /groups/{group_id}/users/{user_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/group_user`
+
 Response:
 
     Status: 204 No Content
 
 #### Check if user is member of group: `HEAD /groups/{group_id}/users/{user_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/group_user`
 
 Response:
 
@@ -2940,6 +3059,8 @@ The key use cases we need to cover:
 - CRUD on a credential
 
 #### Create credential: `POST /credentials`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/credentials`
 
 This example shows creating an EC2 style credential where the credentials are a
 combination of access_key and secret. Other credentials (such as access_key)
@@ -2974,6 +3095,8 @@ Response:
     }
 
 #### List credentials: `GET /credentials`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/credentials`
 
 Response:
 
@@ -3011,6 +3134,8 @@ Response:
 
 #### Get credential: `GET /credentials/{credential_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/credential`
+
 Response:
 
     Status: 200 OK
@@ -3029,6 +3154,8 @@ Response:
     }
 
 #### Update credential: `PATCH /credentials/{credential_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/credential`
 
 The request block is the same as the one for create credential, except that only the
 attributes that are being updated need to be included.
@@ -3052,6 +3179,8 @@ Response:
 
 #### Delete credential: `DELETE /credentials/{credential_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/credential`
+
 Response:
 
     Status: 204 No Content
@@ -3064,6 +3193,8 @@ The key use cases we need to cover:
 - Associating a role with a project or domain
 
 #### Create role: `POST /roles`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/roles`
 
 Request:
 
@@ -3088,6 +3219,8 @@ Response:
     }
 
 #### List roles: `GET /roles`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/roles`
 
 Optional query parameters:
 
@@ -3123,6 +3256,8 @@ Response:
 
 #### Get role: `GET /roles/{role_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/role`
+
 Response:
 
     Status: 200 OK
@@ -3138,6 +3273,8 @@ Response:
     }
 
 #### Update role: `PATCH /roles/{role_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/role`
 
 The request block is the same as the one for create role, except that only the attributes
 that are being updated need to be included.
@@ -3158,11 +3295,15 @@ Response:
 
 #### Delete role: `DELETE /roles/{role_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/role`
+
 Response:
 
     Status: 204 No Content
 
 #### Grant role to user on domain: `PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/domain_user_role`
 
 Response:
 
@@ -3170,11 +3311,15 @@ Response:
 
 #### Grant role to group on domain: `PUT /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/domain_group_role`
+
 Response:
 
     Status: 204 No Content
 
 #### List user's roles on domain: `GET /domains/{domain_id}/users/{user_id}/roles`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/domain_user_roles`
 
 Response:
 
@@ -3206,6 +3351,8 @@ Response:
 
 #### List group's roles on domain: `GET /domains/{domain_id}/groups/{group_id}/roles`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/domain_group_roles`
+
 Response:
 
     Status: 200 OK
@@ -3236,11 +3383,15 @@ Response:
 
 #### Check if user has role on domain: `HEAD /domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/domain_user_role`
+
 Response:
 
     Status: 204 No Content
 
 #### Check if group has role on domain: `HEAD /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/domain_group_role`
 
 Response:
 
@@ -3248,11 +3399,15 @@ Response:
 
 #### Revoke role from user on domain: `DELETE /domains/{domain_id}/users/{user_id}/roles/{role_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/domain_user_role`
+
 Response:
 
     Status: 204 No Content
 
 #### Revoke role from group on domain: `DELETE /domains/{domain_id}/groups/{group_id}/roles/{role_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/domain_group_role`
 
 Response:
 
@@ -3260,17 +3415,23 @@ Response:
 
 #### Grant role to user on project: `PUT /projects/{project_id}/users/{user_id}/roles/{role_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/project_user_role`
+
 Response:
 
     Status: 204 No Content
 
 #### Grant role to group on project: `PUT /projects/{project_id}/groups/{group_id}/roles/{role_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/project_group_role`
+
 Response:
 
     Status: 204 No Content
 
 #### List user's roles on project: `GET /projects/{project_id}/users/{user_id}/roles`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/project_user_role`
 
 Response:
 
@@ -3302,6 +3463,8 @@ Response:
 
 #### List group's roles on project: `GET /projects/{project_id}/groups/{group_id}/roles`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/project_group_roles`
+
 Response:
 
     Status: 200 OK
@@ -3332,11 +3495,15 @@ Response:
 
 #### Check if user has role on project: `HEAD /projects/{project_id}/users/{user_id}/roles/{role_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/project_user_role`
+
 Response:
 
     Status: 204 No Content
 
 #### Check if group has role on project: `HEAD /projects/{project_id}/groups/{group_id}/roles/{role_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/project_group_role`
 
 Response:
 
@@ -3344,17 +3511,23 @@ Response:
 
 #### Revoke role from user on project: `DELETE /projects/{project_id}/users/{user_id}/roles/{role_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/project_user_role`
+
 Response:
 
     Status: 204 No Content
 
 #### Revoke role from group on project: `DELETE /projects/{project_id}/groups/{group_id}/roles/{role_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/project_group_role`
+
 Response:
 
     Status: 204 No Content
 
 #### List effective role assignments: `GET /role_assignments`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/role_assignments`
 
 *New in version 3.1*
 
@@ -3507,6 +3680,8 @@ The key use cases we need to cover:
 
 #### Create policy: `POST /policies`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/policies`
+
 Request:
 
     {
@@ -3530,6 +3705,8 @@ Response:
     }
 
 #### List policies: `GET /policies`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/policies`
 
 Optional query parameters:
 
@@ -3567,6 +3744,8 @@ Response:
 
 #### Get policy: `GET /policies/{policy_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/policy`
+
 Response:
 
     Status: 200 OK
@@ -3583,6 +3762,8 @@ Response:
     }
 
 #### Update policy: `PATCH /policies/{policy_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/policy`
 
 The request block is the same as the one for create policy, except that only the attributes
 that are being updated need to be included.
@@ -3603,6 +3784,8 @@ Response:
     }
 
 #### Delete policy: `DELETE /policies/{policy_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/policy`
 
 Response:
 
