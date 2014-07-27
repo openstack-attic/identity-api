@@ -30,6 +30,8 @@ API
 
 #### Retrieve CA certificate chain: `GET /OS-SIMPLE-CERT/ca`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-SIMPLE-CERT/1.0/ca_certificate`
+
 Fetches the certificate chain used to authenticate signed tokens.
 
 It is possible that a chain of certificates (more than one) is returned. In
@@ -62,6 +64,8 @@ this case the chain should be used when validating a token.
     -----END CERTIFICATE-----
 
 #### Retrieve signing certificates: `GET /OS-SIMPLE-CERT/certificates`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-SIMPLE-CERT/1.0/certificates`
 
 Fetches the certificates containing the public key for the private key that has
 been used to sign tokens.

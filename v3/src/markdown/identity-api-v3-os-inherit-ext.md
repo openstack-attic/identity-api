@@ -12,6 +12,8 @@ The following additional APIs are supported by this extension:
 #### Assign role to user on projects owned by a domain:
 `PUT /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_user_role_inherited_to_projects`
+
 The inherited role is only applied to the owned projects (both existing and future
 projects), and will not appear as a role in a domain scoped token.
 
@@ -22,6 +24,8 @@ Response:
 #### Assign role to group on projects owned by a domain:
 `PUT /OS-INHERIT/domains/{domain_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_group_role_inherited_to_projects`
+
 The inherited role is only applied to the owned projects (both existing and future
 projects), and will not appear as a role in a domain scoped token.
 
@@ -31,6 +35,8 @@ Response:
 
 #### List user's inherited project roles on a domain:
 `GET /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/inherited_to_projects`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_user_roles_inherited_to_projects`
 
 The list only contains those role assignments to the domain that were specified
 as being inherited to projects within that domain.
@@ -67,6 +73,8 @@ Response:
 #### List group's inherited project roles on domain:
 `GET /OS-INHERIT/domains/{domain_id}/groups/{group_id}/roles/inherited_to_projects`
 
+Relationship: `'http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_group_roles_inherited_to_projects`
+
 The list only contains those role assignments to the domain that were specified
 as being inherited to projects within that domain.
 
@@ -102,12 +110,16 @@ Response:
 #### Check if user has an inherited project role on domain:
 `HEAD /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_user_role_inherited_to_projects`
+
 Response:
 
     Status: 204 No Content
 
 #### Check if group has an inherited project role on domain:
 `HEAD /OS-INHERIT/domains/{domain_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_group_role_inherited_to_projects`
 
 Response:
 
@@ -116,12 +128,16 @@ Response:
 #### Revoke an inherited project role from user on domain:
 `DELETE /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_user_role_inherited_to_projects`
+
 Response:
 
     Status: 204 No Content
 
 #### Revoke an inherited project role from group on domain:
 `DELETE /OS-INHERIT/domains/{domain_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_group_role_inherited_to_projects`
 
 Response:
 
@@ -133,6 +149,8 @@ Modified APIs
 The following APIs are modified by this extension.
 
 #### List effective role assignments: `GET /role_assignments`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/role_assignments`
 
 The scope section in the list response is extended to allow the representation of role
 assignments that are inherited to projects.

@@ -81,6 +81,8 @@ API
 
 #### List revocation events: `GET /OS-REVOKE/events`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-REVOKE/1.0/events`
+
 Optional query parameters:
 
 - `since` (RFC 1123 format date time): limit the list of results to events that
