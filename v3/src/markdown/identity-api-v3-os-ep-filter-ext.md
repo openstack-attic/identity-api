@@ -43,6 +43,8 @@ does not have the right authorization a HTTP 401 Unauthorized is returned.
 
 #### Create Association: `PUT /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoint`
+
 Modifies the endpoint resource adding an association between the project and
 the endpoint.
 
@@ -52,6 +54,8 @@ Response:
 
 #### Check Association: `HEAD /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoint`
+
 Verifies the existence of an association between a project and an endpoint.
 
 Response:
@@ -59,6 +63,8 @@ Response:
     Status: 204 No Content
 
 #### List Associations for Project: `GET /OS-EP-FILTER/projects/{project_id}/endpoints`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoints`
 
 Returns all the endpoints that are currently associated with a specific project.
 
@@ -97,6 +103,8 @@ Response:
 
 #### Delete Association: `DELETE /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoint`
+
 Eliminates a previously created association between a project and an endpoint.
 
 Response:
@@ -104,6 +112,8 @@ Response:
     Status: 204 No Content
 
 #### Get projects associated with endpoint: `GET /OS-EP-FILTER/endpoints/{endpoint_id}/projects`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_projects`
 
 Returns a list of projects that are currently associated with the given endpoint.
 
@@ -145,6 +155,8 @@ Response:
 
 #### Create Endpoint Group Filter: `POST /OS-EP-FILTER/endpoint_groups`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_groups`
+
 Request:
 
     {
@@ -179,6 +191,8 @@ Response:
 
 #### Get Endpoint Group: `GET /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group`
+
 Response:
 
     Status: 200 OK
@@ -200,11 +214,15 @@ Response:
 
 #### Check Endpoint Group: `HEAD /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group`
+
 Response:
 
     Status: 200 OK
 
 #### Update Endpoint Group: `PATCH /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group`
 
 The request block is the same as the one for create endpoint group, except
 that only the attributes that are being updated need to be included.
@@ -243,11 +261,15 @@ Response:
 
 #### Remove Endpoint Group: `DELETE /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group`
+
 Response:
 
     Status: 204 No Content
 
 #### List All Endpoint Groups: `GET /OS-EP-FILTER/endpoint_groups`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_groups`
 
 Response:
 
@@ -292,6 +314,8 @@ Response:
 
 #### List Endpoint Groups Associated with Project: `GET /OS-EP-FILTER/endpoint_groups/projects/{project_id}`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoint_groups`
+
 Response:
 
     Status: 200 OK
@@ -324,11 +348,15 @@ Response:
 
 #### Create Endpoint Group to Project Association: `PUT /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_project`
+
 Response:
 
     Status: 204 No Content
 
 #### Get Endpoint Group to Project Association: `GET /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_project`
 
 Response:
 
@@ -349,17 +377,23 @@ Response:
 
 #### Check Endpoint Group to Project Association: `HEAD /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_project`
+
 Response:
 
     Status: 200 OK
 
 #### Delete Endpoint Group to Project Association: `DELETE /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_project`
+
 Response:
 
     Status: 204 No Content
 
 #### List Projects Associated with Endpoint Group: `GET /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_projects`
 
 Response:
 
@@ -396,6 +430,8 @@ Response:
     }
 
 #### List Service Endpoints Associated with Endpoint Group: `GET /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/endpoints`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_endpoints`
 
 Response:
 

@@ -65,6 +65,8 @@ Consumers API
 
 ### Create Consumer: `POST /OS-OAUTH1/consumers`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/consumers`
+
 Request:
 
     {
@@ -91,6 +93,8 @@ The `secret` is only returned once, during consumer creation.
     }
 
 ### List Consumers: `GET /OS-OAUTH1/consumers`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/consumers`
 
 Response:
 
@@ -121,6 +125,8 @@ Response:
 
 ### Get Consumer: `GET /OS-OAUTH1/consumers/{consumer_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-OAUTH1/1.0/consumer`
+
 Response:
 
     Status: 200 OK
@@ -137,6 +143,8 @@ Response:
 
 ### Delete Consumer: `DELETE /OS-OAUTH1/consumers/{consumer_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-OAUTH1/1.0/consumer`
+
 When a Consumer is deleted, any Request Tokens, Access Tokens, or Identity API
 Tokens will also be deleted.
 
@@ -145,6 +153,8 @@ Response:
     Status: 204 No Content
 
 ### Update Consumer: `PATCH /OS-OAUTH1/consumers/{consumer_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-OAUTH1/1.0/consumer`
 
 Only a Consumer's `description` is mutable. Attempting to PATCH an immutable
 attribute should result in a HTTP 400 Bad Request.
@@ -175,6 +185,8 @@ Delegated Auth APIs
 -------------------
 
 ### Create Request Token: `POST /OS-OAUTH1/request_token`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-OAUTH1/1.0/request_tokens`
 
 A Consumer uses the Consumer Key and Secret to obtain a Request Token. The
 Request Token is used to initiate User authorization. The Request Token, once
@@ -214,6 +226,8 @@ Response Parameters:
 
 ### Authorize Request Token: `PUT /OS-OAUTH1/authorize/{request_token_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-OAUTH1/1.0/authorize_request_token`
+
 To authorize the Request Token, the authorizing user must have access
 to the requested project. Upon successful authorization, an OAuth
 Verifier code is returned. The Consumer receives the OAuth Verifier
@@ -242,6 +256,8 @@ Response:
 
 ### Create Access Token: `POST /OS-OAUTH1/access_token`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-OAUTH1/1.0/access_tokens`
+
 After the User authorizes the Request Token, the Consumer exchanges the
 authorized Request Token and OAuth Verifier for an Access Token. The Identity
 service may include an `oauth_expires_at` parameter in the response. If no such
@@ -266,6 +282,8 @@ Response Parameters:
 - `oauth_expires_at` (optional): The ISO 8601 date time when an Access Token expires.
 
 ### Request an Identity API Token: `POST /auth/tokens`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/auth_tokens`
 
 The Consumer can now request valid Identity API service tokens representing the
 authorizing User's delegated authorization and identity (impersonation).
@@ -313,6 +331,8 @@ User Access Token APIs
 
 ### List authorized access tokens: `GET /users/{user_id}/OS-OAUTH1/access_tokens`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-OAUTH1/1.0/user_access_tokens`
+
 Response:
 
     {
@@ -338,6 +358,8 @@ Response:
 
 ### Get authorized access token: `GET /users/{user_id}/OS-OAUTH1/access_tokens/{access_token_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-OAUTH1/1.0/user_access_token`
+
 Response:
 
     {
@@ -356,13 +378,19 @@ Response:
 
 ### List roles of an access token: `GET /users/{user_id}/OS-OAUTH1/access_tokens/{access_token_id}/roles`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-OAUTH1/1.0/user_access_token_roles`
+
 See `GET /v3/roles` for an [example](https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3.md#list-roles-get-roles) of this response format.
 
 ### Get a role of an access token: `GET /users/{user_id}/OS-OAUTH1/access_tokens/{access_token_id}/roles/{role_id}`
 
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-OAUTH1/1.0/user_access_token_role`
+
 See `GET /v3/roles/{role_id}` for an [example](https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3.md#get-role-get-rolesrole_id) of this response format.
 
 ### Revoke access token: `DELETE /users/{user_id}/OS-OAUTH1/access_tokens/{access_token_id}`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-OAUTH1/1.0/user_access_token`
 
 A User can revoke an Access Token, preventing the Consumer from requesting new
 Identity API service tokens. This also revokes any Identity API tokens issued
