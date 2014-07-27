@@ -132,7 +132,7 @@ The resource paths of all collections are plural and are represented at the
 root of the API (e.g. `/v3/policies`).
 
 TCP port 35357 is designated by the Internet Assigned Numbers Authority
-("IANA") for use by OpenStack Identity services. Example API requests &
+("IANA") for use by OpenStack Identity services. Example API requests and
 responses in this document therefore assume that the Identity service
 implementation is deployed at the root of `http://identity:35357/`.
 
@@ -1085,7 +1085,8 @@ Optional attributes:
   Required attributes for the endpoint object are:
 
   - `id`: The endpoint entity id.
-  - `interface`: The visibility of the endpoint. Should be one of `public`, `internal` or `admin`.
+  - `interface`: The visibility of the endpoint. Should be one of `public`,
+    `internal` or `admin`.
   - `url`: Fully qualified URL of the service endpoint.
 
   Optional attributes for the endpoint object are:
@@ -1096,9 +1097,9 @@ Optional attributes:
 
   Token binding refers to the practice of embedding information from external
   authentication providers (like a company's Kerberos server) inside the token
-  such that a client may validate that the token is used in conjunction with that
-  authentication mechanism. By coupling this authentication we can prevent re-use
-  of a stolen token as an attacker would not have access to the external
+  such that a client may validate that the token is used in conjunction with
+  that authentication mechanism. By coupling this authentication we can prevent
+  re-use of a stolen token as an attacker would not have access to the external
   authentication.
 
   Specifies one or more external authorization mechanisms that can be used
@@ -1124,9 +1125,9 @@ Optional attributes:
                 "algorithm": "sha1"
             }
 
-      the ``fingerprint`` is the hash of the client certificate to be validated in
-      the specified algorithm. It should be the hex form without separating spaces
-      or colons. The only supported ``algorithm`` is currently ``sha1``.
+      the ``fingerprint`` is the hash of the client certificate to be validated
+      in the specified algorithm. It should be the hex form without separating
+      spaces or colons. The only supported ``algorithm`` is currently ``sha1``.
 
 
 Example entity:
@@ -1227,7 +1228,7 @@ Response:
 
 Use cases:
 
-- Given a user name & password, get a token to represent the user.
+- Given a user name and password, get a token to represent the user.
 - Given a token, get a list of other domain/projects the user can access.
 - Given a token, validate the token and return user, domain, project,
   roles and potential endpoints.
@@ -1498,8 +1499,8 @@ token will be issued without an explicit scope of authorization.
 
 *New in version 3.1* If the caller specifies a `nocatalog` query parameter in
 the authentication request, then the authentication response will not contain
-the service catalog. The service catalog will otherwise be included in the response
-by default.
+the service catalog. The service catalog will otherwise be included in the
+response by default.
 
 ##### Authentication responses
 
@@ -1786,8 +1787,8 @@ token was issued by `POST /auth/tokens`.
 
 *New in version 3.2*
 
-To validate a token using the Identity API without returning a service catalog in the
-response. The request has the same format as `GET /auth/tokens`.
+To validate a token using the Identity API without returning a service catalog
+in the response. The request has the same format as `GET /auth/tokens`.
 
 The Identity service will return the exact same response as when the subject
 token was issued by `POST /auth/tokens?nocatalog`.
@@ -2101,8 +2102,8 @@ Response:
 
 #### Update service: `PATCH /services/{service_id}`
 
-The request block is the same as the one for create service, except that only the attributes
-that are being updated need to be included.
+The request block is the same as the one for create service, except that only
+the attributes that are being updated need to be included.
 
 Response:
 
@@ -2227,8 +2228,8 @@ Response:
 
 #### Update endpoint: `PATCH /endpoints/{endpoint_id}`
 
-The request block is the same as the one for create endpoint, except that only the
-attributes that are being updated need to be included.
+The request block is the same as the one for create endpoint, except that only
+the attributes that are being updated need to be included.
 
 
 Response:
@@ -2254,15 +2255,6 @@ Response:
 Response:
 
     Status: 204 No Content
-
-## Identity
-
-The key use cases we need to cover:
-
-- CRUD on a user
-- associating a user with a project
-- CRUD on a domain
-- CRUD on a project
 
 ### Domains
 
@@ -2353,8 +2345,8 @@ Response:
 
 #### Update domain: `PATCH /domains/{domain_id}`
 
-The request block is the same as the one for create domain, except that only the attributes
-that are being updated need to be included.
+The request block is the same as the one for create domain, except that only
+the attributes that are being updated need to be included.
 
 Request:
 
@@ -2382,15 +2374,14 @@ Response:
 
 #### Delete domain: `DELETE /domains/{domain_id}`
 
-Deleting a domain will delete all the entities owned by it (Users,
-Groups & Projects), as well as any Credentials and Role grants that
-relate to these entities.
+Deleting a domain will delete all the entities owned by it (Users, Groups, and
+Projects), as well as any credentials and role grants that relate to these
+entities.
 
-In order to minimize the risk of an inadvertent deletion of a
-domain and its entities, a domain must first be disabled (using the
-update domain API) before a successful delete domain API call can
-be made. Attempting to delete an enabled domain will result in an
-HTTP 403 Forbidden response.
+In order to minimize the risk of an inadvertent deletion of a domain and its
+entities, a domain must first be disabled (using the update domain API) before
+a successful delete domain API call can be made. Attempting to delete an
+enabled domain will result in an HTTP 403 Forbidden response.
 
 Response:
 
@@ -2488,8 +2479,8 @@ Response:
 
 #### Update project: `PATCH /projects/{project_id}`
 
-The request block is the same as the one for create project, except that only the attributes
-that are being updated need to be included.
+The request block is the same as the one for create project, except that only
+the attributes that are being updated need to be included.
 
 Request:
 
@@ -2704,10 +2695,10 @@ Response:
 
 #### Update user: `PATCH /users/{user_id}`
 
-The request block is the same as the one for create user, except that only the attributes
-that are being updated need to be included. Use this method attempt to update user
-password or enable/disable the user. This may return a HTTP 501 Not Implemented if the
-back-end driver does not allow for the functionality.
+The request block is the same as the one for create user, except that only the
+attributes that are being updated need to be included. Use this method attempt
+to update user password or enable/disable the user. This may return a HTTP 501
+Not Implemented if the back-end driver does not allow for the functionality.
 
 Response:
 
@@ -2890,9 +2881,9 @@ Response:
 
 #### Update group: `PATCH /groups/{group_id}`
 
-The request block is the same as the one for create group, except that only the attributes
-that are being updated need to be included. This may return a HTTP 501 Not Implemented
-if the back-end driver doesn't allow for the functionality.
+The request block is the same as the one for create group, except that only the
+attributes that are being updated need to be included. This may return a HTTP
+501 Not Implemented if the back-end driver doesn't allow for the functionality.
 
 Response:
 
@@ -3030,8 +3021,8 @@ Response:
 
 #### Update credential: `PATCH /credentials/{credential_id}`
 
-The request block is the same as the one for create credential, except that only the
-attributes that are being updated need to be included.
+The request block is the same as the one for create credential, except that
+only the attributes that are being updated need to be included.
 
 Response:
 
@@ -3139,8 +3130,8 @@ Response:
 
 #### Update role: `PATCH /roles/{role_id}`
 
-The request block is the same as the one for create role, except that only the attributes
-that are being updated need to be included.
+The request block is the same as the one for create role, except that only the
+attributes that are being updated need to be included.
 
 Response:
 
@@ -3418,35 +3409,38 @@ Response:
         }
     }
 
-Since this list is likely to be very long, this API would typically always be used with
-one of more of the filter queries. Some typical examples are:
+Since this list is likely to be very long, this API would typically always be
+used with one of more of the filter queries. Some typical examples are:
 
-`GET /role_assignments?user.id={user_id}` would list all role assignments involving the
-specified user.
+`GET /role_assignments?user.id={user_id}` would list all role assignments
+involving the specified user.
 
-`GET /role_assignments?scope.project.id={project_id}` would list all role assignments
-involving the specified project.
+`GET /role_assignments?scope.project.id={project_id}` would list all role
+assignments involving the specified project.
 
-Each role assignment entity in the collection contains a link to the assignment that gave
-rise to this entity.
+Each role assignment entity in the collection contains a link to the assignment
+that gave rise to this entity.
 
-If the query parameter `effective` is specified, rather than simply returning a list of
-role assignments that have been made, the API returns a list of effective assignments at
-the user, project and domain level, having allowed for the effects of group membership.
-Since the effects of group membership have already been allowed for, the group role
-assignment entities themselves will not be returned in the collection. This represents the
-effective role assignments that would be included in a scoped token. The same set of query
-parameters can also be used in combination with the `effective` parameter. For example:
+If the query parameter `effective` is specified, rather than simply returning a
+list of role assignments that have been made, the API returns a list of
+effective assignments at the user, project and domain level, having allowed for
+the effects of group membership.  Since the effects of group membership have
+already been allowed for, the group role assignment entities themselves will
+not be returned in the collection. This represents the effective role
+assignments that would be included in a scoped token. The same set of query
+parameters can also be used in combination with the `effective` parameter. For
+example:
 
-`GET /role_assignments?user.id={user_id}&effective` would, in other words, answer the
-question "what can this user actually do?".
+`GET /role_assignments?user.id={user_id}&effective` would, in other words,
+answer the question "what can this user actually do?".
 
-`GET /role_assignments?user.id={user_id}&scope.project.id={project_id}&effective` would
-return the equivalent set of role assignments that would be included in the token response
-of a project scoped token.
+`GET
+/role_assignments?user.id={user_id}&scope.project.id={project_id}&effective`
+would return the equivalent set of role assignments that would be included in
+the token response of a project scoped token.
 
-An example response for an API call with the query parameter `effective` specified is
-given below:
+An example response for an API call with the query parameter `effective`
+specified is given below:
 
 Response:
 
@@ -3495,9 +3489,9 @@ Response:
         }
     }
 
-The entity `links` section of a response using the `effective` query parameter also contains,
-for entities that are included by virtue of group membership, a url that can be used to
-access the membership of the group.
+The entity `links` section of a response using the `effective` query parameter
+also contains, for entities that are included by virtue of group membership, a
+url that can be used to access the membership of the group.
 
 ### Policies
 
@@ -3584,8 +3578,8 @@ Response:
 
 #### Update policy: `PATCH /policies/{policy_id}`
 
-The request block is the same as the one for create policy, except that only the attributes
-that are being updated need to be included.
+The request block is the same as the one for create policy, except that only
+the attributes that are being updated need to be included.
 
 Response:
 
