@@ -203,6 +203,8 @@ the trust, the `impersonation` flag, the `trustee_user_id` and the
 
 #### Create trust: `POST /OS-TRUST/trusts`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trusts`
+
 Request:
 
     {
@@ -254,6 +256,8 @@ Response:
     }
 
 #### List trusts: `GET /OS-TRUST/trusts`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trusts`
 
 query_string: page (optional)
 query_string: per_page (optional, default 30)
@@ -355,6 +359,8 @@ Response:
 
 #### Get trust: `GET /OS-TRUST/trusts/{trust_id}`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trust`
+
 Response:
 
     Status: 200 OK
@@ -389,11 +395,15 @@ Response:
 
 #### Delete trust: `DELETE /OS-TRUST/trusts/{trust_id}`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trust`
+
 Response:
 
     Status: 204 No Content
 
 #### List roles delegated by a trust: `GET /OS-TRUST/trusts/{trust_id}/roles`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trust_roles`
 
 Response:
 
@@ -420,11 +430,15 @@ Response:
 
 #### Check if role is delegated by a trust: `HEAD /OS-TRUST/trusts/{trust_id}/roles/{role_id}`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trust_role`
+
 Response:
 
     Status: 204 No Content
 
 #### Get role delegated by a trust: `GET /OS-TRUST/trusts/{trust_id}/roles/{role_id}`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trust_role`
 
 Response:
 
