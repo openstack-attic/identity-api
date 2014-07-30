@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Code-Review+2: guang-yee <guang.yee@hp.com>
+Workflow+1: guang-yee <guang.yee@hp.com>
+Code-Review+2: David Stanek <dstanek@dstanek.com>
+Submitted-by: Jenkins
+Submitted-at: Wed, 30 Jul 2014 23:06:36 +0000
+Reviewed-on: https://review.openstack.org/110782
+Project: openstack/identity-api
+Branch: refs/heads/master
