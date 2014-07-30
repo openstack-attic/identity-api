@@ -1,12 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<book xmlns="http://docbook.org/ns/docbook"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:svg="http://www.w3.org/2000/svg"
-    xmlns:html="http://www.w3.org/1999/xhtml" version="5.0"
-    xml:id="Identity-Developer-Guide">
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:html="http://www.w3.org/1999/xhtml" version="5.0" xml:id="Identity-Developer-Guide">
     <title>OpenStack Identity API v2.0 Reference</title>
-    <?rax title.font.size="26px" subtitle.font.size="26px"?>
     <titleabbrev>Identity API Reference</titleabbrev>
     <info>
         <author>
@@ -31,18 +27,26 @@
         <pubdate/>
         <legalnotice role="apache2">
             <annotation>
-                <remark>Copyright details are filled in by the
-                    template.</remark>
+                <remark>Copyright details are filled in by the template.</remark>
             </annotation>
         </legalnotice>
         <abstract>
-            <para>This document describes how to develop applications
-                that use the OpenStack Identity API v2.0 for
-                authentication. This document also describes how to
-                integrate services with the OpenStack Identity API
-                v2.0.</para>
+            <para>This document describes how to develop applications that use the OpenStack
+                Identity API v2.0 for authentication. This document also describes how to integrate
+                services with the OpenStack Identity API v2.0.</para>
         </abstract>
         <revhistory>
+            <revision>
+                <date>2014-07-29</date>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Removed ATOM responses for list versions and get version details
+                                calls.</para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
             <revision>
                 <date>2014-07-20</date>
                 <revdescription>
@@ -58,8 +62,8 @@
                 <revdescription>
                     <itemizedlist>
                         <listitem>
-                            <para>Added missing code samples and
-                                request parameter descriptions.</para>
+                            <para>Added missing code samples and request parameter
+                                descriptions.</para>
                         </listitem>
                     </itemizedlist>
                 </revdescription>
@@ -69,8 +73,7 @@
                 <revdescription>
                     <itemizedlist>
                         <listitem>
-                            <para>Added back missing client operations
-                                and extensions.</para>
+                            <para>Added back missing client operations and extensions.</para>
                         </listitem>
                     </itemizedlist>
                 </revdescription>
