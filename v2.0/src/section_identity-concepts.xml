@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:html="http://www.w3.org/1999/xhtml" version="5.0"
     xml:id="Identity-Concepts-e1362">
     <title>Identity concepts</title>
     <para>To use OpenStack Identity, you must be familiar with these
