@@ -2966,6 +2966,10 @@ Response:
 
 #### List credentials: `GET /credentials`
 
+Optional query parameters:
+
+- `user_id` (string)
+
 Response:
 
     Status: 200 OK
