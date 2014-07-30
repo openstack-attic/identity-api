@@ -38,31 +38,24 @@ This operation does not require a request body.</para>'>
 </tr>
 </thead>'>
 ]>
-<chapter xmlns="http://docbook.org/ns/docbook"
-    xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
-    xml:id="Overview-Identity-API-d1e62">
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="Overview-Identity-API-d1e62">
     <title>General API information</title>
-    <para>The OpenStack Identity API is implemented using a RESTful
-        web service interface. All requests to authenticate and
-        operate against the OpenStack Identity API should be performed
+    <para>The OpenStack Identity API is implemented using a RESTful web service interface. All
+        requests to authenticate and operate against the OpenStack Identity API should be performed
         using SSL over HTTP (HTTPS) on TCP port 443.</para>
     <xi:include href="section_identity-concepts.xml"/>
     <section xml:id="Request_Response_Types-d1e149">
         <title>Request and response types</title>
-        <para>The OpenStack Identity API supports both the JSON and
-            XML data serialization formats. The request format is
-            specified using the <code>Content-Type</code> header and
-            is required for operations that have a request body. The
-            response format can be specified in requests using either
-            the <code>Accept</code> header or adding an
-                <code>.xml</code> or <code>.json</code> extension to
-            the request URI. Note that it is possible for a response
-            to be serialized using a format different from the request
-            (see example below). If no response format is specified,
-            JSON is the default. If conflicting formats are specified
-            using both an <code>Accept</code> header and a query
-            extension, the query extension takes precedence.</para>
+        <para>The OpenStack Identity API supports both the JSON and XML data serialization formats.
+            The request format is specified using the <code>Content-Type</code> header and is
+            required for operations that have a request body. The response format can be specified
+            in requests using either the <code>Accept</code> header or adding an <code>.xml</code>
+            or <code>.json</code> extension to the request URI. Note that it is possible for a
+            response to be serialized using a format different from the request (see example below).
+            If no response format is specified, JSON is the default. If conflicting formats are
+            specified using both an <code>Accept</code> header and a query extension, the query
+            extension takes precedence.</para>
         <table rules="all">
             <caption>Response types</caption>
             <thead>
@@ -89,26 +82,23 @@ This operation does not require a request body.</para>'>
             </tbody>
         </table>
         <example>
-            <title>JSON request with headers</title>
+            <title>Request with headers: JSON</title>
             <programlisting language="http"><xi:include href="samples/samplerequestheader.txt" parse="text"/></programlisting>
             <programlisting language="json"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/auth_credentials.json" parse="text"/></programlisting>
         </example>
         <example>
-            <title>XML response with headers</title>
+            <title>Response with headers: XML</title>
             <programlisting language="http"><xi:include href="samples/sampleresponseheader.txt" parse="text"/></programlisting>
             <programlisting language="xml"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/auth.xml" parse="text"/></programlisting>
         </example>
     </section>
     <section xml:id="Content_Compression-d1e262">
         <title>Content compression</title>
-        <para>Request and response body data may be encoded with gzip
-            compression in order to accelerate interactive performance
-            of API calls and responses. This is controlled using the
-                <code>Accept-Encoding</code> header on the request
-            from the client and indicated by the
-                <code>Content-Encoding</code> header in the server
-            response. Unless the header is explicitly set, encoding
-            defaults to disabled.</para>
+        <para>Request and response body data may be encoded with gzip compression in order to
+            accelerate interactive performance of API calls and responses. This is controlled using
+            the <code>Accept-Encoding</code> header on the request from the client and indicated by
+            the <code>Content-Encoding</code> header in the server response. Unless the header is
+            explicitly set, encoding defaults to disabled.</para>
         <table rules="all">
             <caption>Compression headers</caption>
             <thead>
@@ -134,60 +124,47 @@ This operation does not require a request body.</para>'>
     </section>
     <section xml:id="Paginated_Collections-d1e325">
         <title>Paginated collections</title>
-        <para>To reduce load on the service, list operations return a
-            maximum number of items at a time. The maximum number of
-            items returned is determined by the Identity provider. To
-            navigate the collection, you can set the
-                <parameter>limit</parameter> and
-                <parameter>marker</parameter> parameters in the URI.
-            For example,
-                ?<parameter>limit</parameter>=100&amp;<parameter>marker</parameter>=1234.
-            The <parameter>marker</parameter> parameter is the ID of
-            the last item in the previous list. Items are sorted by
-            update time. When an update time is not available they are
-            sorted by ID. The <parameter>limit</parameter> parameter
-            sets the page size. Both parameters are optional. If the
-            client requests a <parameter>limit</parameter> beyond that
-            which is supported by the deployment an overLimit
-                (<errorcode>413</errorcode>) fault might be thrown. A
-            marker with an invalid ID will return an itemNotFound
-                (<errorcode>404</errorcode>) fault.</para>
+        <para>To reduce load on the service, list operations return a maximum number of items at a
+            time. The maximum number of items returned is determined by the Identity provider. To
+            navigate the collection, you can set the <parameter>limit</parameter> and
+                <parameter>marker</parameter> parameters in the URI. For example,
+                ?<parameter>limit</parameter>=100&amp;<parameter>marker</parameter>=1234. The
+                <parameter>marker</parameter> parameter is the ID of the last item in the previous
+            list. Items are sorted by update time. When an update time is not available they are
+            sorted by ID. The <parameter>limit</parameter> parameter sets the page size. Both
+            parameters are optional. If the client requests a <parameter>limit</parameter> beyond
+            that which is supported by the deployment an <errorname>overLimit</errorname>
+                (<errorcode>413</errorcode>) fault might be thrown. A marker with an invalid ID
+            returns an <errorname>itemNotFound</errorname> (<errorcode>404</errorcode>)
+            fault.</para>
         <note>
-            <para>Paginated collections never return itemNotFound
-                    (<errorcode>404</errorcode>) faults when the
-                collection is empty &mdash; clients should expect an
-                empty collection.</para>
+            <para>Paginated collections never return itemNotFound (<errorcode>404</errorcode>)
+                faults when the collection is empty &mdash; clients should expect an empty
+                collection.</para>
         </note>
-        <para>For convenience, collections contain atom "next" and
-            "previous" links. The first page in the list will not
-            contain a "previous" link, the last page in the list will
-            not contain a "next" link. The following examples
-            illustrate three pages in a collection of tenants. The
-            first page was retrieved through a &GET; to
-            http://identity.api.openstack.org/v2.0/1234/tenants?limit=1.
-            In these examples, the <parameter>limit</parameter>
-            parameter sets the page size to a single item. Subsequent
-            "next" and "previous" links will honor the initial page
-            size. Thus, a client might follow links to traverse a
-            paginated collection without having to input the
-                <parameter>marker</parameter> parameter.</para>
+        <para>For convenience, collections contain atom "next" and "previous" links. The first page
+            in the list does not contain a <literal>previous</literal> link, the last page in the
+            list does not contain a <literal>next</literal> link. The following examples illustrate
+            three pages in a collection of tenants. The first page was retrieved through a &GET; to
+                <literal>http://identity.api.openstack.org/v2.0/1234/tenants?limit=1</literal>. In
+            these examples, the <parameter>limit</parameter> parameter sets the page size to a
+            single item. Subsequent <literal>next</literal> and <literal>previous</literal> links
+            honor the initial page size. Thus, a client might follow links to traverse a paginated
+            collection without having to input the <parameter>marker</parameter> parameter.</para>
         <example>
             <title>Tenant collection, first page: XML response</title>
             <programlisting language="xml"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/tenants-1.xml" parse="text"/></programlisting>
         </example>
         <example>
-            <title>Tenant collection, first page: JSON
-                response</title>
+            <title>Tenant collection, first page: JSON response</title>
             <programlisting language="json"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/tenants-1.json" parse="text"/></programlisting>
         </example>
         <example>
-            <title>Tenant collection, second page: XML
-                response</title>
+            <title>Tenant collection, second page: XML response</title>
             <programlisting language="xml"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/tenants-2.xml" parse="text"/></programlisting>
         </example>
         <example>
-            <title>Tenant collection, second page: JSON
-                response</title>
+            <title>Tenant collection, second page: JSON response</title>
             <programlisting language="json"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/tenants-2.json" parse="text"/></programlisting>
         </example>
         <example>
@@ -198,16 +175,13 @@ This operation does not require a request body.</para>'>
             <title>Tenant collection, last page: JSON response</title>
             <programlisting language="json"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/tenants-3.json" parse="text"/></programlisting>
         </example>
-        <para>In the JSON representation, paginated collections
-            contain a <property>values</property> property that
-            contains the items in the collections. Links are accessed
-            via the <property>links</property> property. The approach
-            allows for extensibility of both the collection members
-            and of the paginated collection itself. It also allows
-            collections to be embedded in other objects as illustrated
-            below. Here, a subset of groups are presented within a
-            user. Clients must follow the "next" link to continue to
-            retrieve additional groups belonging to a user.</para>
+        <para>In the JSON representation, paginated collections contain a
+                <property>values</property> property that contains the items in the collections.
+            Links are accessed via the <property>links</property> property. The approach allows for
+            extensibility of both the collection members and of the paginated collection itself. It
+            also allows collections to be embedded in other objects as illustrated below. Here, a
+            subset of groups are presented within a user. Clients must follow the "next" link to
+            continue to retrieve additional groups belonging to a user.</para>
         <example>
             <title>Paginated roles in user: XML response</title>
             <programlisting language="xml"><xi:include href="samples/getuser-1.xml" parse="text"/></programlisting>
@@ -219,19 +193,15 @@ This operation does not require a request body.</para>'>
     </section>
     <section xml:id="Versions-d1e472">
         <title>Versions</title>
-        <para>The OpenStack Identity API uses both a URI and a MIME
-            type versioning scheme. In the URI scheme, the first
-            element of the path contains the target version identifier
-            (for example, https://identity.api.openstack.org/
-            v2.0/&hellip;). The MIME type versioning scheme uses HTTP
-            content negotiation where the <code>Accept</code> or
-                <code>Content-Type</code> headers contains a MIME type
-            that includes the version ID as a parameter
-            (application/vnd.openstack.identity+xml;version=1.1). A
-            version MIME type is always linked to a base MIME type
-            (application/xml or application/json). If conflicting
-            versions are specified using both an HTTP header and a
-            URI, the URI takes precedence.</para>
+        <para>The OpenStack Identity API uses both a URI and a MIME type versioning scheme. In the
+            URI scheme, the first element of the path contains the target version identifier (for
+            example, https://identity.api.openstack.org/ v2.0/&hellip;). The MIME type versioning
+            scheme uses HTTP content negotiation where the <code>Accept</code> or
+                <code>Content-Type</code> headers contains a MIME type that includes the version ID
+            as a parameter (application/vnd.openstack.identity+xml;version=1.1). A version MIME type
+            is always linked to a base MIME type (application/xml or application/json). If
+            conflicting versions are specified using both an HTTP header and a URI, the URI takes
+            precedence.</para>
         <example>
             <title>Request with MIME type versioning</title>
             <literallayout class="monospaced">GET /tenants HTTP/1.1
@@ -247,83 +217,59 @@ Accept: application/xml
 X-Auth-Token: eaaafd18-0fed-4b3a-81b4-663c99ec1cbb   </literallayout>
         </example>
         <note>
-            <para>The MIME type versioning approach allows for the
-                creation of permanent links, because the version
-                scheme is not specified in the URI path:
-                https://api.identity.openstack.org/tenants/12234.
-            </para>
+            <para>The MIME type versioning approach allows for the creation of permanent links,
+                because the version scheme is not specified in the URI path:
+                https://api.identity.openstack.org/tenants/12234. </para>
         </note>
-        <para>If a request is made without a version specified in the
-            URI or via HTTP headers, then a multiple-choices response
-                (<returnvalue>300</returnvalue>) will follow providing
-            links and MIME types to available versions.</para>
+        <para>If a request is made without a version specified in the URI or through HTTP headers, a
+            multiple-choices response (<returnvalue>300</returnvalue>) provides links and MIME types
+            to available versions.</para>
         <example>
-            <title>Multiple choices response: XML</title>
+            <title>Multiple choices: XML response</title>
             <programlisting language="xml"><xi:include href="samples/choices.xml" parse="text"/></programlisting>
         </example>
         <example>
-            <title>Multiple choices response: JSON</title>
+            <title>Multiple choices: JSON response</title>
             <programlisting language="json"><xi:include href="samples/choices.json" parse="text"/></programlisting>
         </example>
-        <para>New features and functionality that do not break
-            API-compatibility will be introduced in the current
-            version of the API as extensions (see below) and the URI
-            and MIME types will remain unchanged. Features or
-            functionality changes that would necessitate a break in
-            API-compatibility will require a new version, which will
-            result in URI and MIME type version being updated
-            accordingly. When new API versions are released, older
-            versions will be marked as <code>DEPRECATED</code>.
-            Providers should work with developers and partners to
-            ensure there is adequate time to migrate to the new
-            version before deprecated versions are
-            discontinued.</para>
-        <para>Your application can programmatically determine
-            available API versions by performing a &GET; on the root
-            URL (such as, with the version and everything to the right
-            of it truncated) returned from the authentication system.
-            Note that an Atom representation of the versions resources
-            is supported when issuing a request with the
-                <code>Accept</code> header containing
-            application/atom+xml or by adding a .atom to the request
-            URI. This allows standard Atom clients to track version
-            changes.</para>
+        <para>New features and functionality that do not break API-compatibility are introduced in
+            the current version of the API as extensions (see the following section) and the URI and
+            MIME types remain unchanged. Features or functionality changes that would necessitate a
+            break in API-compatibility require a new version, which results in URI and MIME type
+            versions being updated accordingly. When new API versions are released, older versions
+            are marked as <code>DEPRECATED</code>. Providers should work with developers and
+            partners to ensure adequate migration time to the new version before deprecated versions
+            are discontinued.</para>
+        <para>Your application can programmatically determine available API versions by performing a
+            &GET; on the root URL (such as, with the version and everything to the right of it
+            truncated) returned from the authentication system. Note that an Atom representation of
+            the versions resources is supported when issuing a request with the <code>Accept</code>
+            header containing application/atom+xml or by adding a .atom to the request URI. This
+            allows standard Atom clients to track version changes.</para>
         <example>
             <title>List versions: HTTP request</title>
             <literallayout class="monospaced">GET HTTP/1.1
 Host: identity.api.openstack.org</literallayout>
         </example>
-        <simpara>&CODES;<returnvalue>200</returnvalue>,
-                <returnvalue>203</returnvalue></simpara>
-        <simpara>&ERROR_CODES; badRequest
-            (<errorcode>400</errorcode>), identityFault
+        <simpara>&CODES;<returnvalue>200</returnvalue>, <returnvalue>203</returnvalue></simpara>
+        <simpara>&ERROR_CODES; badRequest (<errorcode>400</errorcode>), identityFault
                 (<errorcode>500</errorcode>),
-                serviceUnavailable(<errorcode>503</errorcode>)</simpara>
-        &NO_REQUEST; <example>
+            serviceUnavailable(<errorcode>503</errorcode>)</simpara> &NO_REQUEST; <example>
             <title>List versions: XML response</title>
             <programlisting language="xml"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/versions.xml" parse="text"/></programlisting>
-        </example>
-        <example>
-            <title>List versions: Atom response</title>
-            <programlisting language="xml"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/versions-atom.xml" parse="text"/></programlisting>
         </example>
         <example>
             <title>List versions: JSON response</title>
             <programlisting language="json"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/versions.json" parse="text"/></programlisting>
         </example>
-        <para>You can also obtain additional information about a
-            specific version by performing a &GET; on the base version
-            URL (for example,
-            https://identity.api.openstack.org/v1.1/). Version request
-            URLs should always end with a trailing slash (/). If the
-            slash is omitted, the server might respond with a
-                <returnvalue>302</returnvalue> redirection request.
-            Format extensions might be placed after the slash (for
-            example, https://identity.api.openstack.org/v1.1/.xml).
-            Note that this is a special case that does not hold true
-            for other API requests. In general, requests such as
-            /tenants.xml and /tenants/.xml are handled
-            equivalently.</para>
+        <para>You can also obtain additional information about a specific version by performing a
+            &GET; on the base version URL (for example, https://identity.api.openstack.org/v1.1/).
+            Version request URLs should always end with a trailing slash (/). If the slash is
+            omitted, the server might respond with a <returnvalue>302</returnvalue> redirection
+            request. Format extensions might be placed after the slash (for example,
+            https://identity.api.openstack.org/v1.1/.xml). Note that this is a special case that
+            does not hold true for other API requests. In general, requests such as /tenants.xml and
+            /tenants/.xml are handled equivalently.</para>
         <example>
             <title>Get version details: HTTP request</title>
             <literallayout class="monospaced">
@@ -331,47 +277,34 @@ GET HTTP/1.1
 Host: identity.api.openstack.org/v1.1/
             </literallayout>
         </example>
-        <simpara>&CODES;<returnvalue>200</returnvalue>,
-                <returnvalue>203</returnvalue></simpara>
-        <simpara>&ERROR_CODES; badRequest
-            (<errorcode>400</errorcode>), identityFault
+        <simpara>&CODES;<returnvalue>200</returnvalue>, <returnvalue>203</returnvalue></simpara>
+        <simpara>&ERROR_CODES; badRequest (<errorcode>400</errorcode>), identityFault
                 (<errorcode>500</errorcode>),
-                serviceUnavailable(<errorcode>503</errorcode>)</simpara>
-        &NO_REQUEST; <example>
+            serviceUnavailable(<errorcode>503</errorcode>)</simpara> &NO_REQUEST; <example>
             <title>Get version details: XML response</title>
             <programlisting language="xml"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/version.xml" parse="text"/></programlisting>
-        </example>
-        <example>
-            <title>Get version details: Atom response</title>
-            <programlisting language="xml"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/version-atom.xml" parse="text"/></programlisting>
         </example>
         <example>
             <title>Get version details: JSON response</title>
             <programlisting language="json"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/version.json" parse="text"/></programlisting>
         </example>
-        <para>The detailed version response contains pointers to both
-            a human-readable and a machine-processable description of
-            the API service. The machine-processable description is
-            written in the Web Application Description Language
-            (WADL).</para>
+        <para>The detailed version response contains pointers to both a human-readable and a
+            machine-processable description of the API service. The machine-processable description
+            is written in the Web Application Description Language (WADL).</para>
         <note>
-            <para>If there is a discrepancy between the two
-                specifications, the WADL is authoritative as it
-                contains the most accurate and up-to-date description
-                of the API service.</para>
+            <para>If there is a discrepancy between the two specifications, the WADL is
+                authoritative as it contains the most accurate and up-to-date description of the API
+                service.</para>
         </note>
     </section>
     <section xml:id="Extensions-d1e688">
         <title>Extensions</title>
-        <para>The OpenStack Identity API is extensible. Extensions
-            serve two purposes: They allow the introduction of new
-            features in the API without requiring a version change and
-            they allow the introduction of vendor specific niche
-            functionality. Applications can programmatically determine
-            what extensions are available by performing a &GET; on the
-            /extensions URI. Note that this is a versioned request
-            &mdash; that is, an extension available in one API version
-            might not be available in another.</para>
+        <para>The OpenStack Identity API is extensible. Extensions serve two purposes: They allow
+            the introduction of new features in the API without requiring a version change and they
+            allow the introduction of vendor specific niche functionality. Applications can
+            programmatically determine what extensions are available by performing a &GET; on the
+            /extensions URI. Note that this is a versioned request &mdash; that is, an extension
+            available in one API version might not be available in another.</para>
         <informaltable rules="all">
             <thead>
                 <tr>
@@ -384,34 +317,29 @@ Host: identity.api.openstack.org/v1.1/
                 <tr>
                     <td colspan="1">&GET;</td>
                     <td colspan="2">/extensions</td>
-                    <td colspan="3">Returns a list of available
-                        extensions</td>
+                    <td colspan="3">Returns a list of available extensions</td>
                 </tr>
             </tbody>
         </informaltable>
-        <simpara>&CODES;<returnvalue>200</returnvalue>,
-                <returnvalue>203</returnvalue></simpara>
-        <simpara>&ERROR_CODES; badRequest
-            (<errorcode>400</errorcode>), identityFault
+        <simpara>&CODES;<returnvalue>200</returnvalue>, <returnvalue>203</returnvalue></simpara>
+        <simpara>&ERROR_CODES; badRequest (<errorcode>400</errorcode>), identityFault
                 (<errorcode>500</errorcode>),
-                serviceUnavailable(<errorcode>503</errorcode>)</simpara>
-        &NO_REQUEST; <para>Each extension is identified by two unique
-            identifiers, a <property>namespace</property> and an
-                <property>alias</property>. Additionally an extension
-            contains documentation links in various formats.</para>
+            serviceUnavailable(<errorcode>503</errorcode>)</simpara> &NO_REQUEST; <para>Each
+            extension is identified by two unique identifiers, a <property>namespace</property> and
+            an <property>alias</property>. Additionally an extension contains documentation links in
+            various formats.</para>
         <example>
-            <title>List extensions: XML</title>
+            <title>List extensions: XML response</title>
             <programlisting language="xml"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/extensions.xml" parse="text"/></programlisting>
         </example>
         <example>
-            <title>List extensions: JSON</title>
+            <title>List extensions: JSON response</title>
             <programlisting language="json"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/extensions.json" parse="text"/></programlisting>
         </example>
-        <para>Extensions might also be queried individually by their
-            unique alias. This provides the simplest method of
-            checking if an extension is available as an unavailable
-            extension will issue an itemNotFound
-                (<errorcode>404</errorcode>) response.</para>
+        <para>Extensions might also be queried individually by their unique alias. This provides the
+            simplest method of checking if an extension is available as an unavailable extension
+            issues an <errorname>itemNotFound</errorname> (<errorcode>404</errorcode>)
+            response.</para>
         <informaltable rules="all">
             <thead>
                 <tr>
@@ -423,90 +351,72 @@ Host: identity.api.openstack.org/v1.1/
             <tbody>
                 <tr>
                     <td colspan="1">&GET;</td>
-                    <td colspan="2"
-                            >/extensions/<parameter>alias</parameter></td>
-                    <td colspan="3">Return details of a single
-                        extension</td>
+                    <td colspan="2">/extensions/<parameter>alias</parameter></td>
+                    <td colspan="3">Return details of a single extension</td>
                 </tr>
             </tbody>
         </informaltable>
-        <simpara>&CODES;<returnvalue>200</returnvalue>,
-                <returnvalue>203</returnvalue></simpara>
-        <simpara>&ERROR_CODES; itemNotFound
-                (<errorcode>404</errorcode>), badRequest
-                (<errorcode>400</errorcode>), identityFault
-                (<errorcode>500</errorcode>),
-                serviceUnavailable(<errorcode>503</errorcode>)</simpara>
-        &NO_REQUEST; <example>
-            <title>List extensions: XML response</title>
+        <simpara>&CODES;<returnvalue>200</returnvalue>, <returnvalue>203</returnvalue></simpara>
+        <simpara>&ERROR_CODES; itemNotFound (<errorcode>404</errorcode>), badRequest
+                (<errorcode>400</errorcode>), identityFault (<errorcode>500</errorcode>),
+                serviceUnavailable(<errorcode>503</errorcode>)</simpara> &NO_REQUEST; <example>
+            <title>Show extension details: XML response</title>
             <programlisting language="xml"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/extension.xml" parse="text"/></programlisting>
         </example>
         <example>
-            <title>List extensions: JSON response</title>
+            <title>Show extension details: JSON response</title>
             <programlisting language="json"><xi:include href="http://git.openstack.org/cgit/openstack/api-site/plain/api-ref/src/wadls/identity-api/src/v2.0/samples/extension.json" parse="text"/></programlisting>
         </example>
-        <para>Extensions can define new data types, parameters,
-            actions, headers, states, and resources. In XML,
-            additional elements and attributes might be defined. These
-            elements must be defined in the extension's namespace. In
-            JSON, the alias must be used. The volumes element in the
-                <xref linkend="UserEXT"
-                xrefstyle="template: Examples %n"/> and <xref
-                linkend="UserEXTJ" xrefstyle="select: labelnumber"/>
-            is defined in the <code>RS-META</code> namespace. Extended
-            headers are always prefixed with <code>X-</code> followed
-            by the alias and a dash: (<code>X-RS-META-HEADER1</code>).
-            Parameters must be prefixed with the extension alias
-            followed by a colon.</para>
+        <para>Extensions can define new data types, parameters, actions, headers, states, and
+            resources. In XML, additional elements and attributes might be defined. These elements
+            must be defined in the extension's namespace. In JSON, the alias must be used. The
+            volumes element in the <xref linkend="UserEXT" xrefstyle="template: Examples %n"/> and
+                <xref linkend="UserEXTJ" xrefstyle="select: labelnumber"/> is defined in the
+                <code>RS-META</code> namespace. Extended headers are always prefixed with
+                <code>X-</code> followed by the alias and a dash: (<code>X-RS-META-HEADER1</code>).
+            Parameters must be prefixed with the extension alias followed by a colon.</para>
         <important>
-            <para>Applications should be prepared to ignore response
-                data that contains extension elements. Also,
-                applications should also verify that an extension is
-                available before submitting an extended
-                request.</para>
+            <para>Applications should be prepared to ignore response data that contains extension
+                elements. Also, applications should also verify that an extension is available
+                before submitting an extended request.</para>
         </important>
         <example xml:id="UserEXT">
-            <title>Extended User Response: XML</title>
+            <title>Show user details: XML response</title>
             <programlisting language="xml"><xi:include href="samples/ext-getuser.xml" parse="text"/></programlisting>
         </example>
         <example xml:id="UserEXTJ">
-            <title>Extended User Response: JSON</title>
+            <title>Show user details: JSON response</title>
             <programlisting language="json"><xi:include href="samples/ext-getuser.json" parse="text"/></programlisting>
         </example>
     </section>
     <section xml:id="Faults-d1e908">
         <title>Faults</title>
-        <para>When an error occurs, the system returns an HTTP error
-            response code denoting the type of error. The system also
-            returns additional information about the fault in the body
-            of the response.</para>
+        <para>When an error occurs, the system returns an HTTP error response code denoting the type
+            of error. The system also returns additional information about the fault in the body of
+            the response.</para>
         <example>
-            <title>XML Fault Response</title>
+            <title>Identity fault: XML response</title>
             <programlisting language="xml"><xi:include href="samples/identity_fault.xml" parse="text"/></programlisting>
         </example>
         <example>
-            <title>JSON Fault Response</title>
+            <title>Identity fault: JSON response</title>
             <programlisting language="json"><xi:include href="samples/identity_fault.json" parse="text"/></programlisting>
         </example>
-        <para>The error code is returned in the body of the response
-            for convenience. The message section returns a human
-            readable message. The details section is optional and
-            might contain useful information for tracking down an
-            error (such as, a stack trace).</para>
-        <para>The root element of the fault (for example,
-            identityFault) might change depending on the type of
-            error. The following is an example of an itemNotFound
+        <para>The error code is returned in the body of the response for convenience. The message
+            section returns a human readable message. The details section is optional and might
+            contain useful information for tracking down an error (such as, a stack trace).</para>
+        <para>The root element of the fault (for example, identityFault) might change depending on
+            the type of error. The following is an example of an <errorname>itemNotFound</errorname>
             error.</para>
         <example>
-            <title>XML Not Found Fault</title>
+            <title>itemNotFound fault: XML response</title>
             <programlisting language="xml"><xi:include href="samples/item_not_found.xml" parse="text"/></programlisting>
         </example>
         <example>
-            <title>JSON Not Found Fault</title>
+            <title>itemNotFound fault: JSON response</title>
             <programlisting language="json"><xi:include href="samples/item_not_found.json" parse="text"/></programlisting>
         </example>
-        <para>The following list shows the possible fault types with
-            associated error codes.</para>
+        <para>The following table shows the possible fault types with associated error codes:</para>
         <table rules="all">
             <caption>Fault types</caption>
             <thead>
@@ -564,12 +474,10 @@ Host: identity.api.openstack.org/v1.1/
                 </tr>
             </tbody>
         </table>
-        <para>From an XML schema perspective, all API faults are
-            extensions of the base fault type
-                <type>identityFault</type>. When working with a system
-            that binds XML to actual classes (such as JAXB), one
-            should be capable of using <type>identityFault</type> as a
-            “catch-all” if there&apos;s no interest in distinguishing
-            between individual fault types.</para>
+        <para>From an XML schema perspective, all API faults are extensions of the base
+                <errorname>identityFault</errorname> fault type. When working with a system that
+            binds XML to actual classes (such as JAXB), one should be capable of using
+                <errorname>identityFault</errorname> as a “catch-all” if there&apos;s no interest in
+            distinguishing between individual fault types.</para>
     </section>
 </chapter>
