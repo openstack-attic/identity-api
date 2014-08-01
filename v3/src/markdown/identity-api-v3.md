@@ -603,6 +603,10 @@ Optional attributes:
 
   The default form of credential used during authentication.
 
+- `email` (string)
+
+  An email address for the user, such as `user@example.com`.
+
 Example entity:
 
     {
@@ -2521,6 +2525,7 @@ Optional query parameters:
 - `domain_id` (string)
 - `enabled` (key-only, no value expected)
 - `name` (string)
+- `email` (string, if available)
 
 Response:
 
