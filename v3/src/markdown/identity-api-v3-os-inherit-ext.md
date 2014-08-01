@@ -1,13 +1,134 @@
 OpenStack Identity API v3 OS-INHERIT Extension
 ============================================
 
-Provide an ability for projects to inherit roles from their owning domain. This extension
-requires v3.1 of the Identity API.
+Enables projects to inherit roles from the parent domain. This extension requires Identity API v3.1.
 
 API
 ---
 
-The following additional APIs are supported by this extension:
+This extension supports the following APIs:
+
+Projects
+--------
+
+#### A role defined for a project A must be inherited by all the child projects of project A;
+`PUT /OS-INHERIT/projects/{project_id}/users/{user_id}/roles/{role_id}/inherited_to_projects`
+
+The inherited role is applied to only the child projects (both existing and future
+projects).
+
+Response:
+
+    Status: 204 No Content
+
+#### A role defined for a group of projects must be inherited by all the child projects of that group of projects;
+`PUT /OS-INHERIT/projects/{project_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects`
+
+The inherited role is applied to only the owned projects (both existing and future
+projects),
+
+Response:
+
+    Status: 204 No Content
+
+#### List user's inherited roles on a project:
+`GET /OS-INHERIT/projects/{project_id}/users/{user_id}/roles/inherited_to_projects`
+
+Lists all roles inherited by a specified project. These roles are also inherited by any child projects of the specified project.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/OS-INHERIT/projects/--project_id--/
+                     users/--user_id--/roles/inherited_to_projects",
+            "previous": null,
+            "next": null
+        }
+    }
+
+#### List group's inherited roles on a project:
+`GET /OS-INHERIT/projects/{project_id)/groups/{group_id}/roles/inherited_to_projects`
+
+Lists all inherited roles for a specified group of projects. These roles are also inherited by any child projects of the projects in the specified group.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/OS-INHERIT/projects/--project_id--/
+                     groups/--group_id--/roles/inherited_to_projects",
+            "previous": null,
+            "next": null
+        }
+    }
+
+### Check if a user has an inherited project role on a project;
+`HEAD /OS-INHERIT/projects/{project_id)/users/{user_id}/roles/{role_id}/inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
+#### Check if a group has an inherited project role on a project;
+`HEAD /OS-INHERIT/projects/{project_id)/groups/{group_id}/roles/{role_id}/inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke an inherited project role from a user on a project;
+`DELETE /OS-INHERIT/projects/{project_id)/users/{user_id}/roles/{role_id}/inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke an inherited project role from group on a project;
+`DELETE /OS-INHERIT/projects/{project_id)/groups/{group_id}/roles/{role_id}/inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
+Domains
+-------
 
 #### Assign role to user on projects owned by a domain:
 `PUT /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects`
@@ -130,12 +251,90 @@ Response:
 Modified APIs
 ------------
 
-The following APIs are modified by this extension.
+This extension modifies the following APIs:
+
+#### Create a new project: `POST - /projects`
+Body:
+
+    {
+        "project": {
+        "description": "test_project",
+        "domain_id": "default",
+        "parent_project_id": "$parent_project_id",
+        "enabled": true,
+        "name": "test_project"
+        }
+    }
+
+#### Get a Token: `POST /auth/tokens`
+
+Gets a token for a specified project and validates the project hierarchy:
+
+Response:
+
+    {
+	"token": {
+        "methods": [
+            "password"
+        ],
+        "roles": [
+            {
+                "id": "c60f0d7461354749ae8ac8bace3e35c5",
+                "name": "admin"
+            }
+        ],
+        "expires_at": "2014-02-18T15:52:03.499433Z",
+        "project": {
+            "hierarchical_ids": "openstack.8a4ebcf44ebc47e0b98d3d5780c1f71a.
+            "de2a7135b01344cd82a02117c005ce47",
+            "hierarchy": "test1",
+            "domain": {
+                "id": "default",
+                "name": "Default"
+            },
+            "id": "de2a7135b01344cd82a02117c005ce47",
+            "name": "test1"
+        },
+        "extras": {},
+        "user": {
+            "domain": {
+                "id": "default",
+                "name": "Default"
+            },
+            "id": "895864161f1e4beaae42d9392ec105c8",
+            "name": "admin"
+        },
+        "issued_at": "2014-02-18T14:52:03.499478Z"
+    }
+ }
+
+#### Update a Project: `PATCH - /projects/{project_id}`
+
+Body:
+
+    {
+        "project": {
+            "description": "Project space for Build Group",
+            "name": "Build Group"
+        }
+    }
+
+Response:
+
+    Status: 200 OK
+
+#### Delete a project: `DELETE - /projects/{project_id}`
+
+The first release of Hierarchical Multutenancy will support a non-recursive delete function that fails with an in-use or similar error if the project to be deleted has children.
+
+Response:
+
+    Status: 204 No Content
+
 
 #### List effective role assignments: `GET /role_assignments`
 
-The scope section in the list response is extended to allow the representation of role
-assignments that are inherited to projects.
+The extended scope section in the response shows the role assignments that projects inherit.
 
 Response:
 
