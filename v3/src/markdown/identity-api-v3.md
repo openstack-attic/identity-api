@@ -9,6 +9,12 @@ The Identity API also provides endpoint discovery through a service catalog,
 identity management, project management, and a centralized repository for
 policy engine rule sets.
 
+What's New in Version 3.4
+-------------------------
+
+- Addition of `parent_id` optional attribute to projects. It enables the
+  possibility to have a project's hierarchy.
+
 What's New in Version 3.3
 -------------------------
 
@@ -732,6 +738,12 @@ Optional attributes:
   the client, the Identity service implementation will default it to the domain
   to which the client's token is scoped.
 
+- `parent_id` (string)
+
+  References the parent project; if a parent project is not specified by the
+  client, the Identity service implementation will consider as the project is
+  a root project (without any parents).
+
 - `description` (string)
 
 - `enabled` (boolean)
@@ -749,6 +761,7 @@ Example entity:
             "enabled": true,
             "id": "263fd9",
             "name": "project-x",
+            "parent_id": "183tp2",
             "links": {
                 "self": "http://identity:35357/v3/projects/263fd9"
             }
@@ -2652,19 +2665,200 @@ Response:
 
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/rel/project`
 
+*New in version 3.4*
+
+Optional query parameters:
+
+- `subtree` (key-only, no value expected)
+- `parent` (key-only, no value expected)
+
+If no query parameters are specified, then this API will return a regular
+project object without any additional information about the projects hierarchy.
+
 Response:
 
     Status: 200 OK
 
     {
         "project": {
-            "domain_id": "1789d1",
             "enabled": true,
-            "id": "263fd9",
             "links": {
-                "self": "https://identity:35357/v3/projects/263fd9"
+                "self": "http://identity:5000/v3/projects/263fd9"
             },
+            "id": "263fd9",
+            "parent_id": "183tp2",
+            "domain_id": "default",
             "name": "Dev Group A"
+        }
+    }
+
+If additional information about the project's hierarchy is required. This API
+has two query parameters to handle such cases.
+
+`GET /projects/{project_id}?parents`
+
+Will be returned the regular information about the project and a list with
+projects ABOVE its hierarchy.
+
+Response:
+
+    {
+        "project": {
+            "enabled": true,
+            "links": {
+                "self": "http://identity:5000/v3/projects/263fd9"
+            },
+            "id": "263fd9",
+            "parent_id": "183tp2",
+            "domain_id": "default",
+            "name": "Dev Group A",
+            "parents": [
+                {
+                    "project": {
+                        "enabled": true,
+                        "links": {
+                            "self": "identity:5000/v3/projects/183tp2"
+                        },
+                        "id": "183tp2",
+                        "parent_id": null,
+                        "domain_id": "default",
+                        "name": "Dev Group A Parent",
+                    }
+                }
+            ]
+        }
+    }
+
+`GET /projects/{project_id}?subtree`
+
+Will be returned the regular information about the project and a list with
+projects BELOW its hierarchy.
+
+Response:
+
+    {
+        "project": {
+            "enabled": true,
+            "links": {
+                "self": "http://identity:5000/v3/projects/263fd9"
+            },
+            "id": "263fd9",
+            "parent_id": "183tp2",
+            "domain_id": "default",
+            "name": "Dev Group A",
+            "subtree": [
+                {
+                    "project": {
+                        "enabled": true,
+                        "links": {
+                            "self": "identity:5000/v3/projects/9n1jhb"
+                        },
+                        "id": "9n1jhb",
+                        "parent_id": "263fd9",
+                        "domain_id": "default",
+                        "name": "Dev Group A Child 1"
+                    }
+                },
+                {
+                    "project": {
+                        "enabled": true,
+                        "links": {
+                            "self": "identity:5000/v3/projects/4g6jg1"
+                        },
+                        "id": "4g6jg1",
+                        "parent_id": "263fd9",
+                        "domain_id": "default",
+                        "name": "Dev Group A Child 2"
+                    }
+                },
+                {
+                    "project": {
+                        "enabled": true,
+                        "links": {
+                            "self": "identity:5000/v3/projects/b76xq8"
+                        },
+                        "id": "b76xq8",
+                        "parent_id": "4g6jg1",
+                        "domain_id": "default",
+                        "name": "Dev Group A Grandchild"
+                    }
+                }
+            ]
+        }
+    }
+
+Note that the query parameters are not mutually exclusive. The API accept both
+parameters at the same time:
+
+`GET /projects/{project_id}?parents&subtree`
+
+Will be returned the regular information about the project and a list with
+projects ABOVE and BELOW its hierarchy.
+
+Response:
+
+    {
+        "project": {
+            "enabled": true,
+            "links": {
+                "self": "http://identity:5000/v3/projects/263fd9"
+            },
+            "id": "263fd9",
+            "parent_id": "183tp2",
+            "domain_id": "default",
+            "name": "Dev Group A",
+            "parents": [
+                {
+                    "project": {
+                        "enabled": true,
+                        "links": {
+                            "self": "identity:5000/v3/projects/183tp2"
+                        },
+                        "id": "183tp2",
+                        "parent_id": null,
+                        "domain_id": "default",
+                        "name": "Dev Group A Parent",
+                    }
+                }
+            ],
+            "subtree": [
+                {
+                    "project": {
+                        "enabled": true,
+                        "links": {
+                            "self": "identity:5000/v3/projects/9n1jhb"
+                        },
+                        "id": "9n1jhb",
+                        "parent_id": "263fd9",
+                        "domain_id": "default",
+                        "name": "Dev Group A Child 1"
+                    }
+                },
+                {
+                    "project": {
+                        "enabled": true,
+                        "links": {
+                            "self": "identity:5000/v3/projects/4g6jg1"
+                        },
+                        "id": "4g6jg1",
+                        "parent_id": "263fd9",
+                        "domain_id": "default",
+                        "name": "Dev Group A Child 2"
+                    }
+                },
+                {
+                    "project": {
+                        "enabled": true,
+                        "links": {
+                            "self": "identity:5000/v3/projects/b76xq8"
+                        },
+                        "id": "b76xq8",
+                        "parent_id": "4g6jg1",
+                        "domain_id": "default",
+                        "name": "Dev Group A Grandchild"
+                    }
+                }
+            ]
         }
     }
 
@@ -2678,6 +2872,7 @@ Request:
         "project": {
             "description": "Project space for Test Group",
             "domain_id": "1789d1",
+            "parent_id": "7ha612",
             "enabled": true,
             "name": "Test Group"
         }
@@ -2691,6 +2886,7 @@ Response:
         "project": {
             "description": "Project space for Test Group",
             "domain_id": "1789d1",
+            "parent_id": "7ha612",
             "enabled": true,
             "id": "d52e32",
             "links": {
@@ -2699,6 +2895,11 @@ Response:
             "name": "Test Group"
         }
     }
+
+* New in version 3.4 *
+
+* Adding a project with a parent_id pointing to a project that
+  does not exist should fail with a `404 Not Found`
 
 #### Update project: `PATCH /projects/{project_id}`
 
@@ -2724,6 +2925,7 @@ Response:
         "project": {
             "description": "Project space for Build Group",
             "domain_id": "1789d1",
+            "parent_id": "7ha612",
             "enabled": true,
             "id": "d52e32",
             "links": {
@@ -2733,11 +2935,22 @@ Response:
         }
     }
 
+* New in version 3.4 *
+
+* The update from the parent_id is not allowed and should fail
+  with a `403 Forbidden Action`
+
 #### Delete project: `DELETE /projects/{project_id}`
 
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/rel/project`
 
     Status: 204 No Content
+
+* New in version 3.4 *
+
+* The deletion of a project that is not a leaf in the project's
+  hierarchy, thus it is a parent from one or more projects,
+  should fail with a `403 Forbidden Action`
 
 ### Users
 

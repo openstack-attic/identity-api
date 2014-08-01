@@ -1,13 +1,157 @@
 OpenStack Identity API v3 OS-INHERIT Extension
-============================================
+==============================================
 
-Provide an ability for projects to inherit roles from their owning domain. This extension
-requires v3.1 of the Identity API.
+Provide an ability for projects to inherit roles from their owning domain and to children projects. This extension requires v3.3 of the Identity API.
+
+What's New in Version 1.1
+-------------------------
+
+- Introduces a mechanism to inherit between projects, i.e. Multitenancy.
 
 API
 ---
 
-The following additional APIs are supported by this extension:
+This extension supports these additional APIs:
+
+Projects
+--------
+
+#### Add a role to a user for a project;
+`PUT /OS-INHERIT/projects/{project_id}/users/{user_id}/roles/{role_id}/inherited_to_projects`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-INHERIT/1.0/rel/project_user_role_inherited_to_projects`
+
+The inherited role is applied to the project and the children projects (both existing and future
+projects).
+
+Response:
+
+    Status: 204 No Content
+
+#### Add a role to a group for a project:
+`PUT /OS-INHERIT/projects/{project_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/project_group_role_inherited_to_projects`
+
+The inherited role is applied to the project and the children projects (both existing and future
+projects),
+
+Response:
+
+    Status: 204 No Content
+
+#### List user's inherited roles on a project:
+`GET /OS-INHERIT/projects/{project_id}/users/{user_id}/roles/inherited_to_projects`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/project_user_roles_inherited_to_projects`
+
+Lists all roles inherited by a specified project. These roles are also
+inherited by any child projects of the specified project.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/OS-INHERIT/projects/--project_id--/
+                     users/--user_id--/roles/inherited_to_projects",
+            "previous": null,
+            "next": null
+        }
+    }
+
+#### List group's inherited roles on a project:
+`GET /OS-INHERIT/projects/{project_id)/groups/{group_id}/roles/inherited_to_projects`
+
+Lists all inherited roles for a specified group of projects. These roles are
+also inherited by any child projects of the projects in the specified group.
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_group_roles_inherited_to_projects`
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:35357/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:35357/v3/OS-INHERIT/projects/--project_id--/
+                     groups/--group_id--/roles/inherited_to_projects",
+            "previous": null,
+            "next": null
+        }
+    }
+
+### Check if a user has an inherited project role on a project;
+`HEAD /OS-INHERIT/projects/{project_id)/users/{user_id}/roles/{role_id}/inherited_to_projects`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-INHERIT/1.0/rel/project_user_role_inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
+#### Check if a group has an inherited project role on a project;
+`HEAD /OS-INHERIT/projects/{project_id)/groups/{group_id}/roles/{role_id}/inherited_to_projects`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/project_group_role_inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke an inherited project role from a user on a project;
+`DELETE /OS-INHERIT/projects/{project_id)/users/{user_id}/roles/{role_id}/inherited_to_projects`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-INHERIT/1.0/rel/domain_user_role_inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke an inherited project role from group on a project;
+`DELETE /OS-INHERIT/projects/{project_id)/groups/{group_id}/roles/{role_id}/inherited_to_projects`
+
+Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_group_role_inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
+Domains
+-------
 
 #### Assign role to user on projects owned by a domain:
 `PUT /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects`
@@ -27,7 +171,7 @@ Response:
 Relationship: `http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_group_role_inherited_to_projects`
 
 The inherited role is only applied to the owned projects (both existing and future
-projects), and will not appear as a role in a domain scoped token.
+projects), and does not appear as a role in a domain-scoped token.
 
 Response:
 
@@ -146,7 +290,7 @@ Response:
 Modified APIs
 ------------
 
-The following APIs are modified by this extension.
+This extension modifies these APIs:
 
 #### List effective role assignments: `GET /role_assignments`
 
@@ -270,4 +414,3 @@ Response:
             "next": null
         }
     }
-
