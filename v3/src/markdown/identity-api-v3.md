@@ -2020,6 +2020,7 @@ Response:
 
 Optional query parameters:
 
+- `name` (string) *New in version 3.3*
 - `type` (string)
 
 Response:
