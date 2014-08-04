@@ -1,13 +1,134 @@
 OpenStack Identity API v3 OS-INHERIT Extension
 ============================================
 
-Provide an ability for projects to inherit roles from their owning domain. This extension
-requires v3.1 of the Identity API.
+Enables projects to inherit roles from the parent domain. This extension requires Identity API v3.1.
 
 API
 ---
 
-The following additional APIs are supported by this extension:
+This extension supports the following APIs:
+
+Projects
+--------
+
+#### Define a role for a user in a project A that must be inherited by all its child projects;
+`PUT /OS-INHERIT/projects/{project_id}/users/{user_id}/roles/{role_id}/inherited_to_projects`
+
+The inherited role is applied to project A itself and all its child projects (both existing and
+future projects).
+
+Response:
+
+    Status: 204 No Content
+
+#### Define a role for a group of users in a project that must be inherited by all its child projects:
+`PUT /OS-INHERIT/projects/{project_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects`
+
+The inherited role is applied to project A itself and all its child projects (both existing and
+future projects).
+
+Response:
+
+    Status: 204 No Content
+
+#### List user's inherited roles on a project:
+`GET /OS-INHERIT/projects/{project_id}/users/{user_id}/roles/inherited_to_projects`
+
+Lists all inherited roles for a specified project and user. These roles are also inherited by any child projects of the specified project.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:5000/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:5000/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:5000/v3/OS-INHERIT/projects/--project_id--/
+                     users/--user_id--/roles/inherited_to_projects",
+            "previous": null,
+            "next": null
+        }
+    }
+
+#### List group's inherited roles on a project:
+`GET /OS-INHERIT/projects/{project_id)/groups/{group_id}/roles/inherited_to_projects`
+
+Lists all inherited roles for a specified project and group. These roles are also inherited by any child projects of the specified project.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "roles": [
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:5000/v3/roles/--role-id--"
+                },
+                "name": "--role-name--",
+            },
+            {
+                "id": "--role-id--",
+                "links": {
+                    "self": "http://identity:5000/v3/roles/--role-id--"
+                },
+                "name": "--role-name--"
+            }
+        ],
+        "links": {
+            "self": "http://identity:5000/v3/OS-INHERIT/projects/--project_id--/
+                     groups/--group_id--/roles/inherited_to_projects",
+            "previous": null,
+            "next": null
+        }
+    }
+
+### Check if a user has an inherited project role on a project;
+`HEAD /OS-INHERIT/projects/{project_id)/users/{user_id}/roles/{role_id}/inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
+#### Check if a group has an inherited project role on a project;
+`HEAD /OS-INHERIT/projects/{project_id)/groups/{group_id}/roles/{role_id}/inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke an inherited project role from a user on a project;
+`DELETE /OS-INHERIT/projects/{project_id)/users/{user_id}/roles/{role_id}/inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
+#### Revoke an inherited project role from group on a project;
+`DELETE /OS-INHERIT/projects/{project_id)/groups/{group_id}/roles/{role_id}/inherited_to_projects`
+
+Response:
+
+    Status: 204 No Content
+
+Domains
+-------
 
 #### Assign role to user on projects owned by a domain:
 `PUT /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects`
@@ -44,20 +165,20 @@ Response:
             {
                 "id": "--role-id--",
                 "links": {
-                    "self": "http://identity:35357/v3/roles/--role-id--"
+                    "self": "http://identity:5000/v3/roles/--role-id--"
                 },
                 "name": "--role-name--",
             },
             {
                 "id": "--role-id--",
                 "links": {
-                    "self": "http://identity:35357/v3/roles/--role-id--"
+                    "self": "http://identity:5000/v3/roles/--role-id--"
                 },
                 "name": "--role-name--"
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/OS-INHERIT/domains/--domain_id--/
+            "self": "http://identity:5000/v3/OS-INHERIT/domains/--domain_id--/
                      users/--user_id--/roles/inherited_to_projects",
             "previous": null,
             "next": null
@@ -79,20 +200,20 @@ Response:
             {
                 "id": "--role-id--",
                 "links": {
-                    "self": "http://identity:35357/v3/roles/--role-id--"
+                    "self": "http://identity:5000/v3/roles/--role-id--"
                 },
                 "name": "--role-name--",
             },
             {
                 "id": "--role-id--",
                 "links": {
-                    "self": "http://identity:35357/v3/roles/--role-id--"
+                    "self": "http://identity:5000/v3/roles/--role-id--"
                 },
                 "name": "--role-name--"
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/OS-INHERIT/domains/--domain_id--/
+            "self": "http://identity:5000/v3/OS-INHERIT/domains/--domain_id--/
                      groups/--group_id--/roles/inherited_to_projects",
             "previous": null,
             "next": null
@@ -130,12 +251,90 @@ Response:
 Modified APIs
 ------------
 
-The following APIs are modified by this extension.
+This extension modifies the following APIs:
+
+#### Create a new project: `POST - /projects`
+Body:
+
+    {
+        "project": {
+        "description": "test_project",
+        "domain_id": "default",
+        "parent_project_id": "$parent_project_id",
+        "enabled": true,
+        "name": "test_project"
+        }
+    }
+
+#### Get a Token: `POST /auth/tokens`
+
+Gets a token for a specified project and validates the project hierarchy:
+
+Response:
+
+    {
+	"token": {
+        "methods": [
+            "password"
+        ],
+        "roles": [
+            {
+                "id": "c60f0d7461354749ae8ac8bace3e35c5",
+                "name": "admin"
+            }
+        ],
+        "expires_at": "2014-02-18T15:52:03.499433Z",
+        "project": {
+            "hierarchical_ids": "openstack.8a4ebcf44ebc47e0b98d3d5780c1f71a.
+            "de2a7135b01344cd82a02117c005ce47",
+            "hierarchy": "test1",
+            "domain": {
+                "id": "default",
+                "name": "Default"
+            },
+            "id": "de2a7135b01344cd82a02117c005ce47",
+            "name": "test1"
+        },
+        "extras": {},
+        "user": {
+            "domain": {
+                "id": "default",
+                "name": "Default"
+            },
+            "id": "895864161f1e4beaae42d9392ec105c8",
+            "name": "admin"
+        },
+        "issued_at": "2014-02-18T14:52:03.499478Z"
+    }
+ }
+
+#### Update a Project: `PATCH - /projects/{project_id}`
+
+Body:
+
+    {
+        "project": {
+            "description": "Project space for Build Group",
+            "name": "Build Group"
+        }
+    }
+
+Response:
+
+    Status: 200 OK
+
+#### Delete a project: `DELETE - /projects/{project_id}`
+
+The first release of Hierarchical Multitenancy supports a non-recursive delete function that fails with an in-use or similar error if the project to be deleted has children.
+
+Response:
+
+    Status: 204 No Content
+
 
 #### List effective role assignments: `GET /role_assignments`
 
-The scope section in the list response is extended to allow the representation of role
-assignments that are inherited to projects.
+The extended scope section in the response shows the role assignments that projects inherit.
 
 Response:
 
@@ -145,7 +344,7 @@ Response:
         "role_assignments": [
             {
                 "links": {
-                    "assignment": "http://identity:35357/v3/OS-INHERIT/
+                    "assignment": "http://identity:5000/v3/OS-INHERIT/
                                    domains/--domain-id--/users/--user-id--/
                                    roles/--role-id--/inherited_to_projects"
                 },
@@ -156,7 +355,26 @@ Response:
                     "domain": {
                         "id": "--domain-id--"
                     },
-                    "OS-INHERIT:inherited_to": ["projects"]
+                    "OS-INHERIT:inherited_to": "projects"
+                },
+                "user": {
+                    "id": "--user-id--"
+                }
+            },
+            {
+                "links": {
+                    "assignment": "http://identity:5000/v3/OS-INHERIT/
+                                   projects/--project-id--/users/--user-id--/
+                                   roles/--role-id--/inherited_to_projects"
+                },
+                "role": {
+                    "id": "--role-id--"
+                },
+                "scope": {
+                    "project": {
+                        "id": "--project-id--"
+                    },
+                    "OS-INHERIT:inherited_to": "projects"
                 },
                 "user": {
                     "id": "--user-id--"
@@ -167,7 +385,7 @@ Response:
                     "id": "--group-id--"
                 },
                 "links": {
-                    "assignment": "http://identity:35357/v3/projects/--project-id--/
+                    "assignment": "http://identity:5000/v3/projects/--project-id--/
                                    groups/--group-id--/roles/--role-id--"
                 },
                 "role": {
@@ -181,7 +399,7 @@ Response:
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/role_assignments",
+            "self": "http://identity:5000/v3/role_assignments",
             "previous": null,
             "next": null
         }
@@ -210,7 +428,7 @@ Response:
         "role_assignments": [
             {
                 "links": {
-                    "assignment": "http://identity:35357/v3/OS-INHERIT/
+                    "assignment": "http://identity:5000/v3/OS-INHERIT/
                                    domains/--domain-id--/users/--user-id--/
                                    roles/--role-id--/inherited_to_projects"
                 },
@@ -218,6 +436,7 @@ Response:
                     "id": "--role-id--"
                 },
                 "scope": {
+                    "OS-INHERIT:inherited_to": "projects",
                     "project": {
                         "id": "--project-id--"
                     }
@@ -228,9 +447,28 @@ Response:
             },
             {
                 "links": {
-                    "assignment": "http://identity:35357/v3/projects/--project-id--/
+                    "assignment": "http://identity:5000/v3/OS-INHERIT/
+                                   projects/--project-id--/users/--user-id--/
+                                   roles/--role-id--/inherited_to_projects"
+                },
+                "role": {
+                    "id": "--role-id--"
+                },
+                "scope": {
+                    "OS-INHERIT:inherited_to": "projects",
+                    "project": {
+                        "id": "--project-id--"
+                    }
+                },
+                "user": {
+                    "id": "--user-id--"
+                }
+            },
+            {
+                "links": {
+                    "assignment": "http://identity:5000/v3/projects/--project-id--/
                                    groups/--group-id--/roles/--role-id--",
-                    "membership": "http://identity:35357/v3/groups/--group-id--/
+                    "membership": "http://identity:5000/v3/groups/--group-id--/
                                    users/--user-id--"
                 },
                 "role": {
@@ -247,7 +485,7 @@ Response:
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/role_assignments?effective",
+            "self": "http://identity:5000/v3/role_assignments?effective",
             "previous": null,
             "next": null
         }
