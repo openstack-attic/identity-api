@@ -862,3 +862,42 @@ Example request:
             }
         }
     }
+
+Similarly to the returned unscoped token, the returned scoped token will have
+an `OS-FEDERATION` section added to the `user` portion of the token.
+
+Example of an OS-FEDERATION token:
+
+    {
+        "token": {
+            "methods": [
+                "saml2"
+            ],
+            "project": {
+                "domain": {
+                    "id": "1789d1",
+                    "links": {
+                        "self": "http://identity:35357/v3/domains/1789d1"
+                    },
+                    "name": "example.com"
+                },
+                "id": "263fd9",
+                "links": {
+                    "self": "http://identity:35357/v3/projects/263fd9"
+                },
+                "name": "project-x"
+            },
+            "user": {
+                "id": "username%40example.com",
+                "name": "username@example.com",
+                "OS-FEDERATION": {
+                    "identity_provider": "ACME",
+                    "protocol": "SAML",
+                    "groups": [
+                        {"id": "abc123"},
+                        {"id": "bcd234"}
+                    ]
+                }
+            }
+        }
+    }
