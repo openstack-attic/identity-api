@@ -1582,45 +1582,27 @@ the user's roles applicable to the `project`. Example response:
             "project": {
                 "domain": {
                     "id": "1789d1",
-                    "links": {
-                        "self": "http://identity:35357/v3/domains/1789d1"
-                    },
                     "name": "example.com"
                 },
                 "id": "263fd9",
-                "links": {
-                    "self": "http://identity:35357/v3/projects/263fd9"
-                },
                 "name": "project-x"
             },
             "roles": [
                 {
                     "id": "76e72a",
-                    "links": {
-                        "self": "http://identity:35357/v3/roles/76e72a"
-                    },
                     "name": "admin"
                 },
                 {
                     "id": "f4f392",
-                    "links": {
-                        "self": "http://identity:35357/v3/roles/f4f392"
-                    },
                     "name": "member"
                 }
             ],
             "user": {
                 "domain": {
                     "id": "1789d1",
-                    "links": {
-                        "self": "http://identity:35357/v3/domains/1789d1"
-                    },
                     "name": "example.com"
                 },
                 "id": "0ca8f6",
-                "links": {
-                    "self": "http://identity:35357/v3/users/0ca8f6"
-                },
                 "name": "Joe"
             }
         }
@@ -1669,39 +1651,24 @@ user's roles applicable to the `domain`. Example response:
             ],
             "domain": {
                 "id": "1789d1",
-                "links": {
-                    "self": "http://identity:35357/v3/domains/1789d1"
-                },
                 "name": "example.com"
             },
             "roles": [
                 {
                     "id": "76e72a",
-                    "links": {
-                        "self": "http://identity:35357/v3/roles/76e72a"
-                    },
                     "name": "admin"
                 },
                 {
                     "id": "f4f392",
-                    "links": {
-                        "self": "http://identity:35357/v3/roles/f4f392"
-                    },
                     "name": "member"
                 }
             ],
             "user": {
                 "domain": {
                     "id": "1789d1",
-                    "links": {
-                        "self": "http://identity:35357/v3/domains/1789d1"
-                    },
                     "name": "example.com"
                 },
                 "id": "0ca8f6",
-                "links": {
-                    "self": "http://identity:35357/v3/users/0ca8f6"
-                },
                 "name": "Joe"
             }
         }
