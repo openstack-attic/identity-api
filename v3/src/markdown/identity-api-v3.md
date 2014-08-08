@@ -1596,16 +1596,10 @@ the user's roles applicable to the `project`. Example response:
             "roles": [
                 {
                     "id": "76e72a",
-                    "links": {
-                        "self": "http://identity:35357/v3/roles/76e72a"
-                    },
                     "name": "admin"
                 },
                 {
                     "id": "f4f392",
-                    "links": {
-                        "self": "http://identity:35357/v3/roles/f4f392"
-                    },
                     "name": "member"
                 }
             ],
@@ -1677,16 +1671,10 @@ user's roles applicable to the `domain`. Example response:
             "roles": [
                 {
                     "id": "76e72a",
-                    "links": {
-                        "self": "http://identity:35357/v3/roles/76e72a"
-                    },
                     "name": "admin"
                 },
                 {
                     "id": "f4f392",
-                    "links": {
-                        "self": "http://identity:35357/v3/roles/f4f392"
-                    },
                     "name": "member"
                 }
             ],
