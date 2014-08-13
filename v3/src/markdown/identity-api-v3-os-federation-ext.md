@@ -5,6 +5,13 @@ Provide the ability for users to manage Identity Providers (IdPs) and establish
 a set of rules to map federation protocol attributes to Identity API
 attributes. This extension requires v3.0+ of the Identity API.
 
+What's New in Version 1.1
+-------------------------
+
+These features are not yet considered stable (expected September 4th, 2014).
+
+- Introduced a mechanism to exchange an Identity Token for a SAML assertion.
+
 Definitions
 -----------
 
@@ -992,3 +999,138 @@ Example of an OS-FEDERATION token:
             "issued_at": "2014-08-06T12:43:43.367288Z"
         }
     }
+
+Generating Assertions
+---------------------
+
+### Generate a SAML assertion: `POST /auth/OS-FEDERATION/saml2`
+
+*New in version 1.1*
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/saml2`
+
+A user may generate a SAML assertion document based on the scoped token that is
+used in the request.
+
+Request Parameters:
+
+To generate a SAML assertion, a user must provides a scoped ``token_id`` and
+``region_id`` in the request body.
+
+Example request:
+
+    {
+        "auth": {
+            "identity": {
+                "methods": [
+                    "token"
+                ],
+                "token": {
+                    "id": "--token_id--"
+                }
+            },
+            "scope": {
+                "region": {
+                    "id": "--region_id--"
+                }
+            }
+        }
+    }
+
+The response will be a full SAML assertion, note that for readability, the
+certificate has been truncated.
+
+Response:
+
+    Headers:
+        Content-Type: text/xml
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <samlp:Response ID="_257f9d9e9fa14962c0803903a6ccad931245264310738"
+       IssueInstant="2009-06-17T18:45:10.738Z" Version="2.0">
+    <saml:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">
+       https://www.acme.com
+    </saml:Issuer>
+    <samlp:Status>
+       <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
+    </samlp:Status>
+    <saml:Assertion ID="_3c39bc0fe7b13769cab2f6f45eba801b1245264310738"
+       IssueInstant="2009-06-17T18:45:10.738Z" Version="2.0">
+       <saml:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">
+          https://www.acme.com
+       </saml:Issuer>
+       <saml:Signature>
+          <saml:SignedInfo>
+             <saml:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+             <saml:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+             <saml:Reference URI="#_3c39bc0fe7b13769cab2f6f45eba801b1245264310738">
+                <saml:Transforms>
+                   <saml:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                   <saml:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+                      <ec:InclusiveNamespaces PrefixList="ds saml xs"/>
+                   </saml:Transform>
+                </saml:Transforms>
+                <saml:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                <saml:DigestValue>vzR9Hfp8d16576tEDeq/zhpmLoo=
+                </saml:DigestValue>
+             </saml:Reference>
+          </saml:SignedInfo>
+          <saml:SignatureValue>
+             AzID5hhJeJlG2llUDvZswNUrlrPtR7S37QYH2W+Un1n8c6kTC
+             Xr/lihEKPcA2PZt86eBntFBVDWTRlh/W3yUgGOqQBJMFOVbhK
+             M/CbLHbBUVT5TcxIqvsNvIFdjIGNkf1W0SBqRKZOJ6tzxCcLo
+             9dXqAyAUkqDpX5+AyltwrdCPNmncUM4dtRPjI05CL1rRaGeyX
+             3kkqOL8p0vjm0fazU5tCAJLbYuYgU1LivPSahWNcpvRSlCI4e
+             Pn2oiVDyrcc4et12inPMTc2lGIWWWWJyHOPSiXRSkEAIwQVjf
+             Qm5cpli44Pv8FCrdGWpEE0yXsPBvDkM9jIzwCYGG2fKaLBag==
+          </saml:SignatureValue>
+          <saml:KeyInfo>
+             <saml:X509Data>
+                <saml:X509Certificate>
+                   MIIEATCCAumgAwIBAgIBBTANBgkqhkiG9w0BAQ0FADCBgzELM
+                </saml:X509Certificate>
+             </saml:X509Data>
+          </saml:KeyInfo>
+       </saml:Signature>
+       <saml:Subject>
+          <saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified">
+             saml01@acme.com
+          </saml:NameID>
+          <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+          <saml:SubjectConfirmationData NotOnOrAfter="2009-06-17T18:50:10.738Z"
+             Recipient="https://login.www.beta.com"/>
+          </saml:SubjectConfirmation>
+       </saml:Subject>
+       <saml:Conditions NotBefore="2009-06-17T18:45:10.738Z"
+          NotOnOrAfter="2009-06-17T18:50:10.738Z">
+          <saml:AudienceRestriction>
+             <saml:Audience>https://saml.acme.com</saml:Audience>
+          </saml:AudienceRestriction>
+       </saml:Conditions>
+       <saml:AuthnStatement AuthnInstant="2009-06-17T18:45:10.738Z">
+          <saml:AuthnContext>
+             <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified
+             </saml:AuthnContextClassRef>
+          </saml:AuthnContext>
+       </saml:AuthnStatement>
+       <saml:AttributeStatement>
+          <saml:Attribute Name="portal_id">
+             <saml:AttributeValue xsi:type="xs:anyType">060D00000000SHZ
+             </saml:AttributeValue>
+          </saml:Attribute>
+          <saml:Attribute Name="organization_id">
+             <saml:AttributeValue xsi:type="xs:anyType">00DD0000000F7L5
+             </saml:AttributeValue>
+          </saml:Attribute>
+          <saml:Attribute Name="ssostartpage"
+             NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified">
+             <saml:AttributeValue xsi:type="xs:anyType">
+                http://www.acme.com/security/saml/saml20-gen.jsp
+             </saml:AttributeValue>
+          </saml:Attribute>
+       </saml:AttributeStatement>
+    </saml:Assertion>
+    </samlp:Response>
+
+For more information about how a SAML assertion is structured, refer to the
+[specification] (http://saml.xml.org/saml-specifications)
