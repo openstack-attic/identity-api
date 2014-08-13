@@ -936,3 +936,40 @@ Example of an OS-FEDERATION token:
             "issued_at": "2014-08-06T12:43:43.367288Z"
         }
     }
+
+Generating Assertions
+---------------------
+
+### Generate a SAML assertion: `POST /auth/OS-FEDERATION/saml2`
+
+A user may generate a SAML assertion document based on the scoped token that is
+used in the request.
+
+Request Parameters:
+
+To generate a SAML assertion, the user provide a scoped token in the request,
+as well as a ``region_id``.
+
+Example request:
+
+    {
+        "auth": {
+            "identity": {
+                "methods": [
+                    "token"
+                ],
+                "token": {
+                    "id": "--token_id--"
+                }
+            },
+            "scope": {
+                "region": {
+                    "id": "--region_id--"
+                }
+            }
+        }
+    }
+
+The response will be a full SAML assertion, for more information about how a
+SAML assertion is structured, refer to the [specification]
+(http://saml.xml.org/saml-specifications).
