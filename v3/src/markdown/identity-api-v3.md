@@ -17,6 +17,7 @@ These features are not yet considered stable (expected September 4th, 2014).
 - Addition of `name` optional variable to be included from service definition
   into the service catalog.
 - Introduced a stand alone call to retrieve a service catalog.
+- Addition of `url` optional attribute for ``regions``.
 
 What's New in Version 3.2
 -------------------------
@@ -852,6 +853,10 @@ Optional attributes:
   If the region is hierarchically a child of another region, this field shall
   be set to the id of the parent region.
 
+- `url` (string) *New in version 3.3*
+
+  Freeform URL field for the deployer to associate with a region.
+
 Example entity:
 
     {
@@ -861,7 +866,8 @@ Example entity:
             "links": {
               "self": "https://identity:35357/v3/regions/us-east-2"
             },
-            "parent_region_id": "us-east"
+            "parent_region_id": "us-east",
+            "url": "http://example.com/auth"
         }
     }
 
@@ -1881,7 +1887,8 @@ Response:
                     "self": "https://identity:35357/v3/regions/us-east",
                     "child_regions": "https://identity:35357/v3/regions?parent_region_id=us-east"
                 },
-                "parent_region_id": "us-east-coast"
+                "parent_region_id": "us-east-coast",
+                "url": "http://example.com/auth"
             },
             ...
         ],
@@ -1906,7 +1913,8 @@ Response:
                 "self": "https://identity:35357/v3/regions/us-southwest",
                 "child_regions": "http://identity:35357/v3/regions?parent_region_id=us-southwest"
             },
-            "parent_region_id": "us-west-coast"
+            "parent_region_id": "us-west-coast",
+            "url": "http://example.com/auth"
         }
     }
 
@@ -1917,7 +1925,8 @@ Request:
     {
         "region": {
             "description": "US West Subregion 1",
-            "parent_region_id": "829551"
+            "parent_region_id": "829551",
+            "url": "http://example.com/auth"
         }
     }
 
@@ -1933,7 +1942,8 @@ Response:
                 "self": "https://identity:35357/v3/regions/8ebd7f",
                 "child_regions": "https://identity:35357/v3/regions?parent_region_id=8ebd7f"
             },
-            "parent_region_id": "829551"
+            "parent_region_id": "829551",
+            "url": "http://example.com/auth"
         }
     }
 
@@ -1949,7 +1959,8 @@ Request:
     {
         "region": {
             "description": "US Southwest Subregion 1",
-            "parent_region_id": "us-south"
+            "parent_region_id": "us-south",
+            "url": "http://example.com/auth"
         }
     }
 
@@ -1965,7 +1976,8 @@ Response:
                 "self": "https://identity:35357/v3/regions/us-southwest-1",
                 "child_regions": "https://identity:35357/v3/regions?parent_region_id=us-southwest-1"
             },
-            "parent_region_id": "us-south"
+            "parent_region_id": "us-south",
+            "url": "http://example.com/auth"
         }
     }
 
@@ -1985,7 +1997,8 @@ Request:
     {
         "region": {
             "description": "US Southwest Subregion",
-            "parent_region_id": "us-southwest"
+            "parent_region_id": "us-southwest",
+            "url": "http://example.com/auth"
         }
     }
 
@@ -2001,7 +2014,8 @@ Response:
                 "self": "https://identity:35357/v3/regions/us-southwest-1",
                 "child_regions": "https://identity:35357/v3/regions?parent_region_id=us-southwest-1"
             },
-            "parent_region_id": "us-southwest"
+            "parent_region_id": "us-southwest",
+            "url": "http://example.com/auth"
         }
     }
 
