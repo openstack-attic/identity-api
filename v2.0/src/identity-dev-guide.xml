@@ -37,6 +37,17 @@
         </abstract>
         <revhistory>
             <revision>
+                <date>2014-08-07</date>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Removes WADL references and links to
+                                the API Reference page.</para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+            <revision>
                 <date>2014-07-29</date>
                 <revdescription>
                     <itemizedlist>
@@ -93,9 +104,10 @@
     <!-- Chapters are referred from the book file through these include statements. You can add additional chapters using these types of statements. -->
     <xi:include href="preface.xml"/>
     <xi:include href="ch_identity-general-api-info.xml"/>
-    <xi:include href="ch_identity-client-api.xml"/>
-    <xi:include href="ch_identity-service-api.xml"/>
-    <xi:include href="ch_os_extensions.xml"/>
-    <xi:include href="ch_hp_extensions.xml"/>
-    <xi:include href="ch_rax_extensions.xml"/>
+    <chapter xml:id="Service_API_Client_Operations">
+        <title>API operations and extensions</title>
+        <para>For information about Identity API operations, see <link
+            xlink:href="http://developer.openstack.org/api-ref-identity-v2.html"
+            ><citetitle>Identity API v2.0 (CURRENT)</citetitle></link>.</para>
+    </chapter>
 </book>
