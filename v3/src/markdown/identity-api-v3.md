@@ -1023,6 +1023,27 @@ Required attributes:
   user for the given token. It is up to the client to look for specific methods
   to determine the total number of factors.
 
+- `audit_ids` (array)
+
+  The `audit_ids` attribute is a list that contains either one or two elements.
+  Each id in the `audit_ids` attribute is a randomly (unique) generated
+  string that can be used to track the token.
+
+  Each token will always have its own unique audit identifier as the first
+  element of the list. In the case of a token that was rescoped (exchanged for
+  another token of the same or different scope), there will be a second audit
+  identifier as the second element of the list. This conditional second
+  identifier is the audit id string from the original token (i.e. the first
+  token issued that was not a rescoped token).
+
+  These audit identifiers can be used to track a specific token in a manner
+  that does not expose the token id, making it safe to use in logging and
+  other applications that should not expose the token id value (which can be
+  used to act upon endpoints within the OpenStack deployment).
+
+  Each identifier should be 22 characters in length (based on a base64 encoded
+  uuid with padding removed).
+
 Optional attributes:
 
 - `project` (object)
