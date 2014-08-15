@@ -1023,6 +1023,56 @@ Required attributes:
   user for the given token. It is up to the client to look for specific methods
   to determine the total number of factors.
 
+- `audit_ids` (array)
+
+  The `audit_ids` attribute is a list that contains either one or two elements.
+  Each id in the `audit_ids` attribute is a randomly (unique) generated
+  string that can be used to track the token.
+
+  Each token will have its own unique audit identifier as the first element of
+  the array. In the case of a token that was rescoped (exchanged for
+  another token of the same or different scope), there will be a second audit
+  identifier as the second element of the array. This conditional second
+  identifier is the audit id string from the original token (i.e. the first
+  token issued that was not a rescoped token).
+
+  These audit identifiers can be used to track a specific use of token (or
+  chain of tokens) across multiple requests and endpoints without exposing the
+  token id to non-privileged users (e.g. via logs).
+
+  Each identifier is 22 characters in length (based on a base64 encoded
+  uuid with padding removed).
+
+  Example token with `audit_ids` attribute (first element is the token's
+  `audit_id`, second is the `audit_chain_id`):
+
+    {
+        "token": {
+            "expires_at": "2013-02-27T18:30:59.999999Z",
+            "issued_at": "2013-02-27T16:30:59.999999Z",
+            "audit_ids": ["j4VscVcMSDaQH+VqnFxASw", "Z4tr+KweQNSE1BzeCTelCA"],
+            "methods": [
+                "password"
+            ],
+            "user": {
+                "domain": {
+                    "id": "1789d1",
+                    "name": "example.com"
+                }
+                "email": "joe@example.com",
+                "id": "0ca8f6",
+                "name": "Joe"
+            }
+        }
+    }
+
+
+  Tokens issued prior to the inclusion of the audit id code will lack the
+  `audit_ids` attribute. These tokens lacking `audit_ids` will continue to
+  function normally until revoked or expired. All newly issue tokens will
+  have the expected `audit_ids` attribute.
+
+
 Optional attributes:
 
 - `project` (object)
@@ -1136,6 +1186,7 @@ Example entity:
         "token": {
             "expires_at": "2013-02-27T18:30:59.999999Z",
             "issued_at": "2013-02-27T16:30:59.999999Z",
+            "audit_ids": ["j4VscVcMSDaQH+VqnFxASw", "Z4tr+KweQNSE1BzeCTelCA"],
             "methods": [
                 "password"
             ],
