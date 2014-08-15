@@ -1,0 +1,10 @@
+Verified+2: Jenkins
+Code-Review+2: ayoung <ayoung@redhat.com>
+Workflow+1: ayoung <ayoung@redhat.com>
+Code-Review+2: Steve Martinelli <stevemar@ca.ibm.com>
+Code-Review+2: Brant Knudson <bknudson@us.ibm.com>
+Submitted-by: Jenkins
+Submitted-at: Fri, 15 Aug 2014 02:37:34 +0000
+Reviewed-on: https://review.openstack.org/112959
+Project: openstack/identity-api
+Branch: refs/heads/master
