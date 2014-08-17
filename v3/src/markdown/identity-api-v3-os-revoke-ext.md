@@ -6,6 +6,18 @@ of criteria which describes a set of tokens that are no longer be valid.
 
 This extension requires v3.2+ of the Identity API.
 
+What's New in v1.1
+------------------
+
+- Use of `expires_at` has been deprecated in favor of using `audit_id` and
+  `audit_chain_id`.
+
+- Revocation events can use `audit_id` to revoke an individual token.
+
+- Revocation events can use `audit_chain_id` to revoke all related tokens. A
+  related token is defined by the first (non-rescoped) token. All tokens in the
+  chain will have the same `audit_chain_id`.
+
 API Resources
 -------------
 
@@ -59,6 +71,10 @@ Optional attributes:
 
 - `expires_at` (string, ISO 8601 extended format date time with microseconds)
 
+  **Deprecated as of the Juno release in favor of `audit_id` and
+  `audit_chain_id`.** If ``expires_at`` exists in the revocation event, it will
+  be utilized to match tokens.
+
   Specifies the exact expiration time of one or more tokens to be revoked.
 
   This attribute is useful for revoking chains of tokens, such as those produced when
@@ -66,6 +82,28 @@ Optional attributes:
   authentication, it is given an `expires_at` value. When a token is used to
   get another token, the new token will have the same `expires_at` value as the
   original.
+
+- `audit_id` (string)
+
+  Specifies the unique identifier (UUID) assigned to the token itself.
+
+  This will revoke a single token only. This attribute mirrors the use of the
+  ``Token Revocation List`` (the mechanism used prior to revocation events)
+  but does not utilize data that could convey authorization (the ``token id``).
+
+  If an event is issued for `audit_id` then the event cannot contain an
+  `audit_chain_id`.
+
+- `audit_chain_id` (string)
+
+  Specifies a group of tokens based upon the `audit_id` of the first token
+  in the chain. If a revocation event specifies the `audit_chain_id` any token
+  that is part of the token chain (based upon the original token at the start
+  of the chain) will be revoked, including the original token at the start of
+  the chain.
+
+  If an event is issued for `audit_chain_id` then the event cannot contain an
+  `audit_id`.
 
 There properties are additive: Only a token that meets all of the specified
 criteria is considered revoked.
@@ -102,7 +140,11 @@ Response:
                 "user_id": "f287de"
             },
             {
-                "expires_at": "2014-02-27T22:10:10.999999Z",
+                "audit_id": "VcxU2JYqT8OzfUVvrjEITQ",
+                "issued_before": "2014-02-27T18:30:59.999999Z",
+            },
+            {
+                "audit_chain_id": "VcxU2JYqT8OzfUVvrjEITQ",
                 "issued_before": "2014-02-27T18:30:59.999999Z",
                 "project_id": "976bf9"
             },
