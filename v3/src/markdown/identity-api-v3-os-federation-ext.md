@@ -616,7 +616,13 @@ Response:
 Listing projects and domains
 ----------------------------
 
+**Deprecated in v3.3**. This section is deprecated as the functionality is
+available in the core API.
+
 ### List projects a federated user can access: `GET /OS-FEDERATION/projects`
+
+**Deprecated in v3.3**. Use `GET /auth/projects`. This call has the same
+response format.
 
 Returns a collection of projects to which the federated user has authorization
 to access. To access this resource, an unscoped token is used, the user can
@@ -656,6 +662,9 @@ Response:
     }
 
 ### List domains a federated user can access: `GET /OS-FEDERATION/domains`
+
+**Deprecated in v3.3**. Use `GET /auth/domains`. This call has the same
+response format.
 
 Returns a collection of domains to which the federated user has authorization
 to access. To access this resource, an unscoped token is used, the user can
