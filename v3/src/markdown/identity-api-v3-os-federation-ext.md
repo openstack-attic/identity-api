@@ -19,6 +19,15 @@ Definitions
   mismatches, a mapping can be done either on the sending side (third party
   identity provider), on the consuming side (Identity API service), or both.
 
+What's New in Version 1.1
+-------------------------
+
+Corresponding to Identity API v3.3 release. These features are not yet
+considered stable (expected September 4th, 2014).
+
+- Deprecate list projects and domains in favour of core functionality available
+  in Identity API v3.3.
+
 API Resources
 -------------
 
@@ -616,7 +625,13 @@ Response:
 Listing projects and domains
 ----------------------------
 
+**Deprecated in v1.1**. This section is deprecated as the functionality is
+available in the core Identity API.
+
 ### List projects a federated user can access: `GET /OS-FEDERATION/projects`
+
+**Deprecated in v1.1**. Use core `GET /auth/projects`. This call has the same
+response format.
 
 Returns a collection of projects to which the federated user has authorization
 to access. To access this resource, an unscoped token is used, the user can
@@ -656,6 +671,9 @@ Response:
     }
 
 ### List domains a federated user can access: `GET /OS-FEDERATION/domains`
+
+**Deprecated in v1.1**. Use core `GET /auth/domains`. This call has the same
+response format.
 
 Returns a collection of domains to which the federated user has authorization
 to access. To access this resource, an unscoped token is used, the user can
