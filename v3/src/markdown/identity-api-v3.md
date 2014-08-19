@@ -18,6 +18,8 @@ These features are not yet considered stable (expected September 4th, 2014).
   into the service catalog.
 - Introduced a stand alone call to retrieve a service catalog.
 - Introduced support for JSON Home.
+- Introduced a standard call to retrieve possible project and domain scope
+  targets for a token.
 
 What's New in Version 3.2
 -------------------------
@@ -1866,14 +1868,14 @@ This call is identical to `HEAD /auth/tokens` except that the `X-Subject-Token`
 token is immediately invalidated, regardless of its `expires_at` attribute. An
 additional `X-Auth-Token` is not required.
 
-### Catalog
+### Authentication Specific Routes
 
 The key use cases we need to cover:
 
-- CRUD for regions, services and endpoints
-- Retrieving an endpoint URL by service, region, and interface
+- Fetching a service catalog based upon the current authorization.
+- Retrieve available scoping targets based upon the current authorization.
 
-#### Get service catalog: `GET /catalog`
+#### Get service catalog: `GET /auth/catalog`
 
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/rel/catalog`
 
@@ -1924,6 +1926,97 @@ Response:
             "next": null
         }
     }
+
+#### Get available project scopes: `GET /auth/projects`
+
+*New in version 3.3*
+
+This call returns the list of projects that are available to be scoped to based
+on the `X-Auth-Token` provided in the request.
+
+The structure of the response is exactly the same as listing projects for a
+user.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "projects": [
+            {
+                "domain_id": "1789d1",
+                "enabled": true,
+                "id": "263fd9",
+                "links": {
+                    "self": "https://identity:35357/v3/projects/263fd9"
+                },
+                "name": "Test Group"
+            },
+            {
+                "domain_id": "1789d1",
+                "enabled": true,
+                "id": "50ef01",
+                "links": {
+                    "self": "https://identity:35357/v3/projects/50ef01"
+                },
+                "name": "Build Group"
+            }
+        ],
+        "links": {
+            "self": "https://identity:35357/v3/auth/projects",
+            "previous": null,
+            "next": null
+        }
+    }
+
+#### Get available domain scopes: `GET /auth/domains`
+
+*New in version 3.3*
+
+This call returns the list of domains that are available to be scoped to based
+on the `X-Auth-Token` provided in the request.
+
+The structure is the same as listing domains.
+
+Response:
+
+    Status: 200 OK
+
+    {
+        "domains": [
+            {
+                "description": "my domain description",
+                "enabled": true,
+                "id": "1789d1",
+                "links": {
+                    "self": "https://identity:35357/v3/domains/1789d1"
+                },
+                "name": "my domain"
+            },
+            {
+                "description": "description of my other domain",
+                "enabled": true,
+                "id": "43e8da",
+                "links": {
+                    "self": "https://identity:35357/v3/domains/43e8da"
+                },
+                "name": "another domain"
+            }
+        ],
+        "links": {
+            "self": "https://identity:35357/v3/auth/domains",
+            "previous": null,
+            "next": null
+        }
+    }
+
+### Catalog
+
+The key use cases we need to cover:
+
+- CRUD for regions, services and endpoints
+- Retrieving an endpoint URL by service, region, and interface
+
 
 #### List regions: `GET /regions`
 
