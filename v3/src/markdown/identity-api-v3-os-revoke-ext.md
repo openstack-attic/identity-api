@@ -1,8 +1,8 @@
 OpenStack Identity API v3 OS-REVOKE Extension
 =============================================
 
-This extension provides a list of token revocation. Each event expresses a set
-of criteria which describes a set of tokens that are no longer be valid.
+This extension provides a list of token revocations. Each event expresses a
+set of criteria which describes a set of tokens that are no longer valid.
 
 This extension requires v3.2+ of the Identity API.
 
@@ -67,7 +67,7 @@ Optional attributes:
   get another token, the new token will have the same `expires_at` value as the
   original.
 
-There properties are additive: Only a token that meets all of the specified
+The properties are additive: Only a token that meets all of the specified
 criteria is considered revoked.
 
 Minimal example entity:
