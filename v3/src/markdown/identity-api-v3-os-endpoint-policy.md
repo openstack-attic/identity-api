@@ -17,8 +17,6 @@ order from most specific to least specific) and select the first one it finds.
 For region associations, any parent regions will also be examined in ascending
 order. No combination of polices will occur.
 
----
-
 ### Policy-Endpoint Associations
 
 #### Create association with endpoint: `PUT /OS-ENDPOINT-POLICY/policies/{policy_id}/endpoints/{endpoint_id}`
