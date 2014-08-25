@@ -19,7 +19,7 @@ order. No combination of polices will occur.
 
 ### Policy-Endpoint Associations
 
-#### Create association with endpoint: `PUT /OS-ENDPOINT-POLICY/policies/{policy_id}/endpoints/{endpoint_id}`
+#### Create association with endpoint: `PUT /policies/{policy_id}/OS-ENDPOINT-POLICY/endpoints/{endpoint_id}`
 
 Creates an association between the policy and the endpoint. If another
 association already existed for the specified endpoint, this will replace that
@@ -29,7 +29,7 @@ Response:
 
     Status: 204 No Content
 
-#### Check association with endpoint: `GET /OS-ENDPOINT-POLICY/policies/{policy_id}/endpoints/{endpoint_id}`
+#### Check association with endpoint: `GET /policies/{policy_id}/OS-ENDPOINT-POLICY/endpoints/{endpoint_id}`
 
 Verifies the existence of an association between a policy and an endpoint. A
 HEAD version of this API is also supported.
@@ -38,7 +38,7 @@ Response:
 
     Status: 204 No Content
 
-#### Delete association with endpoint: `DELETE /OS-ENDPOINT-POLICY/policies/{policy_id}/endpoints/{endpoint_id}`
+#### Delete association with endpoint: `DELETE /policies/{policy_id}/OS-ENDPOINT-POLICY/endpoints/{endpoint_id}`
 
 Deletes an association between the policy and the endpoint.
 
@@ -46,7 +46,7 @@ Response:
 
     Status: 204 No Content
 
-#### Create association with service: `PUT /OS-ENDPOINT-POLICY/policies/{policy_id}/services/{service_id}`
+#### Create association with service: `PUT /policies/{policy_id}/OS-ENDPOINT-POLICY/services/{service_id}`
 
 Creates an association between the policy and the service. If another
 association already existed for the specified service, this will replace that
@@ -56,7 +56,7 @@ Response:
 
     Status: 204 No Content
 
-#### Check association with service: `GET /OS-ENDPOINT-POLICY/policies/{policy_id}/services/{service_id}`
+#### Check association with service: `GET /policies/{policy_id}/OS-ENDPOINT-POLICY/services/{service_id}`
 
 Verifies the existence of an association between a policy and a service. A HEAD
 version of this API is also supported.
@@ -65,7 +65,7 @@ Response:
 
     Status: 204 No Content
 
-#### Delete association with service: `DELETE /OS-ENDPOINT-POLICY/policies/{policy_id}/services/{service_id}`
+#### Delete association with service: `DELETE /policies/{policy_id}/OS-ENDPOINT-POLICY/services/{service_id}`
 
 Deletes an association between the policy and the service.
 
@@ -73,7 +73,7 @@ Response:
 
     Status: 204 No Content
 
-#### Create association with service in a region: `PUT /OS-ENDPOINT-POLICY/policies/{policy_id}/services/{service_id}/regions/{region_id}`
+#### Create association with service in a region: `PUT /policies/{policy_id}/OS-ENDPOINT-POLICY/services/{service_id}/regions/{region_id}`
 
 Creates an association between the policy and the service in the given region.
 If another association already existed for the specified service and region,
@@ -84,7 +84,7 @@ Response:
 
     Status: 204 No Content
 
-#### Check association with service in a region: `GET /OS-ENDPOINT-POLICY/policies/{policy_id}/services/{service_id}/regions/{region_id}`
+#### Check association with service in a region: `GET /policies/{policy_id}/OS-ENDPOINT-POLICY/services/{service_id}/regions/{region_id}`
 
 Verifies the existence of an association between a policy and a service in the
 given region. A HEAD version of this API is also supported.
@@ -93,7 +93,7 @@ Response:
 
     Status: 204 No Content
 
-#### Delete association with service in a region: `DELETE /OS-ENDPOINT-POLICY/policies/{policy_id}/services/{service_id}/regions/{region_id}`
+#### Delete association with service in a region: `DELETE /policies/{policy_id}/OS-ENDPOINT-POLICY/services/{service_id}/regions/{region_id}`
 
 Deletes an association between the policy and the service in the given region.
 
@@ -101,7 +101,7 @@ Response:
 
     Status: 204 No Content
 
-#### List effective endpoint associations for policy: `GET /OS-ENDPOINT-POLICY/policies/{policy_id}/endpoints`
+#### List effective endpoint associations for policy: `GET /policies/{policy_id}/OS-ENDPOINT-POLICY/endpoints`
 
 Returns all the endpoints that are currently associated with a specific policy
 via any of the association methods.
@@ -140,7 +140,7 @@ Response:
         }
     }
 
-#### Get effective policy associated with endpoint: `GET /OS-ENDPOINT-POLICY/endpoints/{endpoint_id}/policy`
+#### Get effective policy associated with endpoint: `GET /endpoints/{endpoint_id}/OS-ENDPOINT-POLICY/policy`
 
 Returns the policy that is currently associated with the given endpoint, by
 working through the ordered sequence of methods of association. The first
