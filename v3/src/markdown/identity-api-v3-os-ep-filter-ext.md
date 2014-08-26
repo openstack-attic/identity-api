@@ -6,8 +6,17 @@ token request. To do so, this extension uses either static project-endpoint
 associations or dynamic custom endpoints groups to associate service endpoints
 with projects.
 
+What's New in Version 1.1
+-------------------------
+
+These features are not yet considered stable (expected September 4th, 2014).
+
+- Introduced support for Endpoint Groups
+
 API Resources
 -------------
+
+*New in version 1.1*
 
 ### Endpoint Group
 
@@ -15,15 +24,15 @@ Represents a dynamic collection of service endpoints having the same
 characteristics, such as service_id, interface, or region. Indeed, any
 endpoint attribute could be used as part of a filter.
 
-A classic use case is token filter endpoints based on region. For example,
-suppose I want to filter service endpoints returned in the service catalog by
-region:
+A classic use case is to filter endpoints based on region. For example, suppose
+a user wants to filter service endpoints returned in the service catalog by
+region, the following endpoint group may be used:
 
     {
         "endpoint_group": {
             "description": "Example Endpoint Group",
             "filters": {
-                "region": "US-West"
+                "region_id": "e68c72"
             },
             "name": "EP-GROUP-1"
         }
@@ -31,7 +40,7 @@ region:
 
 This implies an Endpoint Group with filtering criteria of the form:
 
-    region = "US-West"
+    region_id = "e68c72"
 
 API
 ---
@@ -74,24 +83,24 @@ Response:
     {
         "endpoints": [
             {
-                "id": "--endpoint-id--",
+                "id": "6fedc0",
                 "interface": "public",
                 "url": "http://identity:35357/",
                 "region": "north",
                 "links": {
-                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                    "self": "http://identity:35357/v3/endpoints/6fedc0"
                 },
-                "service_id": "--service-id--"
+                "service_id": "1b501a"
             },
             {
-                "id": "--endpoint-id--",
+                "id": "6fedc0",
                 "interface": "internal",
                 "region": "south",
                 "url": "http://identity:35357/",
                 "links": {
-                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                    "self": "http://identity:35357/v3/endpoints/6fedc0"
                 },
-                "service_id": "--service-id--"
+                "service_id": "1b501a"
             }
         ],
         "links": {
@@ -124,34 +133,56 @@ Response:
     {
         "projects": [
             {
-                "domain_id": "--domain-id--",
+                "domain_id": "1789d1",
                 "enabled": true,
-                "id": "--project-id--",
+                "id": "263fd9",
                 "links": {
-                     "self": "http://identity:35357/v3/projects/--project-id--"
+                     "self": "http://identity:35357/v3/projects/263fd9"
                 },
                 "name": "a project name 1",
                 "description": "a project description 1"
             },
             {
-                "domain_id": "--domain-id--",
+                "domain_id": "1789d1",
                 "enabled": true,
-                "id": "--project-id--",
+                "id": "61a1b7",
                 "links": {
-                     "self": "http://identity:35357/v3/projects/--project-id--"
+                     "self": "http://identity:35357/v3/projects/61a1b7"
                 },
                 "name": "a project name 2",
                 "description": "a project description 2"
             }
         ],
         "links": {
-            "self": "http://identity:35357/v3/OS-EP-FILTER/endpoints/--endpoint-id--/projects",
+            "self": "http://identity:35357/v3/OS-EP-FILTER/endpoints/6fedc0/projects",
             "previous": null,
             "next": null
         }
    }
 
 ### Endpoint Groups
+
+*New in version 1.1*
+
+Required attributes:
+
+- `name` (string)
+
+  User-facing name of the service.
+
+- `filters` (object)
+
+  Describes the filtering performed by the endpoint group. The filter used
+  must be an `endpoint` property, such as `interface`, `service_id`,
+  `region_id` and `enabled`. Note that if using `interface` as a filter, the
+  only available values are `public`, `internal` and `admin`.
+
+Optional attributes:
+
+- `description` (string)
+
+  User-facing description of the service.
+
 
 #### Create Endpoint Group Filter: `POST /OS-EP-FILTER/endpoint_groups`
 
@@ -164,7 +195,7 @@ Request:
             "description": "endpoint group description",
             "filters": {
                 "interface": "admin",
-                "service_id": "--service-id"
+                "service_id": "1b501a"
             }
             "name": "endpoint group name",
         }
@@ -179,11 +210,11 @@ Response:
             "description": "endpoint group description",
              "filters": {
                 "interface": "admin",
-                "service_id": "--service-id"
+                "service_id": "1b501a"
             },
-            "id": "--endpoint-group-id--",
+            "id": "ac4861",
             "links": {
-                "self": "http://localhost:35357/v3/OS-EP-FILTER/endpoint_groups/--endpoint-group-id--"
+                "self": "http://localhost:35357/v3/OS-EP-FILTER/endpoint_groups/ac4861"
             },
             "name": "endpoint group name"
         }
@@ -202,11 +233,11 @@ Response:
             "description": "endpoint group description",
             "filters": {
                 "interface": "admin",
-                "service_id": "--service-id"
+                "service_id": "1b501a"
             },
-            "id": "--endpoint-group-id--",
+            "id": "ac4861",
             "links": {
-                "self": "http://localhost:35357/v3/OS-EP-FILTER/endpoint_groups/--endpoint-group-id--"
+                "self": "http://localhost:35357/v3/OS-EP-FILTER/endpoint_groups/ac4861"
             },
             "name": "endpoint group name"
         }
@@ -234,7 +265,7 @@ Request:
             "description": "endpoint group description",
             "filters": {
                 "interface": "admin",
-                "service_id": "--service-id"
+                "service_id": "1b501a"
             },
             "name": "endpoint group name"
         }
@@ -249,11 +280,11 @@ Response:
             "description": "endpoint group description",
             "filters": {
                 "interface": "admin",
-                "service_id": "--service-id"
+                "service_id": "1b501a"
             },
-            "id": "--endpoint-group-id--",
+            "id": "ac4861",
             "links": {
-                "self": "http://localhost:35357/v3/OS-EP-FILTER/endpoint_groups/--endpoint-group-id--"
+                "self": "http://localhost:35357/v3/OS-EP-FILTER/endpoint_groups/ac4861"
             },
             "name": "endpoint group name"
         }
@@ -282,11 +313,11 @@ Response:
                     "description": "endpoint group description #1",
                     "filters": {
                         "interface": "admin",
-                        "service_id": "--service-id--"
+                        "service_id": "1b501a"
                     },
-                    "id": "--endpoint-group-id--",
+                    "id": "ac4861",
                     "links": {
-                        "self": "http://localhost:35357/v3/OS-EP-FILTER/endpoint_groups/--endpoint-group-id--"
+                        "self": "http://localhost:35357/v3/OS-EP-FILTER/endpoint_groups/ac4861"
                     },
                     "name": "endpoint group name #1"
                 }
@@ -297,9 +328,9 @@ Response:
                     "filters": {
                         "interface": "admin"
                     },
-                    "id": "--endpoint-group-id--",
+                    "id": "3de68c",
                     "links": {
-                        "self": "http://localhost:35357/v3/OS-EP-FILTER/endpoint_groups/--endpoint-group-id--"
+                        "self": "http://localhost:35357/v3/OS-EP-FILTER/endpoint_groups/3de68c"
                     },
                     "name": "endpoint group name #2"
                 }
@@ -327,11 +358,11 @@ Response:
                     "description": "endpoint group description #1",
                     "filters": {
                         "interface": "admin",
-                        "service_id": "--service-id--"
+                        "service_id": "1b501a"
                     },
-                    "id": "--endpoint-group-id--",
+                    "id": "ac4861",
                     "links": {
-                        "self": "http://localhost:35357/v3/OS-EP-FILTER/endpoint_groups/--endpoint-group-id--"
+                        "self": "http://localhost:35357/v3/OS-EP-FILTER/endpoint_groups/ac4861"
                     },
                     "name": "endpoint group name #1"
                 }
@@ -364,11 +395,11 @@ Response:
 
     {
         "project": {
-            "domain_id": "--domain-id--",
+            "domain_id": "1789d1",
             "enabled": true,
-            "id": "--project-id--",
+            "id": "263fd9",
             "links": {
-                "self": "http://identity:35357/v3/projects/--project-id--"
+                "self": "http://identity:35357/v3/projects/263fd9"
             },
             "name": "project name #1",
             "description": "project description #1"
@@ -402,21 +433,21 @@ Response:
     {
         "projects": [
             {
-                "domain_id": "--domain-id--",
+                "domain_id": "1789d1",
                 "enabled": true,
-                "id": "--project-id--",
+                "id": "263fd9",
                 "links": {
-                     "self": "http://identity:35357/v3/projects/--project-id--"
+                     "self": "http://identity:35357/v3/projects/263fd9"
                 },
                 "name": "a project name 1",
                 "description": "a project description 1"
             },
             {
-                "domain_id": "--domain-id--",
+                "domain_id": "1789d1",
                 "enabled": true,
-                "id": "--project-id--",
+                "id": "61a1b7",
                 "links": {
-                     "self": "http://identity:35357/v3/projects/--project-id--"
+                     "self": "http://identity:35357/v3/projects/61a1b7"
                 },
                 "name": "a project name 2",
                 "description": "a project description 2"
@@ -441,38 +472,38 @@ Response:
         "endpoints": [
             {
                 "enabled": true,
-                "id": "--endpoint-id--"
+                "id": "6fedc0"
                 "interface": "admin",
-                "legacy_endpoint_id": "--endpoint-id--",
+                "legacy_endpoint_id": "6fedc0",
                 "links": {
-                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                    "self": "http://identity:35357/v3/endpoints/6fedc0"
                 },
                 "region": "RegionOne",
-                "service_id": "--service-id--",
+                "service_id": "1b501a",
                 "url": "http://localhost:9292"
             },
             {
                 "enabled": true,
-                "id": "--endpoint-id--"
+                "id": "b501aa"
                 "interface": "internal",
-                "legacy_endpoint_id": "--endpoint-id--",
+                "legacy_endpoint_id": "b501aa",
                 "links": {
-                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                    "self": "http://identity:35357/v3/endpoints/b501aa"
                 },
                 "region": "RegionOne",
-                "service_id": "--service-id--",
+                "service_id": "1b501a",
                 "url": "http://localhost:9292"
             },
             {
                 "enabled": true,
-                "id": "--endpoint-id--"
+                "id": "b7c573"
                 "interface": "public",
-                "legacy_endpoint_id": "--endpoint-id--",
+                "legacy_endpoint_id": "b7c573",
                 "links": {
-                    "self": "http://identity:35357/v3/endpoints/--endpoint-id--"
+                    "self": "http://identity:35357/v3/endpoints/b7c573"
                 },
                 "region": "RegionOne",
-                "service_id": "--service-id--",
+                "service_id": "1b501a",
                 "url": "http://localhost:9292"
             }
         ],
