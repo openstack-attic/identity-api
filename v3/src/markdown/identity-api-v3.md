@@ -1238,17 +1238,14 @@ Example entity:
 JSON Home
 ---------
 
-Identity API version 3.3 supports JSON Home for resource and extension
+*New in version 3.3* Identity API supports JSON Home for resource and extension
 discovery. The identity server will return a JSON Home document on a `GET /v3`
 request where the `Accept` header indicates that the response should be
 `application/json-home`. The JSON Home document contains a mapping of
 "relationships" to the relative path or path template to the actual resource.
 
 The JSON Home document includes not only the core APIs that are supported for
-that version of the identity API, but also the resources for the enabled
-extensions. Disabled extensions won't have their relationships in the JSON Home
-document. A client application can query the JSON Home document to see if an
-extension is available.
+that version of the identity API, but also the resources for the extensions.
 
 Each of the resources in the Core API below specify the "relationship" for the
 resource. A client application can look up the resource path or path template
@@ -1287,12 +1284,12 @@ Response:
         }
     }
 
-*New in 3.3*: `GET /v3/` will return a JSON Home response if the `Accept`
-header indicates that the client wants an `application/json-home` response.
-Note that the client must check the `Content-Type` in the response because
-older servers will return a normal JSON response rather than the JSON Home
-response. See http://tools.ietf.org/html/draft-nottingham-json-home-03 for a
-description of the JSON Home document format.
+*New in version 3.3*: `GET /v3/` will return a JSON Home response if the
+`Accept` header indicates that the client wants an `application/json-home`
+response. Note that the client must check the `Content-Type` in the response
+because older servers will return a normal JSON response rather than the JSON
+Home response. See the [JSON Home spec](http://tools.ietf.org/html/draft-nottingham-json-home-03)
+for a description of the JSON Home document format.
 
 The JSON Home document returned includes all the core components and also the
 resources for the enabled extensions. Resources for disabled extensions aren't
@@ -1309,8 +1306,7 @@ Response:
         "resources": {
             "http://docs.openstack.org/api/openstack-identity/3/rel/auth_tokens": {
                 "href": "/auth/tokens"
-            },
-            ... One for each resource ...
+            }
         }
     }
 
@@ -3459,7 +3455,7 @@ Response:
 
 #### List user's roles on project: `GET /projects/{project_id}/users/{user_id}/roles`
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/rel/project_user_role`
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/rel/project_user_roles`
 
 Response:
 
