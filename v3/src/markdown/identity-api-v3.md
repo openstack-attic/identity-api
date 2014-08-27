@@ -723,13 +723,13 @@ Required attributes:
 
   Unique project name, within the owning domain.
 
-Optional attributes:
-
 - `domain_id` (string)
 
   References the domain which owns the project; if a domain is not specified by
   the client, the Identity service implementation will default it to the domain
   to which the client's token is scoped.
+
+Optional attributes:
 
 - `description` (string)
 
