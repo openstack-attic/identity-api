@@ -844,12 +844,14 @@ It is important to note that the concept of a Region has no geographical
 connotation to it. Deployers are free to use geographical names for their
 regions, for example "us-east", but there is no requirement to do so.
 
-Optional attributes:
+Required attributes:
 
 - `description` (string)
 
   Freeform description field for the deployer to use as they choose to describe
   the region.
+
+Optional attributes:
 
 - `parent_region_id` (string)
 
