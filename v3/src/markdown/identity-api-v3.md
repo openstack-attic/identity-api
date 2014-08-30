@@ -1883,7 +1883,7 @@ The key use cases we need to cover:
 
 #### Get service catalog: `GET /auth/catalog`
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/rel/catalog`
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/rel/auth_catalog`
 
 *New in version 3.3*
 
@@ -1935,6 +1935,8 @@ Response:
 
 #### Get available project scopes: `GET /auth/projects`
 
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/rel/auth_projects`
+
 *New in version 3.3*
 
 This call returns the list of projects that are available to be scoped to based
@@ -1976,6 +1978,8 @@ Response:
     }
 
 #### Get available domain scopes: `GET /auth/domains`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/rel/auth_domains`
 
 *New in version 3.3*
 
