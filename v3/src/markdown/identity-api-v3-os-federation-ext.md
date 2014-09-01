@@ -11,6 +11,7 @@ What's New in Version 1.1
 These features are not yet considered stable (expected September 4th, 2014).
 
 - Introduced a mechanism to exchange an Identity Token for a SAML assertion.
+- Introduced a mechanism to retrieve Identity Provider Metadata.
 
 Definitions
 -----------
@@ -1003,9 +1004,9 @@ Example of an OS-FEDERATION token:
 Generating Assertions
 ---------------------
 
-### Generate a SAML assertion: `POST /auth/OS-FEDERATION/saml2`
-
 *New in version 1.1*
+
+### Generate a SAML assertion: `POST /auth/OS-FEDERATION/saml2`
 
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/saml2`
 
@@ -1131,6 +1132,51 @@ Response:
        </saml:AttributeStatement>
     </saml:Assertion>
     </samlp:Response>
+
+For more information about how a SAML assertion is structured, refer to the
+[specification](http://saml.xml.org/saml-specifications).
+
+### Retrieve Metadata properties: `GET /OS-FEDERATION/saml2/metadata`
+
+Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/metadata`
+
+A user may retrieve Metadata about an Identity Service acting as an Identity
+Provider.
+
+The response will be a full document with Metadata properties. Note that for
+readability, this example certificate has been truncated.
+
+Response:
+
+    Headers:
+        Content-Type: text/xml
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <ns0:EntityDescriptor xmlns:ns0="urn:oasis:names:tc:SAML:2.0:metadata"
+       xmlns:ns1="http://www.w3.org/2000/09/xmldsig#" entityID="k2k.com/v3/OS-FEDERATION/idp"
+       validUntil="2014-08-19T21:24:17.411289Z">
+      <ns0:IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <ns0:KeyDescriptor use="signing">
+          <ns1:KeyInfo>
+            <ns1:X509Data>
+              <ns1:X509Certificate>MIIDpTCCAo0CAREwDQYJKoZIhvcNAQEFBQAwgZ</ns1:X509Certificate>
+            </ns1:X509Data>
+          </ns1:KeyInfo>
+        </ns0:KeyDescriptor>
+      </ns0:IDPSSODescriptor>
+      <ns0:Organization>
+        <ns0:OrganizationName xml:lang="en">openstack</ns0:OrganizationName>
+        <ns0:OrganizationDisplayName xml:lang="en">openstack</ns0:OrganizationDisplayName>
+        <ns0:OrganizationURL xml:lang="en">openstack</ns0:OrganizationURL>
+      </ns0:Organization>
+      <ns0:ContactPerson contactType="technical">
+        <ns0:Company>openstack</ns0:Company>
+        <ns0:GivenName>first</ns0:GivenName>
+        <ns0:SurName>lastname</ns0:SurName>
+        <ns0:EmailAddress>admin@example.com</ns0:EmailAddress>
+        <ns0:TelephoneNumber>555-555-5555</ns0:TelephoneNumber>
+      </ns0:ContactPerson>
+    </ns0:EntityDescriptor>
 
 For more information about how a SAML assertion is structured, refer to the
 [specification](http://saml.xml.org/saml-specifications).
