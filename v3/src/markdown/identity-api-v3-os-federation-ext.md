@@ -8,7 +8,7 @@ attributes. This extension requires v3.0+ of the Identity API.
 What's New in Version 1.1
 -------------------------
 
-These features are not yet considered stable (expected September 4th, 2014).
+These features are considered stable as of September 4th, 2014.
 
 - Introduced a mechanism to exchange an Identity Token for a SAML assertion.
 - Introduced a mechanism to retrieve Identity Provider Metadata.
@@ -30,8 +30,8 @@ Definitions
 What's New in Version 1.1
 -------------------------
 
-Corresponding to Identity API v3.3 release. These features are not yet
-considered stable (expected September 4th, 2014).
+Corresponding to Identity API v3.3 release. These features are considered
+stable as of September 4th, 2014.
 
 - Deprecate list projects and domains in favour of core functionality available
   in Identity API v3.3.
