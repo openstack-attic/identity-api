@@ -751,7 +751,7 @@ Example Mapping Rules
 ### Map identities to their own groups
 
 This is an example of *Attribute type and value mappings*, where an attribute
-type and value are mapped into a Identity API property and value.
+type and value are mapped into an Identity API property and value.
 
     {
         "rules": [
