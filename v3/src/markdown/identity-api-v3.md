@@ -1382,7 +1382,7 @@ sufficient to uniquely identify the `user`. Example request:
                 "password": {
                     "user": {
                         "id": "0ca8f6",
-                        "password": "secrete"
+                        "password": "secretsecret"
                     }
                 }
             }
@@ -1404,7 +1404,7 @@ be specified in order to uniquely identify the `user`. Example request:
                             "id": "1789d1"
                         },
                         "name": "Joe",
-                        "password": "secrete"
+                        "password": "secretsecret"
                     }
                 }
             }
@@ -1426,7 +1426,7 @@ Example request:
                             "name": "example.com"
                         },
                         "name": "Joe",
-                        "password": "secrete"
+                        "password": "secretsecret"
                     }
                 }
             }
@@ -1471,7 +1471,7 @@ uniquely identify a `project`. Example request:
                 "password": {
                     "user": {
                         "id": "0ca8f6",
-                        "password": "secrete"
+                        "password": "secretsecret"
                     }
                 }
             },
@@ -1495,7 +1495,7 @@ also be specified in order to uniquely identify the `project`. Example request:
                 "password": {
                     "user": {
                         "id": "0ca8f6",
-                        "password": "secrete"
+                        "password": "secretsecret"
                     }
                 }
             },
@@ -1522,7 +1522,7 @@ Alternatively, a `domain` `name` may be used to uniquely identify the
                 "password": {
                     "user": {
                         "id": "0ca8f6",
-                        "password": "secrete"
+                        "password": "secretsecret"
                     }
                 }
             },
@@ -1549,7 +1549,7 @@ equivalent results. Example request specifying a domain by `id`:
                 "password": {
                     "user": {
                         "id": "0ca8f6",
-                        "password": "secrete"
+                        "password": "secretsecret"
                     }
                 }
             },
@@ -1572,7 +1572,7 @@ Example request specifying a domain by `name`:
                 "password": {
                     "user": {
                         "id": "0ca8f6",
-                        "password": "secrete"
+                        "password": "secretsecret"
                     }
                 }
             },
@@ -2907,7 +2907,7 @@ Request:
             "email": "jdoe@example.com",
             "enabled": true,
             "name": "James Doe",
-            "password": "chang3me"
+            "password": "secretsecret"
         }
     }
 
@@ -2974,8 +2974,8 @@ Request:
 
     {
         "user": {
-            "password": "chang3me",
-            "original_password": "secrete"
+            "password": "old_secretsecret",
+            "original_password": "secretsecret"
         }
     }
 
