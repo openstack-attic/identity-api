@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Code-Review+2: Morgan Fainberg <morgan.fainberg@gmail.com>
+Workflow+1: Morgan Fainberg <morgan.fainberg@gmail.com>
+Code-Review+2: Brant Knudson <bknudson@us.ibm.com>
+Submitted-by: Jenkins
+Submitted-at: Fri, 12 Sep 2014 08:08:12 +0000
+Reviewed-on: https://review.openstack.org/118537
+Project: openstack/identity-api
+Branch: refs/heads/master
