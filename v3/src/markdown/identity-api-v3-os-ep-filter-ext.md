@@ -12,6 +12,7 @@ What's New in Version 1.1
 These features are not yet considered stable (expected September 4th, 2014).
 
 - Introduced support for Endpoint Groups
+- Modified original Endpoint Filter API URLs - see deprecated APIs below
 
 API Resources
 -------------
@@ -50,7 +51,7 @@ API
 If a valid X-Auth-Token token in not present in the HTTP header and/or the user
 does not have the right authorization a HTTP 401 Unauthorized is returned.
 
-#### Create Association: `PUT /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}`
+#### Create Association: `PUT /projects/{project_id}/OS-EP-FILTER/endpoints/{endpoint_id}`
 
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoint`
 
@@ -61,7 +62,13 @@ Response:
 
     Status: 204 No Content
 
-#### Check Association: `HEAD /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}`
+#### Create Association: `PUT /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}`
+
+**Deprecated in Juno release**. Use `PUT /projects/{project_id}/OS-EP-FILTER/endpoints/{endpoint_id}`
+
+This call has the same response format.
+
+#### Check Association: `HEAD /projects/{project_id}/OS-EP-FILTER/endpoints/{endpoint_id}`
 
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoint`
 
@@ -71,7 +78,13 @@ Response:
 
     Status: 204 No Content
 
-#### List Associations for Project: `GET /OS-EP-FILTER/projects/{project_id}/endpoints`
+#### Check Association: `HEAD /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}`
+
+**Deprecated in Juno release**. Use `HEAD /projects/{project_id}/OS-EP-FILTER/endpoints/{endpoint_id}`
+
+This call has the same response format.
+
+#### List Associations for Project: `GET /projects/{project_id}/OS-EP-FILTER/endpoints`
 
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoints`
 
@@ -110,7 +123,13 @@ Response:
         }
     }
 
-#### Delete Association: `DELETE /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}`
+#### List Associations for Project: `GET /OS-EP-FILTER/projects/{project_id}/endpoints`
+
+**Deprecated in Juno release**. Use `GET /projects/{project_id}/OS-EP-FILTER/endpoints`
+
+This call has the same response format.
+
+#### Delete Association: `DELETE /projects/{project_id}/OS-EP-FILTER/endpoints/{endpoint_id}`
 
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoint`
 
@@ -119,6 +138,12 @@ Eliminates a previously created association between a project and an endpoint.
 Response:
 
     Status: 204 No Content
+
+#### Delete Association: `DELETE /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}`
+
+**Deprecated in Juno release**. Use `DELETE /projects/{project_id}/OS-EP-FILTER/endpoints/{endpoint_id}`
+
+This call has the same response format.
 
 #### Get projects associated with endpoint: `GET /OS-EP-FILTER/endpoints/{endpoint_id}/projects`
 
@@ -343,7 +368,7 @@ Response:
         }
     }
 
-#### List Endpoint Groups Associated with Project: `GET /OS-EP-FILTER/endpoint_groups/projects/{project_id}`
+#### List Endpoint Groups Associated with Project: `GET /projects/{project_id}/OS-EP-FILTER/endpoint_groups`
 
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoint_groups`
 
@@ -377,7 +402,7 @@ Response:
 
 ### Project to Endpoint Group Relationship
 
-#### Create Endpoint Group to Project Association: `PUT /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}`
+#### Create Endpoint Group to Project Association: `PUT /projects/{project_id}/OS-EP-FILTER/endpoint_groups/{endpoint_group_id}`
 
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_project`
 
@@ -385,7 +410,7 @@ Response:
 
     Status: 204 No Content
 
-#### Get Endpoint Group to Project Association: `GET /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}`
+#### Get Endpoint Group to Project Association: `GET /projects/{project_id}/OS-EP-FILTER/endpoint_groups/{endpoint_group_id}`
 
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_project`
 
@@ -406,7 +431,7 @@ Response:
         }
     }
 
-#### Check Endpoint Group to Project Association: `HEAD /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}`
+#### Check Endpoint Group to Project Association: `HEAD /projects/{project_id}/OS-EP-FILTER/endpoint_groups/{endpoint_group_id}`
 
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_project`
 
@@ -414,7 +439,7 @@ Response:
 
     Status: 200 OK
 
-#### Delete Endpoint Group to Project Association: `DELETE /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}`
+#### Delete Endpoint Group to Project Association: `DELETE /projects/{project_id}/OS-EP-FILTER/endpoint_groups/{endpoint_group_id}`
 
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_project`
 
