@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Code-Review+2: Christian Berendt <berendt@b1-systems.de>
+Workflow+1: Christian Berendt <berendt@b1-systems.de>
+Code-Review+2: Steve Martinelli <stevemar@ca.ibm.com>
+Submitted-by: Jenkins
+Submitted-at: Mon, 22 Sep 2014 20:11:04 +0000
+Reviewed-on: https://review.openstack.org/123201
+Project: openstack/identity-api
+Branch: refs/heads/master
