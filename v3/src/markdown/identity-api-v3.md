@@ -472,8 +472,8 @@ communicate specific success and failure conditions to the client.
 
 #### 200 OK
 
-This status code is returned in response to successful `GET` and `PATCH`
-operations.
+This status code is returned in response to successful `GET`, `HEAD` and
+`PATCH` operations.
 
 #### 201 Created
 
@@ -1863,8 +1863,11 @@ token was issued by `POST /auth/tokens?nocatalog`.
 Relationship: `http://docs.openstack.org/api/openstack-identity/3/rel/auth_tokens`
 
 This call is identical to `GET /auth/tokens`, but no response body is provided,
-even if an error occurs or the token is invalid. A 204 response indicates that
-the `X-Subject-Token` is valid.
+even if an error occurs or the token is invalid.
+
+Response:
+
+    Status: 200 OK
 
 #### Revoke token: `DELETE /auth/tokens`
 
@@ -1872,7 +1875,12 @@ Relationship: `http://docs.openstack.org/api/openstack-identity/3/rel/auth_token
 
 This call is identical to `HEAD /auth/tokens` except that the `X-Subject-Token`
 token is immediately invalidated, regardless of its `expires_at` attribute. An
-additional `X-Auth-Token` is not required.
+additional `X-Auth-Token` is not required.  The successful response status also
+differs from `HEAD /auth/tokens`.
+
+Response:
+
+    Status: 204 No Content
 
 ### Authentication Specific Routes
 

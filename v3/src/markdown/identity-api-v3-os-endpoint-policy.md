@@ -162,3 +162,11 @@ Response:
             "type": "--serialization-mime-type--"
         }
     }
+
+#### Check if a policy is associated with endpoint: `HEAD /endpoints/{endpoint_id}/OS-ENDPOINT-POLICY/policy`
+
+Checks if a policy is currently associated with the given endpoint.
+
+Response:
+
+    Status: 200 OK
