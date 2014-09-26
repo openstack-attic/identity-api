@@ -146,7 +146,7 @@ Returns the policy that is currently associated with the given endpoint, by
 working through the ordered sequence of methods of association. The first
 association that is found will be returned. If the region of the endpoint has a
 parent, then region associations will be examined up the region tree in
-ascending order.
+ascending order. A HEAD version of this API is also supported.
 
 Response:
 

@@ -434,7 +434,7 @@ Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1
 
 Response:
 
-    Status: 204 No Content
+    Status: 200 OK
 
 #### Get role delegated by a trust: `GET /OS-TRUST/trusts/{trust_id}/roles/{role_id}`
 
