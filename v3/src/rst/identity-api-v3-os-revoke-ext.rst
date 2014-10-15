@@ -123,8 +123,12 @@ Minimal example entity:
 API
 ---
 
-List revocation events: ``GET /OS-REVOKE/events``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List revocation events
+~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    GET /OS-REVOKE/events
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-REVOKE/1.0/rel/events``

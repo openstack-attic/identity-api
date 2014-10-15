@@ -167,8 +167,12 @@ purposes.
 Resources and Operations
 ------------------------
 
-Create Key: ``PUT /v1/keys/{name}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create Key
+^^^^^^^^^^
+
+::
+
+    PUT /v1/keys/{name}
 
 Create a long term key in the KDS.
 
@@ -197,8 +201,12 @@ be returned in the response. This makes the request idempotent.
 
    { "name": "--key-name--", "generation": 2 }
 
-Delete Key: ``DELETE /v1/keys/{name}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete Key
+^^^^^^^^^^
+
+::
+
+    DELETE /v1/keys/{name}
 
 Delete a key from KDS.
 
@@ -214,8 +222,12 @@ Response
 
     Status: 204 No Content
 
-Generate Ticket: ``POST /v1/tickets``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Generate Ticket
+^^^^^^^^^^^^^^^
+
+::
+
+    POST /v1/tickets
 
 A ticket is generated to facilitate messaging between a ``source`` and a
 ``destination``.
@@ -347,8 +359,12 @@ before accessing any data contained in the response metadata or the
 ticket. Failure to verify the signature leaves the requester open to
 using metadata that was not actually issued by the KDS.
 
-Create Group: ``PUT /v1/groups/{name}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create Group
+^^^^^^^^^^^^
+
+::
+
+    PUT /v1/groups/{name}
 
 Create a group in the KDS.
 
@@ -375,8 +391,12 @@ The response returns the group name from the request.
         "name": "--group-name--"
     }
 
-Delete Group: ``DELETE /v1/groups/{name}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete Group
+^^^^^^^^^^^^
+
+::
+
+    DELETE /v1/groups/{name}
 
 Delete a group from the KDS.
 
@@ -392,8 +412,12 @@ Response
 
     Status: 204 No Content
 
-Retrieve Group Key: ``POST /v1/groups``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Retrieve Group Key
+^^^^^^^^^^^^^^^^^^
+
+::
+
+    POST /v1/groups
 
 When a ticket is requested where the destination is a group, a group key
 is generated that is valid for a predetermined amount of time. Any

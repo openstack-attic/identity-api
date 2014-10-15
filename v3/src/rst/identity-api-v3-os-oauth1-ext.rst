@@ -46,8 +46,12 @@ Delegated Authentication via OAuth is done in five steps:
 API Resources
 -------------
 
-Consumers: ``/OS-OAUTH1/consumers``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Consumers
+~~~~~~~~~
+
+::
+
+    /OS-OAUTH1/consumers
 
 A Consumer is an application that uses OAuth to access a protected
 resource.
@@ -68,8 +72,12 @@ the ID of the Consumer is the Key.
 Consumers API
 -------------
 
-Create Consumer: ``POST /OS-OAUTH1/consumers``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Create Consumer
+~~~~~~~~~~~~~~~
+
+::
+
+    POST /OS-OAUTH1/consumers
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/consumers``
@@ -103,8 +111,12 @@ The ``secret`` is only returned once, during consumer creation.
         }
     }
 
-List Consumers: ``GET /OS-OAUTH1/consumers``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+List Consumers
+~~~~~~~~~~~~~~
+
+::
+
+    GET /OS-OAUTH1/consumers
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/consumers``
@@ -138,8 +150,12 @@ Response:
         }
     }
 
-Get Consumer: ``GET /OS-OAUTH1/consumers/{consumer_id}``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Get Consumer
+~~~~~~~~~~~~
+
+::
+
+    GET /OS-OAUTH1/consumers/{consumer_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/consumer``
@@ -160,8 +176,12 @@ Response:
         }
     }
 
-Delete Consumer: ``DELETE /OS-OAUTH1/consumers/{consumer_id}``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Delete Consumer
+~~~~~~~~~~~~~~~
+
+::
+
+    DELETE /OS-OAUTH1/consumers/{consumer_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/consumer``
@@ -175,8 +195,12 @@ Response:
 
     Status: 204 No Content
 
-Update Consumer: ``PATCH /OS-OAUTH1/consumers/{consumer_id}``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Update Consumer
+~~~~~~~~~~~~~~~
+
+::
+
+    PATCH /OS-OAUTH1/consumers/{consumer_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/consumer``
@@ -213,8 +237,12 @@ Response:
 Delegated Auth APIs
 -------------------
 
-Create Request Token: ``POST /OS-OAUTH1/request_token``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Create Request Token
+~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    POST /OS-OAUTH1/request_token
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/request_tokens``
@@ -258,8 +286,12 @@ Response Parameters:
 -  ``oauth_expires_at`` (optional): The ISO 8601 date time at which a
    Request Token will expire.
 
-Authorize Request Token: ``PUT /OS-OAUTH1/authorize/{request_token_id}``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Authorize Request Token
+~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    PUT /OS-OAUTH1/authorize/{request_token_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/authorize_request_token``
@@ -294,8 +326,12 @@ Response:
         }
     }
 
-Create Access Token: ``POST /OS-OAUTH1/access_token``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Create Access Token
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    POST /OS-OAUTH1/access_token
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/access_tokens``
@@ -328,8 +364,12 @@ Response Parameters:
 -  ``oauth_expires_at`` (optional): The ISO 8601 date time when an
    Access Token expires.
 
-Request an Identity API Token: ``POST /auth/tokens``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Request an Identity API Token
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    POST /auth/tokens
 
 Relationship: ``http://docs.openstack.org/identity/rel/v3/auth_tokens``
 
@@ -382,8 +422,12 @@ Example OAuth-specific object in a token:
 User Access Token APIs
 ----------------------
 
-List authorized access tokens: ``GET /users/{user_id}/OS-OAUTH1/access_tokens``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+List authorized access tokens
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    GET /users/{user_id}/OS-OAUTH1/access_tokens
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/user_access_tokens``
@@ -413,8 +457,12 @@ Response:
         }
     }
 
-Get authorized access token: ``GET /users/{user_id}/OS-OAUTH1/access_tokens/{access_token_id}``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Get authorized access token
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    GET /users/{user_id}/OS-OAUTH1/access_tokens/{access_token_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/user_access_token``
@@ -437,8 +485,12 @@ Response:
         }
     }
 
-List roles of an access token: ``GET /users/{user_id}/OS-OAUTH1/access_tokens/{access_token_id}/roles``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+List roles of an access token
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    GET /users/{user_id}/OS-OAUTH1/access_tokens/{access_token_id}/roles
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/user_access_token_roles``
@@ -447,8 +499,12 @@ See ``GET /v3/roles`` for an
 `example <https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3.md#list-roles-get-roles>`__
 of this response format.
 
-Get a role of an access token: ``GET /users/{user_id}/OS-OAUTH1/access_tokens/{access_token_id}/roles/{role_id}``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Get a role of an access token
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    GET /users/{user_id}/OS-OAUTH1/access_tokens/{access_token_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/user_access_token_role``
@@ -457,8 +513,12 @@ See ``GET /v3/roles/{role_id}`` for an
 `example <https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3.md#get-role-get-rolesrole_id>`__
 of this response format.
 
-Revoke access token: ``DELETE /users/{user_id}/OS-OAUTH1/access_tokens/{access_token_id}``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Revoke access token
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    DELETE /users/{user_id}/OS-OAUTH1/access_tokens/{access_token_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-OAUTH1/1.0/rel/user_access_token``

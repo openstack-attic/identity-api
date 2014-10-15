@@ -30,8 +30,12 @@ between the ``-----BEGIN CERTIFICATE-----`` and
 API
 ---
 
-Retrieve CA certificate chain: ``GET /OS-SIMPLE-CERT/ca``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Retrieve CA certificate chain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /OS-SIMPLE-CERT/ca
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-SIMPLE-CERT/1.0/rel/ca_certificate``
@@ -68,8 +72,12 @@ In this case the chain should be used when validating a token.
     SFP+fy+e3IO9wMXmQKQJdj3ArieW0hkmz9xTYIRm5vS494gi6Q==
     -----END CERTIFICATE-----
 
-Retrieve signing certificates: ``GET /OS-SIMPLE-CERT/certificates``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Retrieve signing certificates
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /OS-SIMPLE-CERT/certificates
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-SIMPLE-CERT/1.0/rel/certificates``

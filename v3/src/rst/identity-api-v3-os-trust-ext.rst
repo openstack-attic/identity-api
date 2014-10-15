@@ -130,8 +130,12 @@ the token represents the trustee impersonating the trustor.
 API
 ---
 
-Consuming a trust with: ``POST /auth/tokens``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Consuming a trust
+~~~~~~~~~~~~~~~~~
+
+::
+
+    POST /auth/tokens
 
 Consuming a trust effectively assumes the scope as delegated in the
 trust. No other scope attributes may be specified.
@@ -217,8 +221,12 @@ the ``id`` of the trust, the ``impersonation`` flag, the
         }
     }
 
-Create trust: ``POST /OS-TRUST/trusts``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create trust
+~~~~~~~~~~~~
+
+::
+
+    POST /OS-TRUST/trusts
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trusts``
@@ -277,8 +285,12 @@ Response:
         }
     }
 
-List trusts: ``GET /OS-TRUST/trusts``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List trusts
+~~~~~~~~~~~
+
+::
+
+    GET /OS-TRUST/trusts
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trusts``
@@ -391,8 +403,12 @@ Response:
         ]
     }
 
-Get trust: ``GET /OS-TRUST/trusts/{trust_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get trust
+~~~~~~~~~
+
+::
+
+    GET /OS-TRUST/trusts/{trust_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trust``
@@ -431,8 +447,12 @@ Response:
         }
     }
 
-Delete trust: ``DELETE /OS-TRUST/trusts/{trust_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete trust
+~~~~~~~~~~~~
+
+::
+
+    DELETE /OS-TRUST/trusts/{trust_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trust``
@@ -443,8 +463,12 @@ Response:
 
     Status: 204 No Content
 
-List roles delegated by a trust: ``GET /OS-TRUST/trusts/{trust_id}/roles``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List roles delegated by a trust
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    GET /OS-TRUST/trusts/{trust_id}/roles
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trust_roles``
@@ -474,8 +498,12 @@ Response:
         ]
     }
 
-Check if role is delegated by a trust: ``HEAD /OS-TRUST/trusts/{trust_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check if role is delegated by a trust
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    HEAD /OS-TRUST/trusts/{trust_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trust_role``
@@ -486,8 +514,12 @@ Response:
 
     Status: 200 OK
 
-Get role delegated by a trust: ``GET /OS-TRUST/trusts/{trust_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get role delegated by a trust
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    GET /OS-TRUST/trusts/{trust_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-TRUST/1.0/rel/trust_role``

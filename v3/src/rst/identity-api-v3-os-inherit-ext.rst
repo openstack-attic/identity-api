@@ -9,10 +9,12 @@ API
 
 The following additional APIs are supported by this extension:
 
-Assign role to user on projects owned by a domain:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Assign role to user on projects owned by a domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``PUT /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects``
+::
+
+    PUT /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-INHERIT/1.0/rel/domain_user_role_inherited_to_projects``
@@ -27,10 +29,12 @@ Response:
 
     Status: 204 No Content
 
-Assign role to group on projects owned by a domain:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Assign role to group on projects owned by a domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``PUT /OS-INHERIT/domains/{domain_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects``
+::
+
+    PUT /OS-INHERIT/domains/{domain_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects
 
 Relationship:
 ``http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_group_role_inherited_to_projects``
@@ -45,10 +49,12 @@ Response:
 
     Status: 204 No Content
 
-List user's inherited project roles on a domain:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List user's inherited project roles on a domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``GET /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/inherited_to_projects``
+::
+
+    GET /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/inherited_to_projects
 
 Relationship:
 ``http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_user_roles_inherited_to_projects``
@@ -87,10 +93,12 @@ Response:
         }
     }
 
-List group's inherited project roles on domain:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List group's inherited project roles on domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``GET /OS-INHERIT/domains/{domain_id}/groups/{group_id}/roles/inherited_to_projects``
+::
+
+    GET /OS-INHERIT/domains/{domain_id}/groups/{group_id}/roles/inherited_to_projects
 
 Relationship:
 ``'http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_group_roles_inherited_to_projects``
@@ -129,10 +137,12 @@ Response:
         }
     }
 
-Check if user has an inherited project role on domain:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check if user has an inherited project role on domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``HEAD /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects``
+::
+
+    HEAD /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-INHERIT/1.0/rel/domain_user_role_inherited_to_projects``
@@ -143,10 +153,12 @@ Response:
 
     Status: 204 No Content
 
-Check if group has an inherited project role on domain:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check if group has an inherited project role on domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``HEAD /OS-INHERIT/domains/{domain_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects``
+::
+
+    HEAD /OS-INHERIT/domains/{domain_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects
 
 Relationship:
 ``http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_group_role_inherited_to_projects``
@@ -157,10 +169,12 @@ Response:
 
     Status: 204 No Content
 
-Revoke an inherited project role from user on domain:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Revoke an inherited project role from user on domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``DELETE /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects``
+::
+
+    DELETE /OS-INHERIT/domains/{domain_id}/users/{user_id}/roles/{role_id}/inherited_to_projects
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-INHERIT/1.0/rel/domain_user_role_inherited_to_projects``
@@ -171,10 +185,12 @@ Response:
 
     Status: 204 No Content
 
-Revoke an inherited project role from group on domain:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Revoke an inherited project role from group on domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``DELETE /OS-INHERIT/domains/{domain_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects``
+::
+
+    DELETE /OS-INHERIT/domains/{domain_id}/groups/{group_id}/roles/{role_id}/inherited_to_projects
 
 Relationship:
 ``http://docs.openstack.org/identity/rel/v3/ext/OS-INHERIT/1.0/domain_group_role_inherited_to_projects``
@@ -190,8 +206,12 @@ Modified APIs
 
 The following APIs are modified by this extension.
 
-List effective role assignments: ``GET /role_assignments``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List effective role assignments
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /role_assignments
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/role_assignments``

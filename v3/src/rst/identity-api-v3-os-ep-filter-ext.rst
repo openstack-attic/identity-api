@@ -58,8 +58,12 @@ If a valid X-Auth-Token token in not present in the HTTP header and/or
 the user does not have the right authorization a HTTP 401 Unauthorized
 is returned.
 
-Create Association: ``PUT /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create Association
+^^^^^^^^^^^^^^^^^^
+
+::
+
+    PUT /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoint``
@@ -73,8 +77,12 @@ Response:
 
     Status: 204 No Content
 
-Check Association: ``HEAD /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check Association
+^^^^^^^^^^^^^^^^^
+
+::
+
+    HEAD /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoint``
@@ -88,8 +96,12 @@ Response:
 
     Status: 204 No Content
 
-List Associations for Project: ``GET /OS-EP-FILTER/projects/{project_id}/endpoints``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List Associations for Project
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /OS-EP-FILTER/projects/{project_id}/endpoints
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoints``
@@ -132,8 +144,12 @@ Response:
         }
     }
 
-Delete Association: ``DELETE /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete Association
+^^^^^^^^^^^^^^^^^^
+
+::
+
+    DELETE /OS-EP-FILTER/projects/{project_id}/endpoints/{endpoint_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoint``
@@ -147,8 +163,12 @@ Response:
 
     Status: 204 No Content
 
-Get projects associated with endpoint: ``GET /OS-EP-FILTER/endpoints/{endpoint_id}/projects``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get projects associated with endpoint
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /OS-EP-FILTER/endpoints/{endpoint_id}/projects
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_projects``
@@ -218,8 +238,12 @@ Optional attributes:
 
 User-facing description of the service.
 
-Create Endpoint Group Filter: ``POST /OS-EP-FILTER/endpoint_groups``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create Endpoint Group Filter
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    POST /OS-EP-FILTER/endpoint_groups
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_groups``
@@ -260,8 +284,12 @@ Response:
         }
     }
 
-Get Endpoint Group: ``GET /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get Endpoint Group
+^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group``
@@ -287,8 +315,12 @@ Response:
         }
     }
 
-Check Endpoint Group: ``HEAD /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check Endpoint Group
+^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    HEAD /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group``
@@ -299,8 +331,12 @@ Response:
 
     Status: 200 OK
 
-Update Endpoint Group: ``PATCH /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Update Endpoint Group
+^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    PATCH /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group``
@@ -345,8 +381,12 @@ Response:
         }
     }
 
-Remove Endpoint Group: ``DELETE /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Remove Endpoint Group
+^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    DELETE /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group``
@@ -357,8 +397,12 @@ Response:
 
     Status: 204 No Content
 
-List All Endpoint Groups: ``GET /OS-EP-FILTER/endpoint_groups``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List All Endpoint Groups
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /OS-EP-FILTER/endpoint_groups
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_groups``
@@ -406,8 +450,12 @@ Response:
         }
     }
 
-List Endpoint Groups Associated with Project: ``GET /OS-EP-FILTER/endpoint_groups/projects/{project_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List Endpoint Groups Associated with Project
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /OS-EP-FILTER/endpoint_groups/projects/{project_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/project_endpoint_groups``
@@ -445,8 +493,12 @@ Response:
 Project to Endpoint Group Relationship
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Create Endpoint Group to Project Association: ``PUT /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create Endpoint Group to Project Association
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    PUT /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_project``
@@ -457,8 +509,12 @@ Response:
 
     Status: 204 No Content
 
-Get Endpoint Group to Project Association: ``GET /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get Endpoint Group to Project Association
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_project``
@@ -482,8 +538,12 @@ Response:
         }
     }
 
-Check Endpoint Group to Project Association: ``HEAD /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check Endpoint Group to Project Association
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    HEAD /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_project``
@@ -494,8 +554,12 @@ Response:
 
     Status: 200 OK
 
-Delete Endpoint Group to Project Association: ``DELETE /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete Endpoint Group to Project Association
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    DELETE /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects/{project_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_project``
@@ -506,8 +570,12 @@ Response:
 
     Status: 204 No Content
 
-List Projects Associated with Endpoint Group: ``GET /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List Projects Associated with Endpoint Group
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/projects
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_projects``
@@ -548,8 +616,12 @@ Response:
         }
     }
 
-List Service Endpoints Associated with Endpoint Group: ``GET /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/endpoints``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List Service Endpoints Associated with Endpoint Group
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /OS-EP-FILTER/endpoint_groups/{endpoint_group_id}/endpoints
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/ext/OS-EP-FILTER/1.0/rel/endpoint_group_endpoints``

@@ -1389,8 +1389,12 @@ Core API
 Versions
 ~~~~~~~~
 
-Describe API version: ``GET /v3/``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Describe API version
+^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /v3/
 
 The fields in the ``version`` object are as follows:
 
@@ -1466,8 +1470,12 @@ Use cases:
    user).
 -  Given a valid token, force it's immediate revocation.
 
-Authenticate: ``POST /auth/tokens``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Authenticate
+^^^^^^^^^^^^
+
+::
+
+    POST /auth/tokens
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/auth_tokens``
@@ -1507,7 +1515,7 @@ three arbitrary authentication methods:
     }
 
 The ``password`` authentication method
-                                      
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To authenticate by ``password``, the user must be uniquely identified in
 addition to providing a ``password`` attribute.
@@ -1583,7 +1591,7 @@ the ``user``. Example request:
     }
 
 The ``token`` authentication method
-                                   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If the authenticating user is already in possession of a valid token,
 then that token is sufficient to identity the user. This method is
@@ -1606,7 +1614,7 @@ scope.
     }
 
 Scope: ``scope``
-''''''''''''''''
+^^^^^^^^^^^^^^^^
 
 An authorization scope, including either a ``project`` or ``domain``,
 can be optionally specified as part of the request. If both a ``domain``
@@ -1761,8 +1769,12 @@ then a token will be issued without an explicit scope of authorization.
 invalid, a token will be issued without an explicit scope of
 authorization.
 
-Catalog Opt-Out: ``POST /v3/auth/tokens?nocatalog``
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+Catalog Opt-Out
+^^^^^^^^^^^^^^^
+
+::
+
+    POST /v3/auth/tokens?nocatalog
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/auth_tokens``
@@ -2016,8 +2028,12 @@ For example:
         }
     }
 
-Validate token and get service catalog: ``GET /auth/tokens``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Validate token and get service catalog
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /auth/tokens
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/auth_tokens``
@@ -2038,8 +2054,12 @@ No request body is required.
 The Identity service will return the exact same response as when the
 subject token was issued by ``POST /auth/tokens``.
 
-Validate token: ``GET /auth/tokens?nocatalog``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Validate token
+^^^^^^^^^^^^^^
+
+::
+
+    GET /auth/tokens?nocatalog
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/auth_tokens``
@@ -2053,8 +2073,12 @@ catalog in the response. The request has the same format as
 The Identity service will return the exact same response as when the
 subject token was issued by ``POST /auth/tokens?nocatalog``.
 
-Check token: ``HEAD /auth/tokens``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check token
+^^^^^^^^^^^
+
+::
+
+    HEAD /auth/tokens
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/auth_tokens``
@@ -2068,8 +2092,12 @@ Response:
 
     Status: 200 OK
 
-Revoke token: ``DELETE /auth/tokens``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Revoke token
+^^^^^^^^^^^^
+
+::
+
+    DELETE /auth/tokens
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/auth_tokens``
@@ -2095,8 +2123,12 @@ The key use cases we need to cover:
 -  Retrieve available scoping targets based upon the current
    authorization.
 
-Get service catalog: ``GET /auth/catalog``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get service catalog
+^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /auth/catalog
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/auth_catalog``
@@ -2151,8 +2183,12 @@ Response:
         }
     }
 
-Get available project scopes: ``GET /auth/projects``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get available project scopes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /auth/projects
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/auth_projects``
@@ -2199,8 +2235,12 @@ Response:
         }
     }
 
-Get available domain scopes: ``GET /auth/domains``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get available domain scopes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /auth/domains
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/auth_domains``
@@ -2254,8 +2294,12 @@ The key use cases we need to cover:
 -  CRUD for regions, services and endpoints
 -  Retrieving an endpoint URL by service, region, and interface
 
-List regions: ``GET /regions``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List regions
+^^^^^^^^^^^^
+
+::
+
+    GET /regions
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/regions``
@@ -2291,8 +2335,12 @@ Response:
         }
     }
 
-Get region: ``GET /regions/{region_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get region
+^^^^^^^^^^
+
+::
+
+    GET /regions/{region_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/region``
@@ -2316,8 +2364,12 @@ Response:
         }
     }
 
-Create region: ``POST /regions``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create region
+^^^^^^^^^^^^^
+
+::
+
+    POST /regions
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/regions``
@@ -2358,8 +2410,12 @@ Response:
 -  Adding a region with a parent\_region\_id that would form a circular
    relationship should fail with a ``409 Conflict``
 
-Create region with specific ID: ``PUT /regions/{user_defined_region_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create region with specific ID
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    PUT /regions/{user_defined_region_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/region``
@@ -2404,8 +2460,12 @@ Response:
 -  Adding a region with a parent\_region\_id that would form a circular
    relationship should fail with a ``409 Conflict``
 
-Update region: ``PATCH /regions/{region_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Update region
+^^^^^^^^^^^^^
+
+::
+
+    PATCH /regions/{region_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/region``
@@ -2444,8 +2504,12 @@ Response:
 -  Updating a region with a parent\_region\_id that does not exist
    should fail with a ``404 Not Found``
 
-Delete region: ``DELETE /regions/{region_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete region
+^^^^^^^^^^^^^
+
+::
+
+    DELETE /regions/{region_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/region``
@@ -2459,8 +2523,12 @@ Response:
 
     Status: 204 No Content
 
-List services: ``GET /services``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List services
+^^^^^^^^^^^^^
+
+::
+
+    GET /services
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/services``
@@ -2504,8 +2572,12 @@ Response:
         }
     }
 
-Get service: ``GET /services/{service_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get service
+^^^^^^^^^^^
+
+::
+
+    GET /services/{service_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/service``
@@ -2528,8 +2600,12 @@ Response:
         }
     }
 
-Create service: ``POST /services``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create service
+^^^^^^^^^^^^^^
+
+::
+
+    POST /services
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/services``
@@ -2564,8 +2640,12 @@ Response:
         }
     }
 
-Update service: ``PATCH /services/{service_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Update service
+^^^^^^^^^^^^^^
+
+::
+
+    PATCH /services/{service_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/service``
@@ -2591,8 +2671,12 @@ Response:
         }
     }
 
-Delete service: ``DELETE /services/{service_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete service
+^^^^^^^^^^^^^^
+
+::
+
+    DELETE /services/{service_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/service``
@@ -2609,8 +2693,12 @@ Response:
 Endpoints
 ~~~~~~~~~
 
-List endpoints: ``GET /endpoints``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List endpoints
+^^^^^^^^^^^^^^
+
+::
+
+    GET /endpoints
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/endpoints``
@@ -2658,8 +2746,12 @@ Response:
         }
     }
 
-Get endpoint: ``GET /endpoints/{endpoint_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get endpoint
+^^^^^^^^^^^^
+
+::
+
+    GET /endpoints/{endpoint_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/endpoint``
@@ -2684,8 +2776,12 @@ Response:
         }
     }
 
-Create endpoint: ``POST /endpoints``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create endpoint
+^^^^^^^^^^^^^^^
+
+::
+
+    POST /endpoints
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/endpoints``
@@ -2723,8 +2819,12 @@ Response:
         }
     }
 
-Update endpoint: ``PATCH /endpoints/{endpoint_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Update endpoint
+^^^^^^^^^^^^^^^
+
+::
+
+    PATCH /endpoints/{endpoint_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/endpoint``
@@ -2752,8 +2852,12 @@ Response:
         }
     }
 
-Delete endpoint: ``DELETE /endpoints/{endpoint_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete endpoint
+^^^^^^^^^^^^^^^
+
+::
+
+    DELETE /endpoints/{endpoint_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/endpoint``
@@ -2767,8 +2871,12 @@ Response:
 Domains
 ~~~~~~~
 
-List domains: ``GET /domains``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List domains
+^^^^^^^^^^^^
+
+::
+
+    GET /domains
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/domains``
@@ -2812,8 +2920,12 @@ Response:
         }
     }
 
-Get domain: ``GET /domains/{domain_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get domain
+^^^^^^^^^^
+
+::
+
+    GET /domains/{domain_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/domain``
@@ -2836,8 +2948,12 @@ Response:
         }
     }
 
-Create domain: ``POST /domains``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create domain
+^^^^^^^^^^^^^
+
+::
+
+    POST /domains
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/domains``
@@ -2872,8 +2988,12 @@ Response:
         }
     }
 
-Update domain: ``PATCH /domains/{domain_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Update domain
+^^^^^^^^^^^^^
+
+::
+
+    PATCH /domains/{domain_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/domain``
@@ -2909,8 +3029,12 @@ Response:
         }
     }
 
-Delete domain: ``DELETE /domains/{domain_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete domain
+^^^^^^^^^^^^^
+
+::
+
+    DELETE /domains/{domain_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/domain``
@@ -2934,8 +3058,12 @@ Response:
 Projects
 ~~~~~~~~
 
-List projects: ``GET /projects``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List projects
+^^^^^^^^^^^^^
+
+::
+
+    GET /projects
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/projects``
@@ -2980,8 +3108,12 @@ Response:
         }
     }
 
-Get project: ``GET /projects/{project_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get project
+^^^^^^^^^^^
+
+::
+
+    GET /projects/{project_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/project``
@@ -3004,8 +3136,12 @@ Response:
         }
     }
 
-Create project: ``POST /projects``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create project
+^^^^^^^^^^^^^^
+
+::
+
+    POST /projects
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/projects``
@@ -3042,8 +3178,12 @@ Response:
         }
     }
 
-Update project: ``PATCH /projects/{project_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Update project
+^^^^^^^^^^^^^^
+
+::
+
+    PATCH /projects/{project_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/project``
@@ -3081,8 +3221,12 @@ Response:
         }
     }
 
-Delete project: ``DELETE /projects/{project_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete project
+^^^^^^^^^^^^^^
+
+::
+
+    DELETE /projects/{project_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/project``
@@ -3094,8 +3238,12 @@ Relationship:
 Users
 ~~~~~
 
-List users: ``GET /users``
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+List users
+^^^^^^^^^^
+
+::
+
+    GET /users
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/users``
@@ -3146,8 +3294,12 @@ Response:
         }
     }
 
-Get user: ``GET /users/{user_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get user
+^^^^^^^^
+
+::
+
+    GET /users/{user_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/user``
@@ -3173,8 +3325,12 @@ Response:
         }
     }
 
-List user projects: ``GET /users/{user_id}/projects``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List user projects
+^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /users/{user_id}/projects
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/user_projects``
@@ -3218,8 +3374,12 @@ Response:
         }
     }
 
-List groups of which a user is a member: ``GET /users/{user_id}/groups``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List groups of which a user is a member
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /users/{user_id}/groups
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/user_groups``
@@ -3262,8 +3422,12 @@ Response:
         }
     }
 
-Create user: ``POST /users``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create user
+^^^^^^^^^^^
+
+::
+
+    POST /users
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/users``
@@ -3305,8 +3469,12 @@ Response:
         }
     }
 
-Update user: ``PATCH /users/{user_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Update user
+^^^^^^^^^^^
+
+::
+
+    PATCH /users/{user_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/user``
@@ -3338,8 +3506,12 @@ Response:
         }
     }
 
-Delete user: ``DELETE /users/{user_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete user
+^^^^^^^^^^^
+
+::
+
+    DELETE /users/{user_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/user``
@@ -3350,8 +3522,12 @@ Response:
 
     Status: 204 No Content
 
-Change user password: ``POST /users/{user_id}/password``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Change user password
+^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    POST /users/{user_id}/password
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/user_change_password``
@@ -3376,8 +3552,12 @@ Response:
 Groups
 ~~~~~~
 
-Create group: ``POST /groups``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create group
+^^^^^^^^^^^^
+
+::
+
+    POST /groups
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/groups``
@@ -3411,8 +3591,12 @@ Response:
         }
     }
 
-List groups: ``GET /groups``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List groups
+^^^^^^^^^^^
+
+::
+
+    GET /groups
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/groups``
@@ -3465,8 +3649,12 @@ Response:
         }
     }
 
-Get group: ``GET /groups/{group_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get group
+^^^^^^^^^
+
+::
+
+    GET /groups/{group_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/group``
@@ -3488,8 +3676,12 @@ Response:
         }
     }
 
-List users who are members of a group: ``GET /groups/{group_id}/users``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List users who are members of a group
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /groups/{group_id}/users
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/group_users``
@@ -3539,8 +3731,12 @@ Response:
         }
     }
 
-Update group: ``PATCH /groups/{group_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Update group
+^^^^^^^^^^^^
+
+::
+
+    PATCH /groups/{group_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/group``
@@ -3567,8 +3763,12 @@ Response:
         }
     }
 
-Delete group: ``DELETE /groups/{group_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete group
+^^^^^^^^^^^^
+
+::
+
+    DELETE /groups/{group_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/group``
@@ -3579,8 +3779,12 @@ Response:
 
     Status: 204 No Content
 
-Add user to group: ``PUT /groups/{group_id}/users/{user_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Add user to group
+^^^^^^^^^^^^^^^^^
+
+::
+
+    PUT /groups/{group_id}/users/{user_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/group_user``
@@ -3591,8 +3795,12 @@ Response:
 
     Status: 204 No Content
 
-Remove user from group: ``DELETE /groups/{group_id}/users/{user_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Remove user from group
+^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    DELETE /groups/{group_id}/users/{user_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/group_user``
@@ -3603,8 +3811,12 @@ Response:
 
     Status: 204 No Content
 
-Check if user is member of group: ``HEAD /groups/{group_id}/users/{user_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check if user is member of group
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    HEAD /groups/{group_id}/users/{user_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/group_user``
@@ -3622,8 +3834,12 @@ The key use cases we need to cover:
 
 -  CRUD on a credential
 
-Create credential: ``POST /credentials``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create credential
+^^^^^^^^^^^^^^^^^
+
+::
+
+    POST /credentials
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/credentials``
@@ -3665,8 +3881,12 @@ Response:
         }
     }
 
-List credentials: ``GET /credentials``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List credentials
+^^^^^^^^^^^^^^^^
+
+::
+
+    GET /credentials
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/credentials``
@@ -3711,8 +3931,12 @@ Response:
         }
     }
 
-Get credential: ``GET /credentials/{credential_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get credential
+^^^^^^^^^^^^^^
+
+::
+
+    GET /credentials/{credential_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/credential``
@@ -3736,8 +3960,12 @@ Response:
         }
     }
 
-Update credential: ``PATCH /credentials/{credential_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Update credential
+^^^^^^^^^^^^^^^^^
+
+::
+
+    PATCH /credentials/{credential_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/credential``
@@ -3764,8 +3992,12 @@ Response:
         }
     }
 
-Delete credential: ``DELETE /credentials/{credential_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete credential
+^^^^^^^^^^^^^^^^^
+
+::
+
+    DELETE /credentials/{credential_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/credential``
@@ -3784,8 +4016,12 @@ The key use cases we need to cover:
 -  CRUD on a role
 -  Associating a role with a project or domain
 
-Create role: ``POST /roles``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create role
+^^^^^^^^^^^
+
+::
+
+    POST /roles
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/roles``
@@ -3816,8 +4052,12 @@ Response:
         }
     }
 
-List roles: ``GET /roles``
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+List roles
+^^^^^^^^^^
+
+::
+
+    GET /roles
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/roles``
@@ -3856,8 +4096,12 @@ Response:
         }
     }
 
-Get role: ``GET /roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get role
+^^^^^^^^
+
+::
+
+    GET /roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/role``
@@ -3878,8 +4122,12 @@ Response:
         }
     }
 
-Update role: ``PATCH /roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Update role
+^^^^^^^^^^^
+
+::
+
+    PATCH /roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/role``
@@ -3903,8 +4151,12 @@ Response:
         }
     }
 
-Delete role: ``DELETE /roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete role
+^^^^^^^^^^^
+
+::
+
+    DELETE /roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/role``
@@ -3915,8 +4167,12 @@ Response:
 
     Status: 204 No Content
 
-Grant role to user on domain: ``PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Grant role to user on domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    PUT /domains/{domain_id}/users/{user_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/domain_user_role``
@@ -3927,8 +4183,12 @@ Response:
 
     Status: 204 No Content
 
-Grant role to group on domain: ``PUT /domains/{domain_id}/groups/{group_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Grant role to group on domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    PUT /domains/{domain_id}/groups/{group_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/domain_group_role``
@@ -3939,8 +4199,12 @@ Response:
 
     Status: 204 No Content
 
-List user's roles on domain: ``GET /domains/{domain_id}/users/{user_id}/roles``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List user's roles on domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /domains/{domain_id}/users/{user_id}/roles
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/domain_user_roles``
@@ -3975,8 +4239,12 @@ Response:
         }
     }
 
-List group's roles on domain: ``GET /domains/{domain_id}/groups/{group_id}/roles``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List group's roles on domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /domains/{domain_id}/groups/{group_id}/roles
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/domain_group_roles``
@@ -4011,8 +4279,12 @@ Response:
         }
     }
 
-Check if user has role on domain: ``HEAD /domains/{domain_id}/users/{user_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check if user has role on domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    HEAD /domains/{domain_id}/users/{user_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/domain_user_role``
@@ -4023,8 +4295,12 @@ Response:
 
     Status: 204 No Content
 
-Check if group has role on domain: ``HEAD /domains/{domain_id}/groups/{group_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check if group has role on domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    HEAD /domains/{domain_id}/groups/{group_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/domain_group_role``
@@ -4035,8 +4311,12 @@ Response:
 
     Status: 204 No Content
 
-Revoke role from user on domain: ``DELETE /domains/{domain_id}/users/{user_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Revoke role from user on domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    DELETE /domains/{domain_id}/users/{user_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/domain_user_role``
@@ -4047,8 +4327,12 @@ Response:
 
     Status: 204 No Content
 
-Revoke role from group on domain: ``DELETE /domains/{domain_id}/groups/{group_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Revoke role from group on domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    DELETE /domains/{domain_id}/groups/{group_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/domain_group_role``
@@ -4059,8 +4343,12 @@ Response:
 
     Status: 204 No Content
 
-Grant role to user on project: ``PUT /projects/{project_id}/users/{user_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Grant role to user on project
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    PUT /projects/{project_id}/users/{user_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/project_user_role``
@@ -4071,8 +4359,12 @@ Response:
 
     Status: 204 No Content
 
-Grant role to group on project: ``PUT /projects/{project_id}/groups/{group_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Grant role to group on project
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    PUT /projects/{project_id}/groups/{group_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/project_group_role``
@@ -4083,8 +4375,12 @@ Response:
 
     Status: 204 No Content
 
-List user's roles on project: ``GET /projects/{project_id}/users/{user_id}/roles``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List user's roles on project
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /projects/{project_id}/users/{user_id}/roles
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/project_user_roles``
@@ -4119,8 +4415,12 @@ Response:
         }
     }
 
-List group's roles on project: ``GET /projects/{project_id}/groups/{group_id}/roles``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List group's roles on project
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /projects/{project_id}/groups/{group_id}/roles
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/project_group_roles``
@@ -4155,8 +4455,12 @@ Response:
         }
     }
 
-Check if user has role on project: ``HEAD /projects/{project_id}/users/{user_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check if user has role on project
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    HEAD /projects/{project_id}/users/{user_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/project_user_role``
@@ -4167,8 +4471,12 @@ Response:
 
     Status: 204 No Content
 
-Check if group has role on project: ``HEAD /projects/{project_id}/groups/{group_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check if group has role on project
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    HEAD /projects/{project_id}/groups/{group_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/project_group_role``
@@ -4179,8 +4487,12 @@ Response:
 
     Status: 204 No Content
 
-Revoke role from user on project: ``DELETE /projects/{project_id}/users/{user_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Revoke role from user on project
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    DELETE /projects/{project_id}/users/{user_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/project_user_role``
@@ -4191,8 +4503,12 @@ Response:
 
     Status: 204 No Content
 
-Revoke role from group on project: ``DELETE /projects/{project_id}/groups/{group_id}/roles/{role_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Revoke role from group on project
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    DELETE /projects/{project_id}/groups/{group_id}/roles/{role_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/project_group_role``
@@ -4203,8 +4519,12 @@ Response:
 
     Status: 204 No Content
 
-List effective role assignments: ``GET /role_assignments``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List effective role assignments
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    GET /role_assignments
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/role_assignments``
@@ -4367,8 +4687,12 @@ The key use cases we need to cover:
 
 -  CRUD on a policy
 
-Create policy: ``POST /policies``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create policy
+^^^^^^^^^^^^^
+
+::
+
+    POST /policies
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/policies``
@@ -4399,8 +4723,12 @@ Response:
         }
     }
 
-List policies: ``GET /policies``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+List policies
+^^^^^^^^^^^^^
+
+::
+
+    GET /policies
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/policies``
@@ -4441,8 +4769,12 @@ Response:
         }
     }
 
-Get policy: ``GET /policies/{policy_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get policy
+^^^^^^^^^^
+
+::
+
+    GET /policies/{policy_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/policy``
@@ -4464,8 +4796,12 @@ Response:
         }
     }
 
-Update policy: ``PATCH /policies/{policy_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Update policy
+^^^^^^^^^^^^^
+
+::
+
+    PATCH /policies/{policy_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/policy``
@@ -4490,8 +4826,12 @@ Response:
         }
     }
 
-Delete policy: ``DELETE /policies/{policy_id}``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Delete policy
+^^^^^^^^^^^^^
+
+::
+
+    DELETE /policies/{policy_id}
 
 Relationship:
 ``http://docs.openstack.org/api/openstack-identity/3/rel/policy``
