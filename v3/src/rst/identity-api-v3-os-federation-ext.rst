@@ -1,67 +1,73 @@
 OpenStack Identity API v3 OS-FEDERATION Extension
 =================================================
 
-Provide the ability for users to manage Identity Providers (IdPs) and establish
-a set of rules to map federation protocol attributes to Identity API
-attributes. This extension requires v3.0+ of the Identity API.
+Provide the ability for users to manage Identity Providers (IdPs) and
+establish a set of rules to map federation protocol attributes to
+Identity API attributes. This extension requires v3.0+ of the Identity
+API.
 
 What's New in Version 1.1
 -------------------------
 
 These features are considered stable as of September 4th, 2014.
 
-- Introduced a mechanism to exchange an Identity Token for a SAML assertion.
-- Introduced a mechanism to retrieve Identity Provider Metadata.
+-  Introduced a mechanism to exchange an Identity Token for a SAML
+   assertion.
+-  Introduced a mechanism to retrieve Identity Provider Metadata.
 
 Definitions
 -----------
 
-- *Trusted Identity Provider*: An identity provider set up within the Identity
-   API that is trusted to provide authenticated user information.
-- *Service Provider*: A system entity that provides services to principals or
-  other system entities, in this case, the OpenStack Identity API is
-  the Service Provider.
-- *Attribute Mapping*: The user information passed by a federation protocol for
-  an already authenticated identity are called `attributes`. Those `attributes`
-  may not align 1:1 with the Identity API concepts. To help overcome such
-  mismatches, a mapping can be done either on the sending side (third party
-  identity provider), on the consuming side (Identity API service), or both.
+-  *Trusted Identity Provider*: An identity provider set up within the
+   Identity API that is trusted to provide authenticated user
+   information.
+-  *Service Provider*: A system entity that provides services to
+   principals or other system entities, in this case, the OpenStack
+   Identity API is the Service Provider.
+-  *Attribute Mapping*: The user information passed by a federation
+   protocol for an already authenticated identity are called
+   ``attributes``. Those ``attributes`` may not align 1:1 with the
+   Identity API concepts. To help overcome such mismatches, a mapping
+   can be done either on the sending side (third party identity
+   provider), on the consuming side (Identity API service), or both.
 
 What's New in Version 1.1
 -------------------------
 
-Corresponding to Identity API v3.3 release. These features are considered
-stable as of September 4th, 2014.
+Corresponding to Identity API v3.3 release. These features are
+considered stable as of September 4th, 2014.
 
-- Deprecate list projects and domains in favour of core functionality available
-  in Identity API v3.3.
+-  Deprecate list projects and domains in favour of core functionality
+   available in Identity API v3.3.
 
 API Resources
 -------------
 
-### Identity Providers: `/OS-FEDERATION/identity_providers`
+Identity Providers: ``/OS-FEDERATION/identity_providers``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-An Identity Provider is a third party service that is trusted by the Identity
-API to authenticate identities.
+An Identity Provider is a third party service that is trusted by the
+Identity API to authenticate identities.
 
 Optional attributes:
 
-- `description` (string)
+-  ``description`` (string)
 
-  Describes the identity provider.
+Describes the identity provider.
 
-  If a value is not specified by the client, the service may default this value
-  to either an empty string or `null`.
+If a value is not specified by the client, the service may default this
+value to either an empty string or ``null``.
 
-- `enabled` (boolean)
+-  ``enabled`` (boolean)
 
-  Indicates whether this identity provider should accept federated
-  authentication requests.
+Indicates whether this identity provider should accept federated
+authentication requests.
 
-  If a value is not specified by the client, the service may default this to
-  either `true` or `false`.
+If a value is not specified by the client, the service may default this
+to either ``true`` or ``false``.
 
-### Protocols: `/OS-FEDERATION/identity_providers/{idp_id}/protocols`
+Protocols: ``/OS-FEDERATION/identity_providers/{idp_id}/protocols``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A protocol entry contains information that dictates which mapping rules
 to use for a given incoming request. An IdP may have multiple supported
@@ -69,100 +75,110 @@ protocols.
 
 Required attributes:
 
-- `mapping_id` (string)
+-  ``mapping_id`` (string)
 
-  Indicates which mapping should be used to process federated authentication
-  requests.
+Indicates which mapping should be used to process federated
+authentication requests.
 
-### Mappings: `/OS-FEDERATION/mappings`
+Mappings: ``/OS-FEDERATION/mappings``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A `mapping` is a set of rules to map federation protocol attributes to Identity
-API objects. An Identity Provider can have a single `mapping` specified per
-protocol. A mapping is simply a list of `rules`. The only Identity API objects
-that will support mapping are: `group`.
+A ``mapping`` is a set of rules to map federation protocol attributes to
+Identity API objects. An Identity Provider can have a single ``mapping``
+specified per protocol. A mapping is simply a list of ``rules``. The
+only Identity API objects that will support mapping are: ``group``.
 
 Required attributes::
 
-- `rules` (list of objects)
+-  ``rules`` (list of objects)
 
-  Each object contains a rule for mapping attributes to Identity API concepts.
-  A rule contains a `remote` attribute description and the destination `local`
-  attribute.
+Each object contains a rule for mapping attributes to Identity API
+concepts. A rule contains a ``remote`` attribute description and the
+destination ``local`` attribute.
 
-  - `local` (list of objects)
+-  ``local`` (list of objects)
 
-    References a local Identity API resource, such as a `group` or `user` to
-    which the remote attributes will be mapped.
+   References a local Identity API resource, such as a ``group`` or
+   ``user`` to which the remote attributes will be mapped.
 
-    Each object has one of two structures, as follows.
+   Each object has one of two structures, as follows.
 
-    To map a remote attribute value directly to a local attribute, identify the
-    local resource type and attribute:
+   To map a remote attribute value directly to a local attribute,
+   identify the local resource type and attribute:
 
-        {
-            "user": {
-                "name": "{0}"
-            }
-        }
+   ::
 
-    Note that at least one rule must have a `user` attribute. If the `user`
-    attribute is missing when processing an assertion, the action returns
-    an HTTP 401 Unauthorized error.
+       {
+           "user": {
+               "name": "{0}"
+           }
+       }
 
-    For attribute type and value mapping, identify the local
-    resource type, attribute, and value:
+   Note that at least one rule must have a ``user`` attribute. If the
+   ``user`` attribute is missing when processing an assertion, the
+   action returns an HTTP 401 Unauthorized error.
 
-        {
-            "group": {
-                "id": "89678b"
-            }
-        }
+   For attribute type and value mapping, identify the local resource
+   type, attribute, and value:
 
-    This assigns authorization attributes, by way of role assignments on the
-    specified group, to ephemeral users.
+   ::
 
-  - `remote` (list of objects)
+       {
+           "group": {
+               "id": "89678b"
+           }
+       }
 
-    At least one object must be included.
+   This assigns authorization attributes, by way of role assignments on
+   the specified group, to ephemeral users.
 
-    If more than one object is included, the local attribute is applied only if
-    all remote attributes match.
+-  ``remote`` (list of objects)
 
-    The value identified by `type` is always passed through unless a constraint
-    is specified using either `any_one_of` or `not_one_of`.
+   At least one object must be included.
 
-    - `type` (string)
+   If more than one object is included, the local attribute is applied
+   only if all remote attributes match.
 
-      This represents an assertion type keyword.
+   The value identified by ``type`` is always passed through unless a
+   constraint is specified using either ``any_one_of`` or
+   ``not_one_of``.
 
-    - `any_one_of` (list of strings)
+   -  ``type`` (string)
 
-      This is mutually exclusive with `not_any_of`.
+   This represents an assertion type keyword.
 
-      The rule is matched only if any of the specified strings appear in the
-      remote attribute `type`.
+   -  ``any_one_of`` (list of strings)
 
-    - `not_any_of` (list of strings)
+   This is mutually exclusive with ``not_any_of``.
 
-      This is mutually exclusive with `any_one_of`.
+   The rule is matched only if any of the specified strings appear in
+   the remote attribute ``type``.
 
-      The rule is not matched if any of the specified strings appear in the
-      remote attribute `type`.
+   -  ``not_any_of`` (list of strings)
 
-    - `regex` (boolean)
+   This is mutually exclusive with ``any_one_of``.
 
-      If `true`, then each string will be evaluated as a [regular
-      expression](http://docs.python.org/2/library/re.html) search against the
-      remote attribute `type`.
+   The rule is not matched if any of the specified strings appear in the
+   remote attribute ``type``.
+
+   -  ``regex`` (boolean)
+
+   If ``true``, then each string will be evaluated as a `regular
+   expression <http://docs.python.org/2/library/re.html>`__ search
+   against the remote attribute ``type``.
 
 Identity Provider API
 ---------------------
 
-### Register an Identity Provider: `PUT /OS-FEDERATION/identity_providers/{idp_id}`
+Register an Identity Provider: ``PUT /OS-FEDERATION/identity_providers/{idp_id}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider``
 
 Request:
+
+::
 
     {
         "identity_provider": {
@@ -172,6 +188,8 @@ Request:
     }
 
 Response:
+
+::
 
     Status: 201 Created
 
@@ -187,11 +205,15 @@ Response:
         }
     }
 
-### List identity providers: `GET /OS-FEDERATION/identity_providers`
+List identity providers: ``GET /OS-FEDERATION/identity_providers``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_providers`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_providers``
 
 Response:
+
+::
 
     Status: 200 OK
 
@@ -223,11 +245,15 @@ Response:
         }
     }
 
-### Get Identity provider: `GET /OS-FEDERATION/identity_providers/{idp_id}`
+Get Identity provider: ``GET /OS-FEDERATION/identity_providers/{idp_id}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider``
 
 Response:
+
+::
 
     Status: 200 OK
 
@@ -243,22 +269,30 @@ Response:
         }
     }
 
-### Delete identity provider: `DELETE /OS-FEDERATION/identity_providers/{idp_id}`
+Delete identity provider: ``DELETE /OS-FEDERATION/identity_providers/{idp_id}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider``
 
-When an identity provider is deleted, any tokens generated by that identity
-provider will be revoked.
+When an identity provider is deleted, any tokens generated by that
+identity provider will be revoked.
 
 Response:
 
+::
+
     Status: 204 No Content
 
-### Update identity provider: `PATCH /OS-FEDERATION/identity_providers/{idp_id}`
+Update identity provider: ``PATCH /OS-FEDERATION/identity_providers/{idp_id}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider``
 
 Request:
+
+::
 
     {
         "identity_provider": {
@@ -267,6 +301,8 @@ Request:
     }
 
 Response:
+
+::
 
     Status: 200 OK
 
@@ -282,14 +318,18 @@ Response:
         }
     }
 
-When an identity provider is disabled, any tokens generated by that identity
-provider will be revoked.
+When an identity provider is disabled, any tokens generated by that
+identity provider will be revoked.
 
-### Add a supported protocol and attribute mapping combination to an identity provider: `PUT /OS-FEDERATION/identity_providers/{idp_id}/protocols/{protocol_id}`
+Add a supported protocol and attribute mapping combination to an identity provider: ``PUT /OS-FEDERATION/identity_providers/{idp_id}/protocols/{protocol_id}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider_protocol`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider_protocol``
 
 Request:
+
+::
 
     {
         "protocol": {
@@ -298,6 +338,8 @@ Request:
     }
 
 Response:
+
+::
 
     Status: 201 Created
 
@@ -312,11 +354,15 @@ Response:
         }
     }
 
-### List all supported protocol and attribute mapping combinations of an identity provider: `GET /OS-FEDERATION/identity_providers/{idp_id}/protocols`
+List all supported protocol and attribute mapping combinations of an identity provider: ``GET /OS-FEDERATION/identity_providers/{idp_id}/protocols``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider_protocols`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider_protocols``
 
 Response:
+
+::
 
     Status: 200 OK
 
@@ -338,11 +384,15 @@ Response:
         ]
     }
 
-### Get a supported protocol and attribute mapping combination for an identity provider: `GET /OS-FEDERATION/identity_providers/{idp_id}/protocols/{protocol_id}`
+Get a supported protocol and attribute mapping combination for an identity provider: ``GET /OS-FEDERATION/identity_providers/{idp_id}/protocols/{protocol_id}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider_protocol`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider_protocol``
 
 Response:
+
+::
 
     Status: 200 OK
 
@@ -357,11 +407,15 @@ Response:
         }
     }
 
-### Update the attribute mapping for an identity provider and protocol combination: `PATCH /OS-FEDERATION/identity_providers/{idp_id}/protocols/{protocol_id}`
+Update the attribute mapping for an identity provider and protocol combination: ``PATCH /OS-FEDERATION/identity_providers/{idp_id}/protocols/{protocol_id}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider_protocol`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider_protocol``
 
 Request:
+
+::
 
     {
         "protocol": {
@@ -371,6 +425,8 @@ Request:
 
 Response:
 
+::
+
     Status: 200 OK
 
      {
@@ -384,22 +440,30 @@ Response:
         }
     }
 
-### Delete a supported protocol and attribute mapping combination from an identity provider: `DELETE /OS-FEDERATION/identity_providers/{idp_id}/protocols/{protocol_id}`
+Delete a supported protocol and attribute mapping combination from an identity provider: ``DELETE /OS-FEDERATION/identity_providers/{idp_id}/protocols/{protocol_id}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider_protocol`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider_protocol``
 
 Response:
+
+::
 
     Status: 204 No Content
 
 Mapping API
 -----------
 
-### Create a mapping: `PUT /OS-FEDERATION/mappings/{mapping_id}`
+Create a mapping: ``PUT /OS-FEDERATION/mappings/{mapping_id}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/mapping`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/mapping``
 
 Request:
+
+::
 
     {
         "mapping": {
@@ -435,6 +499,8 @@ Request:
     }
 
 Response:
+
+::
 
     Status: 201 Created
 
@@ -475,11 +541,15 @@ Response:
         }
     }
 
-### Get a mapping: `GET /OS-FEDERATION/mappings/{mapping_id}`
+Get a mapping: ``GET /OS-FEDERATION/mappings/{mapping_id}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/mapping`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/mapping``
 
 Response:
+
+::
 
     Status: 200 OK
 
@@ -520,11 +590,15 @@ Response:
         }
     }
 
-### Update a mapping: `PATCH /OS-FEDERATION/mappings/{mapping_id}`
+Update a mapping: ``PATCH /OS-FEDERATION/mappings/{mapping_id}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/mapping`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/mapping``
 
 Request:
+
+::
 
     {
         "mapping": {
@@ -560,6 +634,8 @@ Request:
     }
 
 Response:
+
+::
 
     Status: 200 OK
 
@@ -600,11 +676,15 @@ Response:
         }
     }
 
-### List all mappings: `GET /OS-FEDERATION/mappings`
+List all mappings: ``GET /OS-FEDERATION/mappings``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/mappings`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/mappings``
 
 Response:
+
+::
 
     Status 200 OK
 
@@ -652,33 +732,41 @@ Response:
         ]
     }
 
-### Delete a mapping: `DELETE /OS-FEDERATION/mappings/{mapping_id}`
+Delete a mapping: ``DELETE /OS-FEDERATION/mappings/{mapping_id}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/mapping`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/mapping``
 
 Response:
+
+::
 
     Status: 204 No Content
 
 Listing projects and domains
 ----------------------------
 
-**Deprecated in v1.1**. This section is deprecated as the functionality is
-available in the core Identity API.
+**Deprecated in v1.1**. This section is deprecated as the functionality
+is available in the core Identity API.
 
-### List projects a federated user can access: `GET /OS-FEDERATION/projects`
+List projects a federated user can access: ``GET /OS-FEDERATION/projects``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/projects`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/projects``
 
-**Deprecated in v1.1**. Use core `GET /auth/projects`. This call has the same
-response format.
+**Deprecated in v1.1**. Use core ``GET /auth/projects``. This call has
+the same response format.
 
-Returns a collection of projects to which the federated user has authorization
-to access. To access this resource, an unscoped token is used, the user can
-then select a project and request a scoped token. Note that only enabled
-projects will be returned.
+Returns a collection of projects to which the federated user has
+authorization to access. To access this resource, an unscoped token is
+used, the user can then select a project and request a scoped token.
+Note that only enabled projects will be returned.
 
 Response:
+
+::
 
     Status: 200 OK
 
@@ -710,19 +798,23 @@ Response:
         }
     }
 
-### List domains a federated user can access: `GET /OS-FEDERATION/domains`
+List domains a federated user can access: ``GET /OS-FEDERATION/domains``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/domains`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/domains``
 
-**Deprecated in v1.1**. Use core `GET /auth/domains`. This call has the same
-response format.
+**Deprecated in v1.1**. Use core ``GET /auth/domains``. This call has
+the same response format.
 
-Returns a collection of domains to which the federated user has authorization
-to access. To access this resource, an unscoped token is used, the user can
-then select a domain and request a scoped token. Note that only enabled
-domains will be returned.
+Returns a collection of domains to which the federated user has
+authorization to access. To access this resource, an unscoped token is
+used, the user can then select a domain and request a scoped token. Note
+that only enabled domains will be returned.
 
 Response:
+
+::
 
     Status: 200 OK
 
@@ -748,10 +840,14 @@ Response:
 Example Mapping Rules
 ---------------------
 
-### Map identities to their own groups
+Map identities to their own groups
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This is an example of *Attribute type and value mappings*, where an attribute
-type and value are mapped into an Identity API property and value.
+This is an example of *Attribute type and value mappings*, where an
+attribute type and value are mapped into an Identity API property and
+value.
+
+::
 
     {
         "rules": [
@@ -808,10 +904,13 @@ type and value are mapped into an Identity API property and value.
         ]
     }
 
-### Find specific users, set them to admin group
+Find specific users, set them to admin group
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This is an example that is similar to the previous, but displays how multiple
-`remote` properties can be used to narrow down on a property.
+This is an example that is similar to the previous, but displays how
+multiple ``remote`` properties can be used to narrow down on a property.
+
+::
 
     {
         "rules": [
@@ -852,27 +951,32 @@ This is an example that is similar to the previous, but displays how multiple
 Authenticating
 --------------
 
-### Request an unscoped OS-FEDERATION token: `GET/POST /OS-FEDERATION/identity_providers/{identity_provider}/protocols/{protocol}/auth`
+Request an unscoped OS-FEDERATION token: ``GET/POST /OS-FEDERATION/identity_providers/{identity_provider}/protocols/{protocol}/auth``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider_protocol_auth`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/identity_provider_protocol_auth``
 
 A federated user may request an unscoped token, which can be used to get
 a scoped token.
 
-Due to the fact that this part of authentication is strictly connected with
-the SAML2 authentication workflow, a client should not send any data, as the
-content may be lost when a client is being redirected between Service Provider
-and Identity Provider. Both HTTP methods - GET and POST should be allowed as
-Web Single Sign-On (WebSSO) and Enhanced Client Proxy (ECP) mechanisms have
-different authentication workflows and use different HTTP methods while
-accessing protected endpoints.
+Due to the fact that this part of authentication is strictly connected
+with the SAML2 authentication workflow, a client should not send any
+data, as the content may be lost when a client is being redirected
+between Service Provider and Identity Provider. Both HTTP methods - GET
+and POST should be allowed as Web Single Sign-On (WebSSO) and Enhanced
+Client Proxy (ECP) mechanisms have different authentication workflows
+and use different HTTP methods while accessing protected endpoints.
 
-The returned token will contain information about the groups to which the
-federated user belongs.
+The returned token will contain information about the groups to which
+the federated user belongs.
 
-Example Identity API token response: [Various OpenStack token responses](identity-api-v3.md#authentication-responses)
+Example Identity API token response: `Various OpenStack token
+responses <identity-api-v3.md#authentication-responses>`__
 
 Example of an OS-FEDERATION token:
+
+::
 
     {
         "token": {
@@ -894,20 +998,25 @@ Example of an OS-FEDERATION token:
         }
     }
 
-### Request a scoped OS-FEDERATION token: `POST /auth/tokens`
+Request a scoped OS-FEDERATION token: ``POST /auth/tokens``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/rel/auth_tokens`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/rel/auth_tokens``
 
-A federated user may request a scoped token, by using the unscoped token.
-A project or domain may be specified by either id or name. An id is sufficient to
-uniquely identify a project or domain.
+A federated user may request a scoped token, by using the unscoped
+token. A project or domain may be specified by either id or name. An id
+is sufficient to uniquely identify a project or domain.
 
 Request Parameters:
 
-To authenticate with the OS-FEDERATION extension, `saml2` must be specified as an
-authentication method, and the unscoped token specified in the id field.
+To authenticate with the OS-FEDERATION extension, ``saml2`` must be
+specified as an authentication method, and the unscoped token specified
+in the id field.
 
 Example request:
+
+::
 
     {
         "auth": {
@@ -927,10 +1036,13 @@ Example request:
         }
     }
 
-Similarly to the returned unscoped token, the returned scoped token will have
-an `OS-FEDERATION` section added to the `user` portion of the token.
+Similarly to the returned unscoped token, the returned scoped token will
+have an ``OS-FEDERATION`` section added to the ``user`` portion of the
+token.
 
 Example of an OS-FEDERATION token:
+
+::
 
     {
         "token": {
@@ -1006,12 +1118,14 @@ Generating Assertions
 
 *New in version 1.1*
 
-### Generate a SAML assertion: `POST /auth/OS-FEDERATION/saml2`
+Generate a SAML assertion: ``POST /auth/OS-FEDERATION/saml2``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/saml2`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/saml2``
 
-A user may generate a SAML assertion document based on the scoped token that is
-used in the request.
+A user may generate a SAML assertion document based on the scoped token
+that is used in the request.
 
 Request Parameters:
 
@@ -1019,6 +1133,8 @@ To generate a SAML assertion, a user must provides a scoped token ID and
 region ID in the request body.
 
 Example request:
+
+::
 
     {
         "auth": {
@@ -1038,10 +1154,12 @@ Example request:
         }
     }
 
-The response will be a full SAML assertion. Note that for readability the
-certificate has been truncated.
+The response will be a full SAML assertion. Note that for readability
+the certificate has been truncated.
 
 Response:
+
+::
 
     Headers:
         Content-Type: text/xml
@@ -1133,20 +1251,24 @@ Response:
     </saml:Assertion>
     </samlp:Response>
 
-For more information about how a SAML assertion is structured, refer to the
-[specification](http://saml.xml.org/saml-specifications).
+For more information about how a SAML assertion is structured, refer to
+the `specification <http://saml.xml.org/saml-specifications>`__.
 
-### Retrieve Metadata properties: `GET /OS-FEDERATION/saml2/metadata`
+Retrieve Metadata properties: ``GET /OS-FEDERATION/saml2/metadata``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Relationship: `http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/metadata`
+Relationship:
+``http://docs.openstack.org/api/openstack-identity/3/ext/OS-FEDERATION/1.0/rel/metadata``
 
-A user may retrieve Metadata about an Identity Service acting as an Identity
-Provider.
+A user may retrieve Metadata about an Identity Service acting as an
+Identity Provider.
 
-The response will be a full document with Metadata properties. Note that for
-readability, this example certificate has been truncated.
+The response will be a full document with Metadata properties. Note that
+for readability, this example certificate has been truncated.
 
 Response:
+
+::
 
     Headers:
         Content-Type: text/xml
@@ -1178,5 +1300,5 @@ Response:
       </ns0:ContactPerson>
     </ns0:EntityDescriptor>
 
-For more information about how a SAML assertion is structured, refer to the
-[specification](http://saml.xml.org/saml-specifications).
+For more information about how a SAML assertion is structured, refer to
+the `specification <http://saml.xml.org/saml-specifications>`__.
