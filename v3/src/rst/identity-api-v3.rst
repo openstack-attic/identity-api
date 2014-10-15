@@ -4619,9 +4619,10 @@ used in combination with the ``effective`` parameter. For example:
 ``GET /role_assignments?user.id={user_id}&effective`` would, in other
 words, answer the question "what can this user actually do?".
 
-``GET /role_assignments?user.id={user_id}&scope.project.id={project_id}&effective``
-would return the equivalent set of role assignments that would be
-included in the token response of a project scoped token.
+``GET
+/role_assignments?user.id={user_id}&scope.project.id={project_id}&effective``
+would return the equivalent set of role assignments that would be included in
+the token response of a project scoped token.
 
 An example response for an API call with the query parameter
 ``effective`` specified is given below:
