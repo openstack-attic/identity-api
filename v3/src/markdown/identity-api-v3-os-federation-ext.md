@@ -105,9 +105,9 @@ Required attributes::
             }
         }
 
-    Note that at least one rule must have a `user` attribute. If the `user`
-    attribute is missing when processing an assertion, the action returns
-    an HTTP 401 Unauthorized error.
+    If the `user` attribute is missing when processing an assertion, server
+    tries to directly map `REMOTE_USER` environment variable. If this variable
+    is also unavailable the server returns an HTTP 401 Unauthorized error.
 
     For attribute type and value mapping, identify the local
     resource type, attribute, and value:
