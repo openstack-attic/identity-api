@@ -76,7 +76,7 @@ check_remote()
                 echo "gerrit manually and then try again."
                 echo
                 echo "For more information, please see:"
-                echo "\thttp://wiki.openstack.org/GerritWorkflow"
+                echo "\thttp://docs.openstack.org/infra/manual/developers.html#development-workflow"
                 exit 1
             fi
         fi
