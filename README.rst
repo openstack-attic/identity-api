@@ -1,7 +1,9 @@
 Identity Service API
 ++++++++++++++++++++
 
-This repository contains the RESTful API information for the OpenStack
+This repository is now frozen-in-time and will not accept new patches.
+
+It was the original holder for API information for the OpenStack
 Identity Service, also known as the Keystone project. The Keystone
 project provides authentication for OpenStack services, with plans to
 also provide authorization.
