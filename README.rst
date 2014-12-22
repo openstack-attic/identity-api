@@ -8,6 +8,10 @@ Identity Service, also known as the Keystone project. The Keystone
 project provides authentication for OpenStack services, with plans to
 also provide authorization.
 
+The Identity Service APIs are now included in the Keystone Specifications
+project. Available `to view online at
+<http://specs.openstack.org/openstack/keystone-specs/>`_
+
 Building v2.0 Docs
 ==================
 
