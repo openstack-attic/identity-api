@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Code-Review+2: Anne Gentle <anne@openstack.org>
+Code-Review+2: Stephen Gordon <sgordon@redhat.com>
+Workflow+1: Stephen Gordon <sgordon@redhat.com>
+Submitted-by: Jenkins
+Submitted-at: Tue, 23 Dec 2014 02:05:08 +0000
+Reviewed-on: https://review.openstack.org/143530
+Project: openstack/identity-api
+Branch: refs/heads/master
